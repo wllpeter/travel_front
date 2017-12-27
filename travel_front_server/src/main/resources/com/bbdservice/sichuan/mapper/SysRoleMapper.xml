@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbdservice.sichuan.mapper.SysRoleMapper">
+    <resultMap id="BaseResultMap" type="com.bbdservice.sichuan.entity.SysRole">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
+        <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+        <result column="role_type" jdbcType="VARCHAR" property="roleType"/>
+        <result column="role_level" jdbcType="INTEGER" property="roleLevel"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="create_date" jdbcType="DATE" property="createDate"/>
+        <result column="modify_by" jdbcType="VARCHAR" property="modifyBy"/>
+        <result column="modify_date" jdbcType="DATE" property="modifyDate"/>
+        <result column="deleted" jdbcType="BIT" property="deleted"/>
+    </resultMap>
+    <select id="selectByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from sys_role where role_id in(
+    (select role_id from sys_user_role where user_id = #{userId,jdbcType=BIGINT}))
+  </select>
+    <select id="selectByRoleId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from sys_role where role_id = #{roleId}
+  </select>
+    <update id="deleteByRoleId" parameterType="java.lang.String">
+        update sys_role set deleted = true where role_id = #{roleId}
+    </update>
+    <select id="findPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select * from sys_role
+        <where>
+            deleted = false
+            <if test="roleType != null and roleType != ''">
+                and role_type = #{roleType}
+            </if>
+            <if test="roleName != null and roleName != ''">
+                and role_name like CONCAT('%',#{roleName},'%' )
+            </if>
+        </where>
+    </select>
+   
+    <update id="update" parameterType="com.bbdservice.sichuan.entity.SysRole">
+        update sys_role set role_name = #{roleName}, role_type=#{roleType},role_level=#{roleLevel},remark=#{remark}
+        where role_id = #{roleId}
+    </update>
+</mapper>

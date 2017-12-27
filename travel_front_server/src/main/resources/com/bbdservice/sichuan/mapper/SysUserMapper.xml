@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbdservice.sichuan.mapper.SysUserMapper">
+    <resultMap id="BaseResultMap" type="com.bbdservice.sichuan.entity.SysUser">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="login_name" jdbcType="VARCHAR" property="loginName"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="valid_date" jdbcType="DATE" property="validDate"/>
+        <result column="telephone" jdbcType="VARCHAR" property="telephone"/>
+        <result column="mobile_phone" jdbcType="VARCHAR" property="mobilePhone"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="area_code" jdbcType="VARCHAR" property="areaCode"/>
+        <result column="salt" jdbcType="VARCHAR" property="salt"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="state" jdbcType="VARCHAR" property="state"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="create_by" jdbcType="VARCHAR" property="createBy"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="modify_by" jdbcType="VARCHAR" property="modifyBy"/>
+        <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate"/>
+        <result column="merge_authority" jdbcType="BIT" property="mergeAuthority"/>
+        <result column="merge_start" jdbcType="DATE" property="mergeStart"/>
+        <result column="merge_end" jdbcType="DATE" property="mergeEnd"/>
+        <result column="deleted" jdbcType="BIT" property="deleted"/>
+    </resultMap>
+    <select id="selectByLoginName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select id, user_id, login_name, user_name, password, valid_date, telephone,mobile_phone, email, province, area_code,
+        salt, type, remark, create_by, create_date, modify_by, modify_date
+        from sys_user
+        where login_name = #{loginName,jdbcType=VARCHAR}
+    </select>
+    <select id="selectByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
+            select id, user_id, login_name, user_name, password, valid_date, telephone, mobile_phone, email, province, area_code,
+        salt, type, remark, create_by, create_date, modify_by, modify_date
+        from sys_user
+        where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+    <update id="deleteByUserId" parameterType="java.lang.String">
+        update sys_user set deleted = true where user_id = #{userId}
+    </update>
+    <update id="resetPassword" parameterType="java.lang.String">
+        update sys_user set password = #{newPassword} where login_name = #{loginName}
+    </update>
+    <select id="selectByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from sys_user where user_name like CONCAT('%',#{userName},'%' )
+    </select>
+    <select id="findPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select * from sys_user
+        <where>
+            deleted = false
+            <if test="userName != null and userName != ''">
+                and (user_name like CONCAT('%',#{userName},'%' ) or login_name like CONCAT('%',#{userName},'%' ))
+            </if>
+            <if test="state != null and state != ''">
+                and state = #{state}
+            </if>
+            <if test="type !=null and type != ''">
+                and type = #{type}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bbdservice.sichuan.mapper.SysUserRoleMapper">
+  <resultMap id="BaseResultMap" type="com.bbdservice.sichuan.entity.SysUserRole">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_date" jdbcType="DATE" property="createDate" />
+    <result column="modify_by" jdbcType="VARCHAR" property="modifyBy" />
+    <result column="modify_date" jdbcType="DATE" property="modifyDate" />
+  </resultMap>
+    <delete id="deleteByUserId" parameterType="java.lang.String">
+    delete from sys_user_role where user_id = #{userId}
+  </delete>
+</mapper>
