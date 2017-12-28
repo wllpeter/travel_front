@@ -64,7 +64,7 @@ public class UserTokenInterceptor implements HandlerInterceptor {
                 UserToken userToken = userTokenService.find(loginNameCookie.getValue());
                 new UserInfo(userService.findByLoginName(userToken.getLoginName()));
             }else{
-                new UserInfo(userService.findByLoginName("henan"));
+                new UserInfo(userService.findByLoginName("sichuan"));
             }
             return true;
         }

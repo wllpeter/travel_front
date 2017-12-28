@@ -3,6 +3,7 @@ package com.bbdservice.sichuan.controller;
 import com.bbdservice.sichuan.base.Response;
 import com.bbdservice.sichuan.entity.SysPermission;
 import com.bbdservice.sichuan.entity.SysUser;
+import com.bbdservice.sichuan.entity.enums.Const;
 import com.bbdservice.sichuan.entity.redis.UserToken;
 import com.bbdservice.sichuan.entity.vo.UserInfoVO;
 import com.bbdservice.sichuan.service.SysPermissionService;
@@ -23,10 +24,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by lixudong on 2017/11/28.
@@ -119,6 +118,12 @@ public class SysUserController extends BaseController {
         }
         if (!PasswordUtils.verifyPassword(password, userInfo.getSysUser().getSalt(), userInfo.getSysUser().getPassword())) {
             return Response.error(getMessage("Login.Error.PasswordError"));
+        }
+        List<SysPermission> permissionList = sysPermissionService.selectByUserId(userInfo.getSysUser().getUserId());
+        boolean canFrontShow;
+        canFrontShow = permissionList.stream().filter(p -> !p.getPermissionCode().equals(Const.PermissionCode.FRONT_SHOW)).collect(Collectors.toList()).size() >0?true:false;
+        if(!canFrontShow){
+            return Response.error(getMessage("Login.Error.PermissionDenied"));
         }
         String token = getToken(userInfo.getSysUser());
         response.addCookie(HttpUtils

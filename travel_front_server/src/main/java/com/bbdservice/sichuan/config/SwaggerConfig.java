@@ -29,7 +29,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("四川旅游后台管理系统API接口")
+                .title("四川旅游前台展示系统API接口")
                 .description("四川旅游系统")
                 .termsOfServiceUrl("http://sichuan.bbdservice.com")
                 .version("1.0")
