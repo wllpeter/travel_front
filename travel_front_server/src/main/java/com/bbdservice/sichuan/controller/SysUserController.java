@@ -12,10 +12,12 @@ import com.bbdservice.sichuan.service.UserTokenService;
 import com.bbdservice.sichuan.utils.HttpUtils;
 import com.bbdservice.sichuan.utils.PasswordUtils;
 import com.bbdservice.sichuan.utils.UserInfo;
+import com.bbdservice.sichuan.utils.VerificationCodeUtils;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -23,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -45,6 +48,11 @@ public class SysUserController extends BaseController {
 
     @Value("${setting.token.cookie.timeout}")
     private int tokenTimeout;
+
+    @Value("${identifyingImage.height}")
+    private int identifyingImageHeight;
+    @Value("${identifyingImage.width}")
+    private int identifyingImageWidth;
 
     @ApiOperation(value = "用户注册")
     @ApiImplicitParams({
@@ -121,7 +129,7 @@ public class SysUserController extends BaseController {
         }
         List<SysPermission> permissionList = sysPermissionService.selectByUserId(userInfo.getSysUser().getUserId());
         boolean canFrontShow;
-        canFrontShow = permissionList.stream().filter(p -> !p.getPermissionCode().equals(Const.PermissionCode.FRONT_SHOW)).collect(Collectors.toList()).size() >0?true:false;
+        canFrontShow = permissionList.stream().filter(p -> p.getPermissionCode().equals(Const.PermissionCode.FRONT_SHOW)).collect(Collectors.toList()).size() >0?true:false;
         if(!canFrontShow){
             return Response.error(getMessage("Login.Error.PermissionDenied"));
         }
@@ -179,6 +187,13 @@ public class SysUserController extends BaseController {
         return Response.success(PasswordUtils.createPassWord(8));
     }
 
+
+    @GetMapping("logOut")
+    public Response logOut(){
+        String loginName = UserInfo.getCurrentUser().getSysUser().getLoginName();
+        userTokenService.delete(loginName);
+        return Response.success("删除成功");
+    }
     /**
      * 生成token
      *
@@ -187,8 +202,14 @@ public class SysUserController extends BaseController {
      */
     private String getToken(SysUser sysUser) {
         StringBuffer tokenString = new StringBuffer(sysUser.getLoginName());
-        tokenString.append(new Date().getTime());
+        tokenString.append(System.currentTimeMillis());
         return DigestUtils.md5Hex(tokenString.toString());
+    }
+
+    @GetMapping(value = "/getIdentifyingCode")
+    public Response getIdentifyingCode(HttpServletRequest request) {
+        VerificationCodeUtils.VerificationCodeImage ret = VerificationCodeUtils.getImageCode(identifyingImageWidth,identifyingImageHeight);
+        return Response.success(ret);
     }
 
     /**

@@ -36,7 +36,7 @@ public class SysPermissionServiceImpl implements SysPermissionService {
         permission.setPermissionId("0");
 
         if (!StringUtils.isEmpty(roleId)) {
-            permissionIds = sysPermissionMapper.selectByRoleId(roleId, type).stream().filter(n -> n != null).map(m -> m.getPermissionId()).collect(Collectors.toList());
+            permissionIds = sysPermissionMapper.selectByRoleId(roleId).stream().filter(n -> n != null).map(m -> m.getPermissionId()).collect(Collectors.toList());
         }
         PermissionVO permissionVO = new PermissionVO();
         permissionVO.setPermission(permission);
@@ -70,7 +70,7 @@ public class SysPermissionServiceImpl implements SysPermissionService {
             permission.setPermissionId("0");
         }
         if (!StringUtils.isEmpty(userId)) {
-            permissionIds = sysPermissionMapper.selectByUserId(userId, type).stream().filter(n -> n != null).map(m -> m.getPermissionId()).collect(Collectors.toList());
+            permissionIds = sysPermissionMapper.selectByUserId(userId).stream().filter(n -> n != null).map(m -> m.getPermissionId()).collect(Collectors.toList());
         }
         PermissionVO permissionVO = new PermissionVO();
         permissionVO.setPermission(permission);
@@ -80,7 +80,7 @@ public class SysPermissionServiceImpl implements SysPermissionService {
 
     @Override
     public List<SysPermission> selectByUserId(String userId) {
-        return sysPermissionMapper.selectByUserId(userId, "get");
+        return sysPermissionMapper.selectByUserId(userId);
     }
 
     protected boolean addChildren(PermissionVO permissionVO, List<String> permissionIds) {

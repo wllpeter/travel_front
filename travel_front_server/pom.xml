@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.bbdservice</groupId>
-    <artifactId>travel-server</artifactId>
+    <artifactId>travel-server_front</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 

@@ -15,11 +15,6 @@ public class SysRolePermission {
     @Column(name = "permission_id")
     private String permissionId;
 
-    /**
-     * 分配类型：账号权限、配置权限
-     */
-    private String type;
-
     @Column(name = "create_by")
     private String createBy;
 
@@ -72,24 +67,6 @@ public class SysRolePermission {
      */
     public void setPermissionId(String permissionId) {
         this.permissionId = permissionId;
-    }
-
-    /**
-     * 获取分配类型：账号权限、配置权限
-     *
-     * @return type - 分配类型：账号权限、配置权限
-     */
-    public String getType() {
-        return type;
-    }
-
-    /**
-     * 设置分配类型：账号权限、配置权限
-     *
-     * @param type 分配类型：账号权限、配置权限
-     */
-    public void setType(String type) {
-        this.type = type;
     }
 
     /**

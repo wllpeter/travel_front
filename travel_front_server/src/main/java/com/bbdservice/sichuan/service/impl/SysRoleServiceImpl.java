@@ -60,7 +60,6 @@ public class SysRoleServiceImpl implements SysRoleService {
                 SysRolePermission rolePermission = new SysRolePermission();
                 rolePermission.setRoleId(sysRole.getRoleId());
                 rolePermission.setPermissionId(permissionId);
-                rolePermission.setType("get");
                 rolePermission.setCreateBy(UserInfo.getCurrentUser().getSysUser().getUserId());
                 rolePermission.setCreateDate(new Date());
                 rolePermissionMapper.insert(rolePermission);
@@ -71,7 +70,6 @@ public class SysRoleServiceImpl implements SysRoleService {
                 SysRolePermission rolePermission = new SysRolePermission();
                 rolePermission.setRoleId(sysRole.getRoleId());
                 rolePermission.setPermissionId(configureId);
-                rolePermission.setType("set");
                 rolePermission.setCreateBy(UserInfo.getCurrentUser().getSysUser().getUserId());
                 rolePermission.setCreateDate(new Date());
                 rolePermissionMapper.insert(rolePermission);
@@ -115,7 +113,6 @@ public class SysRoleServiceImpl implements SysRoleService {
                 rolePermission.setCreateDate(new Date());
                 rolePermission.setRoleId(role.getRoleId());
                 rolePermission.setPermissionId(permissionId);
-                rolePermission.setType("get");
                 rolePermissionMapper.insert(rolePermission);
             }
         }
@@ -126,7 +123,6 @@ public class SysRoleServiceImpl implements SysRoleService {
                 rolePermission.setCreateDate(new Date());
                 rolePermission.setRoleId(role.getRoleId());
                 rolePermission.setPermissionId(configureId);
-                rolePermission.setType("set");
                 rolePermissionMapper.insert(rolePermission);
             }
         }

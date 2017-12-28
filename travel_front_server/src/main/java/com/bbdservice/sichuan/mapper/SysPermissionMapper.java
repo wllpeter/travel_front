@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface SysPermissionMapper extends MyMapper<SysPermission> {
 
-    List<SysPermission> selectByUserId(@Param("userId") String userId, @Param("type") String type);
+    List<SysPermission> selectByUserId(@Param("userId") String userId);
 
-    List<SysPermission> selectByRoleId(@Param("roleId") String roleId, @Param("type") String type);
+    List<SysPermission> selectByRoleId(@Param("roleId") String roleId);
 
     void deleteByPermissionId(@Param("permissionId") String permissionId);
 

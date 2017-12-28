@@ -20,12 +20,12 @@
     </resultMap>
     <select id="selectByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
     select *  from sys_permission where deleted = false and permission_id in (
-    select permission_id from sys_role_permission where type = #{type} and role_id in(
+    select permission_id from sys_role_permission where role_id in(
     (select role_id from sys_user_role where user_id = #{userId,jdbcType=BIGINT})))
   </select>
     <select id="selectByRoleId" parameterType="java.lang.String" resultMap="BaseResultMap">
     select * from sys_permission where deleted = false and permission_id in (
-    select permission_id from sys_role_permission where role_id = #{roleId} and type = #{type}
+    select permission_id from sys_role_permission where role_id = #{roleId}
     )
   </select>
     <update id="deleteByPermissionId" parameterType="java.lang.String">
