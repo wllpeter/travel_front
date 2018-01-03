@@ -29,4 +29,6 @@ public class IndustryConsumeBusinessRank {
     private String avgSingleConsume;
     @Column(columnDefinition = "int comment '刷卡总笔数'")
     private Integer totalSwipeTimes;
+    @Column(columnDefinition = "bit comment '是否删除'")
+    private Boolean deleted;
 }

@@ -23,4 +23,6 @@ public class CountryTourPersonTimeTrip {
     private String city;
     @Column(columnDefinition = "int comment '人次'")
     private Integer personTime;
+    @Column(columnDefinition = "bit comment '是否删除'")
+    private Boolean deleted;
 }

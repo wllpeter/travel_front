@@ -27,4 +27,6 @@ public class EconomicZoneTouristResourceRank {
     private String personCount;
     @Column(columnDefinition = "int comment '排名'")
     private String rank;
+    @Column(columnDefinition = "bit comment '是否删除'")
+    private Boolean deleted;
 }

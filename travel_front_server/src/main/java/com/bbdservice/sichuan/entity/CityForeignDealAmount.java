@@ -8,7 +8,7 @@ import javax.persistence.*;
 /**
  * 消费大数据-各地市外地游客刷卡交易金额分析（万元）
  */
-@Table(name = "sbd_city_foreign_deal_time")
+@Table(name = "sbd_city_foreign_deal_amount")
 @Entity
 @Getter
 @Setter
@@ -27,5 +27,7 @@ public class CityForeignDealAmount {
     @Column(columnDefinition = "varchar(40) comment '城市 '")
     private String city;
     @Column(columnDefinition = "varchar(40) comment '笔数'")
-    private Integer dealTime;
+    private String dealAmount;
+    @Column(columnDefinition = "bit comment '是否删除'")
+    private Boolean deleted;
 }

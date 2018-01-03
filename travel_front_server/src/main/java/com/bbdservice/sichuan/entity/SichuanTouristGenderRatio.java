@@ -23,4 +23,6 @@ public class SichuanTouristGenderRatio {
     private int quarter;
     @Column(columnDefinition = "bigint comment '修改后ID'")
     private Long modifyId;
+    @Column(columnDefinition = "bit comment '是否删除'")
+    private Boolean deleted;
 }
