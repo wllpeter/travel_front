@@ -1,0 +1,149 @@
+/**
+ * 项目公共样式, 根据实际项目调整
+ */
+html{
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    padding: 0 !important;
+    body {
+        color: #333;
+        font-weight: 400;
+        position: relative;
+    }
+}
+
+html, body{
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    font-size: 20px;
+    font-family: "Segoe UI","Lucida Grande",Helvetica,Arial,"Microsoft YaHei",FreeSans,Arimo,"Droid Sans","wenquanyi micro hei","Hiragino Sans GB","Hiragino Sans GB W3",FontAwesome,sans-serif;
+}
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section{
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    border-style: none;
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+
+*, :after, :before {
+    box-sizing: border-box;
+}
+
+.clearfix:after{
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.hide {
+    display: none !important;
+}
+
+.mr-n-1 {
+    margin-right: -1px;
+}
+
+.tac {
+    text-align: center;
+}
+
+.w-180 {
+    width: 180px !important;
+}
+
+.w-190 {
+    width: 190px;
+}
+
+.w-555 {
+    width: 555px;
+}
+
+.mt-20 {
+    margin-top: 20px !important;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.mb-12 {
+    margin-bottom: 12px;
+}
+
+.mb-45 {
+    margin-bottom: 45px !important;
+}
+
+.mr-5 {
+    margin-right: 5px;
+}
+
+.mr-10 {
+    margin-right: 10px;
+}
+
+.mr-20 {
+    margin-right: 20px;
+}
+
+.ov-h {
+    overflow: hidden;
+}
+
+.fl-l {
+    float: left;
+}
+
+.fl-r {
+    float: right;
+}
+
+.pos-r {
+    position: relative;
+}
+
+.pt-80 {
+    padding-top: 80px;
+}
+
+a,a:link,a:visited,a:hover,a:active{
+    text-decoration: none;
+    color: #fff;
+}
+
+// 修改 Placeholder 样式
+
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #000;opacity:0.4;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #000;opacity:0.4;
+}
+
+input:-ms-input-placeholder{
+    color: #000;opacity:0.4;
+}
+
+input::-webkit-input-placeholder{
+    color: #000;opacity:0.4;
+}
+
+#App {
+    height: 100%;
+
+    & > div, .app {
+        height: 100%;
+        font-size: 0.7rem;
+        color: #fff;
+    }
+}
+

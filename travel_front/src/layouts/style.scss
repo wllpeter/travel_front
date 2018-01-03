@@ -1,0 +1,63 @@
+$headerHeight: 60px;
+$fontColor: rgba(255, 255, 255, 0.95);
+
+.app-header {
+    height: $headerHeight;
+    line-height: $headerHeight;
+    background-color: #072748;
+    border-bottom: 2px solid #213c5b;
+
+    h2 {
+        display: inline-block;
+        padding-left: 20px;
+    }
+
+    .header-nav-list {
+        float: right;
+        margin-right: 160px;
+        li {
+            display: inline-block;
+            margin-right: 10px;
+            & > a {
+                display: block;
+                font-size: 0.8rem;
+                font-weight: normal;
+                font-family: "Arial";
+                height: $headerHeight;
+                padding: 0 20px;
+                color: $fontColor;
+
+                &.active {
+                    color: #00a9ff;
+                    border-bottom: 3px solid #00a9ff;
+                }
+            }
+        }
+    }
+
+
+    .header-nav-sublist {
+        position: absolute;
+        line-height: 2;
+        width: 100%;
+        background-color: #182B47;
+        text-align: center;
+
+        & > a {
+            display: block;
+            color: $fontColor;
+        }
+    }
+
+    .user-info {
+        position: absolute;
+        top: 0px;
+        right: 35px;
+        color: $fontColor;
+    }
+}
+
+.app-content {
+    background-color: #072748;
+    min-height: calc(100vh - 60px);
+}

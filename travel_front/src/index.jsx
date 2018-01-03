@@ -1,0 +1,33 @@
+import './style.scss';
+import React from 'react';
+import { render } from 'react-dom';
+import { hashHistory } from 'react-router'; //  路由
+
+// reducers
+import { createStore, applyMiddleware} from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk'; // 中间键，diapatch异步实现
+import { syncHistoryWithStore } from 'react-router-redux'; // 路由使用redux管理
+
+//  /路由
+import Routers from './Routers';
+
+// 获取合并后的 reducer
+import rootReducer from './reducers/index';
+
+// 注册store
+const store = createStore(
+  rootReducer,
+  applyMiddleware(thunk)
+);
+
+// 保持历史同步
+const history = syncHistoryWithStore(hashHistory, store);
+
+// 路由
+render(
+	<Provider store={store}>
+	    <Routers history={history} />
+	</Provider>, 
+  document.getElementById('App')
+);

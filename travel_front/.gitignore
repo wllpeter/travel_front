@@ -1,0 +1,9 @@
+﻿/node_modules
+/build
+/bin/*.log
+/.idea
+/*.log
+*.iml
+*.project
+.DS_STORE
+*.zip
