@@ -6,19 +6,45 @@ import './style.scss';
 
 export default class PanelCard extends Component {
 
+    static defaultProps = {
+        monthRequired: true,
+        zoomRequired: true
+    };
+
     constructor(props) {
         super(props);
     }
 
     render() {
 
-        const { className, title, ...other } = this.props;
-        return <div className={ `panel-card ${ className }` } { ...other }>
+        const { className, title, monthRequired, zoomRequired, ...other } = this.props;
+        let classNames = ['panel-card'];
+
+        if(className) {
+            classNames.push(className);
+        }
+
+        return <div className={ classNames.join(' ') } { ...other }>
             <div className="panel-card-header">
                 <h3>{ title }</h3>
-                <MonthPicker allowClear={ false } className="month-select" format="YYYY年MM月"/>
-                <a className="zoom-in"><Icon type="arrows-alt" /></a>
-                <a className="zoom-out"><Icon type="shrink" /></a>
+                {
+                    monthRequired && <MonthPicker allowClear={ false } className="month-select" format="YYYY年MM月"/>
+                }
+
+                {
+                    zoomRequired && <a className="zoom-in" title="放大"><Icon type="arrows-alt" /></a>
+                }
+
+                {
+                    zoomRequired && <a className="zoom-out" title="缩小"><Icon type="shrink" /></a>
+                }
+
+            </div>
+
+            <div className="panel-card-body">
+                {
+                    this.props.children
+                }
             </div>
         </div>;
     }

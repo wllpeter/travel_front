@@ -54,16 +54,8 @@ img {
     text-align: center;
 }
 
-.w-180 {
-    width: 180px !important;
-}
-
-.w-190 {
-    width: 190px;
-}
-
-.w-555 {
-    width: 555px;
+.pl-12 {
+    padding-left: 12px !important;
 }
 
 .mt-20 {
@@ -119,6 +111,14 @@ a,a:link,a:visited,a:hover,a:active{
     color: #fff;
 }
 
+.br-line {
+    border-right: 2px solid #213c5b;
+}
+
+.bb-line {
+    border-bottom: 2px solid #213c5b;
+}
+
 // 修改 Placeholder 样式
 
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
@@ -144,6 +144,19 @@ input::-webkit-input-placeholder{
         height: 100%;
         font-size: 0.7rem;
         color: #fff;
+    }
+}
+
+.mt-table {
+    margin-top: 20px;
+    margin-bottom: 0;
+    tr th,
+    tr td {
+        color: rgba(255, 255, 255, 0.95);
+        border-bottom: 0;
+        text-align: center;
+        padding-left: 0;
+        padding-right: 0;
     }
 }
 

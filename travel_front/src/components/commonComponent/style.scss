@@ -49,4 +49,12 @@
             display: none;
         }
     }
+
+    .panel-card-body {
+        overflow: hidden;
+    }
+
+    &.bg-grey {
+        background-color: #203a59;
+    }
 }

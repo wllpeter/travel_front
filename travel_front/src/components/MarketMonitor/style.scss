@@ -1,0 +1,37 @@
+.market-monitor {
+    .ul-list {
+        padding: 32px 0;
+        & > li {
+            display: inline-block;
+            width: 50%;
+            margin: 8px 0;
+
+            &:nth-child(even) {
+                padding-left: 2rem;
+            }
+        }
+    }
+
+    .custom-style {
+        margin: 1rem 9.5% 0;
+
+        .panel-card-header {
+            padding: 0;
+        }
+    }
+
+    .col-1-al {
+        tr {
+            td:first-child, th:first-child {
+                text-align: left;
+            }
+        }
+    }
+
+    .separate-line {
+        height: 2px;
+        margin: 0px 9.5%;
+        margin-bottom: 40px;
+        background-color: #213c5b;
+    }
+}

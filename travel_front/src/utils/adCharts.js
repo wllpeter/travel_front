@@ -319,9 +319,9 @@ const AD_CHART = {
         });
     },
     pieChart: function(params, callback) {
-        let PieChart = echarts.init(document.getElementById(params.chartName));
+        let PieChart = echarts.init(document.getElementById(params.chartId));
         let options = {
-            color: params.color === undefined ? ['rgb(0,86,192)', 'rgb(2,115,220)', 'rgb(113,200,244)', 'rgb(2,147,220)'] : params.color,
+            color: params.color === undefined ? ['#ddcf73', '#b6dd74', '#32c889', '#0dbbc7', '#00a9ff', '#1b75d3', '#3559c5'] : params.color,
             tooltip: {
                 trigger: 'item',
                 backgroundColor: '#fff',
@@ -363,10 +363,12 @@ const AD_CHART = {
                 show: params.legendShow === undefined ? true : params.legendShow,
                 data: params.legend === undefined ? [] : params.legend,
                 orient: 'vertical',
-                top: 20,
-                left: 20,
+                top: 140,
+                right: 20,
+                itemWidth: 8,
+                itemHeight: 8,
                 textStyle: {
-                    color: '#999',
+                    color: 'rgba(255, 255, 255, 0.95)',
                     fontStyle: 'normal',
                     fontWeight: 'normal',
                     fontFamily: 'microsoft yahei',
@@ -377,27 +379,27 @@ const AD_CHART = {
                 name: params.name,
                 type: 'pie',
                 radius: params.radius === undefined ? ['30%', '45%'] : params.radius,
-                center: params.center === undefined ? ['50%', '50%'] : params.center,
+                center: params.center === undefined ? ['40%', '50%'] : params.center,
                 data: params.data,
                 minAngle: 7,
                 label: {
                     normal: {
                         show: params.labelShow === undefined ? true : params.labelShow,
                         position: 'outside',
-                        formatter: function(parm){
-                            let lableInfo = '';
-                            if(params.showLable){
-                                lableInfo = parm.name + ' ' + parm.percent + '%';
-                            }else{
-                                lableInfo = parm.name;
-                                if(lableInfo === '证券投资基金'){
-                                    lableInfo = insert_flg(lableInfo, '\n', 2);
-                                } else if(lableInfo.length >= 5){
-                                    lableInfo = insert_flg(lableInfo, '\n', 3);
-                                }
-                            }
-                            return lableInfo;
-                        },
+                        // formatter: function(parm){
+                        //     let lableInfo = '';
+                        //     if(params.showLable){
+                        //         lableInfo = parm.name + ' ' + parm.percent + '%';
+                        //     }else{
+                        //         lableInfo = parm.name;
+                        //         if(lableInfo === '证券投资基金'){
+                        //             lableInfo = insert_flg(lableInfo, '\n', 2);
+                        //         } else if(lableInfo.length >= 5){
+                        //             lableInfo = insert_flg(lableInfo, '\n', 3);
+                        //         }
+                        //     }
+                        //     return lableInfo;
+                        // },
                         textStyle: {
                             fontSize: params.labelFontSize === undefined ? 14 : params.labelFontSize,
                             fontStyle: 'normal',
@@ -413,7 +415,14 @@ const AD_CHART = {
                         length2: params.length2 === undefined ? 20 : params.length2,
                         smooth: 0.2
                     }
+                },
+                itemStyle: {
+                    normal: {
+                        borderWidth: params.borderWidth === undefined ? 0 : params.borderWidth,
+                        borderColor: params.borderColor === undefined ? 'rgba(0, 0, 0, 0)' : params.borderColor
+                    }
                 }
+
             }
         };
         PieChart.setOption(options);
@@ -668,8 +677,7 @@ const AD_CHART = {
             idHaiNan = true;
         }
         echarts.registerMap(mapTypeName, data);
-        var mapChart = echarts.init(document.getElementById('map-chart'));
-        ECHART_ROOM.push(mapChart);
+        var mapChart = echarts.init(document.getElementById(params.chartId));
         mapChart.setOption(
             {
                 center: idHaiNan ? [110.388793, 18.796216] : '',
@@ -833,3 +841,5 @@ const AD_CHART = {
         });
     }
 };
+
+export default AD_CHART;
