@@ -68,4 +68,5 @@ public class SupplyConsumeCount {
      */
     @Column(name = "modify_id")
     private Long modifyId;
+
 }

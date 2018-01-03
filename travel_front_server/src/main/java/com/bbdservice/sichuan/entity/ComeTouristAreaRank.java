@@ -29,4 +29,6 @@ public class ComeTouristAreaRank {
     private String personTimes;
     @Column(columnDefinition = "varchar(40) comment '占比'")
     private String ratio;
+    @Column(columnDefinition = "bit comment '是否删除'")
+    private Boolean deleted;
 }

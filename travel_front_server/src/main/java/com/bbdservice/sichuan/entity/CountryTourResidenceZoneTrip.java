@@ -23,4 +23,6 @@ public class CountryTourResidenceZoneTrip {
     private String residenceZone;
     @Column(columnDefinition = "varchar(40) comment '比例'")
     private String ratio;
+    @Column(columnDefinition = "bit comment '是否删除'")
+    private Boolean deleted;
 }

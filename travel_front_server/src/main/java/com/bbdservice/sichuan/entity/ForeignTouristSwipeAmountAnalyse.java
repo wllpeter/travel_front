@@ -23,4 +23,6 @@ public class ForeignTouristSwipeAmountAnalyse {
     private String economicZone;
     @Column(columnDefinition = "varchar(40) comment '刷卡金额（万元）'")
     private String swipeAmount;
+    @Column(columnDefinition = "bit comment '是否删除'")
+    private Boolean deleted;
 }

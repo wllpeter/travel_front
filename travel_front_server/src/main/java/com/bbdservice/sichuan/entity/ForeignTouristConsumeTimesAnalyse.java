@@ -23,4 +23,6 @@ public class ForeignTouristConsumeTimesAnalyse {
     private String economicZone;
     @Column(columnDefinition = "varchar(40) comment '交易笔数（万笔）'")
     private String consumeTimes;
+    @Column(columnDefinition = "bit comment '是否删除'")
+    private Boolean deleted;
 }

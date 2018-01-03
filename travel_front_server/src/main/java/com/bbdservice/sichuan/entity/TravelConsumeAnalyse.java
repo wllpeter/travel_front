@@ -5,7 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Table(name = "sbd_city_foreign_deal_time")
+@Table(name = "sbd_travel_consume_analyse")
 @Entity
 @Getter
 @Setter
@@ -29,4 +29,6 @@ public class TravelConsumeAnalyse {
     private String consumeTimes;
     @Column(columnDefinition = "varchar(40) comment '刷卡人次（万人）'")
     private String swipeTimes;
+    @Column(columnDefinition = "bit comment '是否删除'")
+    private Boolean deleted;
 }

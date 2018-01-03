@@ -31,4 +31,6 @@ public class ProvinceTravelConsume {
     private String swipeTimes;
     @Column(columnDefinition = "varchar(40) comment '刷卡人次同比增加'")
     private String swipeTimesCompare;
+    @Column(columnDefinition = "bit comment '是否删除'")
+    private Boolean deleted;
 }
