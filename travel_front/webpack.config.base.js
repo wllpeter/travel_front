@@ -9,6 +9,7 @@ import CleanWebpackPlugin from 'clean-webpack-plugin';
 const STATIC_PATH = 'static';
 const extractStyle = new ExtractTextPlugin(`${STATIC_PATH}/assets/css/[contenthash].style.css`);
 const extractMTUI = new ExtractTextPlugin(`${STATIC_PATH}/assets/css/[contenthash].mtui.css`);
+const extractAntd = new ExtractTextPlugin(`${STATIC_PATH}/assets/css/[contenthash].antd.css`);
 
 export default {
     // 入口文件配置
@@ -44,6 +45,16 @@ export default {
                 test: /\.(css|scss)$/,
                 include: path.join(__dirname, 'src'),
                 use: extractStyle.extract(['css-loader', 'postcss-loader', 'sass-loader'])
+            },
+            {
+                test: /\.less$/,
+                include: path.join(__dirname, 'node_modules/_antd@2.13.11@antd'),
+                use: extractAntd.extract(['css-loader', 'postcss-loader', 'less-loader'])
+            },
+            {
+                test: /\.css$/,
+                include: path.join(__dirname, 'node_modules/_antd@2.13.11@antd/lib'),
+                use: extractAntd.extract(['css-loader', 'postcss-loader'])
             },
             {
                 test: /\.(woff|eot|ttf|svg)(\?t=[\s\S]+)?$/,
@@ -87,6 +98,7 @@ export default {
     },
     plugins: [
         extractMTUI,
+        extractAntd,
         extractStyle,
         new CleanWebpackPlugin(['build']),
         new HtmlWebpackPlugin({
