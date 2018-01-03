@@ -15,7 +15,7 @@ export default {
     entry: {
         main: './src/index_dev.jsx',
         commons: ['react', 'react-dom', 'react-router'],
-        vendors: ['reducers', 'reducers-thunk', 'react-router-reducers']
+        vendors: ['redux', 'redux-thunk', 'react-router-redux']
     },
     // 页面输入文件配置
     output: {
