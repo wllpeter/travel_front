@@ -111,7 +111,7 @@ export default class TouristData extends Component {
                 <Col span={ 24 }>
                     <PanelCard title="旅游行业活跃度" zoomRequired={ false }>
                         <Row>
-                            <Col span={ 12 } className="br-line" lg={ 24 } xl={ 12 }>
+                            <Col span={ 12 } className="br-line" lg={24} xl={12}>
                                 <div style={{ width: '100%', height: '100%'}}>
                                     地图地图地图地图地图地图<br/>
                                     地图地图地图地图地图地图<br/>

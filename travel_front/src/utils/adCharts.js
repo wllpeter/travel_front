@@ -76,15 +76,13 @@ const AD_CHART = {
                 axisPointer: { // 坐标轴指示器，坐标轴触发有效
                     type: 'none' // 默认为直线，可选为：'line' | 'shadow'
                 },
-                backgroundColor: params.tooltipBackgroundColor === undefined ? 'rgba(255,255,255,0.8)' : params.tooltipBackgroundColor,
+                backgroundColor: '#1F3A59',
+                borderWidth: 1,
+                borderColor: '#ffffff',
+                padding: 7,
                 textStyle: {
-                    color: '#333333',
-                    fontStyle: 'normal',
-                    fontWeight: 'normal',
-                    fontFamily: 'microsoft yahei',
-                    fontSize: '14'
-                },
-                padding: [10, 10, 10, 10]
+                    lineHeight: 56
+                }
                 // formatter: function(param){
                 //     let info = '';
                 //     if(params.specialFormatter === 'averageLoanDateFormatter'){
