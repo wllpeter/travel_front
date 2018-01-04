@@ -137,7 +137,8 @@ export default class TouristData extends Component {
             chartId: 'villageOutingBarChart',
             legend: ['乡村游出游人次'],
             legendShow: false,
-            gridLeft: '4%',
+            gridTop: 60,
+            gridBottom: 40,
             xAxisData: ['阿坝', '巴中', '成都', '达州', '广安', '广元'],
             yAxisName: '流量 (万)',
             series: [[6000, 8000, 11000, 4000, 6500, 3000]]

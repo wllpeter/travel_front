@@ -34,4 +34,23 @@
         margin-bottom: 40px;
         background-color: #213c5b;
     }
+
+    .network-info {
+        ul {
+            padding: 50px 22px 20px;
+
+            & > li {
+                padding-bottom: 15px;
+
+                a:hover {
+                    color: #00a9ff;
+                    text-decoration: underline;
+                }
+
+                .info-time {
+                    float: right;
+                }
+            }
+        }
+    }
 }
