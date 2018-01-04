@@ -22,39 +22,39 @@ export default class TouristData extends Component {
     render() {
         return <div className="developmentIndex">
             <Row className="mb-20">
-                <Col span={6}>
+                <Col span={6} lg={ 8 } xl={ 6 }>
                     <PanelCard title="指数雷达图" zoomRequired={false}>
                         <DevelopmentIndexRadar></DevelopmentIndexRadar>
                     </PanelCard>
                 </Col>
-                <Col span={12}>
+                <Col span={12} lg={ 16 } xl={ 12 }>
                     <PanelCard title="旅游发展指数" zoomRequired={false} monthRequired={false}>
                         <DevelopmentIndexMap></DevelopmentIndexMap>
                     </PanelCard>
                 </Col>
-                <Col span={6}>
+                <Col span={6} lg={ 24 } xl={ 6 }>
                     <PanelCard title="旅游创新度" zoomRequired={false}>
                         <RegionMap></RegionMap>
                     </PanelCard>
                 </Col>
             </Row>
             <Row className="mb-20" style={{margin: 0}}>
-                <Col span={6}>
+                <Col span={6} lg={ 12 } xl={ 6 }>
                     <PanelCard className="map-card" title="旅游经济规模" zoomRequired={true}>
                         <Economics></Economics>
                     </PanelCard>
                 </Col>
-                <Col span={6}>
+                <Col span={6} lg={ 12 } xl={ 6 }>
                     <PanelCard className="map-card" title="旅游舒适度" zoomRequired={true} monthRequired={false}>
                         <ComfortDegree></ComfortDegree>
                     </PanelCard>
                 </Col>
-                <Col span={6}>
+                <Col span={6} lg={ 12 } xl={ 6 }>
                     <PanelCard className="map-card" title="旅游美誉度" zoomRequired={true} monthRequired={false}>
                         <Reputation></Reputation>
                     </PanelCard>
                 </Col>
-                <Col span={6}>
+                <Col span={6} lg={ 12 } xl={ 6 }>
                     <PanelCard className="map-card" title="旅游劳动投入" zoomRequired={true}>
                         <Labor></Labor>
                     </PanelCard>

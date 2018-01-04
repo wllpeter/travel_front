@@ -25,7 +25,7 @@ export default class Reputation extends Component {
             <table className="mt-table mt-table-noborder col-1-al">
                 <thead>
                 <tr>
-                    <th className="pl-12" className="labor_td">地区</th>
+                    <th className="pl-12 labor_td">地区</th>
                     <th>活跃指数</th>
                     <th>增速</th>
                 </tr>
