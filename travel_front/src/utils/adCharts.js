@@ -52,6 +52,7 @@ const AD_CHART = {
             grid: {
                 left: params.gridLeft === undefined ? '10%' : params.gridLeft,
                 top: params.gridTop === undefined ? '60' : params.gridTop,
+                bottom: params.gridBottom === undefined ? '10' : params.gridBottom,
                 containLabel: params.containLabel === undefined ? true : params.containLabel
             },
             title: {

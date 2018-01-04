@@ -1,11 +1,18 @@
 $headerHeight: 60px;
 $fontColor: rgba(255, 255, 255, 0.95);
 
+.app-frame {
+    overflow: hidden;
+}
+
 .app-header {
     height: $headerHeight;
     line-height: $headerHeight;
     background-color: #072748;
     border-bottom: 2px solid #213c5b;
+    position: fixed;
+    z-index: 1999;
+    width: 100%;
 
     h2 {
         display: inline-block;
@@ -60,4 +67,5 @@ $fontColor: rgba(255, 255, 255, 0.95);
 .app-content {
     background-color: #072748;
     min-height: calc(100vh - 60px);
+    margin-top: 60px;
 }

@@ -218,7 +218,7 @@ export default class TouristData extends Component {
             <Row gutter={ 2 }>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
                     <PanelCard title="五大经济区客游人次" className="bg-grey">
-                        <div id="fiveEconomicZoneBarChart" style={{ width: '100%', height: 400 }}></div>
+                        <div id="fiveEconomicZoneBarChart" style={{ width: '100%', height: 300 }}></div>
                     </PanelCard>
                 </Col>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
