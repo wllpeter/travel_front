@@ -80,7 +80,7 @@ export default class TouristData extends Component {
         AD_CHART.barChart({
             chartId: 'companyBarChart',
             barWidth: '16',
-            xAxis: ['1季度', '2季度', '3季度', '4季度'],
+            xAxisData: ['1季度', '2季度', '3季度', '4季度'],
             yAxisName: '企业(家)',
             legend: ['存量企业', '增量企业'],
             legendIcon: 'circle',
@@ -92,11 +92,15 @@ export default class TouristData extends Component {
             chartId: 'industryBarChart',
             barWidth: '14',
             row: true,
-            yAxis: ['经营状态图标', '企业变更备案次数', '企业变更备案类别数', '分支机构开设数量', '搜索新闻结果数', '迁移申请次数', '投资次数', '投资总额'],
+            xAxisLineShow: false,
+            yAxisLineShow: false,
+            xAxisLabelShow: false,
+            yAxisData: ["投资总额".padEnd(22, ' '), "投资次数".padEnd(22, ' '), "迁移申请次数".padEnd(18, ' '), "搜索新闻结果数".padEnd(16, ' '), "分支机构开设数量".padEnd(14, ' '), "企业变更备案类别数".padEnd(12, ' '), "企业变更备案次数".padEnd(14, ' '), "经营状态指标".padEnd(18, ' ')],
             legend: ['行业活跃度指标详情'],
             legendShow: false,
-            gridLeft: '25%',
+            gridLeft: '5%',
             gridTop: 20,
+            seriesLabelShow: true,
             series: [[95.32, 85.32, 95.23, 57.32, 95.32, 85.32, 95.23, 57.32]]
         })
     }

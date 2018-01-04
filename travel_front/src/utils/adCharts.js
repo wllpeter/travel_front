@@ -29,11 +29,11 @@ const AD_CHART = {
                     label: {
                         normal: {
                             show: params.seriesLabelShow === undefined ? false : params.seriesLabelShow,
-                            formatter: '{c}%',
+                            formatter: '{c}',
                             position: 'right',
-                            offset: [4, -3],
+                            offset: [4, 0],
                             textStyle: {
-                                color: '#333',
+                                color: 'rgba(255, 255, 255, 0.95)',
                                 fontStyle: 'normal',
                                 fontWeight: 'normal',
                                 fontFamily: 'sans-serif',
@@ -46,12 +46,13 @@ const AD_CHART = {
                 seriesData.push(item);
             }
         }
+
         let options = {
             color: params.colors === undefined ? ['#00a9ff', '#32c889', '#fe6321'] : params.colors,
             grid: {
                 left: params.gridLeft === undefined ? '10%' : params.gridLeft,
                 top: params.gridTop === undefined ? '60' : params.gridTop,
-                containLabel: params.containLabel === undefined ? false : params.containLabel
+                containLabel: params.containLabel === undefined ? true : params.containLabel
             },
             title: {
                 text: params.title === undefined ? '' : params.title,
@@ -64,6 +65,12 @@ const AD_CHART = {
                 },
                 left: '30%'
             },
+            // label: {
+            //   normal: {
+            //       show: true,
+            //       padding: 20
+            //   }
+            // },
             tooltip: {
                 trigger: 'axis',
                 axisPointer: { // 坐标轴指示器，坐标轴触发有效
@@ -119,7 +126,7 @@ const AD_CHART = {
             },
             xAxis: {
                 type: params.row === undefined ? 'category' : 'value',
-                data: params.xAxis,
+                data: params.xAxisData,
                 axisTick: {
                     show: false
                 },
@@ -130,14 +137,14 @@ const AD_CHART = {
                     }
                 },
                 axisLine: {
-                    show: params.axisLineShow === undefined ? true : params.axisLineShow,
+                    show: params.xAxisLineShow === undefined ? true : params.xAxisLineShow,
                     lineStyle: {
                         width: 1,
                         color: params.axisLineColor === undefined ? '#5d7288' : params.axisLineColor
                     }
                 },
                 axisLabel: {
-                    show: params.xaxisLabelShow === undefined ? true : params.xaxisLabelShow,
+                    show: params.xAxisLabelShow === undefined ? true : params.xAxisLabelShow,
                     textStyle: {
                         color: params.labelTextColor === undefined ? 'rgba(255, 255, 255, 0.95)' : params.labelTextColor
                     }
@@ -145,12 +152,12 @@ const AD_CHART = {
             },
             yAxis: {
                 type: params.row === undefined ? 'value' : 'category',
-                data: params.yAxis,
+                data: params.yAxisData,
                 name: params.yAxisName === undefined ? '' : params.yAxisName,
                 nameLocation: 'end',
                 nameTextStyle: {
-                    color: '#cecece',
-                    right: '5%'
+                    color: params.nameTextColor === undefined ? 'rgba(255, 255, 255, 0.95)' : params.nameTextColor,
+                    fontSize: 14
                 },
                 axisTick: {
                     show: false
@@ -162,7 +169,7 @@ const AD_CHART = {
                     }
                 },
                 axisLine: {
-                    show: params.yxisLineShow === undefined ? true : params.yxisLineShow,
+                    show: params.yAxisLineShow === undefined ? true : params.yAxisLineShow,
                     lineStyle: {
                         width: 1,
                         color: params.axisLineColor === undefined ? '#5d7288' : params.axisLineColor
@@ -170,9 +177,11 @@ const AD_CHART = {
                 },
                 axisLabel: {
                     show: true,
+                    margin: 20,
+                    height: 80,
                     textStyle: {
                         color: params.labelTextColor === undefined ? 'rgba(255, 255, 255, 0.95)' : params.labelTextColor,
-                        fontSize: params.labelTextSize === undefined ? 12 : params.labelTextSize
+                        fontSize: params.labelTextSize === undefined ? 14 : params.labelTextSize
                     }
                 }
             },
@@ -364,6 +373,7 @@ const AD_CHART = {
             legend: {
                 show: params.legendShow === undefined ? true : params.legendShow,
                 data: params.legend === undefined ? [] : params.legend,
+                icon: params.legendIcon === undefined ? '' : params.legendIcon,
                 orient: 'vertical',
                 top: 140,
                 right: 20,
@@ -430,13 +440,13 @@ const AD_CHART = {
         PieChart.setOption(options);
     },
     lineChart: function(params, callback) {
-        let LineChart = echarts.init(document.getElementById(params.chartName));
+        let LineChart = echarts.init(document.getElementById(params.chartId));
         let gradientColor = params.gradientColor === undefined ? [
             [{offset: 0, color: 'rgb(244, 250, 254)'}, {offset: 1, color: 'rgb(130, 201, 238)'}],
             [{offset: 0, color: '#258dee'}, {offset: 1, color: '#258dee'}],
             [{offset: 0, color: '#74c6f5'}, {offset: 1, color: '#74c6f5'}]
         ] : params.gradientColor; // 渐变颜色
-        let lineColor = ['#0c5ec2', '#258dee', '#74c6f5'];
+        let lineColor = ['#32c889', '#00a9ff'];
         let seriesData = [];
         let areaStyle = {};
 
@@ -604,7 +614,7 @@ const AD_CHART = {
                     fontSize: 12
                 },
                 boundaryGap: params.xBoundaryGap === undefined ? true : params.xBoundaryGap,
-                data: params.xAxis,
+                data: params.xAxisData,
                 axisTick: {
                     show: false
                 },
@@ -615,13 +625,13 @@ const AD_CHART = {
                     show: params.axisLineShow === undefined ? true : params.axisLineShow,
                     lineStyle: {
                         width: 1,
-                        color: params.axisLineColor === undefined ? '#f2f2f2' : params.axisLineColor
+                        color: params.axisLineColor === undefined ? '#51687f' : params.axisLineColor
                     }
                 },
                 axisLabel: {
                     show: true,
                     textStyle: {
-                        color: params.labelTextColor === undefined ? '#333333' : params.labelTextColor
+                        color: params.labelTextColor === undefined ? 'rgba(255, 255, 255, 0.95)' : params.labelTextColor
                     },
                     interval: 'auto' // params.interval === undefined ? 'auto' : params.interval
                 }
@@ -632,14 +642,14 @@ const AD_CHART = {
                 name: params.yAxisName === undefined ? '' : params.yAxisName,
                 splitNumber: params.ySplitNumber === undefined ? null : params.ySplitNumber,
                 nameTextStyle: {
-                    color: params.nameTextColor === undefined ? '#666' : params.nameTextColor,
+                    color: params.nameTextColor === undefined ? 'rgba(255, 255, 255, 0.95)' : params.nameTextColor,
                     fontSize: 14
                 },
                 axisTick: {
                     show: false
                 },
                 splitLine: {
-                    show: params.showySplitLine === undefined ? true : params.showySplitLine, // 横坐标的间隔横线
+                    show: params.showySplitLine === undefined ? false : params.showySplitLine, // 横坐标的间隔横线
                     lineStyle: {
                         color: params.splitLineColor === undefined ? 'rgba(242,242,242,0.9)' : params.splitLineColor
                     }
@@ -648,14 +658,14 @@ const AD_CHART = {
                     show: params.yxisLineShow === undefined ? true : params.yxisLineShow,
                     lineStyle: {
                         width: 1,
-                        color: params.axisLineColor === undefined ? '#f2f2f2' : params.axisLineColor
+                        color: params.axisLineColor === undefined ? '#51687f' : params.axisLineColor
                     }
                 },
                 axisLabel: {
                     formatter: params.transformYAxis === undefined ? '{value}' : '{value}%',
                     show: true,
                     textStyle: {
-                        color: params.labelTextColor === undefined ? '#333333' : params.labelTextColor
+                        color: params.labelTextColor === undefined ? 'rgba(255, 255, 255, 0.95)' : params.labelTextColor
                     }
                 },
                 splitArea: {
@@ -668,9 +678,9 @@ const AD_CHART = {
             series: seriesData
         };
         LineChart.setOption(options);
-        $(window).resize(function () {
-            LineChart.resize();
-        });
+        // $(window).resize(function () {
+        //     LineChart.resize();
+        // });
     },
     mapChart: function (params, callback) {
         let mapTypeName = city ? city : province;
