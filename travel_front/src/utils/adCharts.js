@@ -961,6 +961,13 @@ const AD_CHART = {
             },
             tooltip: {
                 trigger: 'axis',
+                backgroundColor: '#1F3A59',
+                borderWidth: 1,
+                borderColor: '#ffffff',
+                padding: 7,
+                textStyle: {
+                    lineHeight: 56
+                },
                 axisPointer: {
                     lineStyle: {
                         color: '#0785CB'

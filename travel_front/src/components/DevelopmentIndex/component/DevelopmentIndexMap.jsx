@@ -16,10 +16,6 @@ export default class DevelopmentIndexMap extends Component {
     }
 
     render() {
-        return <div className="developmentIndex">
-            <div id="dev-index-map" className="dev-index-map">
-                1234
-            </div>
-        </div>;
+        return <div id="dev-index-map" className="dev-index-map"></div>;
     }
 }
