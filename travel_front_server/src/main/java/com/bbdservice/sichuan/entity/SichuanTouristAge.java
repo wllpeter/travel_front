@@ -2,6 +2,7 @@ package com.bbdservice.sichuan.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 

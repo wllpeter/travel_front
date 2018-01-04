@@ -4,4 +4,5 @@ public interface BaseEnumType {
     int getIndex();
     String getName();
     String getName(int index);
+    String getIndex(String name);
 }
