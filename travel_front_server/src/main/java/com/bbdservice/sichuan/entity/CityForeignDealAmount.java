@@ -29,5 +29,5 @@ public class CityForeignDealAmount {
     @Column(columnDefinition = "varchar(40) comment '笔数'")
     private String dealAmount;
     @Column(columnDefinition = "bit comment '是否删除'")
-    private Boolean deleted;
+    private boolean deleted;
 }
