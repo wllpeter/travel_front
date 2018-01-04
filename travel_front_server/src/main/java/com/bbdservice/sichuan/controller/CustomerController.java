@@ -75,7 +75,7 @@ public class CustomerController {
         Map<String,Object> genderData = new HashMap<>();
         Map<String,Object> ageData = new HashMap<>();
         genderData.put("legend",new String[]{"男性","女性"});
-        genderData.put("data",retAgeData);
+        genderData.put("data",retGenderData);
         List<String> ageLegend = new ArrayList<>();
         for(SichuanTouristAge sta : retAgeData){
             ageLegend.add(sta.getAgeZone());
