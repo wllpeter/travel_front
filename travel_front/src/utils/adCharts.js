@@ -2,14 +2,14 @@ import echarts from 'echarts';
 
 const AD_CHART = {
     barChart: function (params, callback) {
-        let BarChart = echarts.init(document.getElementById(params.chartName));
+        let BarChart = echarts.init(document.getElementById(params.chartId));
         let gradientColor = params.gradientColors === undefined ? [
             [{offset: 0, color: '#0474dc'}, {offset: 0.5, color: '#0291e1'}, {offset: 1, color: '#00afe6'}],
             [{offset: 0, color: '#6cb5ec'}, {offset: 0.5, color: '#8fc9f2'}, {offset: 1, color: '#b0dbf8'}]
         ] : params.gradientColors; // 渐变颜色
         let seriesData = [];
         // 同一颜色
-        if (params.unUnitColor === undefined) {
+        if(params.unUnitColor === undefined){
             for (let i = 0; i < params.series.length; i++) {
                 let item = {
                     type: 'bar',
@@ -20,7 +20,7 @@ const AD_CHART = {
                     itemStyle: {
                         normal: {
                             barBorderRadius: params.barBorderRadius === undefined ? 0 : params.barBorderRadius, // 圆角度数
-                            color: params.row === undefined ? new echarts.graphic.LinearGradient(0, 0, 0, 1, gradientColor[i]) : new echarts.graphic.LinearGradient(0, 0, 1, 1, gradientColor[i]) // 渐变行颜色
+                            //color: params.row === undefined ? new echarts.graphic.LinearGradient(0, 0, 0, 1, gradientColor[i]) : new echarts.graphic.LinearGradient(0, 0, 1, 1, gradientColor[i]) // 渐变行颜色
                         },
                         emphasis: {
                             barBorderRadius: params.barBorderRadius === undefined ? 0 : params.barBorderRadius
@@ -47,7 +47,7 @@ const AD_CHART = {
             }
         }
         let options = {
-            color: params.colors === undefined ? ['#24a9ee', '#ffdb6b', '#fe6321'] : params.colors,
+            color: params.colors === undefined ? ['#00a9ff', '#32c889', '#fe6321'] : params.colors,
             grid: {
                 left: params.gridLeft === undefined ? '10%' : params.gridLeft,
                 top: params.gridTop === undefined ? '60' : params.gridTop,
@@ -78,35 +78,37 @@ const AD_CHART = {
                     fontSize: '14'
                 },
                 padding: [10, 10, 10, 10],
-                formatter: function (param) {
-                    let info = '';
-                    if (params.specialFormatter === 'averageLoanDateFormatter') {
-                        info = `<div class = "mapTooltip pieTooltip">
-                                <p class = "title" style="font-size: 14px"><b>${param[0].name}</b></p>
-                                ${param[1] ? `<p style="text-align: left;font-size: 14px">${param[1].seriesName}<span class = "color-blue" style="color:${param[1].color.colorStops[0].color}">${param[1].value === '0.0' ? '--' : param[1].value} (月) </span></p>` : ''}
-                                ${param[0] ? `<p style="text-align: left ;font-size: 14px">${param[0].seriesName}<span class = "color-blue" style="color:${param[0].color.colorStops[0].color}">${param[0].value === '0.0' ? '--' : param[0].value} (月) </span></p>` : ''}
-                            <div>`;
-                    } else if (params.specialFormatter === 'bangdan') {
-                        info = `<div class = "mapTooltip pieTooltip">
-                                <p>${param[0].name}：<span class = "color-yellow">${param[0].value } </span>${params.unit ? params.unit : ''}</p>
-                            <div>`;
-                    } else {
-                        info = `<div class = "mapTooltip pieTooltip">
-                                <p class = "title"><b>${param[0].name}</b></p>
-                                <p>${params.labelName}<span class = "color-yellow">${param[0].value} </span>${params.unit ? params.unit : ''}</p>
-                            <div>`;
-                    }
-                    return info;
-                }
+                // formatter: function(param){
+                //     let info = '';
+                //     if(params.specialFormatter === 'averageLoanDateFormatter'){
+                //         info =  `<div class = "mapTooltip pieTooltip">
+                //                 <p class = "title" style="font-size: 14px"><b>${param[0].name}</b></p>
+                //                 ${param[1] ? `<p style="text-align: left;font-size: 14px">${param[1].seriesName}<span class = "color-blue" style="color:${param[1].color.colorStops[0].color}">${param[1].value === '0.0' ? '--' : param[1].value} (月) </span></p>` : ''}
+                //                 ${param[0] ? `<p style="text-align: left ;font-size: 14px">${param[0].seriesName}<span class = "color-blue" style="color:${param[0].color.colorStops[0].color}">${param[0].value === '0.0' ? '--' : param[0].value} (月) </span></p>` : ''}
+                //             <div>`;
+                //     } else if(params.specialFormatter === 'bangdan'){
+                //         info = `<div class = "mapTooltip pieTooltip">
+                //                 <p>${param[0].name}：<span class = "color-yellow">${param[0].value } </span>${params.unit ? params.unit : ''}</p>
+                //             <div>`;
+                //     }else{
+                //         info = `<div class = "mapTooltip pieTooltip">
+                //                 <p class = "title"><b>${param[0].name}</b></p>
+                //                 <p>${params.labelName}<span class = "color-yellow">${param[0].value} </span>${params.unit ? params.unit : ''}</p>
+                //             <div>`;
+                //     }
+                //     return info;
+                // }
             },
             legend: {
                 data: params.legend,
-                right: params.legendRight === undefined ? 'center' : params.legendRight,
+                right: params.legendRight === undefined ? 'right' : params.legendRight,
                 icon: params.legendIcon === undefined ? '' : params.legendIcon,
                 show: params.legendShow === undefined ? true : params.legendShow,
+                orient: params.legendOrient === undefined ? 'horizontal' : 'vertical',
+                itemGap: 20,
                 top: '5%',
-                itemWidth: 6,
-                itemHeight: 6,
+                itemWidth: 8,
+                itemHeight: 8,
                 textStyle: {
                     color: '#999',
                     fontStyle: 'normal',
@@ -131,13 +133,13 @@ const AD_CHART = {
                     show: params.axisLineShow === undefined ? true : params.axisLineShow,
                     lineStyle: {
                         width: 1,
-                        color: params.axisLineColor === undefined ? '#f2f2f2' : params.axisLineColor
+                        color: params.axisLineColor === undefined ? '#5d7288' : params.axisLineColor
                     }
                 },
                 axisLabel: {
                     show: params.xaxisLabelShow === undefined ? true : params.xaxisLabelShow,
                     textStyle: {
-                        color: params.labelTextColor === undefined ? '#333333' : params.labelTextColor
+                        color: params.labelTextColor === undefined ? 'rgba(255, 255, 255, 0.95)' : params.labelTextColor
                     }
                 }
             },
@@ -154,7 +156,7 @@ const AD_CHART = {
                     show: false
                 },
                 splitLine: {
-                    show: params.ysplitLineShow === undefined ? true : params.ysplitLineShow, // 横坐标的间隔横线
+                    show: params.ysplitLineShow === undefined ? false : params.ysplitLineShow, // 横坐标的间隔横线
                     lineStyle: {
                         color: params.splitLineColor === undefined ? 'rgba(242,242,242,0.9)' : params.splitLineColor
                     }
@@ -163,13 +165,13 @@ const AD_CHART = {
                     show: params.yxisLineShow === undefined ? true : params.yxisLineShow,
                     lineStyle: {
                         width: 1,
-                        color: params.axisLineColor === undefined ? '#f2f2f2' : params.axisLineColor
+                        color: params.axisLineColor === undefined ? '#5d7288' : params.axisLineColor
                     }
                 },
                 axisLabel: {
                     show: true,
                     textStyle: {
-                        color: params.labelTextColor === undefined ? '#333333' : params.labelTextColor,
+                        color: params.labelTextColor === undefined ? 'rgba(255, 255, 255, 0.95)' : params.labelTextColor,
                         fontSize: params.labelTextSize === undefined ? 12 : params.labelTextSize
                     }
                 }
@@ -177,9 +179,9 @@ const AD_CHART = {
             series: seriesData
         };
         BarChart.setOption(options);
-        if (callBack) {
-            BarChart.on('click', function (param) {
-                callBack(param);
+        if(callback){
+            BarChart.on('click', function(param){
+                callback(param);
             });
         }
     },
@@ -188,7 +190,7 @@ const AD_CHART = {
         let seriesData = [];
         RadarChart.showLoading();
 
-        for (let i = 0; i < params.series.length; i++) {
+        for(let i = 0; i < params.series.length; i++){
             let seriesItem = {
                 type: 'radar',
                 name: '',
@@ -231,7 +233,7 @@ const AD_CHART = {
                     fontFamily: 'microsoft yahei',
                     fontSize: '14'
                 },
-                formatter: function (param, s) {
+                formatter: function(param, s){
                     return '总风险值：' + params.totalScore;
                 },
                 padding: [10, 10, 10, 10]
@@ -277,7 +279,7 @@ const AD_CHART = {
                         color: '#999'
                     },
                     formatter: function (value, indicator) {
-                        return indicator.name + '\n  (' + indicator.value + ')分';
+                        return  indicator.name + '\n  (' + indicator.value + ')分';
                     }
                 },
                 indicator: params.indicator
@@ -288,19 +290,19 @@ const AD_CHART = {
         RadarChart.setOption(options);
         RadarChart.on('mouseover', function (param) {
             param.event.event.preventDefault();
-            if (param.targetType === 'axisName') {
+            if(param.targetType === 'axisName'){
                 let tipDemo = document.getElementById('radar-lable-tip');
                 let offsetX = param.event.offsetX;
                 let offsetY = param.event.offsetY;
                 let newX = offsetX;
                 let newY = offsetY;
-                if (offsetX >= 250) {
+                if(offsetX >= 250){
                     newX = offsetX - 190;
                 }
 
-                if (newY >= 250) {
+                if(newY >= 250){
                     newY = offsetY - 170;
-                } else {
+                }else{
                     newY = offsetY + 20;
                 }
                 tipDemo.innerHTML = params.tipsText[param.name.split('\n')[0]];
@@ -310,7 +312,7 @@ const AD_CHART = {
             }
         });
         RadarChart.on('mouseout', function (param) {
-            if (param.targetType === 'axisName') {
+            if(param.targetType === 'axisName'){
                 param.event.event.preventDefault();
                 let tipDemo = document.getElementById('radar-lable-tip');
                 tipDemo.innerHTML = '';
@@ -318,7 +320,7 @@ const AD_CHART = {
             }
         });
     },
-    pieChart: function (params, callback) {
+    pieChart: function(params, callback) {
         let PieChart = echarts.init(document.getElementById(params.chartId));
         let options = {
             color: params.color === undefined ? ['#ddcf73', '#b6dd74', '#32c889', '#0dbbc7', '#00a9ff', '#1b75d3', '#3559c5'] : params.color,
@@ -332,14 +334,14 @@ const AD_CHART = {
                     color: '#333333',
                     fontSize: '14'
                 },
-                formatter: function (param) {
+                formatter: function(param){
                     let info = '';
-                    if (params.showLable) {
+                    if(params.showLable){
                         info = `<div class = "mapTooltip pieTooltip">
                                 <p class = "title"><b>${param.name}</b></p>
                                 <p>占比<span class = "color-blue">${param.percent}%</span></p>
                             <div>`;
-                    } else {
+                    }else{
                         info = `<div class = "mapTooltip pieTooltip">
                                 <p class = "title"><b>${param.name}</b></p>
                                 <p>${param.seriesName}<span class = "color-yellow">${param.value}</span>${params.unit ? params.unit : ''}</p>
@@ -427,7 +429,7 @@ const AD_CHART = {
         };
         PieChart.setOption(options);
     },
-    lineChart: function (params, callback) {
+    lineChart: function(params, callback) {
         let LineChart = echarts.init(document.getElementById(params.chartName));
         let gradientColor = params.gradientColor === undefined ? [
             [{offset: 0, color: 'rgb(244, 250, 254)'}, {offset: 1, color: 'rgb(130, 201, 238)'}],
@@ -439,13 +441,13 @@ const AD_CHART = {
         let areaStyle = {};
 
         for (let i = 0; i < params.series.length; i++) {
-            if (params.graphic === undefined) {
+            if(params.graphic === undefined){
                 areaStyle = {
                     normal: {
-                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, gradientColor[i])
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, gradientColor[i] )
                     }
                 };
-            } else {
+            }else{
                 areaStyle = {};
             }
             let item = {
@@ -471,9 +473,9 @@ const AD_CHART = {
                     } : params.itemStyle
                 },
                 cursor: 'pointer',
-                areaStyle: params.full === undefined ? areaStyle : params.graphic === undefined ? {normal: {}} : {
+                areaStyle: params.full === undefined ? areaStyle :  params.graphic === undefined ? {normal: {}} : {
                     normal: {
-                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, gradientColor[i])
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, gradientColor[i] )
                     }
                 },
                 data: params.series[i]
@@ -521,7 +523,7 @@ const AD_CHART = {
                 padding: [10, 10, 10, 10],
                 formatter: function (param) {
                     let info = '';
-                    if (params.specialFormatter === 'gaugeTendChart') {
+                    if(params.specialFormatter === 'gaugeTendChart'){
                         let newDate = param[0].name.substring(0, 4) + '-' + param[0].name.substring(4, 6);
                         info = `<div class="gaugeTend-tip">
                                 <p class="title">${newDate}</p>
@@ -532,13 +534,13 @@ const AD_CHART = {
                                     <span >${param[0].value > 0 ? '正面' : param[0].value === 0 ? '中性' : '负面'} </span>
                                 </p>
                             <div>`;
-                    } else if (params.specialFormatter === 'averageProfit') {
+                    }else if (params.specialFormatter === 'averageProfit'){
                         info = `<div class = "mapTooltip pieTooltip">
                                 <p class = "title" style="font-size: 14px"><b>${param[0].name}</b></p>
                                 ${(param[1] ? `<p style="text-align: left;font-size: 14px">${param[1].seriesName}<span class = "color-blue" style="color:${param[1].color}">${param[1].value}% </span></p>` : '')}
                                 ${(param[0] ? `<p style="text-align: left;font-size: 14px">${param[0].seriesName}<span class = "color-blue" style="color:${param[0].color}">${param[0].value}%</span></p>` : '')}
                             <div>`;
-                    } else if (params.specialFormatter === 'eventLineChart') {
+                    }else if(params.specialFormatter === 'eventLineChart'){
                         let data = param[0].data;
                         let newDate = data.news_pubdate.substring(0, 4) + '-' + data.news_pubdate.substring(4, 6) + '-' + data.news_pubdate.substring(6, 8);
                         info = `<div >
@@ -548,23 +550,23 @@ const AD_CHART = {
                                 <p >正面舆情数：${data.news_positive_count}</p>
                                 <p >中性舆情数：${data.news_middle_count}</p>
                             <div>`;
-                    } else if (params.specialFormatter === 'eventTrend') {
+                    }else if(params.specialFormatter === 'eventTrend'){
                         info = `<div class = "mapTooltip pieTooltip">
                                     <p>${param[0].name}：<span class = "color-yellow">${param[0].value} </span>${params.unit ? params.unit : ''}</p>
                             <div>`;
-                    } else if (params.specialFormatter === 'detailTrend') {
+                    }else if(params.specialFormatter === 'detailTrend'){
                         info = param[0].name + '<br/>';
-                        for (let i = 0; i < param.length; i++) {
+                        for(let i = 0; i < param.length; i++){
                             let spanCorlor = '<span style=color:' + params.colors[i] + '>' + param[i].value + '</span><br/>';
                             info += param[i].seriesName + ' :&nbsp;' + spanCorlor;
                         }
-                    } else if (params.specialFormatter === 'recrutment') {
+                    }else if(params.specialFormatter === 'recrutment'){
                         info = param[0].name + '<br/>';
-                        for (let i = 0; i < param.length; i++) {
+                        for(let i = 0; i < param.length; i++){
                             let spanCorlor = '<span style=color:' + params.colors[i] + '>' + param[i].value + '</span><br/>';
                             info += param[i].seriesName + ' :&nbsp;' + spanCorlor;
                         }
-                    } else {
+                    }else {
                         info = `<div class = "mapTooltip pieTooltip">
                                 <p class = "title"><b>${param[0].name}</b></p>
                                 <p>${params.labelName}<span class = "color-yellow">${param[0].value} </span>${params.unit ? params.unit : ''}</p>

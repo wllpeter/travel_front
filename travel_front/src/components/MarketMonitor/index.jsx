@@ -76,6 +76,29 @@ export default class TouristData extends Component {
                 name: '旅游综合服务'
             }]
         });
+
+        AD_CHART.barChart({
+            chartId: 'companyBarChart',
+            barWidth: '16',
+            xAxis: ['1季度', '2季度', '3季度', '4季度'],
+            yAxisName: '企业(家)',
+            legend: ['存量企业', '增量企业'],
+            legendIcon: 'circle',
+            legendRight: '22',
+            series: [[233, 322, 100, 200], [323, 323, 320, 330]]
+        });
+
+        AD_CHART.barChart({
+            chartId: 'industryBarChart',
+            barWidth: '14',
+            row: true,
+            yAxis: ['经营状态图标', '企业变更备案次数', '企业变更备案类别数', '分支机构开设数量', '搜索新闻结果数', '迁移申请次数', '投资次数', '投资总额'],
+            legend: ['行业活跃度指标详情'],
+            legendShow: false,
+            gridLeft: '25%',
+            gridTop: 20,
+            series: [[95.32, 85.32, 95.23, 57.32, 95.32, 85.32, 95.23, 57.32]]
+        })
     }
 
     render() {
@@ -146,9 +169,9 @@ export default class TouristData extends Component {
                                     </table>
                                 </PanelCard>
                             </Col>
-                            <Col span={ 7 } lg={ 12 } xl={ 5 }>
+                            <Col span={ 7 } lg={ 12 } xl={ 7 }>
                                 <PanelCard title="行业活跃度指标详情" monthRequired={ false } zoomRequired={ false }>
-
+                                    <div id="industryBarChart" style={{ width: '100%', height: 400 }}></div>
                                 </PanelCard>
                             </Col>
                         </Row>
@@ -202,7 +225,9 @@ export default class TouristData extends Component {
                     </PanelCard>
                 </Col>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
-                    <PanelCard title="省内涉旅企业数量变更" className="bg-grey" />
+                    <PanelCard title="省内涉旅企业数量变更" className="bg-grey">
+                        <div id="companyBarChart" style={{ width: '100%', height: 400}}></div>
+                    </PanelCard>
                 </Col>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
                     <PanelCard title="省内涉旅行业网络信息监控" className="bg-grey">
