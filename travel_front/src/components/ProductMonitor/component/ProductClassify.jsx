@@ -22,7 +22,6 @@ export default class ProductClassify extends Component {
             borderWidth: 6,
             legendTop: 70,
             borderColor: '#072648',
-            radius: ['40%', '75%'],
             legend: [
                 {
                     name: '亲水',

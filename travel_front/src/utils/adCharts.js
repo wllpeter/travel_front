@@ -76,26 +76,6 @@ const AD_CHART = {
                     lineHeight: 56
                 },
                 confine: true
-                // formatter: function(param){
-                //     let info = '';
-                //     if(params.specialFormatter === 'averageLoanDateFormatter'){
-                //         info =  `<div class = "mapTooltip pieTooltip">
-                //                 <p class = "title" style="font-size: 14px"><b>${param[0].name}</b></p>
-                //                 ${param[1] ? `<p style="text-align: left;font-size: 14px">${param[1].seriesName}<span class = "color-blue" style="color:${param[1].color.colorStops[0].color}">${param[1].value === '0.0' ? '--' : param[1].value} (月) </span></p>` : ''}
-                //                 ${param[0] ? `<p style="text-align: left ;font-size: 14px">${param[0].seriesName}<span class = "color-blue" style="color:${param[0].color.colorStops[0].color}">${param[0].value === '0.0' ? '--' : param[0].value} (月) </span></p>` : ''}
-                //             <div>`;
-                //     } else if(params.specialFormatter === 'bangdan'){
-                //         info = `<div class = "mapTooltip pieTooltip">
-                //                 <p>${param[0].name}：<span class = "color-yellow">${param[0].value } </span>${params.unit ? params.unit : ''}</p>
-                //             <div>`;
-                //     }else{
-                //         info = `<div class = "mapTooltip pieTooltip">
-                //                 <p class = "title"><b>${param[0].name}</b></p>
-                //                 <p>${params.labelName}<span class = "color-yellow">${param[0].value} </span>${params.unit ? params.unit : ''}</p>
-                //             <div>`;
-                //     }
-                //     return info;
-                // }
             },
             legend: {
                 data: params.legend,
@@ -148,7 +128,7 @@ const AD_CHART = {
                 nameLocation: 'end',
                 nameTextStyle: {
                     color: params.nameTextColor === undefined ? 'rgba(255, 255, 255, 0.95)' : params.nameTextColor,
-                    fontSize: 14
+                    fontSize: params.yAxisNameFontSize || 14
                 },
                 axisTick: {
                     show: false
@@ -178,6 +158,11 @@ const AD_CHART = {
             },
             series: seriesData
         };
+        if (params.unit) {
+            options.tooltip.formatter = (p) => {
+                return p[0].axisValue + '<br>' + p[0].marker + p[0].data + params.unit;
+            };
+        }
         BarChart.setOption(options, true);
         if (callback) {
             BarChart.on('click', function (param) {
@@ -366,8 +351,8 @@ const AD_CHART = {
                 icon: params.legendIcon === undefined ? '' : params.legendIcon,
                 orient: 'vertical',
                 top: params.legendTop || 140,
-                height: params.legendHeight === undefined ? 'auto': params.legendHeight,
-                right: params.legendRight === undefined ? 20 : params.legendRight,
+                height: params.legendHeight === undefined ? 'auto' : params.legendHeight,
+                right: params.legendRight === undefined ? 40 : params.legendRight,
                 itemWidth: 8,
                 itemHeight: 8,
                 textStyle: {
@@ -1055,7 +1040,7 @@ const AD_CHART = {
 
         zoomMap.setOption(option);
     },
-    percentBarChart: function(params, callback) {
+    percentBarChart: function (params, callback) {
         let percentChart = echarts.init(document.getElementById(params.chartId));
         let seriesData = [];
         for (let i = 0; i < params.series.length; i++) {
@@ -1075,8 +1060,8 @@ const AD_CHART = {
                 label: {
                     normal: {
                         show: !i,
-                        formatter: function(data) {
-                            return params.series[params.series.length - 1][data.dataIndex] + '%'
+                        formatter: function (data) {
+                            return params.series[params.series.length - 1][data.dataIndex] + '%';
                         },
                         position: params.labelPos === undefined ? 'right' : params.labelPos,
                         offset: params.labelOffset === undefined ? [4, 0] : params.labelOffset,
@@ -1200,7 +1185,7 @@ const AD_CHART = {
                 nameLocation: 'end',
                 nameTextStyle: {
                     color: params.nameTextColor === undefined ? 'rgba(255, 255, 255, 0.95)' : params.nameTextColor,
-                    fontSize: 14,
+                    fontSize: 14
                 },
                 axisTick: {
                     show: false
