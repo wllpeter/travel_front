@@ -58,3 +58,28 @@
         background-color: #203a59;
     }
 }
+
+// 百分比
+.percent-bar {
+    .ant-progress-inner {
+        background-color: #52667c;
+        border-radius: 0;
+
+        .ant-progress-bg {
+            border-radius: 0;
+            background-color: #00a9ff;
+        }
+    }
+
+    &.ant-progress-show-info {
+        .ant-progress-outer {
+            margin-right: -1.75rem;
+            padding-right: 1.75rem;
+        }
+    }
+
+    .ant-progress-text {
+        font-size: 0.7rem;
+        margin-left: 6px;
+    }
+}

@@ -148,7 +148,7 @@ const AD_CHART = {
                 nameLocation: 'end',
                 nameTextStyle: {
                     color: params.nameTextColor === undefined ? 'rgba(255, 255, 255, 0.95)' : params.nameTextColor,
-                    fontSize: 14
+                    fontSize:  params.yAxisNameFontSize || 14
                 },
                 axisTick: {
                     show: false

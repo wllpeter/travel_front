@@ -119,6 +119,10 @@ a,a:link,a:visited,a:hover,a:active{
     border-bottom: 2px solid #213c5b;
 }
 
+.w-95 {
+    width: 95% !important;
+}
+
 // 修改 Placeholder 样式
 
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
@@ -155,8 +159,7 @@ input::-webkit-input-placeholder{
         color: rgba(255, 255, 255, 0.95);
         border-bottom: 0;
         text-align: center;
-        padding-left: 0;
-        padding-right: 0;
+        padding: 10px;
     }
 }
 
