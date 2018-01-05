@@ -6,11 +6,11 @@
 //----------------------------------------iconfont--------------------------------------------------------------
 @font-face {
   font-family: 'iconfont';  /* project id 531355 */
-  src: url('//at.alicdn.com/t/font_531355_8m0ax0rijtikke29.eot');
-  src: url('//at.alicdn.com/t/font_531355_8m0ax0rijtikke29.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_531355_8m0ax0rijtikke29.woff') format('woff'),
-  url('//at.alicdn.com/t/font_531355_8m0ax0rijtikke29.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_531355_8m0ax0rijtikke29.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_531355_td3nrzqh8hddkj4i.eot');
+  src: url('//at.alicdn.com/t/font_531355_td3nrzqh8hddkj4i.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_531355_td3nrzqh8hddkj4i.woff') format('woff'),
+  url('//at.alicdn.com/t/font_531355_td3nrzqh8hddkj4i.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_531355_td3nrzqh8hddkj4i.svg#iconfont') format('svg');
 }
 
 .iconfont {
@@ -27,6 +27,8 @@
 .icon-shopping:before { content: "\e602"; }
 .icon-jiubei:before { content: "\e603"; }
 .icon-aircraft:before { content: "\e659"; }
+.icon-up:before { content: "\e607;"; }
+.icon-down:before { content: "\e600;"; }
 
 //----------------------------------------切换按钮--------------------------------------------------------------
 

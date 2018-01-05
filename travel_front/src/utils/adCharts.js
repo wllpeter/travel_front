@@ -367,7 +367,7 @@ const AD_CHART = {
                 orient: 'vertical',
                 top: params.legendTop || 140,
                 height: params.legendHeight === undefined ? 'auto': params.legendHeight,
-                right: params.legendRight === undefined ? 20 : params.legendRight,
+                right: params.legendRight === undefined ? 40 : params.legendRight,
                 itemWidth: 8,
                 itemHeight: 8,
                 textStyle: {

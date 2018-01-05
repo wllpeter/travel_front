@@ -8,6 +8,7 @@ import {LEFT_NAV_DATA} from '../../constants/productMonitor/leftNav';
 import ProductClassify from './component/ProductClassify';
 import ProductEvaluate from './component/ProductEvaluate';
 import Consumption from './component/Consumption';
+import PraiseList from './component/PraiseList';
 import './style.scss';
 
 export default class ProductMonitor extends Component {
@@ -56,9 +57,9 @@ export default class ProductMonitor extends Component {
                             </Col>
                         </Row>
                     </Col>
-                    <Col span={6}>
+                    <Col span={6} className="product-praise">
                         <PanelCard title="旅游产品好评榜" zoomRequired={false} monthRequired={true}>
-
+                            <PraiseList></PraiseList>
                         </PanelCard>
                     </Col>
                 </Row>
