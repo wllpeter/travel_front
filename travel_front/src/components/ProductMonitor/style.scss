@@ -1,0 +1,42 @@
+.productMonitor{
+    overflow: hidden;
+    .left-nav-box{
+        background: #1F3A59;
+        height: 800px;
+        width: 82px;
+        float: left;
+        .left-nav{
+            overflow: hidden;
+            &>li{
+                width: 100%;
+                float: left;
+                margin-top: 80px;
+                padding: 4px 0;
+                border-right: 3px solid transparent;
+                cursor: pointer;
+                .iconfont{
+                    text-align: center;
+                    font-size: 26px;
+                    &:before{
+                        display: block;
+                        margin: 0 auto;
+                    }
+                }
+                p{
+                    width: 100%;
+                    text-align: center;
+                    font-size: 16px;
+                    margin-top: 10px;
+                }
+            }
+            .active{
+                color: #00A9FF;
+                border-color: #00A9FF;
+            }
+        }
+    }
+    .product-container{
+        height: 800px;
+        float: left;
+    }
+}

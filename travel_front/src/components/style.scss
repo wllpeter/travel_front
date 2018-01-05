@@ -1,0 +1,69 @@
+/*
+**@description 存放组件的公共样式
+*/
+
+
+//----------------------------------------iconfont--------------------------------------------------------------
+@font-face {
+  font-family: 'iconfont';  /* project id 531355 */
+  src: url('//at.alicdn.com/t/font_531355_8m0ax0rijtikke29.eot');
+  src: url('//at.alicdn.com/t/font_531355_8m0ax0rijtikke29.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_531355_8m0ax0rijtikke29.woff') format('woff'),
+  url('//at.alicdn.com/t/font_531355_8m0ax0rijtikke29.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_531355_8m0ax0rijtikke29.svg#iconfont') format('svg');
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-bao:before { content: "\e601"; }
+.icon-chuang:before { content: "\e619"; }
+.icon-canju:before { content: "\e73c"; }
+.icon-shopping:before { content: "\e602"; }
+.icon-jiubei:before { content: "\e603"; }
+.icon-aircraft:before { content: "\e659"; }
+
+//----------------------------------------切换按钮--------------------------------------------------------------
+
+.switch-btn-box{
+  position: relative;
+  .switch-btn{
+    position: absolute;
+    top: 9%;
+    right: 9%;
+    z-index: 100;
+    overflow: hidden;
+    &>div{
+      float: left;
+      text-align: center;
+      height: 24px;
+      line-height: 24px;
+      color: #00A9FF;
+      cursor: pointer;
+    }
+    .switch-btn-left{
+      padding: 0 8px 0 13px;
+      border-top-left-radius: 12px;
+      border-bottom-left-radius: 12px;
+      border: 1px solid #00A9FF;
+      border-right: none;
+    }
+    .switch-btn-right{
+      padding: 0 13px 0 8px;
+      border-top-right-radius: 12px;
+      border-bottom-right-radius: 12px;
+      border: 1px solid #00A9FF;
+      border-left: none;
+    }
+    .switch-btn-active{
+      background-color: #00A9FF;
+      color: #1F3A59;
+      cursor: default;
+    }
+  }
+}

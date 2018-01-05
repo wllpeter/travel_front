@@ -53,14 +53,14 @@ export default class Economics extends Component {
 
     render() {
         let {regionType} = this.state;
-        return <div className="index-economics-box">
-            <div className="economics-btn">
-                <div className={`economics-btn-left ${regionType === 1 ? 'economics-btn-active' : ''}`}
+        return <div className="switch-btn-box">
+            <div className="switch-btn">
+                <div className={`switch-btn-left ${regionType === 1 ? 'switch-btn-active' : ''}`}
                      onClick={() => {
                          this.chooseRegion(1);
                      }}>全省
                 </div>
-                <div className={`economics-btn-right ${regionType === 2 ? 'economics-btn-active' : ''}`}
+                <div className={`switch-btn-right ${regionType === 2 ? 'switch-btn-active' : ''}`}
                      onClick={() => {
                          this.chooseRegion(2);
                      }}>经济区
