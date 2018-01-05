@@ -47,12 +47,28 @@
         overflow: visible;
       }
       .switch-btn {
-        top: -7%;
+        top: -3%;
         right: 50%;
         transform: translateX(50%);
       }
       .praise{
         height: 646px;
+        padding-top: 30px;
+        .praise-icon{
+          padding-left: 7px;
+          .iconfont{
+            font-size: 14px;
+          }
+        }
+        .praise-icon-up{
+          color: #DC9474;
+        }
+        .praise-icon-down{
+          color: #32C788;
+        }
+        .mt-table tr td{
+          padding: 13px 8px;
+        }
       }
     }
   }
