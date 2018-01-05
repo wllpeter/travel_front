@@ -154,7 +154,6 @@ export default class DevelopmentIndexRadar extends Component {
 
     render() {
         return <div id="dev-index-radar" className="dev-index-map">
-            1234
         </div>;
     }
 }

@@ -6,6 +6,7 @@ import {Row, Col} from 'antd';
 import PanelCard from '../commonComponent/PanelCard';
 import {LEFT_NAV_DATA} from '../../constants/productMonitor/leftNav';
 import ProductClassify from './component/ProductClassify';
+import ProductEvaluate from './component/ProductEvaluate';
 import './style.scss';
 
 export default class ProductMonitor extends Component {
@@ -20,7 +21,7 @@ export default class ProductMonitor extends Component {
                 <ul className="left-nav">
                     {
                         LEFT_NAV_DATA.map((item, index) => {
-                            return <li key={index} className={index === 3 ? 'active' : ''}>
+                            return <li key={index} className={index === 0 ? 'active' : ''}>
                                 <i className={`iconfont ${item.icon}`}></i>
                                 <p>{item.name}</p>
                             </li>;
@@ -37,9 +38,10 @@ export default class ProductMonitor extends Component {
                                     <ProductClassify></ProductClassify>
                                 </PanelCard>
                             </Col>
-                            <Col span={16}>
-                                <PanelCard title="旅游产品综合评价" zoomRequired={false} monthRequired={true}>
-
+                            <Col span={1}></Col>
+                            <Col span={15}>
+                                <PanelCard title="旅游产品综合评价" zoomRequired={false} monthRequired={false}>
+                                    <ProductEvaluate></ProductEvaluate>
                                 </PanelCard>
                             </Col>
                         </Row>

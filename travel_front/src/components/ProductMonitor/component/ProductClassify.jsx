@@ -1,8 +1,7 @@
 /**
- * @description 旅游发展指数四川省区域地图
+ * @description 旅游产品分类
  */
 import React, {Component} from 'react';
-import echarts from 'echarts';
 import AD_CHART from '../../../utils/adCharts';
 
 export default class ProductClassify extends Component {
