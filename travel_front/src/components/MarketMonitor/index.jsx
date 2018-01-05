@@ -76,6 +76,35 @@ export default class TouristData extends Component {
                 name: '旅游综合服务'
             }]
         });
+
+        AD_CHART.barChart({
+            chartId: 'companyBarChart',
+            barWidth: '16',
+            xAxisData: ['1季度', '2季度', '3季度', '4季度'],
+            yAxisName: '企业(家)',
+            legend: ['存量企业', '增量企业'],
+            legendIcon: 'circle',
+            legendRight: '22',
+            gridBottom: 25,
+            gridTop: 80,
+            series: [[233, 322, 100, 200], [323, 323, 320, 330]]
+        });
+
+        AD_CHART.barChart({
+            chartId: 'industryBarChart',
+            barWidth: '14',
+            row: true,
+            xAxisLineShow: false,
+            yAxisLineShow: false,
+            xAxisLabelShow: false,
+            yAxisData: ["投资总额".padEnd(22, ' '), "投资次数".padEnd(22, ' '), "迁移申请次数".padEnd(18, ' '), "搜索新闻结果数".padEnd(16, ' '), "分支机构开设数量".padEnd(14, ' '), "企业变更备案类别数".padEnd(12, ' '), "企业变更备案次数".padEnd(14, ' '), "经营状态指标".padEnd(18, ' ')],
+            legend: ['行业活跃度指标详情'],
+            legendShow: false,
+            gridBottom: 0,
+            gridRight: 50,
+            seriesLabelShow: true,
+            series: [[95.32, 85.32, 95.23, 57.32, 95.32, 85.32, 95.23, 57.32]]
+        })
     }
 
     render() {
@@ -84,7 +113,7 @@ export default class TouristData extends Component {
                 <Col span={ 24 }>
                     <PanelCard title="旅游行业活跃度" zoomRequired={ false }>
                         <Row>
-                            <Col span={ 12 } className="br-line" lg={ 24 } xl={ 12 }>
+                            <Col span={ 12 } className="br-line" lg={24} xl={12}>
                                 <div style={{ width: '100%', height: '100%'}}>
                                     地图地图地图地图地图地图<br/>
                                     地图地图地图地图地图地图<br/>
@@ -93,7 +122,27 @@ export default class TouristData extends Component {
                                     地图地图地图地图地图地图<br/>
                                     地图地图地图地图地图地图<br/>
                                     地图地图地图地图地图地图<br/>
-
+                                    地图地图地图地图地图地图<br/>
+                                    地图地图地图地图地图地图<br/>
+                                    地图地图地图地图地图地图<br/>
+                                    地图地图地图地图地图地图<br/>
+                                    地图地图地图地图地图地图<br/>
+                                    地图地图地图地图地图地图<br/>
+                                    地图地图地图地图地图地图<br/>
+                                    地图地图地图地图地图地图<br/>
+                                    地图地图地图地图地图地图<br/>
+                                    地图地图地图地图地图地图<br/>
+                                    地图地图地图地图地图地图<br/>
+                                    地图地图地图地图地图地图<br/>
+                                    地图地图地图地图地图地图<br/>
+                                    地图地图地图地图地图地图<br/>
+                                    地图地图地图地图地图地图<br/>
+                                    地图地图地图地图地图地图<br/>
+                                    地图地图地图地图地图地图<br/>
+                                    地图地图地图地图地图地图<br/>
+                                    地图地图地图地图地图地图<br/>
+                                    地图地图地图地图地图地图<br/>
+                                    地图地图地图地图地图地图<br/>
                                 </div>
                             </Col>
                             <Col span={ 5 } className="br-line" lg={ 12 } xl={ 5 }>
@@ -142,13 +191,23 @@ export default class TouristData extends Component {
                                                 <td>96.5</td>
                                                 <td>15%</td>
                                             </tr>
+                                            <tr>
+                                                <td>旅游娱乐</td>
+                                                <td>96.5</td>
+                                                <td>15%</td>
+                                            </tr>
+                                            <tr>
+                                                <td>旅游综合服务</td>
+                                                <td>96.5</td>
+                                                <td>15%</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </PanelCard>
                             </Col>
-                            <Col span={ 7 } lg={ 12 } xl={ 5 }>
+                            <Col span={ 7 } lg={ 12 } xl={ 7 }>
                                 <PanelCard title="行业活跃度指标详情" monthRequired={ false } zoomRequired={ false }>
-
+                                    <div id="industryBarChart" style={{ width: '100%', height: 535 }}></div>
                                 </PanelCard>
                             </Col>
                         </Row>
@@ -158,12 +217,12 @@ export default class TouristData extends Component {
             <Row gutter={ 2 }>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
                     <PanelCard title="省内旅游行业构成" className="bg-grey">
-                        <div id="pieChart" style={{ height: 400, width: '100%'}}></div>
+                        <div id="pieChart" style={{ width: '100%', height: 330 }}></div>
                     </PanelCard>
                 </Col>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
                     <PanelCard title="省内活跃度排行榜" className="bg-grey">
-                        <table className="mt-table mt-table-noborder">
+                        <table className="mt-table mt-table-noborder" style={{ height: 310 }}>
                             <thead>
                                 <tr>
                                     <th>地区</th>
@@ -202,16 +261,20 @@ export default class TouristData extends Component {
                     </PanelCard>
                 </Col>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
-                    <PanelCard title="省内涉旅企业数量变更" className="bg-grey" />
+                    <PanelCard title="省内涉旅企业数量变更" className="bg-grey">
+                        <div id="companyBarChart" style={{ width: '100%', height: 330}}></div>
+                    </PanelCard>
                 </Col>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
-                    <PanelCard title="省内涉旅行业网络信息监控" className="bg-grey">
-                        <ul>
-                            <li>世界关注中国旅游指数</li>
-                            <li>世界关注中国旅游指数</li>
-                            <li>世界关注中国旅游指数</li>
-                            <li>世界关注中国旅游指数</li>
-                            <li>世界关注中国旅游指数</li>
+                    <PanelCard title="省内涉旅行业网络信息监控" className="bg-grey network-info">
+                        <ul style={{ height: 330 }}>
+                            <li><a href="#">世界关注中国旅游指数</a><span className="info-time">1分钟前</span></li>
+                            <li><a href="#">江苏旅游局携手途牛共推"水韵江苏"旅游新产品</a><span className="info-time">1分钟前</span></li>
+                            <li><a href="#">航班酒店订单取消 &nbsp; 火山喷发冲击印尼旅游业</a><span className="info-time">1分钟前</span></li>
+                            <li><a href="#">延吉市积极探索本地化"互联网+旅游"发展模式</a><span className="info-time">1分钟前</span></li>
+                            <li><a href="#">50条冬季京郊旅游线路推出</a><span className="info-time">1分钟前</span></li>
+                            <li><a href="#">我国将在2020年前培育100家国家工业旅游示范基地</a><span className="info-time">1分钟前</span></li>
+                            <li><a href="#">江苏旅游局携手途牛共推"水韵江苏"旅游新产品</a><span className="info-time">1分钟前</span></li>
                         </ul>
                     </PanelCard>
                 </Col>

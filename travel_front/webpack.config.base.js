@@ -5,6 +5,7 @@ import autoprefixer from 'autoprefixer';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 const STATIC_PATH = 'static';
 const extractStyle = new ExtractTextPlugin(`${STATIC_PATH}/assets/css/[contenthash].style.css`);
@@ -106,6 +107,13 @@ export default {
             template: './src/index.html',
             chunks: ['commons', 'vendors', 'main']
         }),
+        new CopyWebpackPlugin([
+            {
+                from: __dirname + '/src/data',
+                to: `${STATIC_PATH}/data/`,
+                toType: 'dir'
+            }
+        ]),
         new webpack.LoaderOptionsPlugin({
             miniminze: true,
             options: {

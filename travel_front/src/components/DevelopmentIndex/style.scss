@@ -3,7 +3,62 @@
 }
 
 .dev-index-map{
-  width: 100%;
-  height: 500px;
-
+    width: 100%;
+    height: 500px;
+    border-right: 1px solid #213D5C;
 }
+
+.map-card{
+    background: #1F3A59;
+    border-right: 2px solid #072648;
+    border-top: 2px solid #072648;
+    .dev-down-map{
+        width: 100%;
+        height: 350px;
+        overflow: hidden;
+    }
+    .labor_td{
+        width: 140px;
+        text-align: left;
+        padding-left: 12px;
+    }
+}
+
+.index-economics-box{
+    position: relative;
+    .economics-btn{
+        position: absolute;
+        top: 9%;
+        right: 9%;
+        z-index: 100;
+        overflow: hidden;
+        &>div{
+            float: left;
+            text-align: center;
+            height: 24px;
+            line-height: 24px;
+            color: #00A9FF;
+            cursor: pointer;
+        }
+        .economics-btn-left{
+            padding: 0 8px 0 13px;
+            border-top-left-radius: 12px;
+            border-bottom-left-radius: 12px;
+            border: 1px solid #00A9FF;
+            border-right: none;
+        }
+        .economics-btn-right{
+            padding: 0 13px 0 8px;
+            border-top-right-radius: 12px;
+            border-bottom-right-radius: 12px;
+            border: 1px solid #00A9FF;
+            border-left: none;
+        }
+        .economics-btn-active{
+            background-color: #00A9FF;
+            color: #1F3A59;
+            cursor: default;
+        }
+    }
+}
+
