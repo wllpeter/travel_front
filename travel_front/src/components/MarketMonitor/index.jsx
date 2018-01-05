@@ -18,7 +18,6 @@ export default class TouristData extends Component {
             chartId: 'pieChart',
             borderWidth: 6,
             borderColor: '#203a59',
-            radius: ['35%', '55%'],
             legend: [{
                 name: '旅游出行',
                 icon: 'circle'

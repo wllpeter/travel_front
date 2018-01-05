@@ -1,0 +1,44 @@
+.tourist-data {
+    .sex-distribution {
+        padding-left: 25px;
+        padding-top: 30px;
+
+        .total {
+            img {
+                float: left;
+                vertical-align: middle;
+            }
+        }
+
+        .male-total {
+            margin-bottom: 50px;
+        }
+        
+        .info-data {
+            display: block;
+            overflow: hidden;
+            height: 60px;
+
+            & > span {
+                font-size: 0.7rem;
+                line-height: 1.5;
+                em {
+                    font-size: 1.1rem;
+                    padding-left: 10px;
+                }
+            }
+            .data-bar {
+                height: 15px;
+                margin-top: 10px;
+            }
+
+            .male-bar {
+                background-color: #00a9ff;
+            }
+
+            .female-bar {
+                background-color: #32c889;
+            }
+        }
+    }
+}
