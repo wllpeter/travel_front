@@ -9,6 +9,7 @@ import ProductClassify from './component/ProductClassify';
 import ProductEvaluate from './component/ProductEvaluate';
 import Consumption from './component/Consumption';
 import PraiseList from './component/PraiseList';
+import HotWord from './component/HotWord';
 import './style.scss';
 
 export default class ProductMonitor extends Component {
@@ -60,6 +61,21 @@ export default class ProductMonitor extends Component {
                     <Col span={6} className="product-praise">
                         <PanelCard title="旅游产品好评榜" zoomRequired={false} monthRequired={true}>
                             <PraiseList></PraiseList>
+                        </PanelCard>
+                    </Col>
+                </Row>
+                <Row className="mb-20">
+                    <Col span={6} className="product-down">
+                        <PanelCard title="产品评价热词云" zoomRequired={true} monthRequired={true}>
+                            <HotWord></HotWord>
+                        </PanelCard>
+                    </Col>
+                    <Col span={12} className="product-down">
+                        <PanelCard title="旅游产品价格走势" zoomRequired={false} monthRequired={false}>
+                        </PanelCard>
+                    </Col>
+                    <Col span={6} className="product-down">
+                        <PanelCard title="产品热词搜索指数排行榜" zoomRequired={true} monthRequired={true}>
                         </PanelCard>
                     </Col>
                 </Row>
