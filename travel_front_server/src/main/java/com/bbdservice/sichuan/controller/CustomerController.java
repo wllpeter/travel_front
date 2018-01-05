@@ -1,13 +1,10 @@
 package com.bbdservice.sichuan.controller;
 
 import com.bbdservice.sichuan.base.Response;
-import com.bbdservice.sichuan.entity.SichuanFlowAnalyse;
-import com.bbdservice.sichuan.entity.SichuanTouristAge;
-import com.bbdservice.sichuan.entity.SichuanTouristGenderRatio;
+import com.bbdservice.sichuan.entity.*;
+import com.bbdservice.sichuan.entity.enums.EconomicZoneEnums;
 import com.bbdservice.sichuan.entity.enums.FlowTypeEnums;
-import com.bbdservice.sichuan.service.SichuanFlowAnalyseSerivce;
-import com.bbdservice.sichuan.service.SichuanTouristAgeService;
-import com.bbdservice.sichuan.service.SichuanTouristGenderRatioService;
+import com.bbdservice.sichuan.service.*;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -31,10 +28,22 @@ public class CustomerController {
     private SichuanTouristGenderRatioService sichuanTouristGenderRatioService;
     @Autowired
     private SichuanFlowAnalyseSerivce sichuanFlowAnalyseSerivce;
+    @Autowired
+    private EconomicZonePersonTimeService economicZonePersonTimeService;
+    @Autowired
+    private EconomicZoneTouristResidenceTimeService economicZoneTouristResidenceTimeService;
+    @Autowired
+    private EconomicZoneTouristResourceRankService economicZoneTouristResourceRankService;
+    @Autowired
+    private EconomicZoneTrafficTypeService economicZoneTrafficTypeService;
+    @Autowired
+    private CountryTourAgeService countryTourAgeService;
+    @Autowired
+    private CountryTourPotentialService countryTourPotentialService;
     @ApiOperation(value = "获得四川省游客分析")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "year", value = "年份", required = true, paramType = "path", dataType = "String"),
-            @ApiImplicitParam(name = "quarter", value = "季度", required = true, paramType = "path", dataType = "String")
+            @ApiImplicitParam(name = "year", value = "年份", required = true, paramType = "path", dataType = "Integer"),
+            @ApiImplicitParam(name = "quarter", value = "季度", required = true, paramType = "path", dataType = "Integer")
     })
     @GetMapping(value = "/province_customer_data/{year}/{quarter}")
     public Response getProvinceCustomerData(@PathVariable("year")Integer year, @PathVariable("quarter")Integer quarter){
@@ -87,5 +96,128 @@ public class CustomerController {
         ret.put("gender_data",genderData);
         ret.put("flow_data",newFlowData);
         return Response.success(ret);
+    }
+
+    @GetMapping("/zone_customer_times/{year}/{quarter}")
+    @ApiOperation(value = "五大经济区客游人次")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "year", value = "年份", required = true, paramType = "path", dataType = "Integer"),
+            @ApiImplicitParam(name = "quarter", value = "季度", required = true, paramType = "path", dataType = "Integer")
+    })
+    public Response getZoneCustomerTimes(@PathVariable("year")Integer year, @PathVariable("quarter")Integer quarter){
+        if(null == year || null == quarter || year.equals("") || quarter.equals("")){
+            return Response.error("传递参数有误");
+        }
+        return Response.success(this.economicZonePersonTimeService.getQuarterData(year, quarter));
+    }
+
+    @GetMapping("/zone_tourists_residence_time/{year}/{quarter}")
+    @ApiOperation(value = "五大经济区游客停留时长")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "year", value = "年份", required = true, paramType = "path", dataType = "Integer"),
+            @ApiImplicitParam(name = "quarter", value = "季度", required = true, paramType = "path", dataType = "Integer")
+    })
+    public Response getZoneTouristsResidenceTime(@PathVariable("year")Integer year, @PathVariable("quarter")Integer quarter){
+        if(null == year || null == quarter || year.equals("") || quarter.equals("")){
+            return Response.error("传递参数有误");
+        }
+        List<EconomicZoneTouristResidenceTime> economicZoneTouristResidenceTimes = this.economicZoneTouristResidenceTimeService.getQuarterData(year, quarter);
+        Map<String,Object> zone = new HashMap<>();
+        for(EconomicZoneEnums economicZoneEnums : EconomicZoneEnums.values()){
+            Map<String,Object> zoneData = new HashMap<>();
+            zoneData.put("name",economicZoneEnums.getName());
+            List<EconomicZoneTouristResidenceTime> zoneDatas = new ArrayList<>();
+            for(EconomicZoneTouristResidenceTime economicZoneTouristResidenceTime : economicZoneTouristResidenceTimes){
+                if(economicZoneTouristResidenceTime.getEconomicZone().equals(economicZoneEnums.getName())){
+                    zoneDatas.add(economicZoneTouristResidenceTime);
+                    continue;
+                }
+            }
+            zoneData.put("data",zoneDatas);
+            zone.put(economicZoneEnums.name(),zoneData);
+        }
+        return Response.success(zone);
+    }
+
+    @GetMapping("/zone_tourists_resource_rank/{year}/{quarter}")
+    @ApiOperation(value = "五大经济区游客来源排名")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "year", value = "年份", required = true, paramType = "path", dataType = "Integer"),
+            @ApiImplicitParam(name = "quarter", value = "季度", required = true, paramType = "path", dataType = "Integer")
+    })
+    public Response getZoneTouristsResourceRank(@PathVariable("year")Integer year, @PathVariable("quarter")Integer quarter){
+        if(null == year || null == quarter || year.equals("") || quarter.equals("")){
+            return Response.error("传递参数有误");
+        }
+        List<EconomicZoneTouristResourceRank> economicZoneTouristResourceRanks = this.economicZoneTouristResourceRankService.getQuarterData(year, quarter);
+        Map<String,Object> zone = new HashMap<>();
+        for(EconomicZoneEnums economicZoneEnums : EconomicZoneEnums.values()){
+                Map<String,Object> zoneData = new HashMap<>();
+                zoneData.put("name",economicZoneEnums.getName());
+                List<EconomicZoneTouristResourceRank> zoneDatas = new ArrayList<>();
+                for(EconomicZoneTouristResourceRank economicZoneTouristResourceRank : economicZoneTouristResourceRanks){
+                    if(economicZoneTouristResourceRank.getEconomicZone().equals(economicZoneEnums.getName())){
+                        zoneDatas.add(economicZoneTouristResourceRank);
+                        continue;
+                    }
+                }
+                Collections.sort(zoneDatas, new Comparator<EconomicZoneTouristResourceRank>() {
+                    @Override
+                    public int compare(EconomicZoneTouristResourceRank o1, EconomicZoneTouristResourceRank o2) {
+                        return Integer.valueOf(o2.getPersonCount())-Integer.valueOf(o1.getPersonCount());
+                    }
+                });
+                zoneData.put("data",zoneDatas);
+                zone.put(economicZoneEnums.name(),zoneData);
+        }
+        return Response.success(zone);
+    }
+    @GetMapping("/zone_tourists_traffic_type/{year}/{quarter}")
+    @ApiOperation(value = "五大经济区游客交通方式")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "year", value = "年份", required = true, paramType = "path", dataType = "Integer"),
+            @ApiImplicitParam(name = "quarter", value = "季度", required = true, paramType = "path", dataType = "Integer")
+    })
+    public Response getZoneTrafficType(@PathVariable("year")Integer year, @PathVariable("quarter")Integer quarter){
+        if(null == year || null == quarter || year.equals("") || quarter.equals("")){
+            return Response.error("传递参数有误");
+        }
+        List<EconomicZoneTrafficType> economicZoneTrafficTypes = this.economicZoneTrafficTypeService.getQuarterData(year, quarter);
+        Map<String,Object> zone = new HashMap<>();
+        for(EconomicZoneEnums economicZoneEnums : EconomicZoneEnums.values()){
+            Map<String,Object> zoneData = new HashMap<>();
+            zoneData.put("name",economicZoneEnums.getName());
+            List<EconomicZoneTrafficType> zoneDatas = new ArrayList<>();
+            for(EconomicZoneTrafficType economicZoneTrafficType : economicZoneTrafficTypes){
+                if(economicZoneTrafficType.getEconomicZone().equals(economicZoneEnums.getName())){
+                    zoneDatas.add(economicZoneTrafficType);
+                    continue;
+                }
+            }
+            zoneData.put("data",zoneDatas);
+            zone.put(economicZoneEnums.name(),zoneData);
+        }
+        return Response.success(zone);
+    }
+
+    @GetMapping("/country_data/{year}/{quarter}/{type}")
+    @ApiOperation(value = "乡村游数据")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "year", value = "年份", required = true, paramType = "path", dataType = "Integer"),
+            @ApiImplicitParam(name = "quarter", value = "季度", required = true, paramType = "path", dataType = "Integer"),
+            @ApiImplicitParam(name = "type", value = "类型:1-出行，2-接待", required = true, paramType = "path", dataType = "Integer"),
+    })
+    public Response getCountryData(@PathVariable("year")Integer year, @PathVariable("quarter")Integer quarter,@PathVariable("type")Integer type){
+        Map<String,Object> ret = new HashMap<>();
+        switch (type){
+            case 1:
+                List<CountryTourAgeTrip> countryTourAgeTrips = this.countryTourAgeService.getTripData(year,quarter);
+                break;
+            case 2:
+                List<CountryTourAgeReception> countryTourAge = this.countryTourAgeService.getReceptionData(year,quarter);
+                break;
+            default:return Response.success();
+        }
+        return Response.success();
     }
 }

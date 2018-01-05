@@ -6,6 +6,7 @@ import com.bbdservice.sichuan.entity.SysUser;
 import com.bbdservice.sichuan.entity.enums.Const;
 import com.bbdservice.sichuan.entity.redis.UserToken;
 import com.bbdservice.sichuan.entity.vo.UserInfoVO;
+import com.bbdservice.sichuan.service.SysLogService;
 import com.bbdservice.sichuan.service.SysPermissionService;
 import com.bbdservice.sichuan.service.SysUserService;
 import com.bbdservice.sichuan.service.UserTokenService;
@@ -41,6 +42,8 @@ public class SysUserController extends BaseController {
     private SysPermissionService sysPermissionService;
     @Autowired
     private UserTokenService userTokenService;
+    @Autowired
+    private SysLogService sysLogService;
 
     @Value("${setting.loginExpireSeconds}")
     private int loginExpireSeconds;
@@ -140,6 +143,7 @@ public class SysUserController extends BaseController {
         UserToken userToken = new UserToken(userInfo.getSysUser().getLoginName(), token, getPermissions(userInfo.getSysUser().getUserId()), DateUtils.addSeconds(new Date(), loginExpireSeconds));
 
         userTokenService.save(userToken);
+        sysLogService.saveLog(userInfo.getSysUser().getUserId());
         return Response.success(userInfo);
     }
 

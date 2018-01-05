@@ -1,6 +1,9 @@
 package com.bbdservice.sichuan.utils;
 
+import org.springframework.beans.factory.annotation.Value;
+
 public class DateUtils {
+
     public static String getYear(String date){
         date = date.replace("-","");
         return  date.substring(0, 4);
