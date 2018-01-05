@@ -1,8 +1,8 @@
 .productMonitor{
     overflow: hidden;
+    background: #1F3A59;
+    min-height: calc(100vh - 60px);
     .left-nav-box{
-        background: #1F3A59;
-        height: 800px;
         width: 82px;
         float: left;
         .left-nav{
@@ -36,7 +36,14 @@
         }
     }
     .product-container{
-        height: 800px;
+        height: 1000px;
+        width: calc(100% - 82px);
+        background: #072648;
         float: left;
     }
+}
+
+.product-map{
+    width: 100%;
+    height: 300px;
 }

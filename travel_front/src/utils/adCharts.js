@@ -332,16 +332,15 @@ const AD_CHART = {
     pieChart: function (params, callback) {
         let PieChart = echarts.init(document.getElementById(params.chartId));
         let options = {
-            color: params.color === undefined ? ['#ddcf73', '#b6dd74', '#32c889', '#0dbbc7', '#00a9ff', '#1b75d3', '#3559c5'] : params.color,
+            color: params.color === undefined ? ['#ddcf73', '#b6dd74', '#32c889', '#0dbbc7', '#00a9ff', '#1b75d3', '#3559c5', '#3459C5'] : params.color,
             tooltip: {
                 trigger: 'item',
-                backgroundColor: '#fff',
-                padding: [12, 12, 12, 12],
-                borderWidth: 0,
-                extraCssText: 'box-shadow: -3px 3px 14px 4px #053a6b',
+                backgroundColor: '#1F3A59',
+                borderWidth: 1,
+                borderColor: '#ffffff',
+                padding: 7,
                 textStyle: {
-                    color: '#333333',
-                    fontSize: '14'
+                    lineHeight: 56
                 },
                 formatter: function (param) {
                     let info = '';
@@ -352,8 +351,8 @@ const AD_CHART = {
                             <div>`;
                     } else {
                         info = `<div class = "mapTooltip pieTooltip">
-                                <p class = "title"><b>${param.name}</b></p>
-                                <p>${param.seriesName}<span class = "color-yellow">${param.value}</span>${params.unit ? params.unit : ''}</p>
+                                <p class = "title"><b>${param.marker}${param.name}</b></p>
+                                <p>${param.value}${params.unit ? params.unit : ''}</p>
                                 <p>占比<span class = "color-blue">${param.percent}%</span></p>
                             <div>`;
                     }
@@ -375,7 +374,7 @@ const AD_CHART = {
                 data: params.legend === undefined ? [] : params.legend,
                 icon: params.legendIcon === undefined ? '' : params.legendIcon,
                 orient: 'vertical',
-                top: 140,
+                top: params.legendTop || 140,
                 right: 20,
                 itemWidth: 8,
                 itemHeight: 8,
@@ -397,23 +396,12 @@ const AD_CHART = {
                 label: {
                     normal: {
                         show: params.labelShow === undefined ? true : params.labelShow,
-                        position: 'outside',
-                        // formatter: function(parm){
-                        //     let lableInfo = '';
-                        //     if(params.showLable){
-                        //         lableInfo = parm.name + ' ' + parm.percent + '%';
-                        //     }else{
-                        //         lableInfo = parm.name;
-                        //         if(lableInfo === '证券投资基金'){
-                        //             lableInfo = insert_flg(lableInfo, '\n', 2);
-                        //         } else if(lableInfo.length >= 5){
-                        //             lableInfo = insert_flg(lableInfo, '\n', 3);
-                        //         }
-                        //     }
-                        //     return lableInfo;
-                        // },
+                        position: 'inside',
+                        formatter: function (p) {
+                            return p.percent + '%';
+                        },
                         textStyle: {
-                            fontSize: params.labelFontSize === undefined ? 14 : params.labelFontSize,
+                            fontSize: params.labelFontSize === undefined ? 12 : params.labelFontSize,
                             fontStyle: 'normal',
                             fontWeight: 'normal',
                             fontFamily: 'microsoft yahei'

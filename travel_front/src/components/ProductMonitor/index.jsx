@@ -2,7 +2,10 @@
  * @description 旅游产品监测
  */
 import React, {Component} from 'react';
+import {Row, Col} from 'antd';
+import PanelCard from '../commonComponent/PanelCard';
 import {LEFT_NAV_DATA} from '../../constants/productMonitor/leftNav';
+import ProductClassify from './component/ProductClassify';
 import './style.scss';
 
 export default class ProductMonitor extends Component {
@@ -25,7 +28,29 @@ export default class ProductMonitor extends Component {
                     }
                 </ul>
             </div>
-            <div className="product-container"></div>
+            <div className="product-container">
+                <Row className="mb-20">
+                    <Col span={18}>
+                        <Row className="mb-20">
+                            <Col span={8}>
+                                <PanelCard title="旅游产品分类" zoomRequired={false} monthRequired={true}>
+                                    <ProductClassify></ProductClassify>
+                                </PanelCard>
+                            </Col>
+                            <Col span={16}>
+                                <PanelCard title="旅游产品综合评价" zoomRequired={false} monthRequired={true}>
+
+                                </PanelCard>
+                            </Col>
+                        </Row>
+                    </Col>
+                    <Col span={6}>
+                        <PanelCard title="旅游产品好评榜" zoomRequired={false} monthRequired={true}>
+
+                        </PanelCard>
+                    </Col>
+                </Row>
+            </div>
         </div>;
     }
 }
