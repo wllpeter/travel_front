@@ -187,7 +187,7 @@ const AD_CHART = {
             },
             series: seriesData
         };
-        BarChart.setOption(options);
+        BarChart.setOption(options, true);
         if (callback) {
             BarChart.on('click', function (param) {
                 callback(param);
