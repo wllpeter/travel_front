@@ -7,6 +7,7 @@ import PanelCard from '../commonComponent/PanelCard';
 import {LEFT_NAV_DATA} from '../../constants/productMonitor/leftNav';
 import ProductClassify from './component/ProductClassify';
 import ProductEvaluate from './component/ProductEvaluate';
+import Consumption from './component/Consumption';
 import './style.scss';
 
 export default class ProductMonitor extends Component {
@@ -33,15 +34,24 @@ export default class ProductMonitor extends Component {
                 <Row className="mb-20">
                     <Col span={18}>
                         <Row className="mb-20">
+                            <Col span={1}></Col>
                             <Col span={8}>
                                 <PanelCard title="旅游产品分类" zoomRequired={false} monthRequired={true}>
                                     <ProductClassify></ProductClassify>
                                 </PanelCard>
                             </Col>
                             <Col span={1}></Col>
-                            <Col span={15}>
+                            <Col span={14}>
                                 <PanelCard title="旅游产品综合评价" zoomRequired={false} monthRequired={false}>
                                     <ProductEvaluate></ProductEvaluate>
+                                </PanelCard>
+                            </Col>
+                        </Row>
+                        <Row className="mb-20">
+                            <Col span={1}></Col>
+                            <Col span={23}>
+                                <PanelCard title="旅游产品供给/消费总量" zoomRequired={false} monthRequired={false}>
+                                    <Consumption></Consumption>
                                 </PanelCard>
                             </Col>
                         </Row>
