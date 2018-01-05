@@ -24,6 +24,7 @@ export default class Consumption extends Component {
             gridTop: 40,
             gridBottom: 20,
             barWidth: 40,
+            unit: '万元',
             xAxisData: ['7月', '8月', '9月', '10月', '11月', '12月'],
             series: [[600, 800, 700, 400, 650, 300]]
         });

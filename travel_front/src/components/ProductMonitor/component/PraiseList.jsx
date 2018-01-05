@@ -165,7 +165,7 @@ export default class PraiseList extends Component {
                     <tr>
                         <td>
                             10
-                            <span className="praise-icon">
+                            <span className="praise-icon praise-icon-up">
                                <i className="iconfont icon-up"></i>
                                 1
                             </span>
