@@ -174,30 +174,26 @@ const AD_CHART = {
         }
     },
     radarChart: function (params, callback) {
-        let RadarChart = echarts.init(document.getElementById(params.chartName));
+        let RadarChart = echarts.init(document.getElementById(params.chartId));
         let seriesData = [];
         RadarChart.showLoading();
 
         for (let i = 0; i < params.series.length; i++) {
             let seriesItem = {
                 type: 'radar',
-                name: '',
+                name: params.legend[i],
+                symbol: 'circle',
                 data: [
                     {
                         value: params.series[i],
-                        // name: params.legend[i],
-                        areaStyle: {
-                            normal: {
-                                color: 'rgba(255, 255, 255, 0.5)'
-                            }
-                        }
+                        name: params.legend[i],
                     }
                 ]
             };
             seriesData.push(seriesItem);
         }
         let options = {
-            color: params.color,
+            color: params.colors,
             title: {
                 text: params.title,
                 textStyle: {
@@ -210,37 +206,39 @@ const AD_CHART = {
             },
             legend: {
                 show: params.legendShow === undefined ? true : params.legendShow,
-                data: params.legend === undefined ? [] : params.legend
+                data: params.legend === undefined ? [] : params.legend,
+                top: params.legendTop || '60%',
+                right: params.legendRight || '30',
+                orient: 'vertical',
+                itemWidth: 8,
+                itemHeight: 8,
+                itemGap: 20,
+                textStyle: {
+                    color: 'rgba(255, 255, 255, 0.95)',
+                    fontSize: 14
+                }
             },
             tooltip: {
-                backgroundColor: 'rgba(255,255,255,0.8)',
+                backgroundColor: '#1F3A59',
+                borderWidth: 1,
+                borderColor: '#ffffff',
+                padding: 7,
                 textStyle: {
-                    color: '#333333',
-                    fontStyle: 'normal',
-                    fontWeight: 'normal',
-                    fontFamily: 'microsoft yahei',
-                    fontSize: '14'
-                },
-                formatter: function (param, s) {
-                    return '总风险值：' + params.totalScore;
-                },
-                padding: [10, 10, 10, 10]
+                    lineHeight: 56
+                }
             },
             radar: {
-                nameGap: 3, // 指示器名称和指示器轴的距离
-                radius: '55%',
+                nameGap: 20, // 指示器名称和指示器轴的距离
+                radius: params.radarRadius || 100,
+                center: ['40%', '60%'],
                 shape: 'circle', // 雷达图绘制类型，支持 'polygon' 和 'circle'。
+                startAngle: 90,  // 起始角度
+                splitNumber: params.splitNumber || 5,
                 splitArea: {
                     areaStyle: {
                         color: [
-                            'rgba(255, 255, 255, 0.9)',
-                            'rgba(213, 242, 250, 1)',
-                            'rgba(158, 236, 255, 1)',
-                            'rgba(85, 195, 254, 1)',
-                            'rgba(2, 168, 254, 1)'
-                        ],
-                        shadowColor: 'rgba(255, 255, 255, 0.3)',
-                        shadowBlur: 10
+                           '#4b617a'
+                        ]
                     }
                 },
                 triggerEvent: true,
@@ -253,21 +251,19 @@ const AD_CHART = {
                 },
                 axisLine: {
                     lineStyle: {
-                        color: 'rgba(255, 255, 255, 0.7)', // 中间的米字线
-                        type: 'dashed' // 米字线类型
+                        color: '#7b8998', // 中间的米字线
+                        type: 'solid' // 米字线类型
                     }
                 },
                 splitLine: {
                     lineStyle: {
-                        color: 'rgba(255, 255, 255, 0.7)' // 中间的米字线
+                        color: '#203a59' // 弧的分隔线
                     }
                 },
                 name: {
                     textStyle: {
-                        color: '#999'
-                    },
-                    formatter: function (value, indicator) {
-                        return indicator.name + '\n  (' + indicator.value + ')分';
+                        color: 'rgba(255, 255, 255, 0.8)',
+                        fontSize: 15,
                     }
                 },
                 indicator: params.indicator
@@ -276,37 +272,37 @@ const AD_CHART = {
         };
         RadarChart.hideLoading();
         RadarChart.setOption(options);
-        RadarChart.on('mouseover', function (param) {
-            param.event.event.preventDefault();
-            if (param.targetType === 'axisName') {
-                let tipDemo = document.getElementById('radar-lable-tip');
-                let offsetX = param.event.offsetX;
-                let offsetY = param.event.offsetY;
-                let newX = offsetX;
-                let newY = offsetY;
-                if (offsetX >= 250) {
-                    newX = offsetX - 190;
-                }
-
-                if (newY >= 250) {
-                    newY = offsetY - 170;
-                } else {
-                    newY = offsetY + 20;
-                }
-                tipDemo.innerHTML = params.tipsText[param.name.split('\n')[0]];
-                tipDemo.style.top = newY + 'px';
-                tipDemo.style.left = newX + 'px';
-                tipDemo.style.display = 'block';
-            }
-        });
-        RadarChart.on('mouseout', function (param) {
-            if (param.targetType === 'axisName') {
-                param.event.event.preventDefault();
-                let tipDemo = document.getElementById('radar-lable-tip');
-                tipDemo.innerHTML = '';
-                tipDemo.style.display = 'none';
-            }
-        });
+        // RadarChart.on('mouseover', function (param) {
+        //     param.event.event.preventDefault();
+        //     if (param.targetType === 'axisName') {
+        //         let tipDemo = document.getElementById('radar-lable-tip');
+        //         let offsetX = param.event.offsetX;
+        //         let offsetY = param.event.offsetY;
+        //         let newX = offsetX;
+        //         let newY = offsetY;
+        //         if (offsetX >= 250) {
+        //             newX = offsetX - 190;
+        //         }
+        //
+        //         if (newY >= 250) {
+        //             newY = offsetY - 170;
+        //         } else {
+        //             newY = offsetY + 20;
+        //         }
+        //         tipDemo.innerHTML = params.tipsText[param.name.split('\n')[0]];
+        //         tipDemo.style.top = newY + 'px';
+        //         tipDemo.style.left = newX + 'px';
+        //         tipDemo.style.display = 'block';
+        //     }
+        // });
+        // RadarChart.on('mouseout', function (param) {
+        //     if (param.targetType === 'axisName') {
+        //         param.event.event.preventDefault();
+        //         let tipDemo = document.getElementById('radar-lable-tip');
+        //         tipDemo.innerHTML = '';
+        //         tipDemo.style.display = 'none';
+        //     }
+        // });
     },
     pieChart: function (params, callback) {
         let PieChart = echarts.init(document.getElementById(params.chartId));
@@ -1226,7 +1222,153 @@ const AD_CHART = {
         }
     },
     multiYaxisTypeChart: function(params, callback) {
+        let multiTypeChart = null;
+        if(params && params.chartId) {
+            multiTypeChart = echarts.init(document.getElementById(params.chartId));
+            multiTypeChart.showLoading();
+        }
 
+        let seriesData = [];
+        if(params.series && params.series.length) {
+            for(var i = 0, len = params.series.length; i < len; i++) {
+                let seriesItem = {
+                    name: params.legend ? params.legend[i] : '',
+                    type: params.series[i].type,
+                    data: params.series[i].data,
+                    label: {
+                        normal: {
+                            show: false,
+                        },
+                        emphasis: {
+                            show: true,
+                            position: 'top',
+                            formatter: params.series[i].formatter,
+                            textStyle: {
+                                color: 'rgba(255, 255, 255, 0.95)',
+                                fontSize: 14
+                            }
+                        }
+                    },
+                    yAxisIndex: params.series[i].yAxisIndex,
+                    barWidth: params.barWidth
+                }
+
+                seriesData.push(seriesItem);
+            }
+        }
+
+        let options = {
+            color: params.colors,
+            grid: {
+                containLabel: true,
+                top: 72,
+                left: 42,
+                right: 32,
+                bottom: 52
+            },
+            tooltip: {
+                trigger: 'axis',
+                backgroundColor: '#1F3A59',
+                borderWidth: 1,
+                borderColor: '#ffffff',
+                padding: 7,
+                textStyle: {
+                    lineHeight: 56
+                },
+                axisPointer: {
+                    type: 'line',
+                    lineStyle: {
+                        color: '#00a9ff'
+                    }
+                },
+                formatter: function(params) {
+                    var res = params[0].name;
+
+                    for (var i = 0, l = params.length; i < l; i++) {
+                        if (params[i].seriesType === 'line') {
+                            res += '<br/>' + params[i].marker + params[i].seriesName + ' : ' + (params[i].value ? params[i].value : '-') + '%';
+                        } else {
+                            res += '<br/>' + params[i].marker + params[i].seriesName + ' : ' + (params[i].value ? params[i].value : '-') + '万元';
+                        }
+                    }
+                    return res;
+
+                }
+            },
+            legend: {
+                data: params.legend || [],
+                icon: params.legendIcon || 'rect',
+                orient: params.orient ? 'vertical' : 'horizontal',
+                top: 38,
+                right: '12%',
+                itemGap: 35,
+                itemWidth: 8,
+                itemHeight: 8,
+                textStyle: {
+                    color: 'rgba(255, 255, 255, 0.95)',
+                    fontSize: 14
+                }
+            },
+            dataZoom: [
+                {
+                    type: 'slider',
+                    backgroundColor: params.zoomBackground || '#1F3A59',
+                    fillerColor: params.zoomFiller || '#165B8A',
+                    borderColor: 'transparent',
+                    handleStyle: {
+                        color: '#00A8FD'
+                    },
+                    textStyle: {
+                        color: 'rgba(255, 255, 255, 0.95)'
+                    },
+                    xAxisIndex: 0,
+                    filterMode: 'empty',
+                    start: 0,
+                    end: 100
+                },
+                {
+                    type: 'inside',
+                    xAxisIndex: 0,
+                    filterMode: 'empty',
+                    start: 0,
+                    end: 100
+                }
+            ],
+            xAxis: [
+                {
+                    type: 'category',
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: 'rgba(255, 255, 255, 0.95)',
+                            fontSize: 14
+                        }
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: '#51687f',
+                            width: 1
+                        }
+                    },
+                    splitLine: {
+                        show: false
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    data: params.xAxisData || []
+                }
+            ],
+            yAxis: params.yAxis || [],
+            series: seriesData
+        }
+
+
+        if(options) {
+            multiTypeChart.hideLoading();
+            multiTypeChart.setOption(options);
+        }
     }
 
 };
