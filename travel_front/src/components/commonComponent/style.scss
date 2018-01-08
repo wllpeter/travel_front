@@ -83,3 +83,40 @@
         margin-left: 6px;
     }
 }
+
+// 切换按钮组
+.toggle-button-group {
+    ul {
+        padding-left: 1px;
+    }
+
+    li {
+        display: inline-block;
+        margin-left: -1px;
+
+        a {
+            display: block;
+            padding: 2px 15px;
+            color: rgba(255, 255, 255, 0.95);
+            background-color: #203a59;
+            font-size: 0.65rem;
+            border: 1px solid #00a9ff;
+
+            &.active {
+                background-color: #00a9ff;
+                color: #072748;
+            }
+        }
+
+        &:first-child > a {
+            border-bottom-left-radius: 15px;
+            border-top-left-radius: 15px;
+        }
+
+        &:last-child > a {
+            border-top-right-radius: 15px;
+            border-bottom-right-radius: 15px;
+        }
+    }
+
+}

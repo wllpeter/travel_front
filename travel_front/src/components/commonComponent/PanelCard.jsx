@@ -1,3 +1,7 @@
+/**
+ * @description 卡片面板
+ * @author zuilafeng
+ */
 import React, { Component } from 'react';
 import { DatePicker, Icon } from 'antd';
 const MonthPicker = DatePicker.MonthPicker;

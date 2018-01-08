@@ -1,5 +1,9 @@
 import echarts from 'echarts';
 
+/**
+ * @description 从上到下，依次为柱状图, 雷达图，饼图，线图(折线或面积图),地图,数据区域缩放,百分比柱状图，多Y轴不同类型混合图
+ * @type {{barChart: AD_CHART.barChart, radarChart: AD_CHART.radarChart, pieChart: AD_CHART.pieChart, lineChart: AD_CHART.lineChart, mapChart: AD_CHART.mapChart, zoomMap: AD_CHART.zoomMap, percentBarChart: AD_CHART.percentBarChart, multiYaxisTypeChart: AD_CHART.multiYaxisTypeChart}}
+ */
 const AD_CHART = {
     barChart: function (params, callback) {
         let BarChart = echarts.init(document.getElementById(params.chartId));
@@ -16,7 +20,6 @@ const AD_CHART = {
                     itemStyle: {
                         normal: {
                             barBorderRadius: params.barBorderRadius === undefined ? 0 : params.barBorderRadius // 圆角度数
-                            //color: params.row === undefined ? new echarts.graphic.LinearGradient(0, 0, 0, 1, gradientColor[i]) : new echarts.graphic.LinearGradient(0, 0, 1, 1, gradientColor[i]) // 渐变行颜色
                         },
                         emphasis: {
                             barBorderRadius: params.barBorderRadius === undefined ? 0 : params.barBorderRadius
@@ -1221,7 +1224,11 @@ const AD_CHART = {
                 callback(param);
             });
         }
+    },
+    multiYaxisTypeChart: function(params, callback) {
+
     }
+
 };
 
 export default AD_CHART;

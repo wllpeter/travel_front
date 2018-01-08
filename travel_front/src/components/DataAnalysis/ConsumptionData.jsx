@@ -6,6 +6,7 @@ import PanelCard from '../commonComponent/PanelCard';
 import AdCharts from '../../utils/adCharts';
 import { Row, Col } from 'antd';
 import PercentBar from '../commonComponent/PercentBar';
+import ToggleButtonGroup from '../commonComponent/ToggleButtonGroup';
 import 'antd/lib/grid/style';
 
 export default class TouristData extends Component {
@@ -19,7 +20,6 @@ export default class TouristData extends Component {
             chartId: 'cardMoneyPieChart',
             legend: ['成都平原经济区', '川东北经济区', '攀西经济区', '川西北经济区', '川南经济区'],
             legendIcon: 'circle',
-            legendTop: 80,
             borderWidth: 10,
             borderColor: '#072848',
             legendTop: 146,
@@ -52,7 +52,6 @@ export default class TouristData extends Component {
             chartId: 'tradeAmountPieChart',
             legend: ['成都平原经济区', '川东北经济区', '攀西经济区', '川西北经济区', '川南经济区'],
             legendIcon: 'circle',
-            legendTop: 80,
             borderWidth: 10,
             borderColor: '#072848',
             legendTop: 146,
@@ -108,11 +107,35 @@ export default class TouristData extends Component {
     }
 
     render() {
+        const consumeInfoOptions = {
+            clickBack: () => {
+
+            },
+            buttons: [
+                {
+                    buttonName: '交易金额',
+                    value: ''
+                },
+                {
+                    buttonName: '交易笔数',
+                    value: ''
+                },
+                {
+                    buttonName: '刷卡人次',
+                    value: ''
+                },
+                {
+                    buttonName: '单笔平均',
+                    value: ''
+                }
+            ]
+        };
+
         return <div className="consumption-data">
             <Row>
                 <Col span={ 12 } lg={ 24 } xl={ 12 }>
                     <PanelCard title="全省旅游消费情况">
-
+                        <ToggleButtonGroup { ...consumeInfoOptions }/>
                     </PanelCard>
                 </Col>
                 <Col span={ 12 } lg={ 24 } xl={ 12 }>
@@ -193,6 +216,7 @@ export default class TouristData extends Component {
                 </Col>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
                     <PanelCard title="入川游客来源地排名" className="bg-grey">
+
                         <table className="mt-table mt-table-noborder wrapper w-95">
                             <thead>
                             <tr>
