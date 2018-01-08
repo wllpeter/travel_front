@@ -36,16 +36,16 @@ export default class ProductMonitor extends Component {
             </div>
             <div className="product-container">
                 <Row className="mb-20">
-                    <Col span={18}>
+                    <Col span={18} lg={ 16 } xl={ 18 }  >
                         <Row className="mb-20">
                             <Col span={1}></Col>
-                            <Col span={8}>
+                            <Col span={8} lg={ 23 } xl={ 8 }>
                                 <PanelCard title="旅游产品分类" zoomRequired={false} monthRequired={true}>
                                     <ProductClassify></ProductClassify>
                                 </PanelCard>
                             </Col>
                             <Col span={1}></Col>
-                            <Col span={14}>
+                            <Col span={14} lg={ 23 } xl={ 14 }>
                                 <PanelCard title="旅游产品综合评价" zoomRequired={false} monthRequired={false}>
                                     <ProductEvaluate></ProductEvaluate>
                                 </PanelCard>
@@ -60,24 +60,24 @@ export default class ProductMonitor extends Component {
                             </Col>
                         </Row>
                     </Col>
-                    <Col span={6} className="product-praise">
-                        <PanelCard title="旅游产品好评榜" zoomRequired={false} monthRequired={true}>
-                            <PraiseList></PraiseList>
-                        </PanelCard>
+                    <Col span={6} lg={ 8 } xl={ 6 }  >
+                        <Col span={24} className="product-praise">
+                            <PanelCard title="旅游产品好评榜" zoomRequired={false} monthRequired={true}>
+                                <PraiseList></PraiseList>
+                            </PanelCard>
+                        </Col>
                     </Col>
-                </Row>
-                <Row className="mb-20">
-                    <Col span={6} className="product-down">
+                    <Col span={6}  lg={ 8 } xl={ 6 }  className="product-down">
                         <PanelCard title="产品评价热词云" zoomRequired={true} monthRequired={true}>
                             <HotWord></HotWord>
                         </PanelCard>
                     </Col>
-                    <Col span={12} className="product-down">
+                    <Col span={12} lg={ 16 } xl={ 12 } className="product-down">
                         <PanelCard title="旅游产品价格走势" zoomRequired={false} monthRequired={false}>
                             <ProductPrice></ProductPrice>
                         </PanelCard>
                     </Col>
-                    <Col span={6} className="product-down">
+                    <Col span={6} lg={ 8 } xl={ 6 }  className="product-down">
                         <PanelCard title="产品热词搜索指数排行榜" zoomRequired={true} monthRequired={true}>
                             <HotWordRank></HotWordRank>
                         </PanelCard>
