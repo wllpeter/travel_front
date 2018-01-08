@@ -189,7 +189,7 @@ export default class ProductPrice extends Component {
                                 x2: 0,
                                 y2: 1,
                                 colorStops: [{
-                                    offset: 0, color: '#00A9FF' // 0% 处的颜色
+                                    offset: 0, color: '#00a2f5' // 0% 处的颜色
                                 }, {
                                     offset: 1, color: '#1F3A59' // 100% 处的颜色
                                 }],

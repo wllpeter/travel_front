@@ -11,6 +11,7 @@ import Consumption from './component/Consumption';
 import PraiseList from './component/PraiseList';
 import HotWord from './component/HotWord';
 import ProductPrice from './component/ProductPrice';
+import HotWordRank from './component/HotWordRank';
 import './style.scss';
 
 export default class ProductMonitor extends Component {
@@ -78,6 +79,7 @@ export default class ProductMonitor extends Component {
                     </Col>
                     <Col span={6} className="product-down">
                         <PanelCard title="产品热词搜索指数排行榜" zoomRequired={true} monthRequired={true}>
+                            <HotWordRank></HotWordRank>
                         </PanelCard>
                     </Col>
                 </Row>
