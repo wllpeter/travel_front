@@ -131,10 +131,66 @@ export default class TouristData extends Component {
             ]
         };
 
+        const sourcePlaceRank = {
+            clickBack: () => {
+
+            },
+            buttons: [
+                {
+                    buttonName: '省份',
+                    value: ''
+                },
+                {
+                    buttonName: '城市',
+                    value: ''
+                }
+            ]
+        };
+
+        const consumptionTrade = {
+            clickBack: () => {
+
+            },
+            buttons: [
+                {
+                    buttonName: '餐饮',
+                    value: ''
+                },
+                {
+                    buttonName: '酒店',
+                    value: ''
+                }
+            ]
+        };
+
+        const cardConsumption = {
+            clickBack: () => {
+
+            },
+            buttons: [
+                {
+                    buttonName: '餐饮',
+                    value: ''
+                },
+                {
+                    buttonName: '酒店',
+                    value: ''
+                },
+                {
+                    buttonName: '娱乐',
+                    value: ''
+                },
+                {
+                    buttonName: '零售',
+                    value: ''
+                }
+            ]
+        };
+
         return <div className="consumption-data">
             <Row>
                 <Col span={ 12 } lg={ 24 } xl={ 12 }>
-                    <PanelCard title="全省旅游消费情况">
+                    <PanelCard title="全省旅游消费情况" className="province-consumption" monthRequired={ false } zoomRequired={ false }>
                         <ToggleButtonGroup { ...consumeInfoOptions }/>
                     </PanelCard>
                 </Col>
@@ -170,7 +226,7 @@ export default class TouristData extends Component {
             <Row gutter={ 2 }>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
                     <PanelCard title="入川高消费游客来源城市排名" className="bg-grey">
-                        <table className="mt-table mt-table-noborder w-95">
+                        <table className="mt-table mt-table-noborder w-95 mt-50">
                             <thead>
                                 <tr>
                                     <th>排名</th>
@@ -215,9 +271,9 @@ export default class TouristData extends Component {
                     </PanelCard>
                 </Col>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
-                    <PanelCard title="入川游客来源地排名" className="bg-grey">
-
-                        <table className="mt-table mt-table-noborder wrapper w-95">
+                    <PanelCard title="入川游客来源地排名" className="bg-grey source-place-rank">
+                        <ToggleButtonGroup { ...sourcePlaceRank }/>
+                        <table className="mt-table mt-table-noborder wrapper w-95 mt-50">
                             <thead>
                             <tr>
                                 <th>排名</th>
@@ -262,12 +318,13 @@ export default class TouristData extends Component {
                     </PanelCard>
                 </Col>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
-                    <PanelCard title="旅游消费交易分析" className="bg-grey">
-
+                    <PanelCard title="旅游消费交易分析" className="bg-grey consumption-trade">
+                        <ToggleButtonGroup { ...consumptionTrade }/>
                     </PanelCard>
                 </Col>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
-                    <PanelCard title="各行业刷卡消费商户排名" className="bg-grey">
+                    <PanelCard title="各行业刷卡消费商户排名" className="bg-grey card-consumption">
+                        <ToggleButtonGroup { ...cardConsumption }/>
 
                     </PanelCard>
                 </Col>
