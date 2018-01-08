@@ -6,6 +6,8 @@ import { Row, Col } from 'antd';
 import PanelCard from '../commonComponent/PanelCard';
 import AD_CHART from '../../utils/adCharts';
 import 'antd/lib/grid/style';
+import echarts from 'echarts';
+import $ from 'jquery';
 import './style.scss';
 
 export default class TouristData extends Component {
@@ -14,6 +16,52 @@ export default class TouristData extends Component {
     }
 
     componentDidMount() {
+        // 旅游行业活跃度
+        let mapChart = echarts.init(document.getElementById('mapChart'));
+        let name = 'sc';
+        $.get('/static/data/map/四川省区域.json', function(geoJson) {
+            echarts.registerMap(name, geoJson);
+
+            mapChart.setOption({
+                title: {
+                    text: "四川省",
+                    left: 'center',
+                    textStyle: {
+                        color: '#000'
+                    }
+                },
+                series: [{
+                    type: 'map',
+                    mapType: name,
+                    label: {
+                        normal: {
+                            show: false,
+                        },
+                        emphasis: {
+                            textStyle: {
+                                color: 'rgba(255, 255, 255, 0.8)'
+                            }
+                        }
+                    },
+                    itemStyle: {
+
+                        normal: {
+                            borderColor: '#fff',
+                            borderWidth: 1,
+                        },
+                        emphasis: {
+                            areaColor: '#7AC6F9',
+                            borderColor: 'rgb(255,222,254)',
+                            borderWidth: 1,
+                        }
+                    },
+                    animation: false
+                }]
+            });
+        });
+
+
+
         AD_CHART.pieChart({
             chartId: 'pieChart',
             borderWidth: 6,
@@ -113,36 +161,7 @@ export default class TouristData extends Component {
                     <PanelCard title="旅游行业活跃度" zoomRequired={ false }>
                         <Row>
                             <Col span={ 12 } className="br-line" lg={24} xl={12}>
-                                <div style={{ width: '100%', height: '100%'}}>
-                                    地图地图地图地图地图地图<br/>
-                                    地图地图地图地图地图地图<br/>
-                                    地图地图地图地图地图地图<br/>
-                                    地图地图地图地图地图地图<br/>
-                                    地图地图地图地图地图地图<br/>
-                                    地图地图地图地图地图地图<br/>
-                                    地图地图地图地图地图地图<br/>
-                                    地图地图地图地图地图地图<br/>
-                                    地图地图地图地图地图地图<br/>
-                                    地图地图地图地图地图地图<br/>
-                                    地图地图地图地图地图地图<br/>
-                                    地图地图地图地图地图地图<br/>
-                                    地图地图地图地图地图地图<br/>
-                                    地图地图地图地图地图地图<br/>
-                                    地图地图地图地图地图地图<br/>
-                                    地图地图地图地图地图地图<br/>
-                                    地图地图地图地图地图地图<br/>
-                                    地图地图地图地图地图地图<br/>
-                                    地图地图地图地图地图地图<br/>
-                                    地图地图地图地图地图地图<br/>
-                                    地图地图地图地图地图地图<br/>
-                                    地图地图地图地图地图地图<br/>
-                                    地图地图地图地图地图地图<br/>
-                                    地图地图地图地图地图地图<br/>
-                                    地图地图地图地图地图地图<br/>
-                                    地图地图地图地图地图地图<br/>
-                                    地图地图地图地图地图地图<br/>
-                                    地图地图地图地图地图地图<br/>
-                                </div>
+                                <div id="mapChart" style={{ width: '100%', height: 600 }}></div>
                             </Col>
                             <Col span={ 5 } className="br-line" lg={ 12 } xl={ 5 }>
                                 <PanelCard title="四川省旅游行业活跃度" monthRequired={ false } zoomRequired={ false } className="custom-style">
