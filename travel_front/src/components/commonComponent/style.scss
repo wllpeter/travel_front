@@ -1,127 +1,171 @@
 .panel-card {
-    background-color: inherit;
-    position: relative;
+  background-color: inherit;
+  position: relative;
 
-    .panel-card-header {
-        padding-left: 22px;
-        padding-top: 30px;
+  .panel-card-header {
+    padding-left: 22px;
+    padding-top: 30px;
 
-        h3 {
-            font-size: 0.8rem;
-            color: rgba(0, 169, 255, 0.85);
-            line-height: 1;
-        }
-
-        .month-select {
-            position: absolute;
-            right: 30px;
-            top: 22px;
-            z-index: 100;
-        }
-
-        .month-select > div {
-            width: 130px;
-
-            input {
-                border-radius: 0;
-                border: 1px solid #1ce88b;
-                background: transparent;
-                color: rgba(255, 255, 255, 0.95);
-                font-size: 0.65rem;
-            }
-            .ant-calendar-picker-icon:after {
-                color: #1ce88b;
-            }
-        }
-
-        .zoom-in {
-            position: absolute;
-            top: 7px;
-            right: 7px;
-
-            .anticon-arrows-alt {
-                font-size: 16px;
-                color: rgba(0, 169, 255, 0.85);
-            }
-        }
-
-        .zoom-out {
-            @extend .zoom-in;
-            display: none;
-        }
+    h3 {
+      font-size: 0.8rem;
+      color: rgba(0, 169, 255, 0.85);
+      line-height: 1;
     }
 
-    .panel-card-body {
-        overflow: hidden;
+    .month-select {
+      position: absolute;
+      right: 30px;
+      top: 22px;
+      z-index: 100;
     }
 
-    &.bg-grey {
-        background-color: #203a59;
+    .month-select > div {
+      width: 130px;
+
+      input {
+        border-radius: 0;
+        border: 1px solid #1ce88b;
+        background: transparent;
+        color: rgba(255, 255, 255, 0.95);
+        font-size: 0.65rem;
+      }
+      .ant-calendar-picker-icon:after {
+        color: #1ce88b;
+      }
     }
+
+    .zoom-in {
+      position: absolute;
+      top: 7px;
+      right: 7px;
+
+      .anticon-arrows-alt {
+        font-size: 16px;
+        color: rgba(0, 169, 255, 0.85);
+      }
+    }
+
+    .zoom-out {
+      @extend .zoom-in;
+      color: rgba(0, 169, 255, 0.85);
+    }
+  }
+
+  .panel-card-body {
+    overflow: hidden;
+  }
+
+  &.bg-grey {
+    background-color: #203a59;
+  }
 }
 
 // 百分比
 .percent-bar {
-    .ant-progress-inner {
-        background-color: #52667c;
-        border-radius: 0;
+  .ant-progress-inner {
+    background-color: #52667c;
+    border-radius: 0;
 
-        .ant-progress-bg {
-            border-radius: 0;
-            background-color: #00a9ff;
-        }
+    .ant-progress-bg {
+      border-radius: 0;
+      background-color: #00a9ff;
     }
+  }
 
-    &.ant-progress-show-info {
-        .ant-progress-outer {
-            margin-right: -1.75rem;
-            padding-right: 1.75rem;
-        }
+  &.ant-progress-show-info {
+    .ant-progress-outer {
+      margin-right: -1.75rem;
+      padding-right: 1.75rem;
     }
+  }
 
-    .ant-progress-text {
-        font-size: 0.7rem;
-        margin-left: 6px;
-    }
+  .ant-progress-text {
+    font-size: 0.7rem;
+    margin-left: 6px;
+  }
 }
 
 // 切换按钮组
 .toggle-button-group {
-    position: absolute;
-    top: 6%;
-    right: 6%;
-    z-index: 100;
-    ul {
-        padding-left: 1px;
+  position: absolute;
+  top: 6%;
+  right: 6%;
+  z-index: 100;
+  ul {
+    padding-left: 1px;
+  }
+
+  li {
+    display: inline-block;
+    margin-left: -1px;
+
+    a {
+      display: block;
+      padding: 2px 15px;
+      color: rgba(255, 255, 255, 0.95);
+      background-color: #203a59;
+      font-size: 0.65rem;
+      border: 1px solid #00a9ff;
+
+      &.active {
+        background-color: #00a9ff;
+        color: #072748;
+      }
     }
 
-    li {
-        display: inline-block;
-        margin-left: -1px;
-
-        a {
-            display: block;
-            padding: 2px 15px;
-            color: rgba(255, 255, 255, 0.95);
-            background-color: #203a59;
-            font-size: 0.65rem;
-            border: 1px solid #00a9ff;
-
-            &.active {
-                background-color: #00a9ff;
-                color: #072748;
-            }
-        }
-
-        &:first-child > a {
-            border-bottom-left-radius: 15px;
-            border-top-left-radius: 15px;
-        }
-
-        &:last-child > a {
-            border-top-right-radius: 15px;
-            border-bottom-right-radius: 15px;
-        }
+    &:first-child > a {
+      border-bottom-left-radius: 15px;
+      border-top-left-radius: 15px;
     }
+
+    &:last-child > a {
+      border-top-right-radius: 15px;
+      border-bottom-right-radius: 15px;
+    }
+  }
 
 }
+
+/*---------------------------------------------------弹出框样式---------------------------------------------------------*/
+/* Effect 1: Fade in and scale up */
+.md-effect-1 .md-content {
+  -webkit-transform: scale(0.7);
+  -moz-transform: scale(0.7);
+  -ms-transform: scale(0.7);
+  transform: scale(0.7);
+  opacity: 0;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.md-show.md-effect-1 .md-content {
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  opacity: 1;
+}
+
+.modal-mask {
+  position: fixed;
+  overflow: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3000;
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 100%;
+
+  .modal-box {
+    width: 720px;
+    height: 540px;
+    background: #fff;
+    position: absolute;
+    left: calc(50% - 360px);
+    top: calc(50% - 270px);
+  }
+}
+
