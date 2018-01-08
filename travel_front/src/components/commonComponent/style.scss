@@ -87,6 +87,10 @@
 
 // 切换按钮组
 .toggle-button-group {
+    position: absolute;
+    top: 6%;
+    right: 6%;
+    z-index: 100;
     ul {
         padding-left: 1px;
     }

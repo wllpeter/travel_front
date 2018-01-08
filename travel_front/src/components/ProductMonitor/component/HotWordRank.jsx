@@ -14,7 +14,7 @@ export default class HotWordRank extends Component {
     }
 
     render() {
-        return <div className="product-down-map">
+        return <div className="product-down-map" style={{paddingTop: '40px'}}>
             <table className="mt-table col-1-al">
                 <thead>
                 <tr>
