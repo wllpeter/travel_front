@@ -34,9 +34,9 @@ export default class HotWord extends Component {
             series: [{
                 name: '产品评价热词云',
                 type: 'wordCloud',
-                size: ['80%', '80%'],
-                sizeRange: [12, 40],
-                rotationRange: [-90, 90],
+                size: ['90%', '90%'],
+                sizeRange: [12, 60],
+                rotationRange: [-45, 45],
                 rotationStep: 10,
                 shape: 'circle',
                 textPadding: 0,

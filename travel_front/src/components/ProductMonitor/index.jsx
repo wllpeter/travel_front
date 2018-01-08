@@ -10,6 +10,7 @@ import ProductEvaluate from './component/ProductEvaluate';
 import Consumption from './component/Consumption';
 import PraiseList from './component/PraiseList';
 import HotWord from './component/HotWord';
+import ProductPrice from './component/ProductPrice';
 import './style.scss';
 
 export default class ProductMonitor extends Component {
@@ -72,6 +73,7 @@ export default class ProductMonitor extends Component {
                     </Col>
                     <Col span={12} className="product-down">
                         <PanelCard title="旅游产品价格走势" zoomRequired={false} monthRequired={false}>
+                            <ProductPrice></ProductPrice>
                         </PanelCard>
                     </Col>
                     <Col span={6} className="product-down">
