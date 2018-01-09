@@ -40,6 +40,12 @@ public class CustomerController {
     private CountryTourAgeService countryTourAgeService;
     @Autowired
     private CountryTourPotentialService countryTourPotentialService;
+    @Autowired
+    private CountryTourResidenceZoneService countryTourResidenceZoneService;
+    @Autowired
+    private CountryTourPersonTimeTripService countryTourPersonTimeTripService;
+    @Autowired
+    private CountryTourFlowAnalyseReceptionService countryTourFlowAnalyseReceptionService;
     @ApiOperation(value = "获得四川省游客分析")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "year", value = "年份", required = true, paramType = "path", dataType = "Integer"),
@@ -212,12 +218,40 @@ public class CustomerController {
         switch (type){
             case 1:
                 List<CountryTourAgeTrip> countryTourAgeTrips = this.countryTourAgeService.getTripData(year,quarter);
+                List<CountryTourPotentialTrip> countryTourPotentialTrips = this.countryTourPotentialService.getTripData(year,quarter);
+                List<CountryTourResidenceZoneTrip> countryTourResidenceZoneTrips = this.countryTourResidenceZoneService.getTripData(year, quarter);
+                List<CountryTourPersonTimeTrip> countryTourPersonTimeTrips = this.countryTourPersonTimeTripService.getQuarterData(year,quarter);
+                ret.put("country_tour_age_trips",countryTourAgeTrips);
+                ret.put("country_tour_potential_trips",countryTourPotentialTrips);
+                ret.put("country_tour_residence_zone_trips",countryTourResidenceZoneTrips);
+                ret.put("country_tour_person_Time_Trips",countryTourPersonTimeTrips);
                 break;
             case 2:
-                List<CountryTourAgeReception> countryTourAge = this.countryTourAgeService.getReceptionData(year,quarter);
+                List<CountryTourAgeReception> countryTourAgeReceptions = this.countryTourAgeService.getReceptionData(year,quarter);
+                List<CountryTourPotentialReception> countryTourPotentialReceptions = this.countryTourPotentialService.getReceptionData(year,quarter);
+                List<CountryTourResidenceZoneReception> countryTourResidenceZoneReceptions = this.countryTourResidenceZoneService.getReceptionData(year, quarter);
+                List<CountryTourFlowAnalyseReception> countryTourFlowAnalyseReceptions = this.countryTourFlowAnalyseReceptionService.getQuarterData(year);
+                Map<String,Object> zone = new HashMap<>();
+                for(FlowTypeEnums flowTypeEnums : FlowTypeEnums.values()){
+                    Map<String,Object> zoneData = new HashMap<>();
+                    zoneData.put("name",flowTypeEnums.getName());
+                    List<CountryTourFlowAnalyseReception> zoneDatas = new ArrayList<>();
+                    for(CountryTourFlowAnalyseReception countryTourFlowAnalyseReception : countryTourFlowAnalyseReceptions){
+                        if(countryTourFlowAnalyseReception.getCustomerType().equals(flowTypeEnums.getName())){
+                            zoneDatas.add(countryTourFlowAnalyseReception);
+                            continue;
+                        }
+                    }
+                    zoneData.put("data",zoneDatas);
+                    zone.put(flowTypeEnums.name(),zoneData);
+                }
+                ret.put("country_tour_age_reception",countryTourAgeReceptions);
+                ret.put("country_tour_potential_reception",countryTourPotentialReceptions);
+                ret.put("country_tour_residence_zone_reception",countryTourResidenceZoneReceptions);
+                ret.put("country_tour_person_Time_reception",zone);
                 break;
             default:return Response.success();
         }
-        return Response.success();
+        return Response.success(ret);
     }
 }

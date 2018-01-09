@@ -117,12 +117,12 @@ public class HttpRequestUtils {
         return result;
     }
 
-    public static String createSecretKey(String accessKey,String apiKey, String aid)throws Exception{
+    public static String createSecretKey(String accessKey,String apiKey, String aid,String ts)throws Exception{
         StringBuilder sb = new StringBuilder();
         String resourceKey = sb.append(accessKey)
                 .append(aid)
                 .append(apiKey)
-                .append(System.currentTimeMillis())
+                .append(ts)
                 .toString();
         Base64.Encoder encoder = Base64.getEncoder();
         byte[] bytes = resourceKey.getBytes("UTF-8");

@@ -5,13 +5,11 @@ import com.bbdservice.sichuan.dao.SearchCityRepository;
 import com.bbdservice.sichuan.entity.SearchCity;
 import com.bbdservice.sichuan.service.SearchCityService;
 import com.bbdservice.sichuan.utils.HttpRequestUtils;
-import com.bbdservice.sichuan.utils.UnicodeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -29,47 +27,48 @@ public class SearchCityServiceImpl implements SearchCityService{
     @Override
     public List<SearchCity> getCityList() {
         List<SearchCity> searchCities = this.searchCityRepository.findAll();
-        String secretKey = null;
-        try {
-             secretKey = HttpRequestUtils.createSecretKey(accessKey,apiKey, "1");
-        } catch (Exception e) {
-            e.printStackTrace();
+        if(null != searchCities && searchCities.size()>0){
+            return searchCities;
         }
-        if(null == searchCities || searchCities.size() == 0){
+        else {
+            String secretKey = null;
+            String ts = System.currentTimeMillis()+"";
+            try {
+                secretKey = HttpRequestUtils.createSecretKey(accessKey,apiKey, "1",ts);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             String dataUrl = url
                     .concat("?ak=")
                     .concat(accessKey)
                     .concat("&sk=")
                     .concat(secretKey)
                     .concat("&ts=")
-                    .concat(System.currentTimeMillis()+"")
+                    .concat(ts)
                     .concat("&aid=")
                     .concat("1");
             String ret = HttpRequestUtils.sendGet(dataUrl);
-            Map<String,String> map = JSON.parseObject(ret, Map.class);
-            String data = map.get("data");
-            Map<String,String> provinces = JSON.parseObject(data, Map.class);
+            Map<String,Object> map = JSON.parseObject(ret, Map.class);
+            List<Map> data = JSON.parseArray(map.get("data").toString(),Map.class);
             List<SearchCity> searchData = new ArrayList<>();
-            for(Map.Entry<String,String> province : provinces.entrySet()){
-                String provinceStr = province.getValue();
-                Map<String,String> provinceDetail = JSON.parseObject(provinceStr, Map.class);
+            for(Map<String,Object> temp:data){
                 SearchCity searchProvince = new SearchCity();
-                searchProvince.setId(Integer.valueOf(provinceDetail.get("id")));
-                searchProvince.setName(UnicodeUtils.unicode2String(provinceDetail.get("name")));
-                Map<String,String> cities = JSON.parseObject(provinceDetail.get("children"), Map.class);
+                searchProvince.setId(Integer.valueOf(temp.get("id").toString()));
+                searchProvince.setName(temp.get("name").toString());
                 searchData.add(searchProvince);
-                for(Map.Entry<String,String> city : cities.entrySet()){
-                    String cityStr = city.getValue();
-                    Map<String,String> cityDetail = JSON.parseObject(cityStr, Map.class);
-                    SearchCity searchCity = new SearchCity();
-                    searchCity.setId(Integer.valueOf(cityDetail.get("id")));
-                    searchCity.setName(cityDetail.get("name"));
-                    searchCity.setParentId(searchProvince.getId());
-                    searchData.add(searchCity);
+                if(null != temp.get("children")){
+                    List<Map> cityData = JSON.parseArray(temp.get("children").toString(),Map.class);
+                    for(Map<String,Object> cityMap:cityData){
+                        SearchCity searchCity = new SearchCity();
+                        searchCity.setId(Integer.valueOf(cityMap.get("id").toString()));
+                        searchCity.setName(cityMap.get("name").toString());
+                        searchCity.setParentId(searchProvince.getId());
+                        searchData.add(searchCity);
+                    }
                 }
             }
             this.searchCityRepository.save(searchData);
+            return searchData;
         }
-        return null;
     }
 }

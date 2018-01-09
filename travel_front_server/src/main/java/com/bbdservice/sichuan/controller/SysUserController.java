@@ -116,7 +116,7 @@ public class SysUserController extends BaseController {
             @ApiImplicitParam(name = "sysUser", value = "用户对象", required = true, paramType = "body", dataType = "SysUser")
     })
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public Response login(@RequestBody SysUser sysUser, HttpServletResponse response) {
+    public Response login(@RequestBody SysUser sysUser,HttpServletResponse response) {
         String loginName = sysUser.getLoginName();
         String password = sysUser.getPassword();
         if (loginName == null || password == null) {
@@ -138,8 +138,13 @@ public class SysUserController extends BaseController {
         String token = getToken(userInfo.getSysUser());
         response.addCookie(HttpUtils
                 .getCookie("loginName", userInfo.getSysUser().getLoginName(), tokenTimeout, "/", false));
+
+//        if(isMemory == 1) {
+//            response.addCookie(HttpUtils.getCookie("password",sysUser.getPassword(),tokenTimeout,"/",false));
+//        }
         response.addCookie(HttpUtils
-                .getCookie("token", token, tokenTimeout, "/", false));
+                    .getCookie("token", token, tokenTimeout, "/", false));
+
         UserToken userToken = new UserToken(userInfo.getSysUser().getLoginName(), token, getPermissions(userInfo.getSysUser().getUserId()), DateUtils.addSeconds(new Date(), loginExpireSeconds));
 
         userTokenService.save(userToken);

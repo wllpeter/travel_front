@@ -18,11 +18,11 @@ public class CountryTourAgeServiceImpl implements CountryTourAgeService {
     private CountryTourAgeReceptionRepository countryTourAgeReceptionRepository;
     @Override
     public List<CountryTourAgeTrip> getTripData(Integer year, Integer quarter) {
-        return null;
+        return this.countryTourAgeTripRepository.getQuarterData(year,quarter);
     }
 
     @Override
     public List<CountryTourAgeReception> getReceptionData(Integer year, Integer quarter) {
-        return null;
+        return this.countryTourAgeReceptionRepository.getQuarterData(year,quarter);
     }
 }
