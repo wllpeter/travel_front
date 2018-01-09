@@ -11,4 +11,5 @@ import java.util.List;
  */
 public interface ClassifyTypeService {
     List<ClassifyData> getClassifyDataByDataTypeAndYearAndMonthAndProductType(String dataType,Long year,Long month,Long productType);
+    List<ClassifyData> getWithoutClassifyDataList(Long productType,Long year,Long month);
 }

@@ -45,6 +45,12 @@ public class OpinionRank {
     private Date createDate;
 
     /**
+     * 姓名
+     */
+    @Column(name="name")
+    private String name;
+
+    /**
      * 产品分类
             1-旅游
             2-住宿
