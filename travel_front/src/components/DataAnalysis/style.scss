@@ -42,3 +42,30 @@
         }
     }
 }
+
+.consumption-data {
+
+    // 全省旅游消费情况
+    .province-consumption {
+        .toggle-button-group {
+            position: absolute;
+            right: 20px;
+            top: 28px;
+            z-index: 1999;
+        }
+    }
+
+    // 入川游客来源地排名
+    // 旅游消费交易分析
+    // 各行业刷卡消费商户排名
+    .source-place-rank,
+    .consumption-trade,
+    .card-consumption {
+        .toggle-button-group {
+            position: absolute;
+            right: 30px;
+            top: 68px;
+            z-index: 1999;
+        }
+    }
+}

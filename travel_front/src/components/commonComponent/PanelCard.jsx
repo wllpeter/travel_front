@@ -1,5 +1,10 @@
-import React, { Component } from 'react';
-import { DatePicker, Icon } from 'antd';
+/**
+ * @description 卡片面板
+ * @author zuilafeng
+ */
+import React, {Component} from 'react';
+import {DatePicker, Icon} from 'antd';
+
 const MonthPicker = DatePicker.MonthPicker;
 import 'antd/lib/date-picker/style';
 import './style.scss';
@@ -17,26 +22,32 @@ export default class PanelCard extends Component {
 
     render() {
 
-        const { className, title, monthRequired, zoomRequired, ...other } = this.props;
+        const {className, title, monthRequired, zoomRequired, enlarge, zoomOutRequired, narrow, ...other} = this.props;
         let classNames = ['panel-card'];
 
-        if(className) {
+        if (className) {
             classNames.push(className);
         }
 
-        return <div className={ classNames.join(' ') } { ...other }>
+        return <div className={classNames.join(' ')} {...other}>
             <div className="panel-card-header">
-                <h3>{ title }</h3>
+                <h3>{title}</h3>
                 {
-                    monthRequired && <MonthPicker allowClear={ false } className="month-select" format="YYYY年MM月"/>
+                    monthRequired && <MonthPicker allowClear={false} className="month-select" format="YYYY年MM月"/>
                 }
 
                 {
-                    zoomRequired && <a className="zoom-in" title="放大"><Icon type="arrows-alt" /></a>
+                    zoomRequired &&
+                    <a className="zoom-in" title="放大" onClick={() => {
+                        enlarge();
+                    }}><Icon type="arrows-alt"/></a>
                 }
 
                 {
-                    zoomRequired && <a className="zoom-out" title="缩小"><Icon type="shrink" /></a>
+                    zoomOutRequired && <a className="zoom-out" title="缩小"
+                                          onClick={() => {
+                                              narrow();
+                                          }}><Icon type="shrink"/></a>
                 }
 
             </div>

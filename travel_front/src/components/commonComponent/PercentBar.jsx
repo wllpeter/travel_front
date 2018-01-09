@@ -1,3 +1,7 @@
+/**
+ * @description 进度条
+ * @author zuilafeng
+ */
 import React, { Component } from 'react';
 import { Progress } from 'antd';
 import 'antd/lib/progress/style';

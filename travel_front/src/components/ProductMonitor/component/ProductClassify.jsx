@@ -3,13 +3,11 @@
  */
 import React, {Component} from 'react';
 import AD_CHART from '../../../utils/adCharts';
+import ToggleButtonGroup from '../../commonComponent/ToggleButtonGroup';
 
 export default class ProductClassify extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            type: 1
-        };
     }
 
     componentDidMount() {
@@ -92,14 +90,14 @@ export default class ProductClassify extends Component {
     }
 
     render() {
-        let {type} = this.state;
+        let switchProps = {
+            buttons: [
+                {buttonName: '供给'},
+                {buttonName: '消费'}
+            ]
+        };
         return <div className="switch-btn-box">
-            <div className="switch-btn">
-                <div className={`switch-btn-left ${type === 1 ? 'switch-btn-active' : ''}`}>供给
-                </div>
-                <div className={`switch-btn-right ${type === 2 ? 'switch-btn-active' : ''}`}>消费
-                </div>
-            </div>
+            <ToggleButtonGroup {...switchProps}></ToggleButtonGroup>
             <div id="classify-map" className="product-map">
             </div>
         </div>;

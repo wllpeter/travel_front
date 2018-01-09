@@ -3,6 +3,7 @@
  */
 import React, {Component} from 'react';
 import adCharts from '../../../utils/adCharts';
+import ToggleButtonGroup from '../../commonComponent/ToggleButtonGroup';
 
 export default class Consumption extends Component {
     constructor(props) {
@@ -31,14 +32,17 @@ export default class Consumption extends Component {
     }
 
     render() {
-        let {type} = this.state;
+        let switchProps = {
+            buttons: [
+                {buttonName: '供给'},
+                {buttonName: '消费'}
+            ],
+            style: {
+                top: 0
+            }
+        };
         return <div className="switch-btn-box">
-            <div className="switch-btn">
-                <div className={`switch-btn-left ${type === 1 ? 'switch-btn-active' : ''}`}>供给
-                </div>
-                <div className={`switch-btn-right ${type === 2 ? 'switch-btn-active' : ''}`}>消费
-                </div>
-            </div>
+            <ToggleButtonGroup {...switchProps}></ToggleButtonGroup>
             <div id="consumption-map" className="product-map">
             </div>
         </div>;

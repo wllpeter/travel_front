@@ -2,13 +2,11 @@
  * @description 旅游产品好评榜
  */
 import React, {Component} from 'react';
+import ToggleButtonGroup from '../../commonComponent/ToggleButtonGroup';
 
 export default class PraiseList extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            type: 1
-        };
     }
 
     componentDidMount() {
@@ -20,14 +18,19 @@ export default class PraiseList extends Component {
     }
 
     render() {
-        let {type} = this.state;
+        let switchProps = {
+            buttons: [
+                {buttonName: '产品'},
+                {buttonName: '景区'}
+            ],
+            style: {
+                top: '-3%',
+                right: '50%',
+                transform: 'translateX(50%)'
+            }
+        };
         return <div className="switch-btn-box">
-            <div className="switch-btn">
-                <div className={`switch-btn-left ${type === 1 ? 'switch-btn-active' : ''}`}>产品
-                </div>
-                <div className={`switch-btn-right ${type === 2 ? 'switch-btn-active' : ''}`}>景区
-                </div>
-            </div>
+            <ToggleButtonGroup {...switchProps}></ToggleButtonGroup>
             <div className="praise">
                 <table className="mt-table col-1-al">
                     <thead>
