@@ -3,24 +3,40 @@
  */
 import React, {Component} from 'react';
 import echarts from 'echarts';
+import Modal from '../../commonComponent/Modal';
+import PanelCard from '../../commonComponent/PanelCard';
 import wordcloud from 'echarts-wordcloud';
 
 export default class HotWord extends Component {
     constructor(props) {
         super(props);
-
+        this.state = {
+            visible: false
+        };
     }
 
     componentDidMount() {
-        this.print();
+        this.print('hotWord-map');
     }
 
-    print() {
+    showModal() {
+        this.setState({
+            visible: true
+        });
+    }
+
+    handleCancel() {
+        this.setState({
+            visible: false
+        });
+    }
+
+    print(id) {
         let option = {
             title: {
                 text: ''
             },
-            backgroundColor: 'transparent',
+            backgroundColor: '#1F3A59',
             tooltip: {
                 show: true,
                 backgroundColor: '#1F3A59',
@@ -110,7 +126,7 @@ export default class HotWord extends Component {
             }, {
                 name: '文体与教育管理',
                 value: '406'
-            },{
+            }, {
                 name: '供气质量',
                 value: '223'
             }, {
@@ -130,13 +146,27 @@ export default class HotWord extends Component {
 
         option.series[0].data = JosnList;
 
-        let hotWord = echarts.init(document.getElementById('hotWord-map'));
+        let hotWord = echarts.init(document.getElementById(id));
 
         hotWord.setOption(option);
     }
 
     render() {
-        return <div id="hotWord-map" className="product-down-map">
+        let {visible} = this.state;
+        return <div>
+            <PanelCard title="产品评价热词云" zoomRequired={true} monthRequired={true}
+                       enlarge={this.showModal.bind(this)}>
+                <div id="hotWord-map" className="product-down-map"></div>
+            </PanelCard>
+            <Modal visible={visible} onOk={() => {this.print.bind(this)('hotWord-map2');}}>
+                <div className="hotWord-zoom">
+                    <PanelCard title="产品评价热词云" zoomRequired={false} monthRequired={true}
+                               zoomOutRequired={true}
+                               narrow={this.handleCancel.bind(this)}>
+                        <div id="hotWord-map2"></div>
+                    </PanelCard>
+                </div>
+            </Modal>
         </div>;
     }
 }

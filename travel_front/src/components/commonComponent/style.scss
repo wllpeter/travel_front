@@ -1,6 +1,7 @@
 .panel-card {
   background-color: inherit;
   position: relative;
+  height: 100%;
 
   .panel-card-header {
     padding-left: 22px;
@@ -53,6 +54,7 @@
 
   .panel-card-body {
     overflow: hidden;
+    height: calc(100% - 46px);
   }
 
   &.bg-grey {
