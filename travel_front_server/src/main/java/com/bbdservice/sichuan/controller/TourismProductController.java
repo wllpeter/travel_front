@@ -20,6 +20,7 @@ import java.util.*;
 
 /**
  * Created by 陈亚兰 on 2018/1/5.
+ * 旅游产品检测 页面接口
  */
 @RequestMapping(value = "/tourismProduct")
 @RestController

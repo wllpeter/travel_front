@@ -26,8 +26,8 @@ public class CityForeignDealTime {
     private String economicZone;
     @Column(columnDefinition = "varchar(40) comment '城市 '")
     private String city;
-    @Column(columnDefinition = "int comment '笔数'")
-    private Integer dealTime;
+    @Column(columnDefinition = "varchar(40) comment '笔数'")
+    private String dealTime;
     @Column(columnDefinition = "bit comment '是否删除'")
     private Boolean deleted;
 }
