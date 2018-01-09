@@ -1,5 +1,6 @@
 package com.bbdservice.sichuan.service.impl;
 
+import com.bbdservice.sichuan.dao.SbdGeDiJiaoYiDao;
 import com.bbdservice.sichuan.entity.CityForeignDealTime;
 import com.bbdservice.sichuan.service.SbdGediJiaoYiService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,9 @@ import java.util.List;
 @Service
 public class SbdGeDiJiaoYiServiceImpl implements SbdGediJiaoYiService {
     @Autowired
-    private SbdGediJiaoYiService sbdGediJiaoYiService;
+    private SbdGeDiJiaoYiDao sbdGeDiJiaoYiDao;
     @Override
     public List<CityForeignDealTime> getAllList(int year, int month) {
-        return sbdGediJiaoYiService.getAllList(year,month);
+        return sbdGeDiJiaoYiDao.getAllList(year,month);
     }
 }
