@@ -1,7 +1,7 @@
 import echarts from 'echarts';
 
 /**
- * @description 从上到下，依次为柱状图, 雷达图，饼图，线图(折线或面积图),地图,数据区域缩放,百分比柱状图，多Y轴不同类型混合图
+ * @description 从上到下，依次为柱状图, 雷达图，饼图，线图(折线或面积图),地图,数据区域缩放,百分比柱状图，多Y轴不同类型混合图, 词云图
  * @type {{barChart: AD_CHART.barChart, radarChart: AD_CHART.radarChart, pieChart: AD_CHART.pieChart, lineChart: AD_CHART.lineChart, mapChart: AD_CHART.mapChart, zoomMap: AD_CHART.zoomMap, percentBarChart: AD_CHART.percentBarChart, multiYaxisTypeChart: AD_CHART.multiYaxisTypeChart}}
  */
 const AD_CHART = {
@@ -1371,8 +1371,62 @@ const AD_CHART = {
             multiTypeChart.hideLoading();
             multiTypeChart.setOption(options);
         }
-    }
+    },
+    wordCloudChart: function(params, callback) {
+        let wordCloudChart = echarts.init(document.getElementById(params.chartId));
 
+        let seriesData = [];
+        if(params.series) {
+            for(var i = 0; i < params.series.length; i++) {
+                let item = {
+                    name: (params.legend && params.legend.length > 0) ? params.legend[i] : '',
+                    type: 'wordCloud',
+                    size: ['90%', '90%'],
+                    sizeRange: [12, 60],
+                    rotationRange: [-45, 45],
+                    rotationStep: 10,
+                    shape: 'circle',
+                    textPadding: 0,
+                    autoSize: {
+                        enable: true,
+                        minSize: 12
+                    },
+                    textStyle: {
+                        normal: {
+                            color: '#00AFEC'
+                        },
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowColor: '#333'
+                        }
+                    },
+                    data: params.series[i]
+                };
+
+                seriesData.push(item);
+            }
+        }
+        let options = {
+            backgroundColor: '#1F3A59',
+            tooltip: {
+                show: true,
+                backgroundColor: '#1F3A59',
+                borderWidth: 1,
+                borderColor: '#ffffff',
+                padding: 7,
+                textStyle: {
+                    lineHeight: 56
+                }
+            },
+            series: seriesData
+        };
+
+        wordCloudChart.setOption(options);
+
+        if(callback) {
+            callback(params);
+        }
+    }
 };
 
 export default AD_CHART;

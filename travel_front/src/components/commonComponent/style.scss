@@ -4,8 +4,9 @@
   height: 100%;
 
   .panel-card-header {
-    padding-left: 22px;
-    padding-top: 30px;
+    padding: 18px 0 18px 22px;
+    //padding-left: 22px;
+    //padding-top: 30px;
 
     h3 {
       font-size: 0.8rem;
@@ -16,7 +17,7 @@
     .month-select {
       position: absolute;
       right: 30px;
-      top: 22px;
+      top: 18px;
       z-index: 100;
     }
 

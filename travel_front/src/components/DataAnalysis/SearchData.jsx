@@ -66,6 +66,11 @@ export default class TouristData extends Component {
             stack: true,
             series: [[23, 32, 54, 54, 54, 43, 43]]
         });
+
+        // 搜索关注热词云
+        AdCharts.wordCloudChart({
+            chartId: 'searchHotwordCloud'
+        })
     }
 
     render() {
@@ -86,7 +91,7 @@ export default class TouristData extends Component {
             <Row>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
                     <PanelCard title="搜索关注热词云">
-
+                        <div id="searchHotwordCloud" style={{ width: '100%', height: 300 }}></div>
                     </PanelCard>
                 </Col>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
