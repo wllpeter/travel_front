@@ -4,6 +4,8 @@
 import React, {Component} from 'react';
 import AD_CHART from '../../../utils/adCharts';
 import ToggleButtonGroup from '../../commonComponent/ToggleButtonGroup';
+import {getClassifyType} from '../../../services/ProductMonitor/ProductData';
+import PanelCard from '../../commonComponent/PanelCard';
 
 export default class ProductClassify extends Component {
     constructor(props) {
@@ -11,81 +13,53 @@ export default class ProductClassify extends Component {
     }
 
     componentDidMount() {
-        this.print();
+        this.getClassifyType();
+        this.state = {
+            productType: 1,
+            dataType: 1,
+            date: '2017-04'
+        };
     }
 
-    print() {
+    getClassifyType() {
+        getClassifyType({
+            productType: 1,
+            dataType: 1,
+            date: '2017-04'
+        }).then((res) => {
+            this.print(this.handleData(res));
+        });
+    }
+
+    // 处理数据
+    handleData(res) {
+        let legend = [];
+        let data = [];
+        res.forEach((item) => {
+            legend.push({
+                name: item.name,
+                icon: 'circle'
+            });
+            data.push({
+                name: item.name,
+                value: item.count
+            });
+        });
+        return {
+            legend: legend,
+            data: data
+        };
+    }
+
+    // 绘制图表
+    print(data) {
         AD_CHART.pieChart({
             chartId: 'classify-map',
             borderWidth: 6,
             legendTop: 70,
             borderColor: '#072648',
-            legend: [
-                {
-                    name: '亲水',
-                    icon: 'circle'
-                },
-                {
-                    name: '自然景观',
-                    icon: 'circle'
-                },
-                {
-                    name: '名胜人文',
-                    icon: 'circle'
-                },
-                {
-                    name: '公园',
-                    icon: 'circle'
-                },
-                {
-                    name: '观光',
-                    icon: 'circle'
-                },
-                {
-                    name: '休闲娱乐',
-                    icon: 'circle'
-                },
-                {
-                    name: '运动拓展',
-                    icon: 'circle'
-                },
-                {
-                    name: '美食',
-                    icon: 'circle'
-                }],
-            data: [
-                {
-                    value: 80,
-                    name: '亲水'
-                },
-                {
-                    value: 24,
-                    name: '自然景观'
-                },
-                {
-                    value: 23,
-                    name: '名胜人文'
-                },
-                {
-                    value: 99,
-                    name: '公园'
-                },
-                {
-                    value: 39,
-                    name: '观光'
-                },
-                {
-                    value: 68,
-                    name: '休闲娱乐'
-                },
-                {
-                    value: 43,
-                    name: '运动拓展'
-                },
-                {
-                    value: 70,
-                    name: '美食'
-                }]
+            legend: data.legend,
+            data: data.data
         });
     }
 
@@ -96,10 +70,14 @@ export default class ProductClassify extends Component {
                 {buttonName: '消费'}
             ]
         };
-        return <div className="switch-btn-box">
-            <ToggleButtonGroup {...switchProps}></ToggleButtonGroup>
-            <div id="classify-map" className="product-map">
+        return <PanelCard title="旅游产品分类" zoomRequired={false} monthRequired={true}>
+
+            <div className="switch-btn-box">
+                <ToggleButtonGroup {...switchProps}></ToggleButtonGroup>
+                <div id="classify-map" className="product-map">
+                </div>
             </div>
-        </div>;
+        </PanelCard>;
+
     }
 }

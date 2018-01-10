@@ -33,7 +33,12 @@ export default class PanelCard extends Component {
             <div className="panel-card-header">
                 <h3>{title}</h3>
                 {
-                    monthRequired && <MonthPicker allowClear={false} className="month-select" format="YYYY年MM月"/>
+                    monthRequired &&
+                    <MonthPicker allowClear={false} className="month-select" format="YYYY年MM月"
+                                 onChange={(dates, a) => {
+                                     console.log(dates);
+                                     console.log(a);
+                                 }}/>
                 }
 
                 {

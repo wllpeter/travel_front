@@ -24,7 +24,7 @@ export default class PraiseList extends Component {
                 {buttonName: '景区'}
             ],
             style: {
-                top: '-3%',
+                top: '-5%',
                 right: '50%',
                 transform: 'translateX(50%)'
             }
