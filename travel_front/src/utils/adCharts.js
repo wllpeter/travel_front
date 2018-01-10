@@ -653,7 +653,7 @@ const AD_CHART = {
         //     LineChart.resize();
         // });
     },
-    mapLevelChart: function (params, callback) {
+    mapLevelCopyChart: function (params, callback) {
         let mapTypeName = city ? city : province;
         let idHaiNan = false;
         if (province === '海南省' && city === '') {
@@ -822,6 +822,9 @@ const AD_CHART = {
                 }
             });
         });
+    },
+    mapLevelChart: function(params, callback) {
+
     },
     mapChart: function(params, callback) {
         let name = params.mapTypeName;
