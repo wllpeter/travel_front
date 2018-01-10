@@ -51,7 +51,7 @@ export function getDataZoom(params) {
             type: 'slider',
             show: showZoom,
             backgroundColor: params.zoomBackground || '#1F3A59',
-            handleIcon: 'M230 80 A 45 45, 0, 1, 0, 231 80 Z',
+            // handleIcon: 'M230 80 A 45 45, 0, 1, 0, 231 80 Z',
             fillerColor: params.zoomFiller || '#165B8A',
             borderColor: 'transparent',
             zoomLock: true,
@@ -65,4 +65,12 @@ export function getDataZoom(params) {
             end: 100
         }
     ];
+}
+
+// 补全显示的月份和日期
+export function dateFormat(n) {
+    if (n.toString().length < 2) {
+        n = '0' + n;
+    }
+    return n;
 }

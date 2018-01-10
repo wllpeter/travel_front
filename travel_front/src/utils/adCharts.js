@@ -167,6 +167,9 @@ const AD_CHART = {
                 return p[0].axisValue + '<br>' + p[0].marker + p[0].data + params.unit;
             };
         }
+        if(params.dataZoom){
+            options.dataZoom = params.dataZoom;
+        }
         BarChart.setOption(options, true);
         if (callback) {
             BarChart.on('click', function (param) {

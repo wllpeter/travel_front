@@ -18,3 +18,12 @@ export function getOverAllMerit(data) {
         data: data
     });
 }
+
+// 旅游产品供给
+export function getSupplyConsume(data) {
+    return Ajax({
+        url: '/tourismProduct/getSupplyConsume',
+        type: HttpMethod.GET,
+        data: data
+    });
+}

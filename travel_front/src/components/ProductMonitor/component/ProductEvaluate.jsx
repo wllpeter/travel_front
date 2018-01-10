@@ -4,7 +4,7 @@
 import React, {Component} from 'react';
 import PanelCard from '../../commonComponent/PanelCard';
 import {getOverAllMerit} from '../../../services/ProductMonitor/ProductData';
-import {colorHex, getDataZoom} from '../../../utils/tools';
+import {colorHex, getDataZoom, dateFormat} from '../../../utils/tools';
 import echarts from 'echarts';
 
 export default class ProductEvaluate extends Component {
@@ -33,14 +33,8 @@ export default class ProductEvaluate extends Component {
         let avgscore = [];
         let compared = [];
         let comparedMax = 0;
-        let fn = (n) => {
-            if (n.toString().length < 2) {
-                n = '0' + n;
-            }
-            return n;
-        };
         res.forEach((item) => {
-            xAxis.unshift(item.year + '-' + fn(item.month));
+            xAxis.unshift(item.year + '-' + dateFormat(item.month));
             avgscore.unshift(item.avgscore);
             compared.unshift(item.compared);
             if (item.compared > comparedMax) {
@@ -68,7 +62,7 @@ export default class ProductEvaluate extends Component {
 
     print(params) {
         let color = ['#00A9FF', '#32C889'];
-        // 十六进制颜色转为RGB格式
+
         let option = {
             tooltip: {
                 trigger: 'axis',
