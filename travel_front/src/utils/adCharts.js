@@ -3,8 +3,8 @@ import $ from 'jquery';
 import {colorHex} from '../utils/tools';
 
 /**
- * @description 从上到下，依次为柱状图, 雷达图，饼图，线图(折线或面积图),地图,数据区域缩放,百分比柱状图，多Y轴不同类型混合图, 词云图
- * @type {{barChart: AD_CHART.barChart, radarChart: AD_CHART.radarChart, pieChart: AD_CHART.pieChart, lineChart: AD_CHART.lineChart, mapChart: AD_CHART.mapChart, zoomMap: AD_CHART.zoomMap, percentBarChart: AD_CHART.percentBarChart, multiYaxisTypeChart: AD_CHART.multiYaxisTypeChart}}
+ *  @description 从上到下，依次为柱状图, 雷达图，饼图，线图(折线或面积图),地图(有纵向子级),地图(散点或视觉映射),数据区域缩放,百分比柱状图，多Y轴不同类型混合图, 词云图
+ * @type {{barChart: AD_CHART.barChart, radarChart: AD_CHART.radarChart, pieChart: AD_CHART.pieChart, lineChart: AD_CHART.lineChart, mapLevelChart: AD_CHART.mapLevelChart, mapChart: AD_CHART.mapChart, zoomMap: AD_CHART.zoomMap, percentBarChart: AD_CHART.percentBarChart, multiYaxisTypeChart: AD_CHART.multiYaxisTypeChart, wordCloudChart: AD_CHART.wordCloudChart}}
  */
 const AD_CHART = {
     barChart: function (params, callback) {
@@ -653,178 +653,79 @@ const AD_CHART = {
         //     LineChart.resize();
         // });
     },
-    mapLevelCopyChart: function (params, callback) {
-        let mapTypeName = city ? city : province;
-        let idHaiNan = false;
-        if (province === '海南省' && city === '') {
-            idHaiNan = true;
-        }
-        echarts.registerMap(mapTypeName, data);
-        var mapChart = echarts.init(document.getElementById(params.chartId));
-        mapChart.setOption(
-            {
-                center: idHaiNan ? [110.388793, 18.796216] : '',
-                tooltip: {
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                    padding: [10, 10, 20, 10],
-                    trigger: 'item',
-                    borderWidth: 0,
-                    extraCssText: 'box-shadow: -3px 3px 14px 4px #053a6b',
-                    textStyle: {
-                        color: '#333333',
-                        fontSize: '14'
-                    },
-                    formatter: function (param) {
-                        let data = param.data.value;
-                        let changeMonitorCompany = '';
-                        if (data[8] > 0) {
-                            changeMonitorCompany = '+' + data[8];
-                        } else if (data[8] < 0) {
-                            changeMonitorCompany = data[8];
-                        }
-                        let changeHighCompany = '';
-                        if (data[7] > 0) {
-                            changeHighCompany = '+' + data[7];
-                        } else if (data[7] < 0) {
-                            changeHighCompany = data[7];
-                        }
-                        let highCollect = data[5] ? data[5] : '- -';
-                        return city ?
-                            `<div class = "mapTooltip">
-                                    <p class = "title"><b>${param.name}</b></p>
-                                    <p>高危企业数<span class = "color-blue">${data[2]}</span>家<span class = "color-yellow">${changeHighCompany}</span></p>
-                                    <p>监控企业数<span class = "color-blue">${data[6]}</span>家<span class = "color-yellow">${changeMonitorCompany}</span></p>
-                                <div>` :
-                            `<div class = "mapTooltip">
-                                    <p class = "title"><b>${param.name}</b></p>
-                                    <p>监测地区<span class = "color-blue">${data[4]}</span>个</p>
-                                    <p>高危聚集区<span class = "color-blue">${highCollect}</span></p>
-                                    <p>高危企业数<span class = "color-blue">${data[2]}</span>家<span class = "color-yellow">${changeHighCompany}</span></p>
-                                    <p>监控企业数<span class = "color-blue">${data[6]}</span>家<span class = "color-yellow">${changeMonitorCompany}</span></p>
-                                <div>`;
-                    }
-                },
-                geo: {
-                    type: 'map',
-                    zoom: idHaiNan ? 4 : 1,
-                    map: mapTypeName,
-                    mapType: mapTypeName,
-                    label: {
-                        normal: {
-                            show: opt.labelShow ? true : false,
-                            textStyle: {
-                                color: opt.textColor ? opt.textColor : '#fff'
-                            }
-                        },
-                        emphasis: {
-                            show: opt.labelShow ? true : false,
-                            textStyle: {
-                                color: opt.textColor ? opt.textColor : '#fff'
-                            }
-                        }
-                    },
-                    itemStyle: {
-                        normal: {
-                            areaColor: opt.areaColor ? opt.areaColor : 'none',
-                            borderColor: opt.borderColor ? opt.borderColor : 'none'
-                        },
-                        emphasis: {
-                            areaColor: opt.areaColorEmp ? opt.areaColorEmp : 'none' // 鼠标放上去的效果
-                        }
-                    }
-                },
-                series: [{
-                    name: 'Top 5',
-                    type: 'effectScatter',
-                    coordinateSystem: 'geo',
-                    data: opt.scatterdata,
-                    symbolSize: function (val) {
-                        // 任意一点的半径为a+（b-a）/（最大企业量-最小企业量）*（该点企业量-最小点企业量）
-                        // 最大点半径限制为b，最小为a
-                        let simple = 0;
-                        if (val[2]) {
-                            simple = opt.highMax === opt.highMin ? 10 : 10 + (30 - 10) / (opt.highMax - opt.highMin) * (val[2] - opt.highMin);
-                        }
-                        return simple;
-                    },
-                    showEffectOn: 'render',
-                    rippleEffect: {
-                        brushType: 'stroke'
-                    },
-                    hoverAnimation: true,
-                    label: {
-                        normal: {
-                            formatter: '{b}',
-                            position: 'right',
-                            show: false
-                        }
-                    },
-                    itemStyle: {
-                        normal: {
-                            color: '#fdde62',
-                            shadowBlur: 10,
-                            shadowColor: '#ECDA6B'
-                        }
-                    },
-                    zlevel: 1
-                },
-                    {
-                        name: 'categoryA',
-                        type: 'map',
-                        geoIndex: 0,
-                        tooltip: {
-                            show: true,
-                            formatter: function (param) {
-                                let data = opt.formatterArr[param.name];
-                                if (data) {
-                                    let changeMonitorCompany = '';
-                                    if (data[8] > 0) {
-                                        changeMonitorCompany = '+' + data[8];
-                                    } else if (data[8] < 0) {
-                                        changeMonitorCompany = data[8];
-                                    }
-                                    let changeHighCompany = '';
-                                    if (data[7] > 0) {
-                                        changeHighCompany = '+' + data[7];
-                                    } else if (data[7] < 0) {
-                                        changeHighCompany = data[7];
-                                    }
-                                    let highCollect = data[5] ? data[5] : '- -';
-                                    return city ?
-                                        `<div class = "mapTooltip">
-                                    <p class = "title"><b>${param.name}</b></p>
-                                    <p>高危企业数<span class = "color-blue">${data[2]}</span>家<span class = "color-yellow">${changeHighCompany}</span></p>
-                                    <p>监控企业数<span class = "color-blue">${data[6]}</span>家<span class = "color-yellow">${changeMonitorCompany}</span></p>
-                                <div>` :
-                                        `<div class = "mapTooltip">
-                                    <p class = "title"><b>${param.name}</b></p>
-                                    <p>监测地区<span class = "color-blue">${data[4]}</span>个</p>
-                                    <p>高危聚集区<span class = "color-blue">${highCollect}</span></p>
-                                    <p>高危企业数<span class = "color-blue">${data[2]}</span>家<span class = "color-yellow">${changeHighCompany}</span></p>
-                                    <p>监控企业数<span class = "color-blue">${data[6]}</span>家<span class = "color-yellow">${changeMonitorCompany}</span></p>
-                                <div>`;
-                                }
+    mapLevelChart: function(params, callback) {
+        let name = params.mapTypeName;
 
+        $.get('/static/data/map/' + name + '.json', function(geoJson) {
+            echarts.registerMap(name, geoJson);
+
+            let mapChart = echarts.init(document.getElementById(params.chartId));
+
+            let seriesData = [];
+
+            if(params.series && params.series.length) {
+                for(var i = 0; i < params.series.length; i++) {
+                    let item = {
+                        name: (params.legend && params.legend.length) ? params.legend[i] : '' ,
+                        type: 'map',
+                        map: name,
+                        mapType: name,
+                        roam: true,
+                        zoom: 1.1,
+                        scaleLimit: {
+                            min: 1,
+                            max: 2.5
+                        },
+                        left: '14%',
+                        top: 25,
+                        label: {
+                            normal: {
+                                show: true,
+                                textStyle: {
+                                    color: 'rgba(255, 255, 255, 0.95)',
+                                    fontSize: 14
+                                }
                             }
-                        }
-                    }]
-            });
-        mapChart.on('click', function (param) {
-            if (mapback) {
-                mapback(param.name);
+                        },
+                        data: params.series[i]
+                    };
+
+                    seriesData.push(item);
+                }
             }
-            mapChart.setOption({
-                geo: {
-                    regions: [{
-                        name: param.name,
-                        selected: true
-                    }]
+
+            let options = {
+                tooltip: {
+                    trigger: 'item'
+                },
+                visualMap: {
+                    min: 0,
+                        max: 500,
+                        right: 25,
+                        bottom: 45,
+                        orient: 'horizontal',
+                        itemWidth: 20,
+                        itemHeight: 250,
+                        text: ['高', '低'],
+                        calculable: true,
+                        textStyle: {
+                        color: 'rgba(255, 255, 255, 0.95)',
+                            fontSize: 14
+                    },
+                    inRange: {
+                        color: ['#2e70b8', '#00a6ff', '#02c4bc', '#35d77c', '#9bdb74', '#abdd73']
+                    }
+                },
+                series: seriesData
+            };
+            mapChart.setOption(options);
+
+            mapChart.on('click', function (param) {
+                if (callback) {
+                    callback(param.name);
                 }
             });
         });
-    },
-    mapLevelChart: function(params, callback) {
-
     },
     mapChart: function(params, callback) {
         let name = params.mapTypeName;

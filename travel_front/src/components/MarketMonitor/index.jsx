@@ -13,47 +13,93 @@ import './style.scss';
 export default class TouristData extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            industryActiveness: {
+                province: {
+                    mapTypeName: '四川省区域',
+                    seriesData: [
+                        {
+                            name: '川西北经济区',
+                            value: 220,
+                        },
+                        {
+                            name: '成都平原经济区',
+                            value: 330,
+                        },
+                        {
+                            name: '川东北经济区',
+                            value: 440,
+                        },
+                        {
+                            name: '川南经济区',
+                            value: 110,
+                        },
+                        {
+                            name: '攀西经济区',
+                            value: 430,
+                        }
+                    ]
+                },
+                economicZone: {
+                    mapTypeName: '成都平原经济区',
+                    seriesData: [
+                        {
+                            name: '成都市',
+                            value: 220,
+                        },
+                        {
+                            name: '德阳市',
+                            value: 330,
+                        },
+                        {
+                            name: '绵阳市',
+                            value: 440,
+                        },
+                        {
+                            name: '遂宁市',
+                            value: 110,
+                        },
+                        {
+                            name: '资阳市',
+                            value: 430,
+                        },
+                        {
+                            name: '雅安市',
+                            value: 320,
+                        },
+                        {
+                            name: '眉山市',
+                            value: 120,
+                        },
+                        {
+                            name: '乐山市',
+                            value: 490,
+                        }
+                    ]
+                },
+                city: {
+                    mapTypeName: '成都市',
+                    seriesData: []
+                }
+
+            }
+        };
+    }
+
+    // 地图选中回调
+    mapCallback(params) {
+        console.log('----params-----:', params);
+        const { economicZone } = this.state.industryActiveness;
+
+        this.renderMapLevelChart(economicZone.mapTypeName, economicZone.seriesData)
     }
 
     componentDidMount() {
         // 旅游行业活跃度
-        let mapChart = echarts.init(document.getElementById('mapChart'));
-        let name = 'sc';
-        $.get('/static/data/map/四川省区域.json', function(geoJson) {
-            echarts.registerMap(name, geoJson);
+        const { province } = this.state.industryActiveness;
 
-            mapChart.setOption({
-                series: [{
-                    type: 'map',
-                    mapType: name,
-                    label: {
-                        normal: {
-                            show: false,
-                        },
-                        emphasis: {
-                            textStyle: {
-                                color: 'rgba(255, 255, 255, 0.8)'
-                            }
-                        }
-                    },
-                    itemStyle: {
-
-                        normal: {
-                            borderColor: '#fff',
-                            borderWidth: 1,
-                        },
-                        emphasis: {
-                            areaColor: '#7AC6F9',
-                            borderColor: 'rgb(255,222,254)',
-                            borderWidth: 1,
-                        }
-                    },
-                    animation: false
-                }]
-            });
-        });
-
-
+        this.renderMapLevelChart(province.mapTypeName, province.seriesData);
 
         AD_CHART.pieChart({
             chartId: 'pieChart',
@@ -145,6 +191,16 @@ export default class TouristData extends Component {
             seriesLabelShow: true,
             series: [[95.32, 85.32, 95.23, 57.32, 95.32, 85.32, 95.23, 57.32]]
         })
+    }
+
+    // 渲染纵深层级地图
+    renderMapLevelChart(mapTypeName, seriesData) {
+        AD_CHART.mapLevelChart({
+            chartId: 'mapChart',
+            mapTypeName: mapTypeName,
+            legend: ['旅游行业活跃度'],
+            series: [seriesData]
+        }, this.mapCallback.bind(this) );
     }
 
     render() {
