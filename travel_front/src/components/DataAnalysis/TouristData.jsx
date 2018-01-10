@@ -8,6 +8,7 @@ import { Row, Col } from 'antd';
 import 'antd/lib/grid/style';
 import maleIcon from '../../assets/images/male.png';
 import femaleIcon from '../../assets/images/female.png';
+import { getProvinceCustomerData } from '../../services/DataAnalysis/touristData';
 import './style.scss';
 
 export default class TouristData extends Component {
@@ -16,6 +17,12 @@ export default class TouristData extends Component {
     }
 
     componentDidMount() {
+
+        getProvinceCustomerData(['2017', '1']).then(data => {
+            console.log('获取到四川省游客分析数据:', data);
+        });
+
+
         // 四川省游客年龄分布图
         adCharts.pieChart({
             chartId: 'provinceAgePieChart',

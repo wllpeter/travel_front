@@ -25,6 +25,12 @@ export function isNumber(obj) {
     return _getClass(obj).toLowerCase() === 'number' && !isNaN(obj);
 }
 
+
+export function isFormData(obj){
+    return obj instanceof FormData;
+}
+
+
 export function setCookie(name, value) {
     var Days = 30;
     var exp = new Date();
