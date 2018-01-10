@@ -12,8 +12,9 @@ export default class ProductClassify extends Component {
         super(props);
         this.state = {
             productType: 1,
-            dataType: 1,
-            date: '2017-04'
+            dataType: 1, // 1-供给 0-消费
+            date: '2017-04',
+            activeIndex: 0
         };
     }
 
@@ -21,11 +22,11 @@ export default class ProductClassify extends Component {
         this.getClassifyType(this.state.date);
     }
 
-    getClassifyType(date) {
+    getClassifyType() {
         getClassifyType({
-            productType: 1,
-            dataType: 1,
-            date: date
+            productType: this.state.productType,
+            dataType: this.state.dataType,
+            date: this.state.date
         }).then((res) => {
             this.print(this.handleData(res));
         });
@@ -64,16 +65,25 @@ export default class ProductClassify extends Component {
     }
 
     // 选择日期
-    monthPickerChange(dateString){
-        this.getClassifyType(dateString);
+    monthPickerChange(dateString) {
+        this.setState({date: dateString}, () => {
+            this.getClassifyType();
+        });
     }
 
     render() {
         let switchProps = {
             buttons: [
-                {buttonName: '供给'},
-                {buttonName: '消费'}
-            ]
+                {buttonName: '供给', dataType: 1},
+                {buttonName: '消费', dataType: 0}
+            ],
+            clickBack: (params) => {
+                this.setState({
+                    dataType: params.dataType
+                }, () => {
+                    this.getClassifyType();
+                });
+            }
         };
         let panelProps = {
             monthPickerChange: this.monthPickerChange.bind(this),
