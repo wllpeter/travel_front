@@ -3,7 +3,7 @@ package com.bbdservice.sichuan.dao;
 import com.bbdservice.sichuan.entity.CityForeignDealTime;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import sun.awt.SunHints;
+
 
 import java.util.List;
 
