@@ -56,9 +56,7 @@ export default class ProductMonitor extends Component {
                     </Col>
                     <Col span={6} lg={ 8 } xl={ 6 }  >
                         <Col span={24} className="product-praise">
-                            <PanelCard title="旅游产品好评榜" zoomRequired={false} monthRequired={true}>
-                                <PraiseList></PraiseList>
-                            </PanelCard>
+                            <PraiseList></PraiseList>
                         </Col>
                     </Col>
                     <Col span={6}  lg={ 8 } xl={ 6 }  className="product-down">

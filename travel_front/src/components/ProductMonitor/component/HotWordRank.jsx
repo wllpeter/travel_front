@@ -2,6 +2,7 @@
  * @description 产品热词排行榜
  */
 import React, {Component} from 'react';
+import {getKeyWordRank} from '../../../services/ProductMonitor/ProductData';
 
 export default class HotWordRank extends Component {
     constructor(props) {

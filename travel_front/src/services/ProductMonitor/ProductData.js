@@ -27,3 +27,21 @@ export function getSupplyConsume(data) {
         data: data
     });
 }
+
+// 旅游产品好评榜
+export function getOpinionRank(data) {
+    return Ajax({
+        url: '/tourismProduct/getOpinionRank',
+        type: HttpMethod.GET,
+        data: data
+    });
+}
+
+// 旅游产品热词搜索排行榜
+export function getKeyWordRank(data) {
+    return Ajax({
+        url: '/tourismProduct/getKeyWordRank',
+        type: HttpMethod.GET,
+        data: data
+    });
+}
