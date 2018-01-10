@@ -13,6 +13,12 @@ export default class TouristData extends Component {
     }
 
     componentDidMount() {
+        // 全省旅游搜索热力图
+        AdCharts.mapChart({
+            chartId: 'visualMapContinuous'
+        });
+
+
         // 搜索人群年龄分布
         AdCharts.pieChart({
             chartId: 'searchPeopleAgePieChart',
@@ -66,6 +72,73 @@ export default class TouristData extends Component {
             stack: true,
             series: [[23, 32, 54, 54, 54, 43, 43]]
         });
+
+        // 搜索关注热词云
+        AdCharts.wordCloudChart({
+            chartId: 'searchHotwordCloud',
+            series: [[
+                {
+                    name: '生活资源',
+                    value: '999'
+                }, {
+                    name: '供热管理',
+                    value: '888'
+                }, {
+                    name: '供气质量',
+                    value: '777'
+                }, {
+                    name: '生活用水管理',
+                    value: '688'
+                }, {
+                    name: '一次供水问题',
+                    value: '588'
+                }, {
+                    name: '交通运输',
+                    value: '516'
+                }, {
+                    name: '城市交通',
+                    value: '515'
+                }, {
+                    name: '环境保护',
+                    value: '483'
+                }, {
+                    name: '房地产管理',
+                    value: '462'
+                }, {
+                    name: '城乡建设',
+                    value: '449'
+                }, {
+                    name: '社会保障与福利',
+                    value: '429'
+                }, {
+                    name: '社会保障',
+                    value: '407'
+                }, {
+                    name: '文体与教育管理',
+                    value: '406'
+                }, {
+                    name: '供气质量',
+                    value: '223'
+                }, {
+                    name: '供电管理',
+                    value: '223'
+                }, {
+                    name: '燃气管理',
+                    value: '152'
+                }, {
+                    name: '教育管理',
+                    value: '152'
+                }, {
+                    name: '医疗纠纷',
+                    value: '152'
+                }
+            ]]
+        });
+
+        // 搜索人群来源地
+        AdCharts.mapChart({
+            chartId: 'visualMapPiecewise'
+        })
     }
 
     render() {
@@ -73,12 +146,12 @@ export default class TouristData extends Component {
             <Row>
                 <Col span={ 12 } lg={ 24 } xl={ 12 }>
                     <PanelCard title="全省旅游搜索热力图" zoomRequired={ false }>
-
+                        <div id="visualMapContinuous" style={{ width: '100%', height: 600 }}></div>
                     </PanelCard>
                 </Col>
                 <Col span={ 12 } lg={ 24 } xl={ 12 }>
                     <PanelCard title="全省旅游搜索热度趋势" zoomRequired={ false }>
-                        <div id="provinceSearchHotLineChart" style={{ width: '100%', height: 300 }}></div>
+                        <div id="provinceSearchHotLineChart" style={{ width: '100%', height: 600 }}></div>
                     </PanelCard>
                 </Col>
             </Row>
@@ -86,12 +159,12 @@ export default class TouristData extends Component {
             <Row>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
                     <PanelCard title="搜索关注热词云">
-
+                        <div id="searchHotwordCloud" style={{ width: '100%', height: 300 }}></div>
                     </PanelCard>
                 </Col>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
                     <PanelCard title="搜索人群来源地">
-
+                        <div id="visualMapPiecewise" style={{ width: '100%', height: 300 }}></div>
                     </PanelCard>
                 </Col>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
