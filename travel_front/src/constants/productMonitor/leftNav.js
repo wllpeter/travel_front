@@ -1,27 +1,33 @@
 const LEFT_NAV_DATA = [
     {
         name: '旅游',
-        icon: 'icon-bao'
+        icon: 'icon-bao',
+        productType: 1
     },
     {
         name: '住宿',
-        icon: 'icon-chuang'
+        icon: 'icon-chuang',
+        productType: 2
     },
     {
         name: '餐饮',
-        icon: 'icon-canju'
+        icon: 'icon-canju',
+        productType: 3
     },
     {
         name: '购物',
-        icon: 'icon-shopping'
+        icon: 'icon-shopping',
+        productType: 4
     },
     {
         name: '娱乐',
-        icon: 'icon-jiubei'
+        icon: 'icon-jiubei',
+        productType: 5
     },
     {
         name: '出行',
-        icon: 'icon-aircraft'
+        icon: 'icon-aircraft',
+        productType: 6
     }
 ];
 

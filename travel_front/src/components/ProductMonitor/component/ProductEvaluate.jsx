@@ -32,20 +32,11 @@ export default class ProductEvaluate extends Component {
         let xAxis = [];
         let avgscore = [];
         let compared = [];
-        let comparedMax = 0;
         res.forEach((item) => {
             xAxis.unshift(item.year + '-' + dateFormat(item.month));
             avgscore.unshift(item.avgscore);
             compared.unshift(item.compared);
-            if (item.compared > comparedMax) {
-                comparedMax = item.compared;
-            }
         });
-        if (comparedMax < 30) {
-            comparedMax = 30;
-        } else {
-            comparedMax = Math.ceil(comparedMax / 10) * 10;
-        }
         let dataZoom = getDataZoom({
             lengthMax: xAxis.length,
             showLength: 6
@@ -54,7 +45,6 @@ export default class ProductEvaluate extends Component {
             xAxis,
             avgscore,
             compared,
-            comparedMax,
             dataZoom,
             zoomShow: xAxis.length > 6
         };
@@ -133,9 +123,6 @@ export default class ProductEvaluate extends Component {
                         color: '#ffffff',
                         fontSize: 16
                     },
-                    min: 0,
-                    max: 5,
-                    interval: 1,
                     axisLabel: {
                         color: '#ffffff',
                         textStyle: {
@@ -167,9 +154,6 @@ export default class ProductEvaluate extends Component {
                         color: '#ffffff',
                         fontSize: 16
                     },
-                    min: 0,
-                    max: params.comparedMax,
-                    interval: 10,
                     axisLabel: {
                         color: '#ffffff',
                         textStyle: {

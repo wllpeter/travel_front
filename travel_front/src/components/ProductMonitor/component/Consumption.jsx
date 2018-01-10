@@ -12,9 +12,19 @@ export default class Consumption extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            productType: 1,
+            productType: this.props.productType,
             dataType: 1 // 1-供给 2-消费
         };
+    }
+
+    componentDidUpdate() {
+        if (this.state.productType !== this.props.productType) {
+            this.setState({
+                productType: this.props.productType
+            }, () => {
+                this.getSupplyConsume();
+            });
+        }
     }
 
     componentDidMount() {
@@ -34,6 +44,7 @@ export default class Consumption extends Component {
     handleData(res) {
         let serie = [];
         let xAxis = [];
+        res = res || [];
         res.forEach((item) => {
             xAxis.unshift(item.year + '-' + dateFormat(item.month));
             serie.unshift(item.count);

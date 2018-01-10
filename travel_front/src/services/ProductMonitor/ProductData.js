@@ -45,3 +45,12 @@ export function getKeyWordRank(data) {
         data: data
     });
 }
+
+// 旅游产品产品价格走势
+export function getPriceTrend(data) {
+    return Ajax({
+        url: '/tourismProduct/getPriceTrend',
+        type: HttpMethod.GET,
+        data: data
+    });
+}
