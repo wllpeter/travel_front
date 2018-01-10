@@ -261,7 +261,7 @@ export default class TouristData extends Component {
         return <div className="tourist-data">
             <Row>
                 <Col span={ 12 } lg={ 24 } xl={ 12 }>
-                    <PanelCard title="四川省游客分析" zoomRequired={ false } className="br-line">
+                    <PanelCard title="四川省游客分析" zoomRequired={ false } className="br-line" headerClassName="header-bg color-white month-top-12">
                         <Row>
                             <Col span={ 12 }>
                                 <PanelCard title="四川省游客年龄分布" zoomRequired={ false } monthRequired={ false }>
@@ -299,7 +299,7 @@ export default class TouristData extends Component {
                     </PanelCard>
                 </Col>
                 <Col span={ 12 } lg={ 24 } xl={ 12 }>
-                    <PanelCard title="乡村游游客分析" zoomRequired={ false }>
+                    <PanelCard title="乡村游游客分析" zoomRequired={ false } headerClassName="header-bg color-white month-top-12">
                         <Row>
                             <Col span={ 12 }>
                                 <PanelCard title="乡村游游客年龄分析" zoomRequired={ false } monthRequired={ false }>

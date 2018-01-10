@@ -648,7 +648,7 @@ const AD_CHART = {
         //     LineChart.resize();
         // });
     },
-    mapChart: function (params, callback) {
+    mapLevelChart: function (params, callback) {
         let mapTypeName = city ? city : province;
         let idHaiNan = false;
         if (province === '海南省' && city === '') {
@@ -817,6 +817,9 @@ const AD_CHART = {
                 }
             });
         });
+    },
+    mapChart: function(params, callback) {
+
     },
     zoomMap: function (params, callback) {
         // 十六进制颜色转为RGB格式
