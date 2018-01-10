@@ -84,6 +84,9 @@ public class OpinionRank {
     @Column(name = "up_down")
     private Integer upDown;
 
+    @Column(name="change_num")
+    private Integer changeNum;
+
     /**
      * 修改后ID
      */
