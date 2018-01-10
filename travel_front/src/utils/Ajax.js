@@ -212,11 +212,11 @@ function log(data, title) {
     }
     console.log(data);
     if (console.table && isArray(data.result)) {
-        console.table(data.result);
+        // console.table(data.result);
     }
 
     if(console.table && isObject(data.result) && isArray(data.result.list)) {
-        console.table(data.result.list);
+        // console.table(data.result.list);
     }
 
     if (title) {

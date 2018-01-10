@@ -1,4 +1,5 @@
 import echarts from 'echarts';
+import {colorHex} from '../utils/tools';
 
 /**
  * @description 从上到下，依次为柱状图, 雷达图，饼图，线图(折线或面积图),地图,数据区域缩放,百分比柱状图，多Y轴不同类型混合图, 词云图
@@ -822,33 +823,6 @@ const AD_CHART = {
 
     },
     zoomMap: function (params, callback) {
-        // 十六进制颜色转为RGB格式
-        let colorHex = (color, opacity) => {
-            let sColor = color.toLowerCase();
-            // 十六进制颜色值的正则表达式
-            let reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
-            // 如果是16进制颜色
-            if (sColor && reg.test(sColor)) {
-                if (sColor.length === 4) {
-                    let sColorNew = '#';
-                    for (let i = 1; i < 4; i += 1) {
-                        sColorNew += sColor.slice(i, i + 1).concat(sColor.slice(i, i + 1));
-                    }
-                    sColor = sColorNew;
-                }
-                // 处理六位的颜色值
-                let sColorChange = [];
-                for (let i = 1; i < 7; i += 2) {
-                    sColorChange.push(parseInt('0x' + sColor.slice(i, i + 2)));
-                }
-                if (opacity) {
-                    return 'RGBA(' + sColorChange.join(',') + ',' + opacity + ')';
-                }
-                return 'RGB(' + sColorChange.join(',') + ')';
-            }
-            return sColor;
-        };
-
         const len = 24; // 定义数据长度为24
         // 制造假数据
         let getData = (m) => {

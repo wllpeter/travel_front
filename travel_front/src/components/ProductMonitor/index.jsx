@@ -44,9 +44,7 @@ export default class ProductMonitor extends Component {
                             </Col>
                             <Col span={1}></Col>
                             <Col span={14} lg={ 23 } xl={ 14 }>
-                                <PanelCard title="旅游产品综合评价" zoomRequired={false} monthRequired={false}>
-                                    <ProductEvaluate></ProductEvaluate>
-                                </PanelCard>
+                                <ProductEvaluate></ProductEvaluate>
                             </Col>
                         </Row>
                         <Row className="mb-20">
