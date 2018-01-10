@@ -1,7 +1,9 @@
 import echarts from 'echarts';
+import $ from 'jquery';
+import {colorHex} from '../utils/tools';
 
 /**
- * @description 从上到下，依次为柱状图, 雷达图，饼图，线图(折线或面积图),地图,数据区域缩放,百分比柱状图，多Y轴不同类型混合图
+ * @description 从上到下，依次为柱状图, 雷达图，饼图，线图(折线或面积图),地图,数据区域缩放,百分比柱状图，多Y轴不同类型混合图, 词云图
  * @type {{barChart: AD_CHART.barChart, radarChart: AD_CHART.radarChart, pieChart: AD_CHART.pieChart, lineChart: AD_CHART.lineChart, mapChart: AD_CHART.mapChart, zoomMap: AD_CHART.zoomMap, percentBarChart: AD_CHART.percentBarChart, multiYaxisTypeChart: AD_CHART.multiYaxisTypeChart}}
  */
 const AD_CHART = {
@@ -165,6 +167,9 @@ const AD_CHART = {
             options.tooltip.formatter = (p) => {
                 return p[0].axisValue + '<br>' + p[0].marker + p[0].data + params.unit;
             };
+        }
+        if(params.dataZoom){
+            options.dataZoom = params.dataZoom;
         }
         BarChart.setOption(options, true);
         if (callback) {
@@ -348,12 +353,14 @@ const AD_CHART = {
                 show: params.legendShow === undefined ? true : params.legendShow,
                 data: params.legend === undefined ? [] : params.legend,
                 icon: params.legendIcon === undefined ? '' : params.legendIcon,
-                orient: 'vertical',
+                orient: params.legendOrient || 'vertical',
+                left: params.legendLeft || 'auto',
                 top: params.legendTop || 140,
                 height: params.legendHeight === undefined ? 'auto' : params.legendHeight,
                 right: params.legendRight === undefined ? 40 : params.legendRight,
                 itemWidth: 8,
                 itemHeight: 8,
+                itemGap: params.itemGap || 10,
                 textStyle: {
                     color: 'rgba(255, 255, 255, 0.95)',
                     fontStyle: 'normal',
@@ -646,7 +653,7 @@ const AD_CHART = {
         //     LineChart.resize();
         // });
     },
-    mapChart: function (params, callback) {
+    mapLevelChart: function (params, callback) {
         let mapTypeName = city ? city : province;
         let idHaiNan = false;
         if (province === '海南省' && city === '') {
@@ -816,34 +823,35 @@ const AD_CHART = {
             });
         });
     },
-    zoomMap: function (params, callback) {
-        // 十六进制颜色转为RGB格式
-        let colorHex = (color, opacity) => {
-            let sColor = color.toLowerCase();
-            // 十六进制颜色值的正则表达式
-            let reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
-            // 如果是16进制颜色
-            if (sColor && reg.test(sColor)) {
-                if (sColor.length === 4) {
-                    let sColorNew = '#';
-                    for (let i = 1; i < 4; i += 1) {
-                        sColorNew += sColor.slice(i, i + 1).concat(sColor.slice(i, i + 1));
-                    }
-                    sColor = sColorNew;
-                }
-                // 处理六位的颜色值
-                let sColorChange = [];
-                for (let i = 1; i < 7; i += 2) {
-                    sColorChange.push(parseInt('0x' + sColor.slice(i, i + 2)));
-                }
-                if (opacity) {
-                    return 'RGBA(' + sColorChange.join(',') + ',' + opacity + ')';
-                }
-                return 'RGB(' + sColorChange.join(',') + ')';
-            }
-            return sColor;
-        };
+    mapChart: function(params, callback) {
+        let name = params.mapTypeName;
 
+        $.get(params.mapAddress, function(geoJson) {
+            echarts.registerMap(name, geoJson);
+
+            let mapChart = echarts.init(document.getElementById(params.chartId));
+
+            let seriesData = [];
+
+            if(params.series && params.series.length) {
+                for(var i = 0; i < params.series.length; i++) {
+                    let item = Object.assign({}, params.seriesOption[i], { data: params.series[i]});
+                    seriesData.push(item);
+                }
+            }
+
+            let options = {
+                tooltip: {
+                    trigger: 'item'
+                },
+                geo: params.geo || null,
+                visualMap: params.visualMap || null,
+                series: seriesData
+            };
+            mapChart.setOption(options);
+        });
+    },
+    zoomMap: function (params, callback) {
         const len = 24; // 定义数据长度为24
         // 制造假数据
         let getData = (m) => {
@@ -1369,8 +1377,62 @@ const AD_CHART = {
             multiTypeChart.hideLoading();
             multiTypeChart.setOption(options);
         }
-    }
+    },
+    wordCloudChart: function(params, callback) {
+        let wordCloudChart = echarts.init(document.getElementById(params.chartId));
 
+        let seriesData = [];
+        if(params.series) {
+            for(var i = 0; i < params.series.length; i++) {
+                let item = {
+                    name: (params.legend && params.legend.length > 0) ? params.legend[i] : '',
+                    type: 'wordCloud',
+                    size: ['90%', '90%'],
+                    sizeRange: [12, 60],
+                    rotationRange: [-45, 45],
+                    rotationStep: 10,
+                    shape: 'circle',
+                    textPadding: 0,
+                    autoSize: {
+                        enable: true,
+                        minSize: 12
+                    },
+                    textStyle: {
+                        normal: {
+                            color: '#00AFEC'
+                        },
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowColor: '#333'
+                        }
+                    },
+                    data: params.series[i]
+                };
+
+                seriesData.push(item);
+            }
+        }
+        let options = {
+            backgroundColor: '#1F3A59',
+            tooltip: {
+                show: true,
+                backgroundColor: '#1F3A59',
+                borderWidth: 1,
+                borderColor: '#ffffff',
+                padding: 7,
+                textStyle: {
+                    lineHeight: 56
+                }
+            },
+            series: seriesData
+        };
+
+        wordCloudChart.setOption(options);
+
+        if(callback) {
+            callback(params);
+        }
+    }
 };
 
 export default AD_CHART;

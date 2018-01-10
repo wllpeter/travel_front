@@ -23,13 +23,6 @@ export default class TouristData extends Component {
             echarts.registerMap(name, geoJson);
 
             mapChart.setOption({
-                title: {
-                    text: "四川省",
-                    left: 'center',
-                    textStyle: {
-                        color: '#000'
-                    }
-                },
                 series: [{
                     type: 'map',
                     mapType: name,
@@ -161,7 +154,13 @@ export default class TouristData extends Component {
                     <PanelCard title="旅游行业活跃度" zoomRequired={ false }>
                         <Row>
                             <Col span={ 12 } className="br-line" lg={24} xl={12}>
-                                <div id="mapChart" style={{ width: '100%', height: 600 }}></div>
+                                <div id="mapChart" style={{ width: '100%', height: 600 }}>
+                                    <ul className="map-breadcrumb">
+                                        <li><a>四川省</a></li>
+                                        <li><a>成都平原经济区</a></li>
+                                        <li><a>成都市</a></li>
+                                    </ul>
+                                </div>
                             </Col>
                             <Col span={ 5 } className="br-line" lg={ 12 } xl={ 5 }>
                                 <PanelCard title="四川省旅游行业活跃度" monthRequired={ false } zoomRequired={ false } className="custom-style">
@@ -178,14 +177,14 @@ export default class TouristData extends Component {
                                     <table className="mt-table mt-table-noborder col-1-al">
                                         <thead>
                                             <tr>
-                                                <th className="pl-12">行业</th>
+                                                <th className="pl-23">行业</th>
                                                 <th>活跃度</th>
                                                 <th>增速</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td style={{ width: 100 }}>旅游出行</td>
+                                                <td style={{ width: 120 }}>旅游出行</td>
                                                 <td>96.5</td>
                                                 <td>15%</td>
                                             </tr>

@@ -2,45 +2,67 @@
  * @description 旅游旅游产品综合评价
  */
 import React, {Component} from 'react';
+import PanelCard from '../../commonComponent/PanelCard';
+import {getOverAllMerit} from '../../../services/ProductMonitor/ProductData';
+import {colorHex, getDataZoom, dateFormat} from '../../../utils/tools';
 import echarts from 'echarts';
 
 export default class ProductEvaluate extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            productType: 1
+        };
     }
 
     componentDidMount() {
-        this.print();
+        this.getOverAllMerit();
     }
 
-    print() {
-        let color = ['#00A9FF', '#32C889'];
-        // 十六进制颜色转为RGB格式
-        let colorHex = (color, opacity) => {
-            let sColor = color.toLowerCase();
-            // 十六进制颜色值的正则表达式
-            let reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
-            // 如果是16进制颜色
-            if (sColor && reg.test(sColor)) {
-                if (sColor.length === 4) {
-                    let sColorNew = '#';
-                    for (let i = 1; i < 4; i += 1) {
-                        sColorNew += sColor.slice(i, i + 1).concat(sColor.slice(i, i + 1));
-                    }
-                    sColor = sColorNew;
-                }
-                // 处理六位的颜色值
-                let sColorChange = [];
-                for (let i = 1; i < 7; i += 2) {
-                    sColorChange.push(parseInt('0x' + sColor.slice(i, i + 2)));
-                }
-                if (opacity) {
-                    return 'RGBA(' + sColorChange.join(',') + ',' + opacity + ')';
-                }
-                return 'RGB(' + sColorChange.join(',') + ')';
+    getOverAllMerit() {
+        getOverAllMerit({
+            productType: this.state.productType
+        }).then((res) => {
+            this.print(this.handleData(res));
+        });
+    }
+
+    // 处理数据
+    handleData(res) {
+        let xAxis = [];
+        let avgscore = [];
+        let compared = [];
+        let comparedMax = 0;
+        res.forEach((item) => {
+            xAxis.unshift(item.year + '-' + dateFormat(item.month));
+            avgscore.unshift(item.avgscore);
+            compared.unshift(item.compared);
+            if (item.compared > comparedMax) {
+                comparedMax = item.compared;
             }
-            return sColor;
+        });
+        if (comparedMax < 30) {
+            comparedMax = 30;
+        } else {
+            comparedMax = Math.ceil(comparedMax / 10) * 10;
+        }
+        let dataZoom = getDataZoom({
+            lengthMax: xAxis.length,
+            showLength: 6
+        });
+        return {
+            xAxis,
+            avgscore,
+            compared,
+            comparedMax,
+            dataZoom,
+            zoomShow: xAxis.length > 6
         };
+    }
+
+    print(params) {
+        let color = ['#00A9FF', '#32C889'];
+
         let option = {
             tooltip: {
                 trigger: 'axis',
@@ -76,12 +98,14 @@ export default class ProductEvaluate extends Component {
             },
             grid: {
                 show: false,
+                bottom: params.zoomShow ? 70 : 60,
                 containLabel: false
             },
+            dataZoom: params.dataZoom,
             xAxis: [
                 {
                     type: 'category',
-                    data: ['7月', '8月', '9月', '10月', '11月', '12月'],
+                    data: params.xAxis,
                     axisTick: {
                         show: false
                     },
@@ -144,7 +168,7 @@ export default class ProductEvaluate extends Component {
                         fontSize: 16
                     },
                     min: 0,
-                    max: 30,
+                    max: params.comparedMax,
                     interval: 10,
                     axisLabel: {
                         color: '#ffffff',
@@ -170,7 +194,7 @@ export default class ProductEvaluate extends Component {
                 {
                     name: '综合评价',
                     type: 'line',
-                    data: [2.0, 4.9, 3.2, 3, 2, 4],
+                    data: params.avgscore,
                     itemStyle: {
                         normal: {
                             color: color[0],
@@ -200,7 +224,7 @@ export default class ProductEvaluate extends Component {
                     name: '环比',
                     type: 'line',
                     yAxisIndex: 1,
-                    data: [20, 15, 19, 22, 17, 30],
+                    data: params.compared,
                     itemStyle: {
                         normal: {
                             color: color[1],
@@ -234,7 +258,9 @@ export default class ProductEvaluate extends Component {
     }
 
     render() {
-        return <div id="evaluate-map" className="product-map">
-        </div>;
+        return <PanelCard title="旅游产品综合评价" zoomRequired={false} monthRequired={false}>
+            <div id="evaluate-map" className="product-map">
+            </div>
+        </PanelCard>;
     }
 }

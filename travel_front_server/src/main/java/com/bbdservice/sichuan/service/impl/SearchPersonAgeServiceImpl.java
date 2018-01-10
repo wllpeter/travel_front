@@ -2,6 +2,7 @@ package com.bbdservice.sichuan.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.bbdservice.sichuan.dao.SearchPersonAgeRepository;
+import com.bbdservice.sichuan.entity.SearchHotWord;
 import com.bbdservice.sichuan.entity.SearchPersonAge;
 import com.bbdservice.sichuan.service.SearchPersonAgeService;
 import com.bbdservice.sichuan.utils.DateUtils;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +36,7 @@ public class SearchPersonAgeServiceImpl implements SearchPersonAgeService {
         String secretKey = null;
         String ts = System.currentTimeMillis()+"";
         try {
-            secretKey = HttpRequestUtils.createSecretKey(accessKey, apiKey, SEARCH_PERSON_AGE, ts);
+            secretKey = HttpRequestUtils.createSecretKey(accessKey, apiKey, 49+"", ts);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -47,18 +50,28 @@ public class SearchPersonAgeServiceImpl implements SearchPersonAgeService {
                 .concat("&ts=")
                 .concat(ts)
                 .concat("&aid=")
-                .concat(SEARCH_PERSON_AGE)
-                .concat("&st=")
+                .concat("49")
+                .concat("&time=")
                 .concat(st)
-                .concat("&et=")
-                .concat(et)
                 .concat("&itemId=")
-                .concat("75")
+                .concat("32")
                 .concat("&tagType=8")
-                .concat("&gran=3");
+                .concat("&gran=4");
         String result = HttpRequestUtils.sendGet(dataUrl);
         Map<String,Object> map = JSON.parseObject(result, Map.class);
         Map<String,Object> datas = JSON.parseObject(map.get("data").toString(),Map.class);
-        return null;
+        List<String> strings = JSON.parseArray(datas.get("items").toString(),String.class);
+        List<SearchPersonAge> spas = new ArrayList<>();
+        for(String str : strings){
+            SearchPersonAge shw = new SearchPersonAge();
+            Map<String,Object> params = JSON.parseObject(str,Map.class) ;
+            shw.setAgeZone(params.get("tag").toString());
+            shw.setRatio(params.get("ratio").toString());
+            shw.setMonth(month);
+            shw.setYear(year);
+            spas.add(shw);
+        }
+        this.searchPersonAgeRepository.save(spas);
+        return spas;
     }
 }

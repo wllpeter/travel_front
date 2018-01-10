@@ -69,7 +69,7 @@ export default class RegionMap extends Component {
                     }
                 };
             });
-            console.log(JSON.stringify(mapjsonData));
+            console.log(mapjsonData);
             echarts.registerMap('四川省', mapjsonData);
             let chart = echarts.init(document.getElementById('region-map'));
             chart.setOption({
