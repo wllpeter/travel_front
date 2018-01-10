@@ -68,9 +68,7 @@ export default class ProductMonitor extends Component {
                         </PanelCard>
                     </Col>
                     <Col span={6} lg={ 8 } xl={ 6 }  className="product-down">
-                        <PanelCard title="产品热词搜索指数排行榜" zoomRequired={true} monthRequired={true}>
-                            <HotWordRank></HotWordRank>
-                        </PanelCard>
+                        <HotWordRank></HotWordRank>
                     </Col>
                 </Row>
             </div>
