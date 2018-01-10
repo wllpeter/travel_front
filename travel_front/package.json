@@ -25,6 +25,7 @@
     "less": "^2.3.1",
     "less-loader": "^4.0.5",
     "lodash": "^3.10.1",
+    "moment": "^2.20.1",
     "mtui": "^2.4.34",
     "perfect-scrollbar": "^0.6.16",
     "react": "^15.4.2",

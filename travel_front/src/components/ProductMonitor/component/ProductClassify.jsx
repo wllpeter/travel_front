@@ -10,10 +10,6 @@ import PanelCard from '../../commonComponent/PanelCard';
 export default class ProductClassify extends Component {
     constructor(props) {
         super(props);
-    }
-
-    componentDidMount() {
-        this.getClassifyType();
         this.state = {
             productType: 1,
             dataType: 1,
@@ -21,11 +17,15 @@ export default class ProductClassify extends Component {
         };
     }
 
-    getClassifyType() {
+    componentDidMount() {
+        this.getClassifyType(this.state.date);
+    }
+
+    getClassifyType(date) {
         getClassifyType({
             productType: 1,
             dataType: 1,
-            date: '2017-04'
+            date: date
         }).then((res) => {
             this.print(this.handleData(res));
         });
@@ -63,6 +63,11 @@ export default class ProductClassify extends Component {
         });
     }
 
+    // 选择日期
+    monthPickerChange(dateString){
+        this.getClassifyType(dateString);
+    }
+
     render() {
         let switchProps = {
             buttons: [
@@ -70,7 +75,11 @@ export default class ProductClassify extends Component {
                 {buttonName: '消费'}
             ]
         };
-        return <PanelCard title="旅游产品分类" zoomRequired={false} monthRequired={true}>
+        let panelProps = {
+            monthPickerChange: this.monthPickerChange.bind(this),
+            defaultValue: this.state.date
+        };
+        return <PanelCard title="旅游产品分类" zoomRequired={false} monthRequired={true} {...panelProps}>
 
             <div className="switch-btn-box">
                 <ToggleButtonGroup {...switchProps}></ToggleButtonGroup>

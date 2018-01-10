@@ -4,6 +4,7 @@
  */
 import React, {Component} from 'react';
 import {DatePicker, Icon} from 'antd';
+import moment from 'moment';
 
 const MonthPicker = DatePicker.MonthPicker;
 import 'antd/lib/date-picker/style';
@@ -22,7 +23,10 @@ export default class PanelCard extends Component {
 
     render() {
 
-        const {className, title, monthRequired, zoomRequired, enlarge, zoomOutRequired, narrow, ...other} = this.props;
+        const {
+            className, title, monthRequired, zoomRequired,
+            enlarge, zoomOutRequired, narrow, monthPickerChange, defaultValue, ...other
+        } = this.props;
         let classNames = ['panel-card'];
 
         if (className) {
@@ -34,10 +38,12 @@ export default class PanelCard extends Component {
                 <h3>{title}</h3>
                 {
                     monthRequired &&
-                    <MonthPicker allowClear={false} className="month-select" format="YYYY年MM月"
-                                 onChange={(dates, a) => {
-                                     console.log(dates);
-                                     console.log(a);
+                    <MonthPicker allowClear={false} className="month-select" format="YYYY-MM"
+                                 defaultValue={defaultValue && moment(defaultValue, 'YYYY-MM')}
+                                 onChange={(dates, dateString) => {
+                                     if (typeof monthPickerChange === 'function') {
+                                         monthPickerChange(dateString);
+                                     }
                                  }}/>
                 }
 
