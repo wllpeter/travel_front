@@ -1,4 +1,5 @@
 import echarts from 'echarts';
+import $ from 'jquery';
 import {colorHex} from '../utils/tools';
 
 /**
@@ -823,7 +824,32 @@ const AD_CHART = {
         });
     },
     mapChart: function(params, callback) {
+        let name = params.mapTypeName;
 
+        $.get(params.mapAddress, function(geoJson) {
+            echarts.registerMap(name, geoJson);
+
+            let mapChart = echarts.init(document.getElementById(params.chartId));
+
+            let seriesData = [];
+
+            if(params.series && params.series.length) {
+                for(var i = 0; i < params.series.length; i++) {
+                    let item = Object.assign({}, params.seriesOption[i], { data: params.series[i]});
+                    seriesData.push(item);
+                }
+            }
+
+            let options = {
+                tooltip: {
+                    trigger: 'item'
+                },
+                geo: params.geo || null,
+                visualMap: params.visualMap || null,
+                series: seriesData
+            };
+            mapChart.setOption(options);
+        });
     },
     zoomMap: function (params, callback) {
         const len = 24; // 定义数据长度为24
