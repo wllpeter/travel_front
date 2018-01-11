@@ -10,7 +10,7 @@ import maleIcon from '../../assets/images/male.png';
 import femaleIcon from '../../assets/images/female.png';
 import { getTouristDataOptions, getProvinceCustomerData, getCountyData } from '../../services/DataAnalysis/touristData';
 import { Map } from 'immutable';
-import { revertPercentToNumber } from '../../utils/util';
+import { revertPercentToNumber, getHeaderOptions } from '../../utils/util';
 import './style.scss';
 import ToggleButtonGroup from "../commonComponent/ToggleButtonGroup";
 
@@ -326,24 +326,8 @@ export default class TouristData extends Component {
      * @param isQuarter 是否是季度
      * @returns {{timeSelectRequired: *, zoomRequired: *, options: *}}
      */
-    getHeaderOptions([timeSelectRequired, zoomRequired, name, isQuarter = false]) {
-        const { optionsData } = this.state;
-
-        let defaultValue = '';
-
-        if(name && optionsData[name] && optionsData[name].length) {
-            let firstOption = optionsData[name][0];
-            defaultValue = firstOption.year + '-' + firstOption.monthOrQuarter;
-        }
-
-        return {
-            timeSelectRequired,
-            zoomRequired,
-            defaultValue,
-            options: name ? (optionsData[name] && optionsData[name].length > 0) && optionsData[name].map((option, index) => {
-                return <Option key={ index } value={ option.year + '-' + option.monthOrQuarter }>{ `${ option.year }年${ option.monthOrQuarter }${ isQuarter ? '季度' : '月'}` }</Option>
-            }) : null
-        }
+    getHeaderOptions(options) {
+        return getHeaderOptions(options, this.state.optionsData);
     }
 
     render() {

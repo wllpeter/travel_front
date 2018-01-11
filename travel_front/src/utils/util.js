@@ -1,4 +1,7 @@
 import classnames from 'classnames';
+import React from 'react';
+import { Select } from 'mtui/index';
+const Option = Select.Option;
 
 // 内部函数, 用于判断对象类型
 function _getClass(object) {
@@ -276,5 +279,31 @@ export function revertPercentToNumber(percentStr) {
         }
 
         return Number(number.toFixed(2));
+    }
+}
+
+/**
+ * @description 获取Panel头部选项
+ * @param timeSelectRequired  是否需要时间选择(月份，季度)
+ * @param zoomRequired 是否需要放大按钮
+ * @param name
+ * @param isQuarter 是否是季度
+ * @returns {{timeSelectRequired: *, zoomRequired: *, options: *}}
+ */
+export function getHeaderOptions([timeSelectRequired, zoomRequired, name, isQuarter = false], optionsData) {
+    let defaultValue = '';
+
+    if(name && optionsData[name] && optionsData[name].length) {
+        let firstOption = optionsData[name][0];
+        defaultValue = firstOption.year + '-' + firstOption.monthOrQuarter;
+    }
+
+    return {
+        timeSelectRequired,
+        zoomRequired,
+        defaultValue,
+        options: name ? (optionsData[name] && optionsData[name].length > 0) && optionsData[name].map((option, index) => {
+                return <Option key={ index } value={ option.year + '-' + option.monthOrQuarter }>{ `${ option.year }年${ option.monthOrQuarter }${ isQuarter ? '季度' : '月'}` }</Option>
+            }) : null
     }
 }
