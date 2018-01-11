@@ -46,12 +46,11 @@ public class TourismProductController {
     @ApiImplicitParams({
             @ApiImplicitParam(name="productType",value = "产品类型",paramType = "query",dataType = "String",defaultValue = "1"),
             @ApiImplicitParam(name="dataType",value = "类型 值为1或者0  1-供给 0-消费  ",paramType = "query",dataType = "String",defaultValue = "1"),
-            @ApiImplicitParam(name="date",value = "选择日期,String类型YYYY-MM-DD格式",paramType = "query",dataType = "String",defaultValue = "2017-04-12")
+            @ApiImplicitParam(name="year",value = "年",paramType = "query",dataType = "Long",defaultValue = "2017"),
+            @ApiImplicitParam(name="month",value = "月",paramType = "query",dataType = "Long",defaultValue = "4")
     })
     @GetMapping(value = "/getClassifyType")
-    public Response getProductType( Long productType,@RequestParam(name="dataType",defaultValue ="1" ) String dataType, String date) throws Exception {
-        Long year=Long.parseLong(date.substring(0,4));
-        Long month=Long.parseLong(date.substring(5,7));
+    public Response getProductType( Long productType,@RequestParam(name="dataType",defaultValue ="1" ) String dataType, Long year,Long month) throws Exception {
         List<ClassifyData> classifyDataList=null;
          switch(productType+""){
              case "1":
@@ -74,12 +73,11 @@ public class TourismProductController {
     @ApiImplicitParams({
             @ApiImplicitParam(name="productType",value = "产品类型",paramType = "query",dataType = "String",defaultValue = "1"),
             @ApiImplicitParam(name="dataType",value = "类型,数值1-4 1-产品 2-景区 3-特产 4-商场 ",paramType = "query",dataType = "Integer",defaultValue = "1"),
-            @ApiImplicitParam(name="date",value = "选择日期,String类型YYYY-MM-DD格式",paramType = "query",dataType = "String",defaultValue = "2017-09-12")
+            @ApiImplicitParam(name="year",value = "年",paramType = "query",dataType = "Integer",defaultValue = "2017"),
+            @ApiImplicitParam(name="month",value = "月",paramType = "query",dataType = "Integer",defaultValue = "9")
     })
     @GetMapping(value = "/getOpinionRank")
-    public Response getOpinionRank(Integer productType,Integer dataType,String date){
-        Integer year=Integer.parseInt(date.substring(0,4));
-        Integer month=Integer.parseInt(date.substring(5,7));
+    public Response getOpinionRank(Integer productType,Integer dataType,Integer year,Integer month){
         List<OpinionRank> opinionRanks=new ArrayList<>();
         switch (productType+""){
             case "1":
@@ -113,12 +111,11 @@ public class TourismProductController {
     @ApiOperation(value = "热词搜索排行")
     @ApiImplicitParams({
             @ApiImplicitParam(name="productType",value = "产品类型",paramType = "query",dataType = "Integer",defaultValue = "1"),
-            @ApiImplicitParam(name="date",value = "时间",paramType = "query",dataType = "String",defaultValue = "2017-09-12")
+            @ApiImplicitParam(name="year",value = "年",paramType = "query",dataType = "Integer",defaultValue = "2017"),
+            @ApiImplicitParam(name="month",value = "月",paramType = "query",dataType = "Integer",defaultValue = "9")
     })
     @GetMapping(value="/getKeyWordRank")
-    public Response getKeyWordRank(Integer productType,String date){
-        Integer year=Integer.parseInt(date.substring(0,4));
-        Integer month=Integer.parseInt(date.substring(5,7));
+    public Response getKeyWordRank(Integer productType,Integer year,Integer month){
         List<KeywordRank> keywordRanks=null;
         keywordRanks=keyWordRankService.getAllKeyWordRank(productType,year,month);
         return Response.success(keywordRanks);

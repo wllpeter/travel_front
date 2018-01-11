@@ -1,0 +1,73 @@
+package com.bbdservice.sichuan.service.impl;
+
+
+import com.bbdservice.sichuan.dao.AboutYearConditionDao;
+import com.bbdservice.sichuan.service.AboutYearConditionService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Set;
+
+/**
+ * Created by 陈亚兰 on 2018/1/11.
+ */
+@Service
+public class AboutYearConditionServiceImpl implements AboutYearConditionService {
+    @Autowired
+    private AboutYearConditionDao aboutYearConditionDao;
+    @Override
+    public List<String> getClassifyData() {
+        return aboutYearConditionDao.getClassifyData();
+    }
+
+    @Override
+    public List<String> getOpinionRank() {
+        return aboutYearConditionDao.getOpinionRank();
+    }
+
+    @Override
+    public List<String> getGoodWords() {
+        return aboutYearConditionDao.getGoodWords();
+    }
+
+    @Override
+    public List<String> getWaiDiShuaKa() {
+        return aboutYearConditionDao.getWaiDiShuaKa();
+    }
+
+    @Override
+    public List<String> getWaiDiJiaoYi() {
+        return aboutYearConditionDao.getWaiDiJiaoYi();
+    }
+
+    @Override
+    public List<String> getGeDiShuaKa() {
+        return aboutYearConditionDao.getGeDiShuaKa();
+    }
+
+    @Override
+    public List<String> getGediJiaoYi() {
+        return aboutYearConditionDao.getGediJiaoYi();
+    }
+
+    @Override
+    public List<String> getRuChuanGaoXiaoFei() {
+        return aboutYearConditionDao.getRuChuanGaoXiaoFei();
+    }
+
+    @Override
+    public List<String> getRuChuanSource() {
+        return aboutYearConditionDao.getRuChuanSource();
+    }
+
+    @Override
+    public List<String> getLvYouXiaoFei() {
+        return aboutYearConditionDao.getLvYouXiaoFei();
+    }
+
+    @Override
+    public List<String> getGeHangYe() {
+        return aboutYearConditionDao.getGeHangYe();
+    }
+}
