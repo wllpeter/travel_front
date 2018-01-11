@@ -5,7 +5,7 @@ import React, {Component} from 'react';
 import {getOpinionRank} from '../../../services/ProductMonitor/ProductData';
 import ToggleButtonGroup from '../../commonComponent/ToggleButtonGroup';
 import PanelCard from '../../commonComponent/PanelCard';
-import {dateFormat} from '../../../utils/tools';
+import {dateFormat, getHeaderOptions} from '../../../utils/tools';
 import {PRAISELIST} from '../../../constants/productMonitor/switchButton';
 
 export default class PraiseList extends Component {
@@ -13,12 +13,12 @@ export default class PraiseList extends Component {
         super(props);
         let productType = this.props.productType;
         this.state = {
+            panelProps: {},
             buttons: PRAISELIST[productType],
             productType: productType,
             dataType: 1, // 1-产品 2-景区 3-特产 4-商场
-            date: '2017-12',
-            year: '2017',
-            month: '12',
+            year: null,
+            month: null,
             items: []
         };
     }
@@ -28,6 +28,8 @@ export default class PraiseList extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        let times = nextProps.timeRange.classify;
+        this.getHeaderOptions(times);
         let productType = nextProps.productType;
         if (this.state.productType !== productType) {
             this.resetButtonState();
@@ -42,6 +44,21 @@ export default class PraiseList extends Component {
         }
     }
 
+    getHeaderOptions(times) {
+        if (!times) {
+            return;
+        }
+        let time = times[0] || {};
+        this.setState({
+            panelProps: getHeaderOptions({
+                data: times
+            }),
+            year: time.year || null,
+            month: time.monthOrQuarter || null
+        }, () => {
+            this.getOpinionRank();
+        });
+    }
 
     resetButtonState() {
         // 调用组件进行通信,重置按钮状态
@@ -67,7 +84,7 @@ export default class PraiseList extends Component {
     }
 
     render() {
-        let {items, buttons} = this.state;
+        let {items, buttons, panelProps} = this.state;
         let {title} = this.props;
         let switchProps = {
             buttons: buttons,
@@ -85,12 +102,7 @@ export default class PraiseList extends Component {
             }
         };
 
-        let panelProps = {
-            monthPickerChange: this.monthPickerChange.bind(this),
-            defaultValue: this.state.date
-        };
-        return <PanelCard title={`${title}产品好评榜`} zoomRequired={false} monthRequired={true}
-                          {...panelProps}>
+        return <PanelCard title={`${title}产品好评榜`} {...panelProps}>
             <div className="switch-btn-box">
                 <ToggleButtonGroup ref="getSwitchButton" {...switchProps}></ToggleButtonGroup>
                 <div className="praise">

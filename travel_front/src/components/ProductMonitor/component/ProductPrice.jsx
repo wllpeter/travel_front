@@ -263,7 +263,7 @@ export default class ProductPrice extends Component {
 
     render() {
         let {title} = this.props;
-        return <PanelCard title={`${title}产品价格走势`} zoomRequired={false} monthRequired={false}>
+        return <PanelCard title={`${title}产品价格走势`}>
             <div id="product-price" className="product-down-map">
             </div>
         </PanelCard>;

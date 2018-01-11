@@ -4,15 +4,16 @@
 import React, {Component} from 'react';
 import {getKeyWordRank} from '../../../services/ProductMonitor/ProductData';
 import PanelCard from '../../commonComponent/PanelCard';
-import {dateFormat} from '../../../utils/tools';
+import {dateFormat, getHeaderOptions} from '../../../utils/tools';
 
 export default class HotWordRank extends Component {
     constructor(props) {
         super(props);
         this.state = {
             productType: 1,
-            year: '2017',
-            month: '12',
+            year: null,
+            month: null,
+            panelProps: {},
             items: []
         };
 
@@ -23,6 +24,8 @@ export default class HotWordRank extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        let times = nextProps.timeRange.classify;
+        this.getHeaderOptions(times);
         let productType = nextProps.productType;
         if (this.state.productType !== productType) {
             this.setState({
@@ -31,6 +34,23 @@ export default class HotWordRank extends Component {
                 this.getKeyWordRank();
             });
         }
+    }
+
+    getHeaderOptions(times) {
+        if (!times) {
+            return;
+        }
+        let time = times[0] || {};
+        this.setState({
+            panelProps: getHeaderOptions({
+                data: times,
+                zoomRequired: true
+            }),
+            year: time.year || null,
+            month: time.monthOrQuarter || null
+        }, () => {
+            this.getKeyWordRank();
+        });
     }
 
     getKeyWordRank() {
@@ -51,13 +71,8 @@ export default class HotWordRank extends Component {
     }
 
     render() {
-        let {items} = this.state;
-        let panelProps = {
-            monthPickerChange: this.monthPickerChange.bind(this),
-            defaultValue: this.state.date
-        };
-        return <PanelCard title="产品热词搜索指数排行榜" {...panelProps}
-                          zoomRequired={true} timeSelectRequired={true}>
+        let {items, panelProps} = this.state;
+        return <PanelCard title="产品热词搜索指数排行榜" {...panelProps}>
             <div className="product-down-map" style={{paddingTop: '40px'}}>
                 <table className="mt-table col-1-al">
                     <thead>

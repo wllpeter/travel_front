@@ -259,7 +259,7 @@ export default class ProductEvaluate extends Component {
 
     render() {
         let {title} = this.props;
-        return <PanelCard title={`${title}产品综合评价`} zoomRequired={false} monthRequired={false}>
+        return <PanelCard title={`${title}产品综合评价`}>
             <div id="evaluate-map" className="product-map">
             </div>
         </PanelCard>;

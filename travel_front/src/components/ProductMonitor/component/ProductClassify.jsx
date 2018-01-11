@@ -17,25 +17,19 @@ export default class ProductClassify extends Component {
             buttons: PRODUCT_CLASSIFY[productType],
             productType: productType,
             dataType: 1, // 1-供给 0-消费
-            year: '2017',
-            month: '12',
-            panelProps: {},
-            activeIndex: 0
+            year: null,
+            month: null,
+            panelProps: {}
         };
     }
 
     componentDidMount() {
-        this.getClassifyType(this.state.date);
+
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.timeRange.classify) {
-            this.setState({
-                panelProps: getHeaderOptions({
-                    data: nextProps.timeRange.classify
-                })
-            });
-        }
+        let times = nextProps.timeRange.classify;
+        this.getHeaderOptions(times);
         let productType = nextProps.productType;
         if (this.state.productType !== productType) {
             this.resetButtonState();
@@ -48,6 +42,22 @@ export default class ProductClassify extends Component {
                 this.getClassifyType();
             });
         }
+    }
+
+    getHeaderOptions(times) {
+        if (!times) {
+            return;
+        }
+        let time = times[0] || {};
+        this.setState({
+            panelProps: getHeaderOptions({
+                data: times
+            }),
+            year: time.year || null,
+            month: time.monthOrQuarter || null
+        }, () => {
+            this.getClassifyType();
+        });
     }
 
     resetButtonState() {
@@ -97,10 +107,6 @@ export default class ProductClassify extends Component {
             legend: data.legend,
             data: data.data
         });
-    }
-
-    getHeaderOptions(options) {
-        return getHeaderOptions(options, this.state.optionsData);
     }
 
     render() {
