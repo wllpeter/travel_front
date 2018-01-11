@@ -21,6 +21,17 @@ export default class HotWordRank extends Component {
         this.getKeyWordRank();
     }
 
+    componentWillReceiveProps(nextProps) {
+        let productType = nextProps.productType;
+        if (this.state.productType !== productType) {
+            this.setState({
+                productType: productType
+            }, () => {
+                this.getKeyWordRank();
+            });
+        }
+    }
+
     getKeyWordRank() {
         getKeyWordRank({
             productType: this.state.productType,

@@ -1,7 +1,7 @@
 const LEFT_NAV_DATA = [
     {
         name: '旅游',
-        icon: 'icon-bao',
+        icon: 'icon-hanglixiang',
         productType: 1
     },
     {

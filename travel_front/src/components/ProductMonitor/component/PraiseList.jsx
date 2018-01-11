@@ -6,12 +6,15 @@ import {getOpinionRank} from '../../../services/ProductMonitor/ProductData';
 import ToggleButtonGroup from '../../commonComponent/ToggleButtonGroup';
 import PanelCard from '../../commonComponent/PanelCard';
 import {dateFormat} from '../../../utils/tools';
+import {PRAISELIST} from '../../../constants/productMonitor/switchButton';
 
 export default class PraiseList extends Component {
     constructor(props) {
         super(props);
+        let productType = this.props.productType;
         this.state = {
-            productType: 1,
+            buttons: PRAISELIST[productType],
+            productType: productType,
             dataType: 1, // 1-产品 2-景区 3-特产 4-商场
             date: '2017-09',
             items: []
@@ -20,6 +23,27 @@ export default class PraiseList extends Component {
 
     componentDidMount() {
         this.getOpinionRank();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        let productType = nextProps.productType;
+        if (this.state.productType !== productType) {
+            this.resetButtonState();
+            let buttons = PRAISELIST[productType];
+            this.setState({
+                buttons: buttons,
+                dataType: buttons[0] ? buttons[0].dataType : 1,
+                productType: productType
+            }, () => {
+                this.getOpinionRank();
+            });
+        }
+    }
+
+
+    resetButtonState() {
+        // 调用组件进行通信,重置按钮状态
+        this.refs.getSwitchButton.resetButtonState();
     }
 
     getOpinionRank() {
@@ -40,12 +64,10 @@ export default class PraiseList extends Component {
     }
 
     render() {
-        let {items} = this.state;
+        let {items, buttons} = this.state;
+        let {title} = this.props;
         let switchProps = {
-            buttons: [
-                {buttonName: '产品', dataType: 1},
-                {buttonName: '景区', dataType: 2}
-            ],
+            buttons: buttons,
             style: {
                 top: '-5%',
                 right: '50%',
@@ -64,10 +86,10 @@ export default class PraiseList extends Component {
             monthPickerChange: this.monthPickerChange.bind(this),
             defaultValue: this.state.date
         };
-        return <PanelCard title="旅游产品好评榜" zoomRequired={false} monthRequired={true}
+        return <PanelCard title={`${title}产品好评榜`} zoomRequired={false} monthRequired={true}
                           {...panelProps}>
             <div className="switch-btn-box">
-                <ToggleButtonGroup {...switchProps}></ToggleButtonGroup>
+                <ToggleButtonGroup ref="getSwitchButton" {...switchProps}></ToggleButtonGroup>
                 <div className="praise">
                     <table className="mt-table col-1-al">
                         <thead>

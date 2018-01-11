@@ -4,9 +4,15 @@
     min-height: calc(100vh - 60px);
     .left-nav-box {
         width: 82px;
+        height: calc(100vh - 60px);
         float: left;
         .left-nav {
             overflow: hidden;
+            width: 82px;
+            height: calc(100vh - 60px);
+            position: fixed;
+            top: 60px;
+            left: 0;
             & > li {
                 width: 100%;
                 float: left;

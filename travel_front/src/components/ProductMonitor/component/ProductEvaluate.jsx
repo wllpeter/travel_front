@@ -10,9 +10,21 @@ import echarts from 'echarts';
 export default class ProductEvaluate extends Component {
     constructor(props) {
         super(props);
+        let productType = this.props.productType;
         this.state = {
-            productType: 1
+            productType: productType
         };
+    }
+
+    componentWillReceiveProps(nextProps) {
+        let productType = nextProps.productType;
+        if (this.state.productType !== productType) {
+            this.setState({
+                productType: productType
+            }, () => {
+                this.getOverAllMerit();
+            });
+        }
     }
 
     componentDidMount() {
@@ -242,7 +254,8 @@ export default class ProductEvaluate extends Component {
     }
 
     render() {
-        return <PanelCard title="旅游产品综合评价" zoomRequired={false} monthRequired={false}>
+        let {title} = this.props;
+        return <PanelCard title={`${title}产品综合评价`} zoomRequired={false} monthRequired={false}>
             <div id="evaluate-map" className="product-map">
             </div>
         </PanelCard>;
