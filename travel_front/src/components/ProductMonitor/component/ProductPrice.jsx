@@ -2,46 +2,58 @@
  * @description 产品价格走势图
  */
 import React, {Component} from 'react';
+import PanelCard from '../../commonComponent/PanelCard';
+import {getPriceTrend} from '../../../services/ProductMonitor/ProductData';
+import {colorHex, getDataZoom, dateFormat} from '../../../utils/tools';
 import echarts from 'echarts';
 
 export default class ProductPrice extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            productType: 1
+        };
 
     }
 
     componentDidMount() {
-        this.print();
+        this.getPriceTrend();
     }
 
-    print() {
+    getPriceTrend() {
+        getPriceTrend({
+            productType: this.state.productType
+        }).then((res) => {
+            this.print(this.handleData(res));
+        });
+    }
+
+    // 处理数据
+    handleData(res) {
+        let xAxis = [];
+        let avgPrice = [];
+        let compared = [];
+        res.forEach((item) => {
+            xAxis.unshift(item.year + '-' + dateFormat(item.month));
+            avgPrice.unshift(item.avgPrice);
+            compared.unshift(item.compared);
+        });
+        let dataZoom = getDataZoom({
+            lengthMax: xAxis.length,
+            showLength: 6
+        });
+        return {
+            xAxis,
+            avgPrice,
+            compared,
+            dataZoom,
+            zoomShow: xAxis.length > 6
+        };
+    }
+
+    print(params) {
         let color = ['#00A9FF', '#32C889'];
         // 十六进制颜色转为RGB格式
-        let colorHex = (color, opacity) => {
-            let sColor = color.toLowerCase();
-            // 十六进制颜色值的正则表达式
-            let reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
-            // 如果是16进制颜色
-            if (sColor && reg.test(sColor)) {
-                if (sColor.length === 4) {
-                    let sColorNew = '#';
-                    for (let i = 1; i < 4; i += 1) {
-                        sColorNew += sColor.slice(i, i + 1).concat(sColor.slice(i, i + 1));
-                    }
-                    sColor = sColorNew;
-                }
-                // 处理六位的颜色值
-                let sColorChange = [];
-                for (let i = 1; i < 7; i += 2) {
-                    sColorChange.push(parseInt('0x' + sColor.slice(i, i + 2)));
-                }
-                if (opacity) {
-                    return 'RGBA(' + sColorChange.join(',') + ',' + opacity + ')';
-                }
-                return 'RGB(' + sColorChange.join(',') + ')';
-            }
-            return sColor;
-        };
         let option = {
             tooltip: {
                 trigger: 'axis',
@@ -77,12 +89,14 @@ export default class ProductPrice extends Component {
             },
             grid: {
                 show: false,
+                bottom: params.zoomShow ? 70 : 60,
                 containLabel: false
             },
+            dataZoom: params.dataZoom,
             xAxis: [
                 {
                     type: 'category',
-                    data: ['7月', '8月', '9月', '10月', '11月', '12月'],
+                    data: params.xAxis,
                     axisTick: {
                         show: false
                     },
@@ -110,9 +124,6 @@ export default class ProductPrice extends Component {
                         color: '#ffffff',
                         fontSize: 16
                     },
-                    min: 0,
-                    max: 5,
-                    interval: 1,
                     axisLabel: {
                         color: '#ffffff',
                         textStyle: {
@@ -144,9 +155,6 @@ export default class ProductPrice extends Component {
                         color: '#ffffff',
                         fontSize: 16
                     },
-                    min: 0,
-                    max: 30,
-                    interval: 10,
                     axisLabel: {
                         color: '#ffffff',
                         textStyle: {
@@ -172,7 +180,7 @@ export default class ProductPrice extends Component {
                     name: '平均价格',
                     type: 'line',
                     smooth: true,
-                    data: [2.0, 4.9, 3.2, 3, 2, 4],
+                    data: params.avgPrice,
                     itemStyle: {
                         normal: {
                             color: color[0],
@@ -213,7 +221,7 @@ export default class ProductPrice extends Component {
                     name: '环比',
                     type: 'line',
                     yAxisIndex: 1,
-                    data: [20, 15, 19, 22, 17, 30],
+                    data: params.compared,
                     itemStyle: {
                         normal: {
                             color: color[1],
@@ -240,7 +248,9 @@ export default class ProductPrice extends Component {
     }
 
     render() {
-        return <div id="product-price" className="product-down-map">
-        </div>;
+        return <PanelCard title="旅游产品价格走势" zoomRequired={false} monthRequired={false}>
+            <div id="product-price" className="product-down-map">
+            </div>
+        </PanelCard>;
     }
 }

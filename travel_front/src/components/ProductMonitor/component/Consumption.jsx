@@ -6,15 +6,31 @@ import adCharts from '../../../utils/adCharts';
 import PanelCard from '../../commonComponent/PanelCard';
 import {getSupplyConsume} from '../../../services/ProductMonitor/ProductData';
 import ToggleButtonGroup from '../../commonComponent/ToggleButtonGroup';
+import {LEFT_NAV_NAME} from '../../../constants/productMonitor/leftNav';
 import {getDataZoom, dateFormat} from '../../../utils/tools';
 
 export default class Consumption extends Component {
     constructor(props) {
         super(props);
+        let productType = this.props.productType;
         this.state = {
-            productType: 1,
+            title: LEFT_NAV_NAME[productType],
+            productType: productType,
             dataType: 1 // 1-供给 2-消费
         };
+    }
+
+    componentDidUpdate() {
+        let productType = this.props.productType;
+        if (this.state.productType !== this.props.productType) {
+            this.setState({
+                title: LEFT_NAV_NAME[productType],
+                dataType: 1,
+                productType: productType
+            }, () => {
+                this.getSupplyConsume();
+            });
+        }
     }
 
     componentDidMount() {
@@ -34,6 +50,7 @@ export default class Consumption extends Component {
     handleData(res) {
         let serie = [];
         let xAxis = [];
+        res = res || [];
         res.forEach((item) => {
             xAxis.unshift(item.year + '-' + dateFormat(item.month));
             serie.unshift(item.count);
@@ -66,6 +83,7 @@ export default class Consumption extends Component {
     }
 
     render() {
+        let {title} = this.state;
         let switchProps = {
             buttons: [
                 {buttonName: '供给', dataType: 1},
@@ -82,7 +100,7 @@ export default class Consumption extends Component {
                 });
             }
         };
-        return <PanelCard title="旅游产品供给/消费总量" zoomRequired={false} monthRequired={false}>
+        return <PanelCard title={`${title}产品供给/消费总量`} zoomRequired={false} monthRequired={false}>
             <ToggleButtonGroup {...switchProps}></ToggleButtonGroup>
             <div id="consumption-map" className="product-map">
             </div>

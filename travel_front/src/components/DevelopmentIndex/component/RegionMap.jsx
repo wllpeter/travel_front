@@ -70,7 +70,20 @@ export default class RegionMap extends Component {
                 };
             });
             console.log(mapjsonData);
+            // ---------------------------------------获取二级区域的json---------------------------------------------------------
+            let arr = REGION_MAP.map((region) => {
+                let citys = [];
+                region.children.forEach((name) => {
+                    citys.push(mapjsonObj[name]);
+                });
+                return {
+                    UTF8Encoding: true,
+                    features: citys,
+                    type: 'FeatureCollection'
+                };
+            });
             echarts.registerMap('四川省', mapjsonData);
+            // console.log(JSON.stringify(mapjsonData));
             let chart = echarts.init(document.getElementById('region-map'));
             chart.setOption({
                 series: [{
