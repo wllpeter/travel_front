@@ -30,6 +30,7 @@ public class AboutYearConditionController {
         List<String> key= Arrays.asList("year","monthOrQuarter");
         map.put("classify",putKey(key,setClassify));
         map.put("opinion",putKey(key,opinionRank));
+        //好评榜
         map.put("goodWords",putKey(key,goodWords));
         return Response.success(map);
     }
@@ -90,6 +91,56 @@ public class AboutYearConditionController {
         map.put("industry",putKey(key,getGeHangYe));
         return Response.success(map);
     }
+
+    @GetMapping("/getSearchBigData")
+    public Response getSearchBigData(){
+        Map<String,List> map=new HashMap<>();
+        List<String> key= Arrays.asList("year","monthOrQuarter");
+        List<String> getProvinceHot=aboutYearConditionService.getProvinceHot();
+        map.put("provinceHot",putKey(key,getProvinceHot));
+        //热词云
+        List<String> getHotWords=aboutYearConditionService.getHotWords();
+        map.put("howWords",putKey(key,getHotWords));
+        //搜索人群年龄分布
+        List<String> getPersonAge=aboutYearConditionService.getPersonAge();
+        map.put("personAge",putKey(key,getPersonAge));
+        //搜索人来源地
+        List<String> getPersonResources=aboutYearConditionService.getPersonResources();
+        map.put("personResources",putKey(key,getPersonResources));
+        //搜索景点偏好地
+        List<String> getJingDian=aboutYearConditionService.getJingDian();
+        map.put("popularPlaces",getJingDian);
+        return Response.success(map);
+    }
+    @GetMapping("/getCustBigData")
+    public Response getCustomoBigData(){
+        Map<String,List> map=new HashMap<>();
+        List<String> key= Arrays.asList("year","monthOrQuarter");
+        //四川省游客性别分布
+        List<String> getSiChuanYouKeSex=aboutYearConditionService.getSiChuanYouKeSex();
+        map.put("sex",putKey(key,getSiChuanYouKeSex));
+        //乡村游客分析-接待
+        List<String> getXiangCunYouKeJieDai=aboutYearConditionService.getXiangCunYouKeJieDai();
+        map.put("jieDai",putKey(key,getXiangCunYouKeJieDai));
+        //乡村游客分析-出行
+        List<String> getXiangCunYouChuXing=aboutYearConditionService.getXiangCunYouChuXing();
+        map.put("chuXing",putKey(key,getXiangCunYouChuXing));
+        //五大经济区客游人次
+        List<String> getFiveZonePersonTimes=aboutYearConditionService.getFiveZonePersonTimes();
+        map.put("touristTimes",putKey(key,getFiveZonePersonTimes));
+        //游客停留时长
+        List<String> getTouristStayTime=aboutYearConditionService.getTouristStayTime();
+        map.put("stayTime",putKey(key,getTouristStayTime));
+        //五大经济区游客来源排名
+        List<String> getTouristRank=aboutYearConditionService.getTouristRank();
+        map.put("touristRank",putKey(key,getTouristRank));
+
+        //游客交通方式
+        List<String> getTrafficType=aboutYearConditionService.getTrafficType();
+        map.put("trafficType",putKey(key,getTrafficType));
+        return Response.success(map);
+    }
+
     public static List<JSONObject> putKey(List<String> keyList, List<String> valueList){
         List<JSONObject> result=new ArrayList<>();
         for(int i=0;i<valueList.size();i++){

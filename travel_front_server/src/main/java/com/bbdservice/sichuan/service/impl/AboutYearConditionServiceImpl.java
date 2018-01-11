@@ -70,4 +70,64 @@ public class AboutYearConditionServiceImpl implements AboutYearConditionService 
     public List<String> getGeHangYe() {
         return aboutYearConditionDao.getGeHangYe();
     }
+
+    @Override
+    public List<String> getProvinceHot() {
+        return aboutYearConditionDao.getProvinceHot();
+    }
+
+    @Override
+    public List<String> getHotWords() {
+        return aboutYearConditionDao.getHotWords();
+    }
+
+    @Override
+    public List<String> getPersonAge() {
+        return aboutYearConditionDao.getPersonAge();
+    }
+
+    @Override
+    public List<String> getPersonResources() {
+        return aboutYearConditionDao.getPersonResources();
+    }
+
+    @Override
+    public List<String> getJingDian() {
+        return aboutYearConditionDao.getJingDian();
+    }
+
+    @Override
+    public List<String> getSiChuanYouKeSex() {
+        return aboutYearConditionDao.getSiChuanYouKeSex();
+    }
+
+    @Override
+    public List<String> getXiangCunYouKeJieDai() {
+        return aboutYearConditionDao.getXiangCunYouKeJieDai();
+    }
+
+    @Override
+    public List<String> getXiangCunYouChuXing() {
+        return aboutYearConditionDao.getXiangCunYouChuXing();
+    }
+
+    @Override
+    public List<String> getFiveZonePersonTimes() {
+        return aboutYearConditionDao.getFiveZonePersonTimes();
+    }
+
+    @Override
+    public List<String> getTouristStayTime() {
+        return aboutYearConditionDao.getTouristStayTime();
+    }
+
+    @Override
+    public List<String> getTouristRank() {
+        return aboutYearConditionDao.getTouristRank();
+    }
+
+    @Override
+    public List<String> getTrafficType() {
+        return aboutYearConditionDao.getTrafficType();
+    }
 }

@@ -1,5 +1,7 @@
 package com.bbdservice.sichuan.service;
 
+import org.springframework.data.jpa.repository.Query;
+
 import java.util.List;
 import java.util.Set;
 
@@ -45,4 +47,44 @@ public interface AboutYearConditionService {
     List<String> getLvYouXiaoFei();
 
     List<String> getGeHangYe();
+
+    //搜索大数据
+    //全省旅游搜索热力图
+    List<String> getProvinceHot();
+
+    //热词云
+    List<String> getHotWords();
+
+    //搜索人群年龄分布
+    List<String> getPersonAge();
+
+    //搜索人来源地
+    List<String> getPersonResources();
+
+    //搜索景点偏好地
+    List<String> getJingDian();
+
+    /**
+     * 客情大数据模块
+     */
+    //四川省游客性别分布
+    List<String> getSiChuanYouKeSex();
+
+    //乡村游客分析-接待
+    List<String> getXiangCunYouKeJieDai();
+
+    //乡村游客分析-出行 TODO
+    List<String> getXiangCunYouChuXing();
+
+    //五大经济区客游人次
+    List<String> getFiveZonePersonTimes();
+
+    //游客停留时长
+    List<String> getTouristStayTime();
+
+    //五大经济区游客来源排名
+    List<String> getTouristRank();
+
+    //游客交通方式
+    List<String> getTrafficType();
 }
