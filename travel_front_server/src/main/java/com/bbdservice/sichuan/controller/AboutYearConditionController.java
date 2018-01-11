@@ -3,6 +3,7 @@ package com.bbdservice.sichuan.controller;
 
 import com.bbdservice.sichuan.base.Response;
 import com.bbdservice.sichuan.service.AboutYearConditionService;
+import io.swagger.annotations.ApiOperation;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,8 @@ public class AboutYearConditionController {
     @Autowired
     private AboutYearConditionService aboutYearConditionService;
 
-    @GetMapping(value = "/travelProductMonitor")
+    @ApiOperation(value = "旅游产品监测条件")
+    @GetMapping(value = "/getTravelProductMonitor")
     public Response getThird(){
         Map<String,List> map=new HashMap<>();
         List<String> setClassify=aboutYearConditionService.getClassifyData();
@@ -35,7 +37,8 @@ public class AboutYearConditionController {
         return Response.success(map);
     }
 
-    @GetMapping(value = "/spendBigData")
+    @ApiOperation(value = "消费大数据条件")
+    @GetMapping(value = "/getSpendBigData")
     public Response getSpendBigData(){
         Map<String,List> map=new HashMap<>();
         List<String> key= Arrays.asList("year","monthOrQuarter");
@@ -92,6 +95,7 @@ public class AboutYearConditionController {
         return Response.success(map);
     }
 
+    @ApiOperation("搜索大数据条件")
     @GetMapping("/getSearchBigData")
     public Response getSearchBigData(){
         Map<String,List> map=new HashMap<>();
@@ -112,6 +116,8 @@ public class AboutYearConditionController {
         map.put("popularPlaces",getJingDian);
         return Response.success(map);
     }
+
+    @ApiOperation("客情大数据接口")
     @GetMapping("/getCustBigData")
     public Response getCustomoBigData(){
         Map<String,List> map=new HashMap<>();
