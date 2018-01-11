@@ -26,6 +26,7 @@
     "less-loader": "^4.0.5",
     "lodash": "^3.10.1",
     "mtui": "^2.4.34",
+    "particles.js": "^2.0.0",
     "perfect-scrollbar": "^0.6.16",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",

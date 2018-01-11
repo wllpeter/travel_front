@@ -1,6 +1,6 @@
 import echarts from 'echarts';
 import $ from 'jquery';
-import {colorHex} from '../utils/tools';
+import {colorHex, getDataZoom} from '../utils/tools';
 
 /**
  *  @description 从上到下，依次为柱状图, 雷达图，饼图，线图(折线或面积图),地图(有纵向子级),地图(散点或视觉映射),数据区域缩放,百分比柱状图，多Y轴不同类型混合图, 词云图
@@ -885,25 +885,14 @@ const AD_CHART = {
                 show: false,
                 containLabel: false
             },
-            dataZoom: [
-                {
-                    type: 'slider',
-                    show: true,
-                    backgroundColor: params.zoomBackground || '#1F3A59',
-                    // handleIcon: 'M230 80 A 45 45, 0, 1, 0, 231 80 Z',
-                    fillerColor: params.zoomFiller || '#165B8A',
-                    borderColor: 'transparent',
-                    // handleSize: '50%',
-                    handleStyle: {
-                        color: '#00A8FD'
-                    },
-                    start: params.start || 75,
-                    end: params.end || 100
-                }
-            ],
+            dataZoom: getDataZoom({
+                zoomBackground: params.zoomBackground || '#1F3A59',
+                zoomFiller: params.zoomFiller || '#165B8A',
+                lengthMax: xAxis.length,
+                showLength: params.showLength || 6
+            }),
             xAxis: [{
                 type: 'category',
-                boundaryGap: false,
                 axisTick: {
                     show: false
                 },

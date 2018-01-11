@@ -81,9 +81,13 @@ export default class ProductEvaluate extends Component {
                     }
                 },
                 formatter: (p) => {
-                    return p[0].axisValue + '<br>' +
-                        p[0].marker + p[0].seriesName + '：' + p[0].data + '分' + '<br>' +
-                        p[1].marker + p[1].seriesName + '：' + p[1].data + '%';
+                    let tooltipText = p[0].axisValue + '<br>' +
+                        p[0].marker + p[0].seriesName + '：' + p[0].data + '分';
+                    if (p[1]) {
+                        tooltipText += '<br>' +
+                            p[1].marker + p[1].seriesName + '：' + p[1].data + '%';
+                    }
+                    return tooltipText;
                 }
             },
             toolbox: {

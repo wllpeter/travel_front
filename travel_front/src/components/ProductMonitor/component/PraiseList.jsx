@@ -16,7 +16,7 @@ export default class PraiseList extends Component {
             buttons: PRAISELIST[productType],
             productType: productType,
             dataType: 1, // 1-产品 2-景区 3-特产 4-商场
-            date: '2017-09',
+            date: '2017-12',
             items: []
         };
     }

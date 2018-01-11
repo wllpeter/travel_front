@@ -16,7 +16,7 @@ export default class ProductClassify extends Component {
             buttons: PRODUCT_CLASSIFY[productType],
             productType: productType,
             dataType: 1, // 1-供给 0-消费
-            date: '2017-04',
+            date: '2017-12',
             activeIndex: 0
         };
     }
