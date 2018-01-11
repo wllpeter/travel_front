@@ -102,14 +102,12 @@ public class ConsumptionDataController {
 
     @ApiOperation(value = "合并UI图上右4个图标功能 刷卡  交易 ",notes = "A(外地游客刷卡消费) B(各地市外地游客刷卡消费) C(外地游客交易笔数分析) D(各地市外地游客交易笔数)")
     @ApiImplicitParams({
-            @ApiImplicitParam(name="date",value = "日期 YYYY-MM-dd格式 String类型",paramType = "query",dataType = "String",defaultValue = "2017-01-12"),
+            @ApiImplicitParam(name="year",value = "年",paramType = "query",dataType = "Integer",defaultValue = "2017"),
+            @ApiImplicitParam(name="month",value = "月",paramType = "query",dataType = "Integer",defaultValue = "1"),
             @ApiImplicitParam(name="type",value = "类型 A(外地游客刷卡消费) B(各地市外地游客刷卡消费) C(外地游客交易笔数分析) D(各地市外地游客交易笔数)",paramType = "query",dataType = "String",defaultValue = "A")
     })
     @GetMapping(value = "/getShuaKaAndJiaoYiInfo")
-    public Response getWaiDiYoukeShuaKaAnalyse(String date,String type){
-        int year=Integer.parseInt(date.substring(0,4));
-        int month=Integer.parseInt(date.substring(5,7));
-
+    public Response getWaiDiYoukeShuaKaAnalyse(Integer year,Integer month,String type){
         List<ForeignTouristSwipeAmountAnalyse> listA=null;//外地游客刷卡
         List<CityForeignDealAmount> cityLeft=null;//各地游客刷卡
         List<ForeignTouristConsumeTimesAnalyse> listB=null;//外地游客交易笔数
