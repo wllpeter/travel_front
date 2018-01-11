@@ -21,8 +21,6 @@
 
     .panel-card-header {
         padding: 18px 0 18px 22px;
-        //padding-left: 22px;
-        //padding-top: 30px;
 
         h3 {
             font-size: 0.8rem;
@@ -30,25 +28,46 @@
             line-height: 1;
         }
 
-        .month-select {
+        .mt-select-input {
             position: absolute;
             right: 30px;
-            top: 18px;
+            top: 10px;
             z-index: 100;
-        }
-
-        .month-select > div {
             width: 130px;
+            padding: 5px 12px;
+            border-radius: 0;
+            border: 1px solid #1ce88b;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 0.65rem;
 
-            input {
-                border-radius: 0;
-                border: 1px solid #1ce88b;
-                background: transparent;
-                color: rgba(255, 255, 255, 0.95);
-                font-size: 0.65rem;
-            }
-            .ant-calendar-picker-icon:after {
+            .iconfont {
                 color: #1ce88b;
+                right: 6px;
+            }
+
+            @at-root {
+                .mt-select {
+                    background-color: #203a59;
+                    border: 1px solid #1ce88b;
+                    margin-top: -1px;
+                    max-height: 160px;
+                    overflow: auto;
+
+                    .mt-select-option {
+                        padding: 4px 12px;
+                        font-size: 13px;
+                        color: rgba(255, 255, 255, 0.8);
+
+                        &:first-child {
+                            padding-top: 6px;
+                        }
+
+                        &:last-child {
+                            padding-bottom: 6px;
+                        }
+                    }
+                }
             }
         }
 

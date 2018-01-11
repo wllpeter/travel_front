@@ -28,7 +28,7 @@ export default class TouristData extends Component {
                     </PanelCard>
                 </Col>
                 <Col span={12} lg={ 16 } xl={ 12 }>
-                    <PanelCard title="旅游发展指数" zoomRequired={false} monthRequired={false}>
+                    <PanelCard title="旅游发展指数" zoomRequired={false} timeSelectRequired={false}>
                         <DevelopmentIndexMap></DevelopmentIndexMap>
                     </PanelCard>
                 </Col>
@@ -45,12 +45,12 @@ export default class TouristData extends Component {
                     </PanelCard>
                 </Col>
                 <Col span={6} lg={ 12 } xl={ 6 }>
-                    <PanelCard className="map-card" title="旅游舒适度" zoomRequired={true} monthRequired={false}>
+                    <PanelCard className="map-card" title="旅游舒适度" zoomRequired={true} timeSelectRequired={false}>
                         <ComfortDegree></ComfortDegree>
                     </PanelCard>
                 </Col>
                 <Col span={6} lg={ 12 } xl={ 6 }>
-                    <PanelCard className="map-card" title="旅游美誉度" zoomRequired={true} monthRequired={false}>
+                    <PanelCard className="map-card" title="旅游美誉度" zoomRequired={true} timeSelectRequired={false}>
                         <Reputation></Reputation>
                     </PanelCard>
                 </Col>

@@ -55,7 +55,7 @@ export default class HotWordRank extends Component {
             defaultValue: this.state.date
         };
         return <PanelCard title="产品热词搜索指数排行榜" {...panelProps}
-                          zoomRequired={true} monthRequired={true}>
+                          zoomRequired={true} timeSelectRequired={true}>
             <div className="product-down-map" style={{paddingTop: '40px'}}>
                 <table className="mt-table col-1-al">
                     <thead>

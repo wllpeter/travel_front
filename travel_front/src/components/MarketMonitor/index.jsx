@@ -219,7 +219,7 @@ export default class TouristData extends Component {
                                 </div>
                             </Col>
                             <Col span={ 5 } className="br-line" lg={ 12 } xl={ 5 }>
-                                <PanelCard title="四川省旅游行业活跃度" monthRequired={ false } zoomRequired={ false } className="custom-style">
+                                <PanelCard title="四川省旅游行业活跃度" timeSelectRequired={ false } zoomRequired={ false } className="custom-style">
                                     <ul className="ul-list">
                                         <li><label>活跃度:</label>90.76</li>
                                         <li><label>环比:</label>1.32%</li>
@@ -229,7 +229,7 @@ export default class TouristData extends Component {
                                 </PanelCard>
                                 {/* 分隔线 */}
                                 <div className="separate-line"></div>
-                                <PanelCard title="分行业活跃度" monthRequired={ false } zoomRequired={ false } className="custom-style">
+                                <PanelCard title="分行业活跃度" timeSelectRequired={ false } zoomRequired={ false } className="custom-style">
                                     <table className="mt-table mt-table-noborder col-1-al">
                                         <thead>
                                             <tr>
@@ -279,7 +279,7 @@ export default class TouristData extends Component {
                                 </PanelCard>
                             </Col>
                             <Col span={ 7 } lg={ 12 } xl={ 7 }>
-                                <PanelCard title="行业活跃度指标详情" monthRequired={ false } zoomRequired={ false }>
+                                <PanelCard title="行业活跃度指标详情" timeSelectRequired={ false } zoomRequired={ false }>
                                     <div id="industryBarChart" style={{ width: '100%', height: 535 }}></div>
                                 </PanelCard>
                             </Col>

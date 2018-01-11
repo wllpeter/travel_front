@@ -262,3 +262,19 @@ export function insert_flg(str, flg, sn){
     }
     return newstr;
 }
+
+/**
+ * @description 转换百分比为数字，并且如果是小数，保留两位小数
+ * @param percentStr  百分比字符串
+ * @returns {number}  数字
+ */
+export function revertPercentToNumber(percentStr) {
+    if(isString(percentStr) && percentStr.indexOf('%') !== -1) {
+        let number =  Number(percentStr.substring(0, percentStr.length - 1));
+        if(isNaN(number)) {
+            throw new Error('此字符串不能转换成数字')
+        }
+
+        return Number(number.toFixed(2));
+    }
+}

@@ -559,17 +559,18 @@ const AD_CHART = {
             legend: {
                 data: params.legend,
                 show: params.legendShow === undefined ? true : params.legendShow,
-                itemWidth: params.regionLegend === undefined ? 6 : 25,
-                itemHeight: params.regionLegend === undefined ? 6 : 14,
+                itemWidth: params.regionLegend === undefined ? 8 : 25,
+                itemHeight: params.regionLegend === undefined ? 8 : 14,
+                itemGap: params.itemGap || 'auto',
                 icon: params.legendIcon === undefined ? null : params.legendIcon,
                 top: params.legendTop === undefined ? '5%' : params.legendTop,
                 right: params.legendRight === undefined ? 'center' : params.legendRight,
                 textStyle: {
-                    color: '#999',
+                    color: 'rgba(255, 255, 255, 0.95)',
                     fontStyle: 'normal',
                     fontWeight: 'normal',
                     fontFamily: 'microsoft yahei',
-                    fontSize: '12'
+                    fontSize: 13
                 }
             },
             xAxis: {
@@ -602,7 +603,8 @@ const AD_CHART = {
                 axisLabel: {
                     show: true,
                     textStyle: {
-                        color: params.labelTextColor === undefined ? 'rgba(255, 255, 255, 0.95)' : params.labelTextColor
+                        color: params.labelTextColor === undefined ? 'rgba(255, 255, 255, 0.95)' : params.labelTextColor,
+                        fontSize: 14
                     },
                     interval: 'auto' // params.interval === undefined ? 'auto' : params.interval
                 }
