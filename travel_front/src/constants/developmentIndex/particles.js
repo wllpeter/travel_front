@@ -1,7 +1,7 @@
 const PARTICLES_OPTION = {
     'particles': {
         'number': {
-            'value': 80,
+            'value': 180,
             'density': {
                 'enable': true,
                 'value_area': 800
@@ -50,7 +50,7 @@ const PARTICLES_OPTION = {
             'distance': 150,
             'color': '#1C3958',
             'opacity': 1,
-            'width': 1
+            'width': 2
         },
         'move': {
             'enable': true,
