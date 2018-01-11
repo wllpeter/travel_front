@@ -11,7 +11,8 @@ export default class HotWordRank extends Component {
         super(props);
         this.state = {
             productType: 1,
-            date: '2017-12',
+            year: '2017',
+            month: '12',
             items: []
         };
 
@@ -35,7 +36,8 @@ export default class HotWordRank extends Component {
     getKeyWordRank() {
         getKeyWordRank({
             productType: this.state.productType,
-            date: this.state.date
+            year: this.state.year,
+            month: this.state.month
         }).then((res) => {
             this.setState({items: res});
         });

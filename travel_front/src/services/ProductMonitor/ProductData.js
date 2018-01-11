@@ -2,7 +2,7 @@ import { HttpMethod } from '../../constants/common';
 import Ajax from '../../utils/Ajax';
 
 // 获取旅游产品的时间范围
-export function productMonitorTime () {
+export function productMonitorTime (data) {
     return Ajax({
         url: '/aboutYearCondition/getTravelProductMonitor',
         type: HttpMethod.GET,

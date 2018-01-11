@@ -11,6 +11,7 @@ import PraiseList from './component/PraiseList';
 import HotWord from './component/HotWord';
 import ProductPrice from './component/ProductPrice';
 import HotWordRank from './component/HotWordRank';
+import {productMonitorTime} from '../../services/ProductMonitor/ProductData';
 import './style.scss';
 
 export default class ProductMonitor extends Component {
@@ -18,8 +19,15 @@ export default class ProductMonitor extends Component {
         super(props);
         this.state = {
             productType: 1,
+            timeRange: {},
             title: LEFT_NAV_NAME['1']
         };
+    }
+
+    componentDidMount() {
+        productMonitorTime({}).then((res) => {
+            this.setState({timeRange: res});
+        });
     }
 
     // 点击左侧按钮切换不同类型

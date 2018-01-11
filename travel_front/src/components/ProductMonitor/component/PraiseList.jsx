@@ -17,6 +17,8 @@ export default class PraiseList extends Component {
             productType: productType,
             dataType: 1, // 1-产品 2-景区 3-特产 4-商场
             date: '2017-12',
+            year: '2017',
+            month: '12',
             items: []
         };
     }
@@ -50,7 +52,8 @@ export default class PraiseList extends Component {
         getOpinionRank({
             productType: this.state.productType,
             dataType: this.state.dataType,
-            date: this.state.date
+            year: this.state.year,
+            month: this.state.month
         }).then((res) => {
             this.setState({items: res});
         });

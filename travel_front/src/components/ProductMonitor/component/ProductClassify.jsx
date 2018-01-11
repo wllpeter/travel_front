@@ -7,6 +7,7 @@ import ToggleButtonGroup from '../../commonComponent/ToggleButtonGroup';
 import {getClassifyType} from '../../../services/ProductMonitor/ProductData';
 import {PRODUCT_CLASSIFY} from '../../../constants/productMonitor/switchButton';
 import PanelCard from '../../commonComponent/PanelCard';
+import {getHeaderOptions} from '../../../utils/tools';
 
 export default class ProductClassify extends Component {
     constructor(props) {
@@ -16,7 +17,9 @@ export default class ProductClassify extends Component {
             buttons: PRODUCT_CLASSIFY[productType],
             productType: productType,
             dataType: 1, // 1-供给 0-消费
-            date: '2017-12',
+            year: '2017',
+            month: '12',
+            panelProps: {},
             activeIndex: 0
         };
     }
@@ -26,6 +29,13 @@ export default class ProductClassify extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        if (nextProps.timeRange.classify) {
+            this.setState({
+                panelProps: getHeaderOptions({
+                    data: nextProps.timeRange.classify
+                })
+            });
+        }
         let productType = nextProps.productType;
         if (this.state.productType !== productType) {
             this.resetButtonState();
@@ -49,7 +59,8 @@ export default class ProductClassify extends Component {
         getClassifyType({
             productType: this.state.productType,
             dataType: this.state.dataType,
-            date: this.state.date
+            year: this.state.year,
+            month: this.state.month
         }).then((res) => {
             this.print(this.handleData(res));
         });
@@ -81,21 +92,20 @@ export default class ProductClassify extends Component {
             chartId: 'classify-map',
             borderWidth: 6,
             legendTop: 70,
+            center: ['30%', '50%'],
             borderColor: '#072648',
             legend: data.legend,
             data: data.data
         });
     }
 
-    // 选择日期
-    monthPickerChange(dateString) {
-        this.setState({date: dateString}, () => {
-            this.getClassifyType();
-        });
+    getHeaderOptions(options) {
+        return getHeaderOptions(options, this.state.optionsData);
     }
 
     render() {
         let {title} = this.props;
+        let {panelProps} = this.state;
         let switchProps = {
             buttons: this.state.buttons,
             clickBack: (params) => {
@@ -106,11 +116,8 @@ export default class ProductClassify extends Component {
                 });
             }
         };
-        let panelProps = {
-            monthPickerChange: this.monthPickerChange.bind(this),
-            defaultValue: this.state.date
-        };
-        return <PanelCard title={`${title}产品分类`} zoomRequired={false} monthRequired={true} {...panelProps}>
+
+        return <PanelCard title={`${title}产品分类`} {...panelProps}>
 
             <div className="switch-btn-box">
                 <ToggleButtonGroup ref="getSwitchButton" {...switchProps}></ToggleButtonGroup>

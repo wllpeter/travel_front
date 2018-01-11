@@ -324,18 +324,10 @@ const AD_CHART = {
                 },
                 formatter: function (param) {
                     let info = '';
-                    if (params.showLable) {
-                        info = `<div class = "mapTooltip pieTooltip">
+                    info = `<div class = "mapTooltip pieTooltip">
                                 <p class = "title"><b>${param.name}</b></p>
                                 <p>占比<span class = "color-blue">${param.percent}%</span></p>
                             <div>`;
-                    } else {
-                        info = `<div class = "mapTooltip pieTooltip">
-                                <p class = "title"><b>${param.marker}${param.name}</b></p>
-                                <p>${param.value}${params.unit ? params.unit : ''}</p>
-                                <p>占比<span class = "color-blue">${param.percent}%</span></p>
-                            <div>`;
-                    }
                     return info;
                 }
             },
