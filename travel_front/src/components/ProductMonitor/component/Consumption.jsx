@@ -6,31 +6,38 @@ import adCharts from '../../../utils/adCharts';
 import PanelCard from '../../commonComponent/PanelCard';
 import {getSupplyConsume} from '../../../services/ProductMonitor/ProductData';
 import ToggleButtonGroup from '../../commonComponent/ToggleButtonGroup';
-import {LEFT_NAV_NAME} from '../../../constants/productMonitor/leftNav';
 import {getDataZoom, dateFormat} from '../../../utils/tools';
+import {CONSUMPTION, PRODUCT_CLASSIFY} from '../../../constants/productMonitor/switchButton';
 
 export default class Consumption extends Component {
     constructor(props) {
         super(props);
         let productType = this.props.productType;
         this.state = {
-            title: LEFT_NAV_NAME[productType],
+            buttons: CONSUMPTION[productType],
             productType: productType,
             dataType: 1 // 1-供给 2-消费
         };
     }
 
-    componentDidUpdate() {
-        let productType = this.props.productType;
-        if (this.state.productType !== this.props.productType) {
+    componentWillReceiveProps(nextProps) {
+        let productType = nextProps.productType;
+        if (this.state.productType !== productType) {
+            this.resetButtonState();
+            let buttons = PRODUCT_CLASSIFY[productType];
             this.setState({
-                title: LEFT_NAV_NAME[productType],
-                dataType: 1,
+                buttons: buttons,
+                dataType: buttons[0] ? buttons[0].dataType : 1,
                 productType: productType
             }, () => {
                 this.getSupplyConsume();
             });
         }
+    }
+
+    resetButtonState() {
+        // 调用组件进行通信,重置按钮状态
+        this.refs.getSwitchButton.resetButtonState();
     }
 
     componentDidMount() {
@@ -83,12 +90,9 @@ export default class Consumption extends Component {
     }
 
     render() {
-        let {title} = this.state;
+        let {title} = this.props;
         let switchProps = {
-            buttons: [
-                {buttonName: '供给', dataType: 1},
-                {buttonName: '消费', dataType: 2}
-            ],
+            buttons: this.state.buttons,
             style: {
                 top: '20px'
             },
@@ -101,7 +105,7 @@ export default class Consumption extends Component {
             }
         };
         return <PanelCard title={`${title}产品供给/消费总量`} zoomRequired={false} monthRequired={false}>
-            <ToggleButtonGroup {...switchProps}></ToggleButtonGroup>
+            <ToggleButtonGroup ref="getSwitchButton" {...switchProps}></ToggleButtonGroup>
             <div id="consumption-map" className="product-map">
             </div>
         </PanelCard>;

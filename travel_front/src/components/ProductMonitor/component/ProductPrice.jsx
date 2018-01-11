@@ -20,6 +20,17 @@ export default class ProductPrice extends Component {
         this.getPriceTrend();
     }
 
+    componentWillReceiveProps(nextProps) {
+        let productType = nextProps.productType;
+        if (this.state.productType !== productType) {
+            this.setState({
+                productType: productType
+            }, () => {
+                this.getPriceTrend();
+            });
+        }
+    }
+
     getPriceTrend() {
         getPriceTrend({
             productType: this.state.productType
@@ -53,7 +64,6 @@ export default class ProductPrice extends Component {
 
     print(params) {
         let color = ['#00A9FF', '#32C889'];
-        // 十六进制颜色转为RGB格式
         let option = {
             tooltip: {
                 trigger: 'axis',
@@ -248,7 +258,8 @@ export default class ProductPrice extends Component {
     }
 
     render() {
-        return <PanelCard title="旅游产品价格走势" zoomRequired={false} monthRequired={false}>
+        let {title} = this.props;
+        return <PanelCard title={`${title}产品价格走势`} zoomRequired={false} monthRequired={false}>
             <div id="product-price" className="product-down-map">
             </div>
         </PanelCard>;

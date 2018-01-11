@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react';
 import {Row, Col} from 'antd';
-import {LEFT_NAV_DATA} from '../../constants/productMonitor/leftNav';
+import {LEFT_NAV_DATA, LEFT_NAV_NAME} from '../../constants/productMonitor/leftNav';
 import ProductClassify from './component/ProductClassify';
 import ProductEvaluate from './component/ProductEvaluate';
 import Consumption from './component/Consumption';
@@ -17,13 +17,17 @@ export default class ProductMonitor extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            productType: 1
+            productType: 1,
+            title: LEFT_NAV_NAME['1']
         };
     }
 
     // 点击左侧按钮切换不同类型
     chooseProductType(productType) {
-        this.setState({productType: productType});
+        this.setState({
+            productType: productType,
+            title: LEFT_NAV_NAME[productType]
+        });
     }
 
     render() {

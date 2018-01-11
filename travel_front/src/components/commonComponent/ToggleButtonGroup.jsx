@@ -27,6 +27,14 @@ export default class ToggleButtonGroup extends Component {
         }
     }
 
+    // 重置按钮状态
+    resetButtonState() {
+        let activeIndex = this.props.activeIndex;
+        this.setState({
+            activeIndex: activeIndex === undefined ? 0 : activeIndex
+        });
+    }
+
     render() {
         let {clickBack, buttons, style} = this.props;
         const {activeIndex} = this.state;
