@@ -90,7 +90,7 @@ export function getHeaderOptions(options) {
     return {
         timeSelectRequired: options.timeSelectRequired,
         zoomRequired: options.zoomRequired,
-        // callback: options.callback,
+        clickBack: options.clickBack,
         defaultValue,
         options: (options.data && options.data.length > 0) ? options.data.map((option, index) => {
             return <Option key={index}
