@@ -8,8 +8,8 @@ import { Row, Col } from 'antd';
 import 'antd/lib/grid/style';
 import maleIcon from '../../assets/images/male.png';
 import femaleIcon from '../../assets/images/female.png';
-import { getTouristDataOptions, getProvinceCustomerData, getCountyData } from '../../services/DataAnalysis/touristData';
-import { Map } from 'immutable';
+import { getTouristDataOptions, getProvinceCustomerData, getCountyData, getZoneCustomerTimes, getZoneTouristResidentTime, getZoneTouristResourceRank, getZoneTouristTrafficType } from '../../services/DataAnalysis/touristData';
+import { Map, List } from 'immutable';
 import { revertPercentToNumber, getHeaderOptions } from '../../utils/util';
 import './style.scss';
 import ToggleButtonGroup from "../commonComponent/ToggleButtonGroup";
@@ -24,8 +24,14 @@ export default class TouristData extends Component {
                 genderData: [],       // 游客性别分布
                 flowData: null          // 游客流量分析
             }),
-            villageTouristData: null,
-            villageActive: 'jieDai',    // 默认激活的为接待按钮
+            villageTouristData: Map({
+                ageData: null,             // 年龄分析
+                consumptionPotential: [],   // 消费潜力
+                tripTime: []                // 乡村游时长
+            }),
+            fiveZonePeopleNumData: List(),   // 五大经济区客游人次
+            touristDelayTimeData: List(),   // 游客停留时长
+            villageActive: 'jieDai-2',    // 默认激活的为接待按钮，值为2
             optionsData: {
                 chuXing: null,          // 乡村游客分析-出行
                 jieDai: null,           // 乡村游客分析-接待
@@ -37,11 +43,14 @@ export default class TouristData extends Component {
             }
         };
 
+        this.ecnomicZoneSort = ['川西北生态经济区', '攀西经济区', '川东北经济区', '川南经济区', '成都平原经济区'];
         this.renderProvinceTouristData = this.renderProvinceTouristData.bind(this);
     }
 
+    /**
+     * @description 渲染四川省游客分析
+     */
     renderProvinceTouristData() {
-
         const { provinceTouristData } = this.state;
 
         // 四川省游客年龄分布图
@@ -60,17 +69,216 @@ export default class TouristData extends Component {
         });
     }
 
+    /**
+     * @description 渲染乡村游游客分析
+     */
+    renderCountryTouristData() {
+
+        const { villageTouristData } = this.state;
+        // 乡村游游客年龄分析
+        adCharts.pieChart({
+            chartId: 'villageAgePieChart',
+            legend: ['20以下', '20-25', '25-30', '30-35', '35-40', '40-45', '45-50', '50-55', '55-60', '60-65', '65以上'],
+            legendIcon: 'circle',
+            borderWidth: 6,
+            borderColor: '#072848',
+            legendTop: 80,
+            legendHeight: 150,
+            legendRight: '10%',
+            color: ['#dc9473', '#ddcf73', '#b6dd74', '#32c889', '#0dbbc7', '#00a9ff', '#1b75d3', '#3559c5', '#5334c5', '#9e35c5', '#df5fa8'],
+            center: ['30%', '50%'],
+            data: villageTouristData.get('ageData')
+        });
+
+        // 乡村游消费潜力分布
+        adCharts.percentBarChart({
+            chartId: 'villageConsumptionBarChart',
+            title: '释义: 星级越高，消费者潜力越强',
+            titleLeft: 20,
+            titleFontSize: 12,
+            legendShow: false,
+            xAxisData: ['1星','2星','3星','4星','5星','6星','7星','8星','9星','10星'],
+            barWidth: 13,
+            labelFontSize: 12,
+            gridTop: 60,
+            gridLeft: 0,
+            yAxisLineShow: false,
+            yAxisLabelShow: false,
+            xAxisLineShow: false,
+            colors: ['#415870', '#00a9ff'],
+            labelOffset: [0, -10],
+            labelMargin: 0,
+            labelPos: 'top',
+            series: [[100,100,100,100,100,100,100,100,100,100], villageTouristData.get('consumptionPotential')]
+        });
+
+        // 乡村游时长分布
+        adCharts.percentBarChart({
+            chartId: 'villageDurationPercentBarChart',
+            legendShow: false,
+            yAxisData: ["120h以上".padEnd(7, ' '), "96h-120h", "72h-96h".padEnd(8, ' '), "48h-72h".padEnd(8, ' '), "24h-48h".padEnd(8, ' '), "12h-24h".padEnd(8, ' '), "6h-12h".padEnd(9, ' ')],
+            row: true,
+            barWidth: 8,
+            colors: ['#415870', '#00a9ff'],
+            gridRight: 70,
+            yAxisLineShow: false,
+            xAxisLineShow: false,
+            xAxisLabelShow: false,
+            series: [ [100, 100, 100, 100, 100, 100, 100], villageTouristData.get('tripTime')]
+        });
+    }
+
+    /**
+     * @description 五大经济区客游人次
+     */
+    renderFiveZonePeopleData() {
+        // 五大经济区客游人次
+        adCharts.barChart({
+            chartId: 'fiveEconomicZoneBarChart',
+            legend: ['五大经济区客游人次'],
+            legendShow: false,
+            yAxisData: ['川西北生态经济区', '攀西经济区'.padEnd(14, ' '), '川东北经济区'.padEnd(12, ' '), '川南经济区'.padEnd(14, ' '), '成都平原经济区'.padEnd(10, ' ')],
+            xAxisLineShow: false,
+            xAxisLabelShow: false,
+            yAxisLineShow: false,
+            row: true,
+            gridLeft: '5%',
+            seriesLabelShow: true,
+            series: [this.state.fiveZonePeopleNumData.reverse().toArray()]
+        });
+    }
+
+    /**
+     * @description 游客停留时长
+     */
+    renderTouristDelayTimeData() {
+
+        const { touristDelayTimeData } = this.state;
+
+        // 游客停留时长
+        adCharts.barChart({
+            chartId: 'touristStayBarChart',
+            legend: ['0-12', '13-24', '25-48', '49-72', '73-96', '97-120', '121-144', '145-360', '360+'],
+            yAxisData: ['川西北生态经济区', '攀西经济区'.padEnd(14, ' '), '川东北经济区'.padEnd(12, ' '), '川南经济区'.padEnd(14, ' '), '成都平原经济区'.padEnd(10, ' ')],
+            barWidth: 14,
+            colors: ['#00a9ff', '#32c889', '#ddcf73', '#1b75d3', '#3559c5', '#5334c5', '#0dbbc7', '#b6dd74', '#9e35c5'],
+            legendIcon: 'circle',
+            legendRight: '10%',
+            legendTop: '10',
+            legendItemGap: 10,
+            gridTop: 45,
+            xAxisLineShow: false,
+            yAxisLineShow: false,
+            row: true,
+            stack: true,
+            series: [ touristDelayTimeData.toArray() ]
+        });
+    }
+
     componentDidMount() {
         // 1. 获取客情大数据的时间选项组
         getTouristDataOptions().then(data => {
             console.log('时间选项组:', data);
-
             this.setState({
                 optionsData: data
             });
-        })
+        });
 
-        getProvinceCustomerData(['2017', '1']).then(data => {
+        // this.fetchProvinceCustomerData();
+
+        // 四川省客流量分析
+        adCharts.lineChart({
+            chartId: 'provinceFlowLineChart',
+            legend: ['人次', '人数'],
+            legendIcon: 'circle',
+            legendRight: '12%',
+            legendTop: '0',
+            itemGap: 35,
+            xAxisData: ['1季度', '2季度', '3季度', '4季度'],
+            yAxisName: '流量 (万)',
+            smooth: false,
+            graphic: false,
+            top: 10,
+            right: 30,
+            bottom: 40,
+            colors: ['#32c889', '#00a9ff'],
+            series: [[8500, 4500, 3400, 2300], [3242, 2334, 2312, 3232]]
+        });
+
+        // 乡村游出游人次
+        adCharts.barChart({
+            chartId: 'villageOutingBarChart',
+            legend: ['乡村游出游人次'],
+            legendShow: false,
+            gridTop: 60,
+            gridBottom: 40,
+            xAxisData: ['阿坝', '巴中', '成都', '达州', '广安', '广元'],
+            yAxisName: '流量 (万)',
+            series: [[6000, 8000, 11000, 4000, 6500, 3000]]
+        });
+
+        // 五大经济区客游人次
+        adCharts.barChart({
+            chartId: 'fiveEconomicZoneBarChart',
+            legend: ['五大经济区客游人次'],
+            legendShow: false,
+            yAxisData: ['川西北生态经济区', '攀西经济区'.padEnd(14, ' '), '川东北经济区'.padEnd(12, ' '), '川南经济区'.padEnd(14, ' '), '成都平原经济区'.padEnd(10, ' ')],
+            xAxisLineShow: false,
+            xAxisLabelShow: false,
+            yAxisLineShow: false,
+            row: true,
+            gridLeft: '5%',
+            seriesLabelShow: true,
+            series: [[3563, 936, 1026, 365, 450]]
+        });
+
+
+        // 游客交通方式
+        adCharts.barChart({
+            chartId: 'touristTrafficWayBarChart',
+            legend: ['其他', '火车', '高铁', '飞机'],
+            yAxisData: ['川西北生态经济区', '攀西经济区'.padEnd(14, ' '), '川东北经济区'.padEnd(12, ' '), '川南经济区'.padEnd(14, ' '), '成都平原经济区'.padEnd(10, ' ')],
+            barWidth: 14,
+            colors: ['#00a9ff', '#0dbbc7', '#32c889', '#b6dd74'],
+            legendIcon: 'circle',
+            legendRight: '10%',
+            legendTop: '20',
+            legendItemGap: 10,
+            gridTop: 45,
+            xAxisLineShow: false,
+            yAxisLineShow: false,
+            row: true,
+            stack: true,
+            series: [[34, 32, 23, 12, 32], [43, 32, 23, 32, 32], [43, 32, 23, 32, 32], [43, 32, 23, 32, 32]]
+        });
+
+        // 乡村游客流量分析
+        adCharts.lineChart({
+            chartId: 'villageFlowLineChart',
+            legend: ['人次', '人数'],
+            legendIcon: 'circle',
+            legendRight: '12%',
+            legendTop: '0',
+            itemGap: 35,
+            xAxisData: ['1季度', '2季度', '3季度', '4季度'],
+            yAxisName: '流量 (万)',
+            smooth: false,
+            graphic: false,
+            top: 10,
+            right: 30,
+            bottom: 40,
+            colors: ['#32c889', '#00a9ff'],
+            series: [[8500, 4500, 3400, 2300], [3242, 2334, 2312, 3232]]
+        });
+
+    }
+
+    /**
+     * @description 获取四川省游客分析数据
+     * @param params
+     */
+    fetchProvinceCustomerData = (params) => {
+        getProvinceCustomerData(params).then(data => {
             console.log('获取到四川省游客分析数据:', data);
 
             let { age_data, gender_data, flow_data } = data;
@@ -112,222 +320,154 @@ export default class TouristData extends Component {
             }
 
         });
+    }
 
-        getCountyData(['2017', '1', '2']).then(data => {
+    /**
+     * @description 获取乡村游游客分析
+     * @params params
+     */
+    fetchCountyData = (params) => {
+        params.push(this.state.villageActive.split('-')[1]);
+
+        getCountyData(params).then(data => {
             console.log('乡村游游客分析:', data);
-        });
 
-        // 四川省客流量分析
-        adCharts.lineChart({
-            chartId: 'provinceFlowLineChart',
-            legend: ['人次', '人数'],
-            legendIcon: 'circle',
-            legendRight: '12%',
-            legendTop: '0',
-            itemGap: 35,
-            xAxisData: ['1季度', '2季度', '3季度', '4季度'],
-            yAxisName: '流量 (万)',
-            smooth: false,
-            graphic: false,
-            top: 10,
-            right: 30,
-            bottom: 40,
-            colors: ['#32c889', '#00a9ff'],
-            series: [[8500, 4500, 3400, 2300], [3242, 2334, 2312, 3232]]
-        });
+            let {
+                country_tour_age_reception,
+                country_tour_person_Time_reception,
+                country_tour_potential_reception,
+                country_tour_residence_zone_reception
+            } = data;
+            // 处理年龄数据
+            let ageSeriesData = null;
 
-        // 乡村游游客年龄分布
-        adCharts.pieChart({
-            chartId: 'villageAgePieChart',
-            legend: ['20以下', '20-25', '25-30', '30-35', '35-40', '40-45', '45-50', '50-55', '55-60', '60-65', '65以上'],
-            legendIcon: 'circle',
-            borderWidth: 6,
-            borderColor: '#072848',
-            legendTop: 80,
-            legendHeight: 150,
-            legendRight: '10%',
-            color: ['#dc9473', '#ddcf73', '#b6dd74', '#32c889', '#0dbbc7', '#00a9ff', '#1b75d3', '#3559c5', '#5334c5', '#9e35c5', '#df5fa8'],
-            center: ['30%', '50%'],
-            data: [
-                {
-                    name: '20以下',
-                    value: 12
-                },
-                {
-                    name: '20-25',
-                    value: 12
-                },
-                {
-                    name: '25-30',
-                    value: 12
-                },
-                {
-                    name: '30-35',
-                    value: 12
-                },
-                {
-                    name: '35-40',
-                    value: 12
-                },
-                {
-                    name: '40-45',
-                    value: 12
-                },
-                {
-                    name: '45-50',
-                    value: 12
-                },
-                {
-                    name: '50-55',
-                    value: 12
-                },
-                {
-                    name: '55-60',
-                    value: 12
-                },
-                {
-                    name: '60-65',
-                    value: 12
-                },
-                {
-                    name: '65以上',
-                    value: 12
-                }
-            ]
-        });
+            if(country_tour_age_reception && country_tour_age_reception.length) {
+                let ageData = country_tour_age_reception;
+                ageSeriesData = ageData.map((ageSeries) => {
+                    return {
+                        name: ageSeries.ageZone,
+                        value: (Number(ageSeries.ratio) * 100).toFixed(2) - 0
+                    };
+                });
+            }
 
-        // 乡村游出游人次
-        adCharts.barChart({
-            chartId: 'villageOutingBarChart',
-            legend: ['乡村游出游人次'],
-            legendShow: false,
-            gridTop: 60,
-            gridBottom: 40,
-            xAxisData: ['阿坝', '巴中', '成都', '达州', '广安', '广元'],
-            yAxisName: '流量 (万)',
-            series: [[6000, 8000, 11000, 4000, 6500, 3000]]
-        });
+            let consumptionPotential = country_tour_potential_reception;
+            let potentialData = null;
 
-        // 五大经济区客游人次
-        adCharts.barChart({
-            chartId: 'fiveEconomicZoneBarChart',
-            legend: ['五大经济区客游人次'],
-            legendShow: false,
-            yAxisData: ['川西北生态经济区', '攀西经济区'.padEnd(14, ' '), '川东北经济区'.padEnd(12, ' '), '川南经济区'.padEnd(14, ' '), '成都平原经济区'.padEnd(10, ' ')],
-            xAxisLineShow: false,
-            xAxisLabelShow: false,
-            yAxisLineShow: false,
-            row: true,
-            gridLeft: '5%',
-            seriesLabelShow: true,
-            series: [[3563, 936, 1026, 365, 450]]
-        });
+            // 处理乡村游消费潜力分布数据
+            if(consumptionPotential && consumptionPotential.length) {
+                potentialData = consumptionPotential.map((potentialSeries) => {
+                    return Number(potentialSeries.ratio).toFixed(2) - 0;
+                });
+            }
 
-        // 游客停留时长
-        adCharts.barChart({
-            chartId: 'touristStayBarChart',
-            legend: ['0-12', '13-24', '25-48', '49-72', '73-96', '97-120', '121-144', '145-360', '360+'],
-            yAxisData: ['川西北生态经济区', '攀西经济区'.padEnd(14, ' '), '川东北经济区'.padEnd(12, ' '), '川南经济区'.padEnd(14, ' '), '成都平原经济区'.padEnd(10, ' ')],
-            barWidth: 14,
-            colors: ['#00a9ff', '#32c889', '#ddcf73', '#1b75d3', '#3559c5', '#5334c5', '#0dbbc7', '#b6dd74', '#9e35c5'],
-            legendIcon: 'circle',
-            legendRight: '10%',
-            legendTop: '10',
-            legendItemGap: 10,
-            gridTop: 45,
-            xAxisLineShow: false,
-            yAxisLineShow: false,
-            row: true,
-            stack: true,
-            series: [[34, 32, 23, 12, 32], [43, 32, 23, 32, 32], [43, 32, 23, 32, 32], [43, 32, 23, 32, 32], [43, 32, 23, 32, 32], [43, 32, 23, 32, 32], [43, 32, 23, 32, 32], [43, 32, 23, 32, 32], [43, 32, 23, 32, 32]]
-        });
+            // 乡村游时长分布
+            let tripTime = country_tour_residence_zone_reception;
+            let tripTimeData = null;
 
-        // 游客交通方式
-        adCharts.barChart({
-            chartId: 'touristTrafficWayBarChart',
-            legend: ['其他', '火车', '高铁', '飞机'],
-            yAxisData: ['川西北生态经济区', '攀西经济区'.padEnd(14, ' '), '川东北经济区'.padEnd(12, ' '), '川南经济区'.padEnd(14, ' '), '成都平原经济区'.padEnd(10, ' ')],
-            barWidth: 14,
-            colors: ['#00a9ff', '#0dbbc7', '#32c889', '#b6dd74'],
-            legendIcon: 'circle',
-            legendRight: '10%',
-            legendTop: '20',
-            legendItemGap: 10,
-            gridTop: 45,
-            xAxisLineShow: false,
-            yAxisLineShow: false,
-            row: true,
-            stack: true,
-            series: [[34, 32, 23, 12, 32], [43, 32, 23, 32, 32], [43, 32, 23, 32, 32], [43, 32, 23, 32, 32]]
-        });
+            if(tripTime && tripTime.length) {
+                tripTimeData = tripTime.map((time) => {
+                    return (Number(time.ratio) * 100).toFixed(2) - 0;
+                })
+            }
 
-        // 乡村游消费潜力分布
-        adCharts.percentBarChart({
-            chartId: 'villageConsumptionBarChart',
-            title: '释义: 星级越高，消费者潜力越强',
-            titleLeft: 20,
-            titleFontSize: 12,
-            legendShow: false,
-            xAxisData: ['1星','2星','3星','4星','5星','6星','7星','8星','9星','10星'],
-            barWidth: 13,
-            labelFontSize: 12,
-            gridTop: 60,
-            gridLeft: 0,
-            yAxisLineShow: false,
-            yAxisLabelShow: false,
-            xAxisLineShow: false,
-            colors: ['#415870', '#00a9ff'],
-            labelOffset: [0, -10],
-            labelMargin: 0,
-            labelPos: 'top',
-            series: [[100,100,100,100,100,100,100,100,100,100], [4.32, 7.34, 8.50, 13.98, 30.37, 18.04, 11.44, 5.80, 10.13, 0.00]]
-        });
+            if(ageSeriesData && ageSeriesData.length && potentialData && potentialData.length && tripTimeData && tripTimeData.length) {
+                this.setState(({ villageTouristData }) => ({
+                    villageTouristData: villageTouristData.set('ageData', ageSeriesData)
+                        .set('consumptionPotential', potentialData)
+                        .set('tripTime', tripTimeData)
+                }), () => {
+                    this.renderCountryTouristData();
+                })
+            }
 
-        // 乡村游客流量分析
-        adCharts.lineChart({
-            chartId: 'villageFlowLineChart',
-            legend: ['人次', '人数'],
-            legendIcon: 'circle',
-            legendRight: '12%',
-            legendTop: '0',
-            itemGap: 35,
-            xAxisData: ['1季度', '2季度', '3季度', '4季度'],
-            yAxisName: '流量 (万)',
-            smooth: false,
-            graphic: false,
-            top: 10,
-            right: 30,
-            bottom: 40,
-            colors: ['#32c889', '#00a9ff'],
-            series: [[8500, 4500, 3400, 2300], [3242, 2334, 2312, 3232]]
-        });
-
-        // 乡村游时长分布
-        adCharts.percentBarChart({
-            chartId: 'villageDurationPercentBarChart',
-            legendShow: false,
-            yAxisData: ["120h以上".padEnd(7, ' '), "96h-120h", "72h-96h".padEnd(8, ' '), "48h-72h".padEnd(8, ' '), "24h-48h".padEnd(8, ' '), "12h-24h".padEnd(8, ' '), "3h-12h".padEnd(9, ' ')],
-            row: true,
-            barWidth: 8,
-            colors: ['#415870', '#00a9ff'],
-            gridRight: 70,
-            yAxisLineShow: false,
-            xAxisLineShow: false,
-            xAxisLabelShow: false,
-            series: [ [100, 100, 100, 100, 100, 100, 100], [1.9, 1.06, 1.75, 3.66, 10.85, 18.14, 62.64]]
         });
     }
 
     /**
-     * @description 获取Panel头部选项
-     * @param timeSelectRequired  是否需要时间选择(月份，季度)
-     * @param zoomRequired 是否需要放大按钮
-     * @param name
-     * @param isQuarter 是否是季度
+     * @description 获取五大经济区客游人次
+     * @param params
+     */
+    fetchFiveZoneData = (params) => {
+        getZoneCustomerTimes(params).then(data => {
+            console.log('获取五大经济区客游人次:', data);
+            let customerTimes = data;
+
+            if(customerTimes && customerTimes.length) {
+                let fiveZonePeopleData = customerTimes.map(time => time.personTime);
+                this.setState(({ fiveZonePeopleNumData }) => ({
+                    fiveZonePeopleNumData: List(fiveZonePeopleData)
+                }), () => {
+                    this.renderFiveZonePeopleData();
+                })
+            }
+        })
+    }
+
+    /**
+     * @description 获取五大经济区游客停留时长
+     * @param params
+     */
+    fetchTouristDelayTime = (params) => {
+        getZoneTouristResidentTime(params).then(resultData => {
+            console.log('获取五大经济区游客停留时长', resultData);
+            let ecnomicZoneSort = this.ecnomicZoneSort.slice();
+            let delayTime = [];
+
+            if(ecnomicZoneSort && ecnomicZoneSort.length) {
+                while(ecnomicZoneSort && ecnomicZoneSort.length) {
+                    for(let itemValue of Object.values(resultData)) {
+                        let { data, name } = itemValue;
+                        if(name === ecnomicZoneSort[0]) {
+                            delayTime.push(data.map(item => item.personCount));
+                            ecnomicZoneSort.shift();
+                            break;
+                        }
+                    }
+                }
+                console.log('结果：', delayTime);
+
+                this.setState(({ touristDelayTimeData }) => ({
+                    touristDelayTimeData: List(delayTime)
+                }), () => {
+                    this.renderTouristDelayTimeData();
+                });
+            }
+        })
+    }
+
+    /**
+     * @description 获取五大经济区游客来源排名
+     * @param params
+     */
+    fetchFiveZoneTouristRank = (params) => {
+        getZoneTouristResourceRank(params).then(data => {
+            console.log('获取五大经济区游客来源排名', data);
+        })
+    }
+
+    /**
+     * @description 获取五大经济区游客交通方式
+     * @param params
+     */
+    fetchFiveZoneTrafficType = (params) => {
+        getZoneTouristTrafficType(params).then(data => {
+            console.log('获取五大经济区游客交通方式', data);
+        })
+    }
+
+    /**
+     * @description 获取PanelCard头部选项
+     * @param options 各种选项
+     * @param getDataFunc 获取数据的回调
      * @returns {{timeSelectRequired: *, zoomRequired: *, options: *}}
      */
-    getHeaderOptions(options) {
-        return getHeaderOptions(options, this.state.optionsData);
+    getHeaderOptions(options, getDataFunc) {
+        let callback = function(year, monthOrQuarter) {
+            console.log('year:', year, 'monthOrQuarter:', monthOrQuarter);
+            getDataFunc && getDataFunc([year, monthOrQuarter]);
+        }
+        return getHeaderOptions(options, this.state.optionsData, callback);
     }
 
     render() {
@@ -340,7 +480,7 @@ export default class TouristData extends Component {
 
                 if(buttonInfo) {
                     this.setState({
-                        villageActive: buttonInfo.buttonName === '接待' ? 'jieDai' : 'chuXing'
+                        villageActive: buttonInfo.buttonName.includes('接待') ? 'jieDai-2' : 'chuXing-1'
                     });
                 }
             },
@@ -359,7 +499,7 @@ export default class TouristData extends Component {
         return <div className="tourist-data">
             <Row>
                 <Col span={ 12 } lg={ 24 } xl={ 12 }>
-                    <PanelCard title="四川省游客分析" { ...this.getHeaderOptions([true, false, 'sex', true])} className="br-line" headerClassName="header-bg color-white month-top-12">
+                    <PanelCard title="四川省游客分析" { ...this.getHeaderOptions([true, false, 'sex', true], this.fetchProvinceCustomerData)} className="br-line" headerClassName="header-bg color-white month-top-12">
                         <Row>
                             <Col span={ 12 }>
                                 <PanelCard title="四川省游客年龄分布">
@@ -397,7 +537,7 @@ export default class TouristData extends Component {
                     </PanelCard>
                 </Col>
                 <Col span={ 12 } lg={ 24 } xl={ 12 }>
-                    <PanelCard title="乡村游游客分析"  { ...this.getHeaderOptions([true, false, this.state.villageActive, true])} headerClassName="header-bg color-white month-top-12">
+                    <PanelCard title="乡村游游客分析"  { ...this.getHeaderOptions([true, false, this.state.villageActive.split('-')[0], true], this.fetchCountyData)} headerClassName="header-bg color-white month-top-12">
                         <ToggleButtonGroup { ...countryTripOptions } style={{ 'position': 'absolute', 'top': 15, 'right': 195 }}/>
                         <Row>
                             <Col span={ 12 }>
@@ -434,17 +574,17 @@ export default class TouristData extends Component {
 
             <Row gutter={ 2 }>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
-                    <PanelCard title="五大经济区客游人次" className="bg-grey" { ...this.getHeaderOptions([true, true, 'touristTimes', true])}>
+                    <PanelCard title="五大经济区客游人次" className="bg-grey" { ...this.getHeaderOptions([true, true, 'touristTimes', true], this.fetchFiveZoneData)}>
                         <div id="fiveEconomicZoneBarChart" style={{ width: '100%', height: 300 }}></div>
                     </PanelCard>
                 </Col>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
-                    <PanelCard title="游客停留时长" className="bg-grey" { ...this.getHeaderOptions([true, true, 'stayTime', true])}>
+                    <PanelCard title="游客停留时长" className="bg-grey" { ...this.getHeaderOptions([true, true, 'stayTime', true], this.fetchTouristDelayTime)}>
                         <div id="touristStayBarChart" style={{ width: '100%', height: 300 }}></div>
                     </PanelCard>
                 </Col>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
-                    <PanelCard title="五大经济区游客来源排名" className="bg-grey" { ...this.getHeaderOptions([true, true, 'touristRank', true])}>
+                    <PanelCard title="五大经济区游客来源排名" className="bg-grey" { ...this.getHeaderOptions([true, true, 'touristRank', true], this.fetchFiveZoneTouristRank)}>
                         <table className="mt-table mt-table-noborder col-1-al" style={{ height: 280 }}>
                             <thead>
                             <tr>
@@ -484,8 +624,8 @@ export default class TouristData extends Component {
                     </PanelCard>
                 </Col>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
-                    <PanelCard title="游客交通方式" className="bg-grey">
-                        <div id="touristTrafficWayBarChart" style={{ width: '100%', height: 300 }} { ...this.getHeaderOptions([true, true, 'trafficType', true])}></div>
+                    <PanelCard title="游客交通方式" className="bg-grey" { ...this.getHeaderOptions([true, true, 'trafficType', true], this.fetchFiveZoneTrafficType)}>
+                        <div id="touristTrafficWayBarChart" style={{ width: '100%', height: 300 }}></div>
                     </PanelCard>
                 </Col>
             </Row>

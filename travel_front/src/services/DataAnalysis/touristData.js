@@ -53,7 +53,7 @@ export function getZoneCustomerTimes([year, quarter]) {
  */
 export function getZoneTouristResidentTime([year, quarter]) {
     return Ajax({
-        url: `/customer_data/zone_tourists_residence_time/{year}/{quarter}`,
+        url: `/customer_data/zone_tourists_residence_time/${year}/${quarter}`,
         type: HttpMethod.GET,
         data: null
     });

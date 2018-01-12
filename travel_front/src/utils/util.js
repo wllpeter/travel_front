@@ -288,9 +288,10 @@ export function revertPercentToNumber(percentStr) {
  * @param zoomRequired 是否需要放大按钮
  * @param name
  * @param isQuarter 是否是季度
+ * @param callback 点击时间选择后的回调
  * @returns {{timeSelectRequired: *, zoomRequired: *, options: *}}
  */
-export function getHeaderOptions([timeSelectRequired, zoomRequired, name, isQuarter = false], optionsData) {
+export function getHeaderOptions([timeSelectRequired, zoomRequired, name, isQuarter = false], optionsData, callback = null) {
     let defaultValue = '';
 
     if(name && optionsData[name] && optionsData[name].length) {
@@ -302,6 +303,7 @@ export function getHeaderOptions([timeSelectRequired, zoomRequired, name, isQuar
         timeSelectRequired,
         zoomRequired,
         defaultValue,
+        clickBack: callback,
         options: name ? (optionsData[name] && optionsData[name].length > 0) && optionsData[name].map((option, index) => {
                 return <Option key={ index } value={ option.year + '-' + option.monthOrQuarter }>{ `${ option.year }年${ option.monthOrQuarter }${ isQuarter ? '季度' : '月'}` }</Option>
             }) : null

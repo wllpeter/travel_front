@@ -18,7 +18,35 @@ export default class PanelCard extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            timeValue: props.defaultValue || ' '    // 日期选择
+        }
     }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.defaultValue !== this.props.defaultValue) {
+            this.setState({
+                timeValue: nextProps.defaultValue
+            });
+        }
+    }
+
+    // 时间选择改变
+    selectChange(e) {
+        let value = e.target.value;
+        this.setState({
+            timeValue: value
+        });
+
+        if(value) {
+            let timeArr = value.split('-');
+            if(timeArr && timeArr.length) {
+                this.props.clickBack && this.props.clickBack(timeArr[0], timeArr[1]);
+            }
+        }
+    }
+
 
     render() {
 
@@ -33,7 +61,7 @@ export default class PanelCard extends Component {
             zoomRequired,
             zoomOutRequired,
             options,
-            ...other
+            clickBack
         } = this.props;
 
         let classNames = ['panel-card'];
@@ -42,12 +70,12 @@ export default class PanelCard extends Component {
             classNames.push(className);
         }
 
-        return <div className={classNames.join(' ')} {...other}>
+        return <div className={classNames.join(' ')}>
             <div className={`panel-card-header ${ headerClassName || ''}`}>
                 <h3>{title}</h3>
 
                 {
-                    timeSelectRequired && <Select trigger="click" value={ defaultValue || ' '}>
+                    timeSelectRequired && <Select trigger="click" value={ this.state.timeValue } onChange={ this.selectChange.bind(this) }>
                         {
                             options
                         }
