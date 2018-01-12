@@ -1,17 +1,18 @@
+@import "../../public";
 .productMonitor {
     overflow: hidden;
-    background: #1F3A59;
-    min-height: calc(100vh - 60px);
+    background: $bgColor;
+    min-height: $contentHeight;
     .left-nav-box {
         width: 82px;
-        height: calc(100vh - 60px);
+        height: $contentHeight;
         float: left;
         .left-nav {
             overflow: hidden;
             width: 82px;
-            height: calc(100vh - 60px);
+            height: $contentHeight;
             position: fixed;
-            top: 60px;
+            top: $headerHeight;
             left: 0;
             & > li {
                 width: 100%;
@@ -46,7 +47,7 @@
         background: #072648;
         float: left;
         .product-praise {
-            background: #1F3A59;
+            background: $bgColor;
             border-left: 3px solid #072648;
             height: 704px;
             .panel-card-body {
@@ -95,13 +96,13 @@
 }
 
 .product-down{
-    background: #1F3A59;
+    background: $bgColor;
     border-top: 3px solid #072648;
     border-left: 3px solid #072648;
 }
 
 .hotWord-zoom{
-    background: #1F3A59;
+    background: $bgColor;
     height: 100%;
 }
 

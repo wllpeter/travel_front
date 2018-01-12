@@ -130,7 +130,7 @@ export default class PraiseList extends Component {
                                                 ~~item.upDown === 2 ?
                                                     <span className="praise-icon  praise-icon-down">
                                                 <i className="iconfont icon-down"></i>
-                                                        {item.changeNum}
+                                                        {Math.abs(item.changeNum || 0)}
                                             </span> :
                                                     <span className="praise-icon">
                                                 &nbsp;&nbsp;

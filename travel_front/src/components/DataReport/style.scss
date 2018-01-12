@@ -1,0 +1,111 @@
+@import "../../public";
+$activeColor: #00A9FF;
+$animateTime: .36s;
+.report {
+  .nav-left-box {
+    font-size: 16px;
+    width: 240px;
+    height: $contentHeight;
+    float: left;
+    .nav-left {
+      width: 240px;
+      height: $contentHeight;
+      position: absolute;
+      top: $headerHeight;
+      left: 0;
+      .nav-father-name {
+        display: block;
+        box-sizing: border-box;
+        height: 60px;
+        line-height: 60px;
+        border-bottom: 1px solid #374F6B;
+        padding-left: 30px;
+        .iconfont {
+          float: right;
+          margin: 22px 16px 0 0;
+          transition: all $animateTime;
+          -moz-transition: all $animateTime; /* Firefox 4 */
+          -webkit-transition: all $animateTime; /* Safari 和 Chrome */
+          -o-transition: all $animateTime; /* Opera */
+        }
+        .icon-open {
+          transform: rotate(90deg);
+          -ms-transform: rotate(90deg); /* IE 9 */
+          -moz-transform: rotate(90deg); /* Firefox */
+          -webkit-transform: rotate(90deg); /* Safari 和 Chrome */
+          -o-transform: rotate(90deg); /* Opera */
+        }
+      }
+      .nav-children {
+        overflow: hidden;
+        width: 240px;
+        transition: all $animateTime ease;
+        -moz-transition: all $animateTime ease; /* Firefox 4 */
+        -webkit-transition: all $animateTime ease; /* Safari 和 Chrome */
+        -o-transition: all $animateTime ease; /* Opera */
+        height: 120px;
+        .nav-children-name {
+          box-sizing: border-box;
+          height: 60px;
+          line-height: 60px;
+          cursor: pointer;
+          border-bottom: 1px solid #374F6B;
+          border-right: 4px solid transparent;
+          padding-left: 30px;
+          background: $bgColor;
+        }
+        .active-nav {
+          color: $activeColor;
+          border-right-color: $activeColor;
+        }
+      }
+    }
+  }
+
+  .pdf-box {
+    width: calc(100% - 240px);
+    height: $contentHeight;
+    background: #fff;
+    float: left;
+    .top-buttons {
+      width: calc(100% - 240px);
+      background-color: rgba(0, 0, 0, .3);
+      height: 60px;
+      position: fixed;
+      z-index: 1000;
+      top: $headerHeight;
+      right: 0;
+      .iconfont{
+        float: right;
+        color: $activeColor;
+        font-size: 26px;
+        font-weight: 700;
+        margin: 17px 30px 17px 40px;
+        cursor: pointer;
+        &:hover{
+          color: #0D82FF;
+        }
+      }
+    }
+    .right-buttons{
+      height: $contentHeight;
+      width: 60px;
+      position: fixed;
+      z-index: 500;
+      top: $headerHeight;
+      padding-top: 200px;
+      right: 0;
+      .iconfont{
+        display: block;
+        color: $activeColor;
+        font-size: 26px;
+        font-weight: 500;
+        margin-top: 40px;
+        cursor: pointer;
+        &:hover{
+          color: #0D82FF;
+        }
+      }
+    }
+  }
+}
