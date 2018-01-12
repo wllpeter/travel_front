@@ -29,7 +29,7 @@ public class AboutYearConditionController {
         List<String> setClassify=aboutYearConditionService.getClassifyData();
         List<String> opinionRank=aboutYearConditionService.getOpinionRank();
         List<String> goodWords=aboutYearConditionService.getGoodWords();
-        List<String> key= Arrays.asList("year","monthOrQuarter");
+        List<String> key= Arrays.asList("year","monthOrQuarter","type");
         map.put("classify",putKey(key,setClassify));
         map.put("opinion",putKey(key,opinionRank));
         //好评榜
@@ -41,7 +41,7 @@ public class AboutYearConditionController {
     @GetMapping(value = "/getSpendBigData")
     public Response getSpendBigData(){
         Map<String,List> map=new HashMap<>();
-        List<String> key= Arrays.asList("year","monthOrQuarter");
+        List<String> key= Arrays.asList("year","monthOrQuarter","type");
         List<String> getWaiDiShuaKa=aboutYearConditionService.getWaiDiShuaKa();
         /**
          * 外地游客刷卡金额分析
@@ -99,7 +99,7 @@ public class AboutYearConditionController {
     @GetMapping("/getSearchBigData")
     public Response getSearchBigData(){
         Map<String,List> map=new HashMap<>();
-        List<String> key= Arrays.asList("year","monthOrQuarter");
+        List<String> key= Arrays.asList("year","monthOrQuarter","type");
         List<String> getProvinceHot=aboutYearConditionService.getProvinceHot();
         map.put("provinceHot",putKey(key,getProvinceHot));
         //热词云
@@ -117,11 +117,11 @@ public class AboutYearConditionController {
         return Response.success(map);
     }
 
-    @ApiOperation("客情大数据接口")
+    @ApiOperation("客情大数据条件")
     @GetMapping("/getCustBigData")
     public Response getCustomoBigData(){
         Map<String,List> map=new HashMap<>();
-        List<String> key= Arrays.asList("year","monthOrQuarter");
+        List<String> key= Arrays.asList("year","monthOrQuarter","type");
         //四川省游客性别分布
         List<String> getSiChuanYouKeSex=aboutYearConditionService.getSiChuanYouKeSex();
         map.put("sex",putKey(key,getSiChuanYouKeSex));
@@ -152,7 +152,7 @@ public class AboutYearConditionController {
         for(int i=0;i<valueList.size();i++){
             JSONObject jsonObject=new JSONObject();
             JSONArray valueArray = JSONArray.fromObject(valueList.get(i));
-            for(int j=0;j<2;j++){
+            for(int j=0;j<3;j++){
                 jsonObject.put(keyList.get(j),valueArray.get(j));
             }
             result.add(jsonObject);
