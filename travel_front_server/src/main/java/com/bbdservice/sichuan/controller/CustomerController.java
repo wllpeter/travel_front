@@ -158,7 +158,7 @@ public class CustomerController {
         List<EconomicZoneTouristResourceRank> economicZoneTouristResourceRanks = this.economicZoneTouristResourceRankService.getQuarterData(year, quarter);
         Map<String,Object> zone = new HashMap<>();
         for(EconomicZoneEnums economicZoneEnums : EconomicZoneEnums.values()){
-                Map<String,Object> zoneData = new HashMap<>();
+                Map<String,Object> zoneData = new LinkedHashMap<>();
                 zoneData.put("name",economicZoneEnums.getName());
                 List<EconomicZoneTouristResourceRank> zoneDatas = new ArrayList<>();
                 for(EconomicZoneTouristResourceRank economicZoneTouristResourceRank : economicZoneTouristResourceRanks){
@@ -167,13 +167,13 @@ public class CustomerController {
                         continue;
                     }
                 }
-                Collections.sort(zoneDatas, new Comparator<EconomicZoneTouristResourceRank>() {
-                    @Override
-                    public int compare(EconomicZoneTouristResourceRank o1, EconomicZoneTouristResourceRank o2) {
-                        return Integer.valueOf(o2.getPersonCount())-Integer.valueOf(o1.getPersonCount());
-                    }
-                });
-                zoneData.put("data",zoneDatas);
+//                Collections.sort(zoneDatas, new Comparator<EconomicZoneTouristResourceRank>() {
+//                    @Override
+//                    public int compare(EconomicZoneTouristResourceRank o1, EconomicZoneTouristResourceRank o2) {
+//                        return Integer.valueOf(o2.getPersonCount())-Integer.valueOf(o1.getPersonCount());
+//                    }
+//                });
+                zoneData.put("data",zoneDatas.subList(0,5));
                 zone.put(economicZoneEnums.name(),zoneData);
         }
         return Response.success(zone);
