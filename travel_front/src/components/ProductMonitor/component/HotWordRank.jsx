@@ -44,7 +44,15 @@ export default class HotWordRank extends Component {
         this.setState({
             panelProps: getHeaderOptions({
                 data: times,
-                zoomRequired: true
+                zoomRequired: true,
+                clickBack: (year, month) => {
+                    this.setState({
+                        year: year,
+                        month: month
+                    }, () => {
+                        this.getKeyWordRank();
+                    });
+                }
             }),
             year: time.year || null,
             month: time.monthOrQuarter || null

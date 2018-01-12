@@ -51,7 +51,15 @@ export default class PraiseList extends Component {
         let time = times[0] || {};
         this.setState({
             panelProps: getHeaderOptions({
-                data: times
+                data: times,
+                clickBack: (year, month) => {
+                    this.setState({
+                        year: year,
+                        month: month
+                    }, () => {
+                        this.getOpinionRank();
+                    });
+                }
             }),
             year: time.year || null,
             month: time.monthOrQuarter || null

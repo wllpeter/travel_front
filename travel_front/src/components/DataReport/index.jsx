@@ -3,6 +3,9 @@
  */
 import React, {Component} from 'react';
 import './style.scss';
+import PDFObject from 'pdfobject';
+
+const pdfUrl = 'http://www.jq22.com/demo/pdfobject-141021092802/sample.pdf';
 
 export default class TouristData extends Component {
     constructor(props) {
@@ -42,7 +45,8 @@ export default class TouristData extends Component {
     }
 
     componentDidMount() {
-
+        console.log(PDFObject);
+        PDFObject.embed(pdfUrl, '#my-container', {page: '1'});
     }
 
     chooseFatherNav(index) {

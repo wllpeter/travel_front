@@ -51,7 +51,15 @@ export default class ProductClassify extends Component {
         let time = times[0] || {};
         this.setState({
             panelProps: getHeaderOptions({
-                data: times
+                data: times,
+                clickBack: (year, month) => {
+                    this.setState({
+                        year: year,
+                        month: month
+                    }, () => {
+                        this.getClassifyType();
+                    });
+                }
             }),
             year: time.year || null,
             month: time.monthOrQuarter || null
