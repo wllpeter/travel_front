@@ -1,6 +1,6 @@
 import echarts from 'echarts';
 import $ from 'jquery';
-import {colorHex} from '../utils/tools';
+import {colorHex, getDataZoom} from '../utils/tools';
 
 /**
  *  @description 从上到下，依次为柱状图, 雷达图，饼图，线图(折线或面积图),地图(有纵向子级),地图(散点或视觉映射),数据区域缩放,百分比柱状图，多Y轴不同类型混合图, 词云图
@@ -324,18 +324,10 @@ const AD_CHART = {
                 },
                 formatter: function (param) {
                     let info = '';
-                    if (params.showLable) {
-                        info = `<div class = "mapTooltip pieTooltip">
+                    info = `<div class = "mapTooltip pieTooltip">
                                 <p class = "title"><b>${param.name}</b></p>
                                 <p>占比<span class = "color-blue">${param.percent}%</span></p>
                             <div>`;
-                    } else {
-                        info = `<div class = "mapTooltip pieTooltip">
-                                <p class = "title"><b>${param.marker}${param.name}</b></p>
-                                <p>${param.value}${params.unit ? params.unit : ''}</p>
-                                <p>占比<span class = "color-blue">${param.percent}%</span></p>
-                            <div>`;
-                    }
                     return info;
                 }
             },
@@ -559,17 +551,18 @@ const AD_CHART = {
             legend: {
                 data: params.legend,
                 show: params.legendShow === undefined ? true : params.legendShow,
-                itemWidth: params.regionLegend === undefined ? 6 : 25,
-                itemHeight: params.regionLegend === undefined ? 6 : 14,
+                itemWidth: params.regionLegend === undefined ? 8 : 25,
+                itemHeight: params.regionLegend === undefined ? 8 : 14,
+                itemGap: params.itemGap || 'auto',
                 icon: params.legendIcon === undefined ? null : params.legendIcon,
                 top: params.legendTop === undefined ? '5%' : params.legendTop,
                 right: params.legendRight === undefined ? 'center' : params.legendRight,
                 textStyle: {
-                    color: '#999',
+                    color: 'rgba(255, 255, 255, 0.95)',
                     fontStyle: 'normal',
                     fontWeight: 'normal',
                     fontFamily: 'microsoft yahei',
-                    fontSize: '12'
+                    fontSize: 13
                 }
             },
             xAxis: {
@@ -602,7 +595,8 @@ const AD_CHART = {
                 axisLabel: {
                     show: true,
                     textStyle: {
-                        color: params.labelTextColor === undefined ? 'rgba(255, 255, 255, 0.95)' : params.labelTextColor
+                        color: params.labelTextColor === undefined ? 'rgba(255, 255, 255, 0.95)' : params.labelTextColor,
+                        fontSize: 14
                     },
                     interval: 'auto' // params.interval === undefined ? 'auto' : params.interval
                 }
@@ -885,25 +879,14 @@ const AD_CHART = {
                 show: false,
                 containLabel: false
             },
-            dataZoom: [
-                {
-                    type: 'slider',
-                    show: true,
-                    backgroundColor: params.zoomBackground || '#1F3A59',
-                    // handleIcon: 'M230 80 A 45 45, 0, 1, 0, 231 80 Z',
-                    fillerColor: params.zoomFiller || '#165B8A',
-                    borderColor: 'transparent',
-                    // handleSize: '50%',
-                    handleStyle: {
-                        color: '#00A8FD'
-                    },
-                    start: params.start || 75,
-                    end: params.end || 100
-                }
-            ],
+            dataZoom: getDataZoom({
+                zoomBackground: params.zoomBackground || '#1F3A59',
+                zoomFiller: params.zoomFiller || '#165B8A',
+                lengthMax: xAxis.length,
+                showLength: params.showLength || 6
+            }),
             xAxis: [{
                 type: 'category',
-                boundaryGap: false,
                 axisTick: {
                     show: false
                 },

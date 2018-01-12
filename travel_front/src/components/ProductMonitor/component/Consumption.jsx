@@ -104,7 +104,7 @@ export default class Consumption extends Component {
                 });
             }
         };
-        return <PanelCard title={`${title}产品供给/消费总量`} zoomRequired={false} monthRequired={false}>
+        return <PanelCard title={`${title}产品供给/消费总量`}>
             <ToggleButtonGroup ref="getSwitchButton" {...switchProps}></ToggleButtonGroup>
             <div id="consumption-map" className="product-map">
             </div>

@@ -80,9 +80,13 @@ export default class ProductPrice extends Component {
                     }
                 },
                 formatter: (p) => {
-                    return p[0].axisValue + '<br>' +
-                        p[0].marker + p[0].seriesName + '：' + p[0].data + '元' + '<br>' +
-                        p[1].marker + p[1].seriesName + '：' + p[1].data + '%';
+                    let tooltipText = p[0].axisValue + '<br>' +
+                        p[0].marker + p[0].seriesName + '：' + p[0].data + '元';
+                    if (p[1]) {
+                        tooltipText += '<br>' +
+                            p[1].marker + p[1].seriesName + '：' + p[1].data + '%';
+                    }
+                    return tooltipText;
                 }
             },
             toolbox: {
@@ -259,7 +263,7 @@ export default class ProductPrice extends Component {
 
     render() {
         let {title} = this.props;
-        return <PanelCard title={`${title}产品价格走势`} zoomRequired={false} monthRequired={false}>
+        return <PanelCard title={`${title}产品价格走势`}>
             <div id="product-price" className="product-down-map">
             </div>
         </PanelCard>;

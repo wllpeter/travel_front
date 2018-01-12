@@ -286,7 +286,7 @@ export default class TouristData extends Component {
         return <div className="consumption-data">
             <Row>
                 <Col span={ 12 } lg={ 24 } xl={ 12 }>
-                    <PanelCard title="全省旅游消费情况" className="province-consumption br-line" monthRequired={ false } zoomRequired={ false }>
+                    <PanelCard title="全省旅游消费情况" className="province-consumption br-line" timeSelectRequired={ false } zoomRequired={ false }>
                         <ToggleButtonGroup { ...consumeInfoOptions }/>
 
                         <div id="provinceTouristConsumption" style={{ width: '100%', height: 640 }}></div>

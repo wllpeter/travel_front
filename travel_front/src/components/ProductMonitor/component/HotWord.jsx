@@ -154,13 +154,13 @@ export default class HotWord extends Component {
     render() {
         let {visible} = this.state;
         return <div>
-            <PanelCard title="产品评价热词云" zoomRequired={true} monthRequired={true}
+            <PanelCard title="产品评价热词云"
                        enlarge={this.showModal.bind(this)}>
                 <div id="hotWord-map" className="product-down-map"></div>
             </PanelCard>
             <Modal visible={visible} onOk={() => {this.print.bind(this)('hotWord-map2');}}>
                 <div className="hotWord-zoom">
-                    <PanelCard title="产品评价热词云" zoomRequired={false} monthRequired={true}
+                    <PanelCard title="产品评价热词云" zoomRequired={false} timeSelectRequired={true}
                                zoomOutRequired={true}
                                narrow={this.handleCancel.bind(this)}>
                         <div id="hotWord-map2"></div>

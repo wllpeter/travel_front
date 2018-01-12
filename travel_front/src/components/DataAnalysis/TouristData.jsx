@@ -8,20 +8,41 @@ import { Row, Col } from 'antd';
 import 'antd/lib/grid/style';
 import maleIcon from '../../assets/images/male.png';
 import femaleIcon from '../../assets/images/female.png';
-import { getProvinceCustomerData } from '../../services/DataAnalysis/touristData';
+import { getTouristDataOptions, getProvinceCustomerData, getCountyData } from '../../services/DataAnalysis/touristData';
+import { Map } from 'immutable';
+import { revertPercentToNumber, getHeaderOptions } from '../../utils/util';
 import './style.scss';
+import ToggleButtonGroup from "../commonComponent/ToggleButtonGroup";
 
 export default class TouristData extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            // 省游客分析
+            provinceTouristData: Map({
+                ageData: null,          // 游客年龄分布
+                genderData: [],       // 游客性别分布
+                flowData: null          // 游客流量分析
+            }),
+            villageTouristData: null,
+            villageActive: 'jieDai',    // 默认激活的为接待按钮
+            optionsData: {
+                chuXing: null,          // 乡村游客分析-出行
+                jieDai: null,           // 乡村游客分析-接待
+                sex: null,              // 四川省游客性别分布
+                stayTime: null,         // 游客停留时长
+                touristRank: null,      // 五大经济区游客来源排名
+                touristTimes: null,     // 五大经济区客游人次
+                trafficType: null       // 游客交通方式
+            }
+        };
+
+        this.renderProvinceTouristData = this.renderProvinceTouristData.bind(this);
     }
 
-    componentDidMount() {
+    renderProvinceTouristData() {
 
-        getProvinceCustomerData(['2017', '1']).then(data => {
-            console.log('获取到四川省游客分析数据:', data);
-        });
-
+        const { provinceTouristData } = this.state;
 
         // 四川省游客年龄分布图
         adCharts.pieChart({
@@ -33,53 +54,67 @@ export default class TouristData extends Component {
             legendTop: 80,
             legendHeight: 150,
             legendRight: '10%',
+            color: ['#dc9473', '#ddcf73', '#b6dd74', '#32c889', '#0dbbc7', '#00a9ff', '#1b75d3', '#3559c5', '#5334c5', '#9e35c5', '#df5fa8'],
             center: ['30%', '50%'],
-            data: [
-                {
-                    name: '20以下',
-                    value: 12
-                },
-                {
-                    name: '20-25',
-                    value: 12
-                },
-                {
-                    name: '25-30',
-                    value: 12
-                },
-                {
-                    name: '30-35',
-                    value: 12
-                },
-                {
-                    name: '35-40',
-                    value: 12
-                },
-                {
-                    name: '40-45',
-                    value: 12
-                },
-                {
-                    name: '45-50',
-                    value: 12
-                },
-                {
-                    name: '50-55',
-                    value: 12
-                },
-                {
-                    name: '55-60',
-                    value: 12
-                },
-                {
-                    name: '60-65',
-                    value: 12
-                },
-                {
-                    name: '65以上',
-                    value: 12
+            data: provinceTouristData.get('ageData')
+        });
+    }
+
+    componentDidMount() {
+        // 1. 获取客情大数据的时间选项组
+        getTouristDataOptions().then(data => {
+            console.log('时间选项组:', data);
+
+            this.setState({
+                optionsData: data
+            });
+        })
+
+        getProvinceCustomerData(['2017', '1']).then(data => {
+            console.log('获取到四川省游客分析数据:', data);
+
+            let { age_data, gender_data, flow_data } = data;
+
+            // 处理年龄数据
+            if(age_data && age_data.data && age_data.data.length) {
+                let ageData = age_data.data;
+                let ageSeriesData = ageData.map((ageSeries) => {
+                    return {
+                        name: ageSeries.ageZone,
+                        value: revertPercentToNumber(ageSeries.ratio)
+                    };
+                });
+
+                if(ageSeriesData && ageSeriesData.length) {
+                    this.setState(({ provinceTouristData }) => ({
+                        provinceTouristData: provinceTouristData.set('ageData', ageSeriesData)
+                    }), () => {
+                        this.renderProvinceTouristData();
+                    })
                 }
-            ]
+            }
+
+            // 处理性别数据
+            if(gender_data && gender_data.data && gender_data.data.length) {
+                let genderData = gender_data.data;
+                let genderSeriesData = new Array(2);
+
+                // 男放第一个元素，女则为第二个元素
+                genderData.forEach(genderSeries => {
+                    genderSeriesData[genderSeries.gender === '男' ? 0 : 1] = genderSeries.genderRatio;
+                });
+
+                if(genderSeriesData && genderSeriesData.length) {
+                    this.setState(({ provinceTouristData }) => ({
+                        provinceTouristData: provinceTouristData.set('genderData', genderSeriesData)
+                    }));
+                }
+            }
+
+        });
+
+        getCountyData(['2017', '1', '2']).then(data => {
+            console.log('乡村游游客分析:', data);
         });
 
         // 四川省客流量分析
@@ -87,10 +122,16 @@ export default class TouristData extends Component {
             chartId: 'provinceFlowLineChart',
             legend: ['人次', '人数'],
             legendIcon: 'circle',
+            legendRight: '12%',
+            legendTop: '0',
+            itemGap: 35,
             xAxisData: ['1季度', '2季度', '3季度', '4季度'],
             yAxisName: '流量 (万)',
             smooth: false,
             graphic: false,
+            top: 10,
+            right: 30,
+            bottom: 40,
             colors: ['#32c889', '#00a9ff'],
             series: [[8500, 4500, 3400, 2300], [3242, 2334, 2312, 3232]]
         });
@@ -105,6 +146,7 @@ export default class TouristData extends Component {
             legendTop: 80,
             legendHeight: 150,
             legendRight: '10%',
+            color: ['#dc9473', '#ddcf73', '#b6dd74', '#32c889', '#0dbbc7', '#00a9ff', '#1b75d3', '#3559c5', '#5334c5', '#9e35c5', '#df5fa8'],
             center: ['30%', '50%'],
             data: [
                 {
@@ -241,6 +283,25 @@ export default class TouristData extends Component {
             series: [[100,100,100,100,100,100,100,100,100,100], [4.32, 7.34, 8.50, 13.98, 30.37, 18.04, 11.44, 5.80, 10.13, 0.00]]
         });
 
+        // 乡村游客流量分析
+        adCharts.lineChart({
+            chartId: 'villageFlowLineChart',
+            legend: ['人次', '人数'],
+            legendIcon: 'circle',
+            legendRight: '12%',
+            legendTop: '0',
+            itemGap: 35,
+            xAxisData: ['1季度', '2季度', '3季度', '4季度'],
+            yAxisName: '流量 (万)',
+            smooth: false,
+            graphic: false,
+            top: 10,
+            right: 30,
+            bottom: 40,
+            colors: ['#32c889', '#00a9ff'],
+            series: [[8500, 4500, 3400, 2300], [3242, 2334, 2312, 3232]]
+        });
+
         // 乡村游时长分布
         adCharts.percentBarChart({
             chartId: 'villageDurationPercentBarChart',
@@ -257,32 +318,69 @@ export default class TouristData extends Component {
         });
     }
 
+    /**
+     * @description 获取Panel头部选项
+     * @param timeSelectRequired  是否需要时间选择(月份，季度)
+     * @param zoomRequired 是否需要放大按钮
+     * @param name
+     * @param isQuarter 是否是季度
+     * @returns {{timeSelectRequired: *, zoomRequired: *, options: *}}
+     */
+    getHeaderOptions(options) {
+        return getHeaderOptions(options, this.state.optionsData);
+    }
+
     render() {
+
+        const { provinceTouristData } = this.state;
+        const { genderData } = provinceTouristData.toObject();
+
+        const countryTripOptions = {
+            clickBack: (buttonInfo) => {
+
+                if(buttonInfo) {
+                    this.setState({
+                        villageActive: buttonInfo.buttonName === '接待' ? 'jieDai' : 'chuXing'
+                    });
+                }
+            },
+            buttons: [
+                {
+                    buttonName: '接待',
+                    value: '2'
+                },
+                {
+                    buttonName: '出行',
+                    value: '1'
+                }
+            ]
+        };
+
         return <div className="tourist-data">
             <Row>
                 <Col span={ 12 } lg={ 24 } xl={ 12 }>
-                    <PanelCard title="四川省游客分析" zoomRequired={ false } className="br-line" headerClassName="header-bg color-white month-top-12">
+                    <PanelCard title="四川省游客分析" { ...this.getHeaderOptions([true, false, 'sex', true])} className="br-line" headerClassName="header-bg color-white month-top-12">
                         <Row>
                             <Col span={ 12 }>
-                                <PanelCard title="四川省游客年龄分布" zoomRequired={ false } monthRequired={ false }>
+                                <PanelCard title="四川省游客年龄分布">
                                     <div id="provinceAgePieChart" style={{ width: '100%', height: 260 }}></div>
                                 </PanelCard>
                             </Col>
                             <Col span={ 12 }>
-                                <PanelCard title="四川省游客性别分布" zoomRequired={ false } monthRequired={ false }>
+                                <PanelCard title="四川省游客性别分布">
                                     <div className="sex-distribution">
                                         <div className="total male-total">
                                             <img src={ maleIcon } alt="男性"/>
                                             <div className="info-data">
-                                                <span>男性<em>64.77%</em></span>
-                                                <div className="data-bar male-bar" style={{ width: '64.77%' }}></div>
+                                                <span>男性<em>{ genderData[0] || '0%'}</em></span>
+                                                <div className="data-bar male-bar" style={{ width: genderData[0] || '0%' }}></div>
                                             </div>
                                         </div>
                                         <div className="total">
                                             <img src={ femaleIcon } alt="女性"/>
                                             <div className="info-data">
-                                                <span>女性<em>35.23%</em></span>
-                                                <div className="data-bar female-bar" style={{ width: '35.23%' }}></div>
+                                                <span>女性<em>{ genderData[1] || '0%'}</em></span>
+                                                <div className="data-bar female-bar" style={{ width: genderData[1] || '0%' }}></div>
                                             </div>
                                         </div>
                                     </div>
@@ -291,7 +389,7 @@ export default class TouristData extends Component {
                         </Row>
                         <Row>
                             <Col span={ 24 }>
-                                <PanelCard title="四川省游客流量分析" zoomRequired={ false } monthRequired={ false }>
+                                <PanelCard title="四川省游客流量分析">
                                     <div id="provinceFlowLineChart" style={{ width: '100%', height: 260 }}></div>
                                 </PanelCard>
                             </Col>
@@ -299,27 +397,33 @@ export default class TouristData extends Component {
                     </PanelCard>
                 </Col>
                 <Col span={ 12 } lg={ 24 } xl={ 12 }>
-                    <PanelCard title="乡村游游客分析" zoomRequired={ false } headerClassName="header-bg color-white month-top-12">
+                    <PanelCard title="乡村游游客分析"  { ...this.getHeaderOptions([true, false, this.state.villageActive, true])} headerClassName="header-bg color-white month-top-12">
+                        <ToggleButtonGroup { ...countryTripOptions } style={{ 'position': 'absolute', 'top': 15, 'right': 195 }}/>
                         <Row>
                             <Col span={ 12 }>
-                                <PanelCard title="乡村游游客年龄分析" zoomRequired={ false } monthRequired={ false }>
+                                <PanelCard title="乡村游游客年龄分析" zoomRequired={ false } timeSelectRequired={ false }>
                                     <div id="villageAgePieChart" style={{ width: '100%', height: 260 }}></div>
                                 </PanelCard>
                             </Col>
                             <Col span={ 12 }>
-                                <PanelCard title="乡村游消费潜力分布" zoomRequired={ false } monthRequired={ false }>
+                                <PanelCard title="乡村游消费潜力分布" zoomRequired={ false } timeSelectRequired={ false }>
                                     <div id="villageConsumptionBarChart" style={{ width: '100%', height: 260 }}></div>
                                 </PanelCard>
                             </Col>
                         </Row>
                         <Row>
-                            <Col span={ 16 }>
-                                <PanelCard title="乡村游出游人次" zoomRequired={ false } monthRequired={ false }>
+                            <Col span={ 16 } className="hide">
+                                <PanelCard title="乡村游出游人次" zoomRequired={ false } timeSelectRequired={ false }>
                                     <div id="villageOutingBarChart" style={{ width: '100%', height: 260 }}></div>
                                 </PanelCard>
                             </Col>
+                            <Col span={ 16 }>
+                                <PanelCard title="乡村游客流量分析" zoomRequired={ false } timeSelectRequired={ false }>
+                                    <div id="villageFlowLineChart" style={{ width: '100%', height: 260 }}></div>
+                                </PanelCard>
+                            </Col>
                             <Col span={ 8 }>
-                                <PanelCard title="乡村游时长分布" zoomRequired={ false } monthRequired={ false }>
+                                <PanelCard title="乡村游时长分布" zoomRequired={ false } timeSelectRequired={ false }>
                                     <div id="villageDurationPercentBarChart" style={{ width: '100%', height: 260 }}></div>
                                 </PanelCard>
                             </Col>
@@ -330,17 +434,17 @@ export default class TouristData extends Component {
 
             <Row gutter={ 2 }>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
-                    <PanelCard title="五大经济区客游人次" className="bg-grey">
+                    <PanelCard title="五大经济区客游人次" className="bg-grey" { ...this.getHeaderOptions([true, true, 'touristTimes', true])}>
                         <div id="fiveEconomicZoneBarChart" style={{ width: '100%', height: 300 }}></div>
                     </PanelCard>
                 </Col>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
-                    <PanelCard title="游客停留时长" className="bg-grey">
+                    <PanelCard title="游客停留时长" className="bg-grey" { ...this.getHeaderOptions([true, true, 'stayTime', true])}>
                         <div id="touristStayBarChart" style={{ width: '100%', height: 300 }}></div>
                     </PanelCard>
                 </Col>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
-                    <PanelCard title="五大经济区游客来源排名" className="bg-grey">
+                    <PanelCard title="五大经济区游客来源排名" className="bg-grey" { ...this.getHeaderOptions([true, true, 'touristRank', true])}>
                         <table className="mt-table mt-table-noborder col-1-al" style={{ height: 280 }}>
                             <thead>
                             <tr>
@@ -381,7 +485,7 @@ export default class TouristData extends Component {
                 </Col>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
                     <PanelCard title="游客交通方式" className="bg-grey">
-                        <div id="touristTrafficWayBarChart" style={{ width: '100%', height: 300 }}></div>
+                        <div id="touristTrafficWayBarChart" style={{ width: '100%', height: 300 }} { ...this.getHeaderOptions([true, true, 'trafficType', true])}></div>
                     </PanelCard>
                 </Col>
             </Row>

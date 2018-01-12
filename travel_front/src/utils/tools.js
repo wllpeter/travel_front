@@ -1,6 +1,9 @@
 /**
  *  @description 封装了一些本项目用到的方法
  * */
+import React from 'react';
+import { Select } from 'mtui/index';
+const Option = Select.Option;
 
 // 十六进制颜色转为RGBA格式
 export function colorHex(color, opacity) {
@@ -54,12 +57,12 @@ export function getDataZoom(params) {
             // handleIcon: 'M230 80 A 45 45, 0, 1, 0, 231 80 Z',
             fillerColor: params.zoomFiller || '#165B8A',
             borderColor: 'transparent',
-            zoomLock: true,
+            zoomLock: false,
             handleStyle: {
                 color: '#00A8FD'
             },
             textStyle: {
-                color: '#fff'
+                color: 'transparent'
             },
             start: start,
             end: 100
@@ -73,4 +76,25 @@ export function dateFormat(n) {
         n = '0' + n;
     }
     return n;
+}
+
+export function getHeaderOptions(options) {
+    let defaultValue = '';
+
+    if (options.data && options.data.length) {
+        let firstOption = options.data[0];
+        defaultValue = firstOption.year + '-' + firstOption.monthOrQuarter;
+        options.timeSelectRequired = true;
+    }
+
+    return {
+        timeSelectRequired: options.timeSelectRequired,
+        zoomRequired: options.zoomRequired,
+        // callback: options.callback,
+        defaultValue,
+        options: (options.data && options.data.length > 0) ? options.data.map((option, index) => {
+            return <Option key={index}
+                           value={option.year + '-' + option.monthOrQuarter}>{`${ option.year }年${ option.monthOrQuarter }${ options.isQuarter ? '季度' : '月'}`}</Option>;
+        }) : null
+    };
 }
