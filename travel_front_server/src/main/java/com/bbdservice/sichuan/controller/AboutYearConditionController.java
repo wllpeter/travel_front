@@ -173,9 +173,9 @@ public class AboutYearConditionController {
     public List<JSONObject> getJsonObject(List<String> keyList,int num,String type){
         List<JSONObject> result=new ArrayList<>();
         int quarter=-1;
-        int month=DateUtils.getSystemMonth()-1;
+        int month=DateUtils.getSystemMonth();
         if(type.equals("月")){
-            for(int i=month;i>0;i--){
+            for(int i=month-1;i>0;i--){
                 JSONObject jsonObject=new JSONObject();
                 jsonObject.put(keyList.get(0),2018);
                 jsonObject.put(keyList.get(1),i);
@@ -205,7 +205,7 @@ public class AboutYearConditionController {
                     quarter=4;
                     break;
             }
-            for(int j=quarter;j>0;j--){
+            for(int j=quarter-1;j>0;j--){
                 JSONObject jsonObject=new JSONObject();
                 jsonObject.put(keyList.get(0),2018);
                 jsonObject.put(keyList.get(1),j);
