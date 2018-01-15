@@ -10,7 +10,7 @@ import AdCharts from '../../../../utils/adCharts';
 
 let customerData = null;
 
-export default class ComfortDegree extends Component {
+export default class ProvinceTravelConsume extends Component {
     constructor(props) {
         super(props);
         this.state = {
