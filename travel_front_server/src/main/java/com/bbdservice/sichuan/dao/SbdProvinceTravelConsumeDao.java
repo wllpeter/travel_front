@@ -13,4 +13,8 @@ import java.util.List;
 public interface SbdProvinceTravelConsumeDao extends JpaRepository<ProvinceTravelConsume,Long> {
     @Query(nativeQuery = true,value = "select p.consume_amount,consume_amount_compare,consume_times,consume_times_compare,swipe_times,swipe_times_compare, FORMAT(consume_amount/consume_times,2) as single,year,month from sbd_province_travel_consume p where p.modify_id is null order by p.year desc , p.month desc")
     List<String> getAllList();
+
+    @Query(nativeQuery = true,value = "select  FORMAT(consume_amount/consume_times,2) as single from sbd_province_travel_consume p where p.modify_id is null \n" +
+            "and p.`year`=?1 and p.`month`=?2")
+    String getLast(Integer year,Integer month);
 }

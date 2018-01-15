@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface SbdProvinceTravelConsumeService {
     List<String> getAllList();
+    String getLast(Integer year,Integer month);
 }

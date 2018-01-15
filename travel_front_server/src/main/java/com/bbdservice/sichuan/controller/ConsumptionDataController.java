@@ -135,13 +135,23 @@ public class ConsumptionDataController {
         }
         return Response.success();
     }
-    public static List<JSONObject> putKey(List<String> keyList, List<String> valueList){
+    public  List<JSONObject> putKey(List<String> keyList, List<String> valueList){
         List<JSONObject> result=new ArrayList<>();
         for(int i=0;i<valueList.size();i++){
             JSONObject jsonObject=new JSONObject();
             JSONArray valueArray = JSONArray.fromObject(valueList.get(i));
             for(int j=0;j<9;j++){
                 jsonObject.put(keyList.get(j),valueArray.get(j));
+            }
+            int year=Integer.parseInt(valueArray.getString(7))-1;
+            int month=Integer.parseInt(valueArray.getString(8));
+            String lastSingle=sbdProvinceTravelConsumeService.getLast(year,month);
+            if(lastSingle==null){
+                jsonObject.put("singleCompare","-");
+            }else{
+
+                String singleCompare=String.format("%.2f", (valueArray.getDouble(6)-Double.parseDouble(lastSingle))/Double.parseDouble(lastSingle)*100).toString()+"%";
+                jsonObject.put("singleCompare",singleCompare);
             }
             result.add(jsonObject);
         }

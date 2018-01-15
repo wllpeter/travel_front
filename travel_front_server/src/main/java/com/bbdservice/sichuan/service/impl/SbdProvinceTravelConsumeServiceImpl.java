@@ -19,4 +19,9 @@ public class SbdProvinceTravelConsumeServiceImpl implements SbdProvinceTravelCon
     public List<String> getAllList() {
         return sbdProvinceTravelConsumeDao.getAllList();
     }
+
+    @Override
+    public String getLast(Integer year, Integer month) {
+        return sbdProvinceTravelConsumeDao.getLast(year,month);
+    }
 }
