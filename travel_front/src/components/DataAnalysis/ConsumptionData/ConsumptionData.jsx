@@ -2,13 +2,14 @@
  * @description 消费大数据
  */
 import React, { Component } from 'react';
-import PanelCard from '../commonComponent/PanelCard';
-import AdCharts from '../../utils/adCharts';
+import PanelCard from '../../commonComponent/PanelCard';
+import AdCharts from '../../../utils/adCharts';
 import { Row, Col } from 'antd';
-import PercentBar from '../commonComponent/PercentBar';
-import ToggleButtonGroup from '../commonComponent/ToggleButtonGroup';
+import PercentBar from '../../commonComponent/PercentBar';
+import ToggleButtonGroup from '../../commonComponent/ToggleButtonGroup';
+import ProvinceTravelConsume from './component/ProvinceTravelConsume';
 import 'antd/lib/grid/style';
-import './style.scss';
+import '../style.scss';
 
 export default class TouristData extends Component {
     constructor(props) {
@@ -16,89 +17,6 @@ export default class TouristData extends Component {
     }
 
     componentDidMount() {
-        // 全省旅游消费情况
-        AdCharts.multiYaxisTypeChart({
-            chartId: 'provinceTouristConsumption',
-            legend: ['消费', '同比'],
-            legendIcon: 'circle',
-            xAxisData: ['2017-01', '2017-02', '2017-03', '2017-04', '2017-05', '2017-06', '2017-07', '2017-08', '2017-09', '2017-10', '2017-11', '2017-12'],
-            colors: ['#00a9ff', '#32c889'],
-            barWidth: 15,
-            yAxis: [
-                {
-                    type: 'value',
-                    name: '消费(万元)',
-                    position: 'left',
-                    nameTextStyle: {
-                        color: 'rgba(255, 255, 255, 0.95)',
-                        fontSize: 14
-                    },
-                    axisLabel: {
-                        textStyle: {
-                            color: 'rgba(255, 255, 255, 0.95)',
-                            fontSize: 14
-                        }
-                    },
-                    axisLine: {
-                        show: true,
-                        lineStyle: {
-                            color: '#51687f',
-                            width: 1
-                        }
-                    },
-                    splitLine: {
-                        show: false
-                    },
-                    axisTick: {
-                        show: false
-                    }
-                },
-                {
-                    type: 'value',
-                    name: '同比',
-                    position: 'right',
-                    nameTextStyle: {
-                        color: 'rgba(255, 255, 255, 0.95)',
-                        fontSize: 14
-                    },
-                    axisLabel: {
-                        formatter: '{value}%',
-                        textStyle: {
-                            color: 'rgba(255, 255, 255, 0.95)',
-                            fontSize: 14
-                        }
-                    },
-                    axisLine: {
-                        show: true,
-                        lineStyle: {
-                            color: '#51687f',
-                            width: 1
-                        }
-                    },
-                    splitLine: {
-                        show: false
-                    },
-                    axisTick: {
-                        show: false
-                    }
-                }
-            ],
-            series: [
-                {
-                    type: 'bar',
-                    yAxisIndex: 0,
-                    formatter: '{c}万',
-                    data: [10, 20, 30, 40, 23, 90, 29, 39, 49, 43, 23, 32]
-                },
-                {
-                    type: 'line',
-                    yAxisIndex: 1,
-                    formatter: '{c}%',
-                    data: [20, 10, 40, 50, 80, 32, 30, 30, 20, 34, 45, 12]
-                }
-            ]
-        });
-
         // 外地游客刷卡消费金额分析
         AdCharts.pieChart({
             chartId: 'cardMoneyPieChart',
@@ -203,30 +121,6 @@ export default class TouristData extends Component {
     }
 
     render() {
-        const consumeInfoOptions = {
-            clickBack: () => {
-
-            },
-            buttons: [
-                {
-                    buttonName: '交易金额',
-                    value: ''
-                },
-                {
-                    buttonName: '交易笔数',
-                    value: ''
-                },
-                {
-                    buttonName: '刷卡人次',
-                    value: ''
-                },
-                {
-                    buttonName: '单笔平均',
-                    value: ''
-                }
-            ]
-        };
-
         const sourcePlaceRank = {
             clickBack: () => {
 
@@ -286,11 +180,7 @@ export default class TouristData extends Component {
         return <div className="consumption-data">
             <Row>
                 <Col span={ 12 } lg={ 24 } xl={ 12 }>
-                    <PanelCard title="全省旅游消费情况" className="province-consumption br-line" timeSelectRequired={ false } zoomRequired={ false }>
-                        <ToggleButtonGroup { ...consumeInfoOptions }/>
-
-                        <div id="provinceTouristConsumption" style={{ width: '100%', height: 640 }}></div>
-                    </PanelCard>
+                    <ProvinceTravelConsume></ProvinceTravelConsume>
                 </Col>
                 <Col span={ 12 } lg={ 24 } xl={ 12 }>
                     <Row>

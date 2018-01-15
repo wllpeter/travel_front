@@ -12,7 +12,7 @@ import ProductMonitor from './components/ProductMonitor';
 // 客情大数据(旅游大数据分析)
 import TouristData from './components/DataAnalysis/TouristData';
 // 消费大数据(旅游大数据分析)
-import ConsumptionData from './components/DataAnalysis/ConsumptionData';
+import ConsumptionData from './components/DataAnalysis/ConsumptionData/ConsumptionData';
 // 搜索大数据(旅游大数据分析)
 import SearchData from './components/DataAnalysis/SearchData';
 // 旅游大数据报告

@@ -208,15 +208,7 @@ export default class ProductEvaluate extends Component {
                             fontSize: 16,
                             position: [20, 0],
                             color: '#ffffff',
-                            formatter: (p) => {
-                                if (p.seriesName === '综合评价') {
-                                    return p.data + '分';
-                                }
-                                if (p.seriesName === '环比') {
-                                    return p.data + '%';
-                                }
-                                return p.data;
-                            }
+                            formatter: '{c}分'
                         }
                     }
                 },
@@ -238,15 +230,7 @@ export default class ProductEvaluate extends Component {
                             fontSize: 16,
                             position: [20, 0],
                             color: '#ffffff',
-                            formatter: (p) => {
-                                if (p.seriesName === '综合评价') {
-                                    return p.data + '分';
-                                }
-                                if (p.seriesName === '环比') {
-                                    return p.data + '%';
-                                }
-                                return p.data;
-                            }
+                            formatter: '{c}%'
                         }
                     }
                 }

@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.*;
 
 /**
@@ -70,6 +72,11 @@ public class CustomerController {
             Map<String,List<SichuanFlowAnalyse>> temp = new HashMap<>();
             List<SichuanFlowAnalyse> tempList = new ArrayList<>();
             for(SichuanFlowAnalyse sfa : retFlowData){
+                DecimalFormat d = new DecimalFormat("#.00");
+                String personCount = d.format(Float.valueOf(sfa.getPersonCount())/10000);
+                String personTime = d.format(Float.valueOf(sfa.getPersonTime())/10000);
+                sfa.setPersonCountView(Float.valueOf(personCount));
+                sfa.setPersonTimeView(Float.valueOf(personTime));
                 if(sfa.getCustomerType().equals(str)){
                     tempList.add(sfa);
                 }
@@ -114,7 +121,13 @@ public class CustomerController {
         if(null == year || null == quarter || year.equals("") || quarter.equals("")){
             return Response.error("传递参数有误");
         }
-        return Response.success(this.economicZonePersonTimeService.getQuarterData(year, quarter));
+        List<EconomicZonePersonTime> ret = this.economicZonePersonTimeService.getQuarterData(year, quarter);
+        for(EconomicZonePersonTime economicZonePersonTime:ret){
+            DecimalFormat d = new DecimalFormat("#.00");
+            String temp = d.format(Float.valueOf(economicZonePersonTime.getPersonTime())/10000);
+            economicZonePersonTime.setPersonTimeView(Float.valueOf(temp));
+        }
+        return Response.success(ret);
     }
 
     @GetMapping("/zone_tourists_residence_time/{year}/{quarter}")
@@ -135,6 +148,9 @@ public class CustomerController {
             List<EconomicZoneTouristResidenceTime> zoneDatas = new ArrayList<>();
             for(EconomicZoneTouristResidenceTime economicZoneTouristResidenceTime : economicZoneTouristResidenceTimes){
                 if(economicZoneTouristResidenceTime.getEconomicZone().equals(economicZoneEnums.getName())){
+                    DecimalFormat b = new DecimalFormat("#.00");
+                    float prensonCountView = Float.valueOf(b.format(Float.valueOf(economicZoneTouristResidenceTime.getPersonCount())/10000));
+                    economicZoneTouristResidenceTime.setPersonCountView(prensonCountView);
                     zoneDatas.add(economicZoneTouristResidenceTime);
                     continue;
                 }
@@ -163,6 +179,9 @@ public class CustomerController {
                 List<EconomicZoneTouristResourceRank> zoneDatas = new ArrayList<>();
                 for(EconomicZoneTouristResourceRank economicZoneTouristResourceRank : economicZoneTouristResourceRanks){
                     if(economicZoneTouristResourceRank.getEconomicZone().equals(economicZoneEnums.getName())){
+                        DecimalFormat decimalFormat = new DecimalFormat("#.00");
+                        String resourcePersonCount = decimalFormat.format(Float.valueOf(economicZoneTouristResourceRank.getPersonCount())/10000);
+                        economicZoneTouristResourceRank.setPersonCountView(Float.valueOf(resourcePersonCount));
                         zoneDatas.add(economicZoneTouristResourceRank);
                         continue;
                     }
@@ -194,11 +213,18 @@ public class CustomerController {
             Map<String,Object> zoneData = new HashMap<>();
             zoneData.put("name",economicZoneEnums.getName());
             List<EconomicZoneTrafficType> zoneDatas = new ArrayList<>();
+            int count = 0;
             for(EconomicZoneTrafficType economicZoneTrafficType : economicZoneTrafficTypes){
                 if(economicZoneTrafficType.getEconomicZone().equals(economicZoneEnums.getName())){
                     zoneDatas.add(economicZoneTrafficType);
+                    count += (economicZoneTrafficType.getPersonTime()==null?0:economicZoneTrafficType.getPersonTime());
                     continue;
                 }
+            }
+            for(EconomicZoneTrafficType economicZoneTrafficType : zoneDatas){
+                DecimalFormat d = new DecimalFormat("#.00");
+                String ratio = d.format((economicZoneTrafficType.getPersonTime()==null?0:economicZoneTrafficType.getPersonTime().floatValue())/count);
+                economicZoneTrafficType.setPersonTimeRatio(Float.valueOf(ratio));
             }
             zoneData.put("data",zoneDatas);
             zone.put(economicZoneEnums.name(),zoneData);

@@ -25,4 +25,6 @@ public class EconomicZonePersonTime {
     private Integer personTime;
     @Column(columnDefinition = "bit comment '是否删除'")
     private Boolean deleted;
+    @Transient
+    private Float personTimeView;
 }

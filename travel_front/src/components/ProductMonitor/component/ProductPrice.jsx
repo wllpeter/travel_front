@@ -225,9 +225,7 @@ export default class ProductPrice extends Component {
                             fontSize: 16,
                             position: [20, 0],
                             color: '#ffffff',
-                            formatter: (p) => {
-                                return p.data + '元';
-                            }
+                            formatter: '{c}元'
                         }
                     }
                 },
@@ -249,9 +247,7 @@ export default class ProductPrice extends Component {
                             fontSize: 16,
                             position: [20, 0],
                             color: '#ffffff',
-                            formatter: (p) => {
-                                return p.data + '%';
-                            }
+                            formatter: '{c}%'
                         }
                     }
                 }
