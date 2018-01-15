@@ -45,3 +45,12 @@ export function getComeTouristAreaRank(data) {
         data: data
     });
 }
+
+// 旅游消费交易分析
+export function getTravelConsumeAnalyse(data) {
+    return Ajax({
+        url: '/consumptionData/getTravelConsumeAnalyse',
+        type: HttpMethod.GET,
+        data: data
+    });
+}
