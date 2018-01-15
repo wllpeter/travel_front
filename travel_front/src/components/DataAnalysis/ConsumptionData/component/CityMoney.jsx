@@ -19,6 +19,9 @@ export default class CityMoney extends Component {
 
     componentWillReceiveProps(nextProps) {
         let key = nextProps.timeType;
+        if (!nextProps.timeRange) {
+            return;
+        }
         let times = nextProps.timeRange[key];
         this.getHeaderOptions(times);
     }

@@ -21,7 +21,10 @@ export default class ComeTouristAreaRank extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        let times = nextProps.timeRange.highSpendSourceArea;
+        if (!nextProps.timeRange) {
+            return;
+        }
+        let times = nextProps.timeRange.sourceArea;
         this.getHeaderOptions(times);
     }
 
@@ -34,6 +37,7 @@ export default class ComeTouristAreaRank extends Component {
             panelProps: getHeaderOptions({
                 data: times,
                 isQuarter: true,
+                zoomRequired: true,
                 clickBack: (year, quarter) => {
                     this.setState({
                         year: year,

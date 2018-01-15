@@ -3,7 +3,6 @@
  */
 import React, {Component} from 'react';
 import PanelCard from '../../../commonComponent/PanelCard';
-import PercentBar from '../../../commonComponent/PercentBar';
 import ToggleButtonGroup from '../../../commonComponent/ToggleButtonGroup';
 import {getTravelConsumeAnalyse} from '../../../../services/ConsumptionData/consumptionData';
 import {getHeaderOptions} from '../../../../utils/tools';
@@ -21,7 +20,10 @@ export default class ConsumptionTrade extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        let times = nextProps.timeRange.highSpendSourceArea;
+        if (!nextProps.timeRange) {
+            return;
+        }
+        let times = nextProps.timeRange.travelSpend;
         this.getHeaderOptions(times);
     }
 
@@ -48,6 +50,7 @@ export default class ConsumptionTrade extends Component {
             panelProps: getHeaderOptions({
                 data: times,
                 isQuarter: true,
+                zoomRequired: true,
                 clickBack: (year, quarter) => {
                     this.setState({
                         year: year,

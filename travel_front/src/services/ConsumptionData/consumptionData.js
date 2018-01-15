@@ -54,3 +54,12 @@ export function getTravelConsumeAnalyse(data) {
         data: data
     });
 }
+
+// 各行业刷卡消费商户排名
+export function getIndustryConsumeBusiness(data) {
+    return Ajax({
+        url: '/consumptionData/getIndustryConsumeBusiness',
+        type: HttpMethod.GET,
+        data: data
+    });
+}
