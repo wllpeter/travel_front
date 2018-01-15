@@ -6,12 +6,16 @@ import com.bbdservice.sichuan.service.*;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -82,9 +86,10 @@ public class ConsumptionDataController {
             "consumeTimes 交易笔数 、 consumeTimesCompare交易笔数同比增加 、swipeTimes刷卡人次 、swipeTimesCompare刷卡人次同比增加 ")
     @GetMapping(value = "/getProvinceTravelConsume")
     public Response getProvinceTravle(){
-        List<ProvinceTravelConsume> list=null;
+        List<String> list=null;
+        List<String> key= Arrays.asList("consumeAmount","consumeAmountCompare","consumeTimes","consumeTimesCompare","swipeTimes","swipeTimesCompare","single","year","month");
         list=sbdProvinceTravelConsumeService.getAllList();
-        return Response.success(list);
+        return Response.success(putKey(key,list));
     }
 
     @ApiOperation(value = "旅游消费交易分析")
@@ -129,5 +134,17 @@ public class ConsumptionDataController {
                 return Response.success(cityRight);
         }
         return Response.success();
+    }
+    public static List<JSONObject> putKey(List<String> keyList, List<String> valueList){
+        List<JSONObject> result=new ArrayList<>();
+        for(int i=0;i<valueList.size();i++){
+            JSONObject jsonObject=new JSONObject();
+            JSONArray valueArray = JSONArray.fromObject(valueList.get(i));
+            for(int j=0;j<9;j++){
+                jsonObject.put(keyList.get(j),valueArray.get(j));
+            }
+            result.add(jsonObject);
+        }
+        return result;
     }
 }

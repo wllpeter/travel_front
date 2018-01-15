@@ -16,7 +16,7 @@ public class SbdProvinceTravelConsumeServiceImpl implements SbdProvinceTravelCon
     @Autowired
     private SbdProvinceTravelConsumeDao sbdProvinceTravelConsumeDao;
     @Override
-    public List<ProvinceTravelConsume> getAllList() {
+    public List<String> getAllList() {
         return sbdProvinceTravelConsumeDao.getAllList();
     }
 }

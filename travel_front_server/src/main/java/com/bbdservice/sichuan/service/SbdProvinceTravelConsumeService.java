@@ -8,5 +8,5 @@ import java.util.List;
  * Created by 陈亚兰 on 2018/1/9.
  */
 public interface SbdProvinceTravelConsumeService {
-    List<ProvinceTravelConsume> getAllList();
+    List<String> getAllList();
 }
