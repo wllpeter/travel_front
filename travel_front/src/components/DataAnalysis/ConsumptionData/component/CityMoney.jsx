@@ -70,7 +70,6 @@ export default class CityMoney extends Component {
 
     print(params) {
         // 各地市外地游客刷卡消费金额分析
-        console.log(this.props.elementId);
         AdCharts.barChart({
             chartId: this.props.elementId,
             legend: [],

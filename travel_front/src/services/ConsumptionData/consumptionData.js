@@ -27,3 +27,21 @@ export function getShuaKaAndJiaoYiInfo(data) {
         data: data
     });
 }
+
+// 入川高消费游客来源城市排名
+export function getComeConsumeTourist(data) {
+    return Ajax({
+        url: '/consumptionData/getComeConsumeTourist',
+        type: HttpMethod.GET,
+        data: data
+    });
+}
+
+// 入川游客来源地排名
+export function getComeTouristAreaRank(data) {
+    return Ajax({
+        url: '/consumptionData/getComeTouristAreaRank',
+        type: HttpMethod.GET,
+        data: data
+    });
+}

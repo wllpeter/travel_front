@@ -10,6 +10,8 @@ import ToggleButtonGroup from '../../commonComponent/ToggleButtonGroup';
 import ProvinceTravelConsume from './component/ProvinceTravelConsume';
 import CardMoney from './component/CardMoney';
 import CityMoney from './component/CityMoney';
+import ComeConsumeTourist from './component/ComeConsumeTourist';
+import ComeTouristAreaRank from './component/ComeTouristAreaRank';
 import {getSpendBigData} from '../../../services/ConsumptionData/consumptionData';
 import 'antd/lib/grid/style';
 import '../style.scss';
@@ -60,22 +62,6 @@ export default class TouristData extends Component {
     }
 
     render() {
-        const sourcePlaceRank = {
-            clickBack: () => {
-
-            },
-            buttons: [
-                {
-                    buttonName: '省份',
-                    value: ''
-                },
-                {
-                    buttonName: '城市',
-                    value: ''
-                }
-            ]
-        };
-
         const consumptionTrade = {
             clickBack: () => {
 
@@ -176,97 +162,10 @@ export default class TouristData extends Component {
 
             <Row gutter={2}>
                 <Col span={6} lg={12} xl={6}>
-                    <PanelCard title="入川高消费游客来源城市排名" className="bg-grey">
-                        <table className="mt-table mt-table-noborder w-95 mt-50">
-                            <thead>
-                            <tr>
-                                <th>排名</th>
-                                <th>来源城市</th>
-                                <th>人数(万)</th>
-                                <th>占比</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>上海市</td>
-                                <td>37.1</td>
-                                <td><PercentBar percent={34}/></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>广东省</td>
-                                <td>11.8</td>
-                                <td><PercentBar percent={25}/></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>重庆市</td>
-                                <td>37.1</td>
-                                <td><PercentBar percent={10}/></td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>重庆市</td>
-                                <td>37.1</td>
-                                <td><PercentBar percent={10}/></td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>重庆市</td>
-                                <td>37.1</td>
-                                <td><PercentBar percent={10}/></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </PanelCard>
+                    <ComeConsumeTourist  {...this.state}></ComeConsumeTourist>
                 </Col>
                 <Col span={6} lg={12} xl={6}>
-                    <PanelCard title="入川游客来源地排名" className="bg-grey source-place-rank">
-                        <ToggleButtonGroup {...sourcePlaceRank}/>
-                        <table className="mt-table mt-table-noborder wrapper w-95 mt-50">
-                            <thead>
-                            <tr>
-                                <th>排名</th>
-                                <th>来源城市</th>
-                                <th>人数(万)</th>
-                                <th>占比</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>上海市</td>
-                                <td>37.1</td>
-                                <td><PercentBar percent={34}/></td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>广东省</td>
-                                <td>11.8</td>
-                                <td><PercentBar percent={25}/></td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>重庆市</td>
-                                <td>37.1</td>
-                                <td><PercentBar percent={10}/></td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>重庆市</td>
-                                <td>37.1</td>
-                                <td><PercentBar percent={10}/></td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>重庆市</td>
-                                <td>37.1</td>
-                                <td><PercentBar percent={10}/></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </PanelCard>
+                    <ComeTouristAreaRank  {...this.state}></ComeTouristAreaRank>
                 </Col>
                 <Col span={6} lg={12} xl={6}>
                     <PanelCard title="旅游消费交易分析" className="bg-grey consumption-trade">
