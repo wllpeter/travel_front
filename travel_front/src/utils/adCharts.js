@@ -60,13 +60,14 @@ const AD_CHART = {
             title: {
                 text: params.title === undefined ? '' : params.title,
                 textStyle: {
-                    color: '#999',
+                    color: 'rgba(255, 255, 255, 0.95)',
                     fontStyle: 'normal',
                     fontWeight: 'normal',
                     fontFamily: 'microsoft yahei',
                     fontSize: '14'
                 },
-                left: '30%'
+                // left: '30%',
+                right: params.titleRight || 'auto'
             },
             tooltip: {
                 trigger: 'axis',
@@ -348,6 +349,7 @@ const AD_CHART = {
                 orient: params.legendOrient || 'vertical',
                 left: params.legendLeft || 'auto',
                 top: params.legendTop || 140,
+                width: params.legendWidth || 'auto',
                 height: params.legendHeight === undefined ? 'auto' : params.legendHeight,
                 right: params.legendRight === undefined ? 40 : params.legendRight,
                 itemWidth: 8,
@@ -493,60 +495,7 @@ const AD_CHART = {
                     fontFamily: 'microsoft yahei',
                     fontSize: '14'
                 },
-                padding: [10, 10, 10, 10],
-                formatter: function (param) {
-                    let info = '';
-                    if (params.specialFormatter === 'gaugeTendChart') {
-                        let newDate = param[0].name.substring(0, 4) + '-' + param[0].name.substring(4, 6);
-                        info = `<div class="gaugeTend-tip">
-                                <p class="title">${newDate}</p>
-                                <p class="tip-msg">口碑值：
-                                    <span>${param[0].value > 0 ? '+' + param[0].value : param[0].value} </span>
-                                </p>
-                                <p  class="tip-msg">总体舆情情感：
-                                    <span >${param[0].value > 0 ? '正面' : param[0].value === 0 ? '中性' : '负面'} </span>
-                                </p>
-                            <div>`;
-                    } else if (params.specialFormatter === 'averageProfit') {
-                        info = `<div class = "mapTooltip pieTooltip">
-                                <p class = "title" style="font-size: 14px"><b>${param[0].name}</b></p>
-                                ${(param[1] ? `<p style="text-align: left;font-size: 14px">${param[1].seriesName}<span class = "color-blue" style="color:${param[1].color}">${param[1].value}% </span></p>` : '')}
-                                ${(param[0] ? `<p style="text-align: left;font-size: 14px">${param[0].seriesName}<span class = "color-blue" style="color:${param[0].color}">${param[0].value}%</span></p>` : '')}
-                            <div>`;
-                    } else if (params.specialFormatter === 'eventLineChart') {
-                        let data = param[0].data;
-                        let newDate = data.news_pubdate.substring(0, 4) + '-' + data.news_pubdate.substring(4, 6) + '-' + data.news_pubdate.substring(6, 8);
-                        info = `<div >
-                                <p >${newDate}</p>
-                                <p >舆情总量：${data.news_all_count}</p>
-                                <p >负面舆情数：${data.news_minus_count}</p>
-                                <p >正面舆情数：${data.news_positive_count}</p>
-                                <p >中性舆情数：${data.news_middle_count}</p>
-                            <div>`;
-                    } else if (params.specialFormatter === 'eventTrend') {
-                        info = `<div class = "mapTooltip pieTooltip">
-                                    <p>${param[0].name}：<span class = "color-yellow">${param[0].value} </span>${params.unit ? params.unit : ''}</p>
-                            <div>`;
-                    } else if (params.specialFormatter === 'detailTrend') {
-                        info = param[0].name + '<br/>';
-                        for (let i = 0; i < param.length; i++) {
-                            let spanCorlor = '<span style=color:' + params.colors[i] + '>' + param[i].value + '</span><br/>';
-                            info += param[i].seriesName + ' :&nbsp;' + spanCorlor;
-                        }
-                    } else if (params.specialFormatter === 'recrutment') {
-                        info = param[0].name + '<br/>';
-                        for (let i = 0; i < param.length; i++) {
-                            let spanCorlor = '<span style=color:' + params.colors[i] + '>' + param[i].value + '</span><br/>';
-                            info += param[i].seriesName + ' :&nbsp;' + spanCorlor;
-                        }
-                    } else {
-                        info = `<div class = "mapTooltip pieTooltip">
-                                <p class = "title"><b>${param[0].name}</b></p>
-                                <p>${params.labelName}<span class = "color-yellow">${param[0].value} </span>${params.unit ? params.unit : ''}</p>
-                            <div>`;
-                    }
-                    return info;
-                }
+                padding: [10, 10, 10, 10]
             },
             legend: {
                 data: params.legend,
@@ -1256,7 +1205,7 @@ const AD_CHART = {
                     name: (params.legend && params.legend.length > 0) ? params.legend[i] : '',
                     type: 'wordCloud',
                     size: ['90%', '90%'],
-                    sizeRange: [12, 60],
+                    sizeRange: [12, 120],
                     rotationRange: [-45, 45],
                     rotationStep: 10,
                     shape: 'circle',

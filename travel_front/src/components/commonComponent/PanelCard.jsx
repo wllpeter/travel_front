@@ -49,7 +49,6 @@ export default class PanelCard extends Component {
 
 
     render() {
-
         const {
             className,
             title,

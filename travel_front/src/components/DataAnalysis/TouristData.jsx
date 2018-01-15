@@ -10,9 +10,12 @@ import maleIcon from '../../assets/images/male.png';
 import femaleIcon from '../../assets/images/female.png';
 import { getTouristDataOptions, getProvinceCustomerData, getCountyData, getZoneCustomerTimes, getZoneTouristResidentTime, getZoneTouristResourceRank, getZoneTouristTrafficType } from '../../services/DataAnalysis/touristData';
 import { Map, List } from 'immutable';
-import { revertPercentToNumber, getHeaderOptions } from '../../utils/util';
-import './style.scss';
+import { getHeaderOptions } from '../../utils/util';
 import ToggleButtonGroup from "../commonComponent/ToggleButtonGroup";
+import { Select } from 'mtui/index';
+import './style.scss';
+
+const Option = Select.Option;
 
 export default class TouristData extends Component {
     constructor(props) {
@@ -40,10 +43,14 @@ export default class TouristData extends Component {
                 touristRank: null,      // 五大经济区游客来源排名
                 touristTimes: null,     // 五大经济区客游人次
                 trafficType: null       // 游客交通方式
-            }
+            },
+            economicZoneSelected: 'CHENG_DU',        // 默认选择的是成都平原经济区
+            peopleSourceRank: [],                    // 五大经济区游客来源排名
+            flowAnalysis: [],                        // 游客流量分析选项和数据
+            selectedFlowAnalysisOption: {}           // 选中的流量分析选项
         };
 
-        this.ecnomicZoneSort = ['川西北生态经济区', '攀西经济区', '川东北经济区', '川南经济区', '成都平原经济区'];
+        this.economicZoneSort = ['川西北生态经济区', '攀西经济区', '川东北经济区', '川南经济区', '成都平原经济区'];
         this.renderProvinceTouristData = this.renderProvinceTouristData.bind(this);
     }
 
@@ -51,7 +58,7 @@ export default class TouristData extends Component {
      * @description 渲染四川省游客分析
      */
     renderProvinceTouristData() {
-        const { provinceTouristData } = this.state;
+        const { provinceTouristData, flowAnalysis } = this.state;
 
         // 四川省游客年龄分布图
         adCharts.pieChart({
@@ -67,6 +74,27 @@ export default class TouristData extends Component {
             center: ['30%', '50%'],
             data: provinceTouristData.get('ageData')
         });
+
+        // 四川省客流量分析
+        if(flowAnalysis && flowAnalysis.length) {
+            adCharts.lineChart({
+                chartId: 'provinceFlowLineChart',
+                legend: ['人次', '人数'],
+                legendIcon: 'circle',
+                legendRight: '12%',
+                legendTop: '0',
+                itemGap: 35,
+                xAxisData: ['1季度', '2季度', '3季度', '4季度'],
+                yAxisName: '流量 (万)',
+                smooth: false,
+                graphic: false,
+                top: 30,
+                right: 30,
+                bottom: 40,
+                colors: ['#32c889', '#00a9ff'],
+                series: flowAnalysis[0].data
+            });
+        }
     }
 
     /**
@@ -137,6 +165,8 @@ export default class TouristData extends Component {
             chartId: 'fiveEconomicZoneBarChart',
             legend: ['五大经济区客游人次'],
             legendShow: false,
+            title: '单位 : 万',
+            titleRight: 28,
             yAxisData: ['川西北生态经济区', '攀西经济区'.padEnd(14, ' '), '川东北经济区'.padEnd(12, ' '), '川南经济区'.padEnd(14, ' '), '成都平原经济区'.padEnd(10, ' ')],
             xAxisLineShow: false,
             xAxisLabelShow: false,
@@ -171,9 +201,10 @@ export default class TouristData extends Component {
             yAxisLineShow: false,
             row: true,
             stack: true,
-            series: [ touristDelayTimeData.toArray() ]
+            series: touristDelayTimeData.toArray()
         });
     }
+
 
     componentDidMount() {
         // 1. 获取客情大数据的时间选项组
@@ -181,29 +212,18 @@ export default class TouristData extends Component {
             console.log('时间选项组:', data);
             this.setState({
                 optionsData: data
+            }, () => {
+                // 初始化默认数据
+                this.fetchProvinceCustomerData([data.sex[0].year, data.sex[0].monthOrQuarter]);
+                this.fetchCountyData([data.jieDai[0].year, data.jieDai[0].monthOrQuarter]);
+                this.fetchFiveZoneData([data.touristTimes[0].year, data.touristTimes[0].monthOrQuarter]);
+                this.fetchTouristDelayTime([data.stayTime[0].year, data.stayTime[0].monthOrQuarter]);
+                this.fetchFiveZoneTouristRank([data.touristRank[0].year, data.touristRank[0].monthOrQuarter]);
+                this.fetchFiveZoneTrafficType([data.trafficType[0].year, data.trafficType[0].monthOrQuarter]);
             });
         });
 
         // this.fetchProvinceCustomerData();
-
-        // 四川省客流量分析
-        adCharts.lineChart({
-            chartId: 'provinceFlowLineChart',
-            legend: ['人次', '人数'],
-            legendIcon: 'circle',
-            legendRight: '12%',
-            legendTop: '0',
-            itemGap: 35,
-            xAxisData: ['1季度', '2季度', '3季度', '4季度'],
-            yAxisName: '流量 (万)',
-            smooth: false,
-            graphic: false,
-            top: 10,
-            right: 30,
-            bottom: 40,
-            colors: ['#32c889', '#00a9ff'],
-            series: [[8500, 4500, 3400, 2300], [3242, 2334, 2312, 3232]]
-        });
 
         // 乡村游出游人次
         adCharts.barChart({
@@ -216,22 +236,6 @@ export default class TouristData extends Component {
             yAxisName: '流量 (万)',
             series: [[6000, 8000, 11000, 4000, 6500, 3000]]
         });
-
-        // 五大经济区客游人次
-        adCharts.barChart({
-            chartId: 'fiveEconomicZoneBarChart',
-            legend: ['五大经济区客游人次'],
-            legendShow: false,
-            yAxisData: ['川西北生态经济区', '攀西经济区'.padEnd(14, ' '), '川东北经济区'.padEnd(12, ' '), '川南经济区'.padEnd(14, ' '), '成都平原经济区'.padEnd(10, ' ')],
-            xAxisLineShow: false,
-            xAxisLabelShow: false,
-            yAxisLineShow: false,
-            row: true,
-            gridLeft: '5%',
-            seriesLabelShow: true,
-            series: [[3563, 936, 1026, 365, 450]]
-        });
-
 
         // 游客交通方式
         adCharts.barChart({
@@ -252,7 +256,6 @@ export default class TouristData extends Component {
             series: [[34, 32, 23, 12, 32], [43, 32, 23, 32, 32], [43, 32, 23, 32, 32], [43, 32, 23, 32, 32]]
         });
 
-        // 乡村游客流量分析
         adCharts.lineChart({
             chartId: 'villageFlowLineChart',
             legend: ['人次', '人数'],
@@ -289,7 +292,7 @@ export default class TouristData extends Component {
                 let ageSeriesData = ageData.map((ageSeries) => {
                     return {
                         name: ageSeries.ageZone,
-                        value: revertPercentToNumber(ageSeries.ratio)
+                        value: Number(ageSeries.ratio) * 100
                     };
                 });
 
@@ -309,7 +312,7 @@ export default class TouristData extends Component {
 
                 // 男放第一个元素，女则为第二个元素
                 genderData.forEach(genderSeries => {
-                    genderSeriesData[genderSeries.gender === '男' ? 0 : 1] = genderSeries.genderRatio;
+                    genderSeriesData[genderSeries.gender === '男' ? 0 : 1] = (genderSeries.genderRatio * 100).toFixed(2) + '%';
                 });
 
                 if(genderSeriesData && genderSeriesData.length) {
@@ -319,6 +322,29 @@ export default class TouristData extends Component {
                 }
             }
 
+            // 处理流量分析
+            if(flow_data && flow_data.length ) {
+                for(let item of flow_data) {
+                    for(let [key, value] of Object.entries(item)) {
+                        this.state.flowAnalysis.push({
+                            name: value.name,
+                            value: key,
+                            data: [value.data.map((dataItem) => {
+                                return dataItem.personTimeView;
+                            }), value.data.map(dataItem => {
+                                return dataItem.personCountView;
+                            })]
+                        });
+                    }
+                }
+
+                this.setState({
+                    flowAnalysis: this.state.flowAnalysis,
+                    selectedFlowAnalysisIndex: 0
+                }, () => {
+                    this.renderProvinceTouristData();
+                });
+            }
         });
     }
 
@@ -394,7 +420,7 @@ export default class TouristData extends Component {
             let customerTimes = data;
 
             if(customerTimes && customerTimes.length) {
-                let fiveZonePeopleData = customerTimes.map(time => time.personTime);
+                let fiveZonePeopleData = customerTimes.map(time => time.personTimeView);
                 this.setState(({ fiveZonePeopleNumData }) => ({
                     fiveZonePeopleNumData: List(fiveZonePeopleData)
                 }), () => {
@@ -411,16 +437,16 @@ export default class TouristData extends Component {
     fetchTouristDelayTime = (params) => {
         getZoneTouristResidentTime(params).then(resultData => {
             console.log('获取五大经济区游客停留时长', resultData);
-            let ecnomicZoneSort = this.ecnomicZoneSort.slice();
+            let economicZoneSort = this.economicZoneSort.slice();
             let delayTime = [];
 
-            if(ecnomicZoneSort && ecnomicZoneSort.length) {
-                while(ecnomicZoneSort && ecnomicZoneSort.length) {
+            if(economicZoneSort && economicZoneSort.length) {
+                while(economicZoneSort && economicZoneSort.length) {
                     for(let itemValue of Object.values(resultData)) {
                         let { data, name } = itemValue;
-                        if(name === ecnomicZoneSort[0]) {
-                            delayTime.push(data.map(item => item.personCount));
-                            ecnomicZoneSort.shift();
+                        if(name === economicZoneSort[0]) {
+                            delayTime.push(data.map(item => item.personCountView - 0));
+                            economicZoneSort.shift();
                             break;
                         }
                     }
@@ -443,6 +469,12 @@ export default class TouristData extends Component {
     fetchFiveZoneTouristRank = (params) => {
         getZoneTouristResourceRank(params).then(data => {
             console.log('获取五大经济区游客来源排名', data);
+
+            if(data) {
+                this.setState({
+                    peopleSourceRank: data
+                });
+            }
         })
     }
 
@@ -451,8 +483,30 @@ export default class TouristData extends Component {
      * @param params
      */
     fetchFiveZoneTrafficType = (params) => {
-        getZoneTouristTrafficType(params).then(data => {
-            console.log('获取五大经济区游客交通方式', data);
+        getZoneTouristTrafficType(params).then(resultData => {
+            console.log('获取五大经济区游客交通方式', resultData);
+            let economicZoneSort = this.economicZoneSort.slice();
+            let delayTime = [];
+
+            if(economicZoneSort && economicZoneSort.length) {
+                while(economicZoneSort && economicZoneSort.length) {
+                    for(let itemValue of Object.values(resultData)) {
+                        let { data, name } = itemValue;
+                        if(name === economicZoneSort[0]) {
+                            delayTime.push(data.map(item => item.personCount));
+                            economicZoneSort.shift();
+                            break;
+                        }
+                    }
+                }
+                console.log('结果：', delayTime);
+
+                this.setState(({ touristDelayTimeData }) => ({
+                    touristDelayTimeData: List(delayTime)
+                }), () => {
+                    this.renderTouristDelayTimeData();
+                });
+            }
         })
     }
 
@@ -472,7 +526,7 @@ export default class TouristData extends Component {
 
     render() {
 
-        const { provinceTouristData } = this.state;
+        const { provinceTouristData, peopleSourceRank, economicZoneSelected, flowAnalysis, selectedFlowAnalysisIndex} = this.state;
         const { genderData } = provinceTouristData.toObject();
 
         const countryTripOptions = {
@@ -481,6 +535,8 @@ export default class TouristData extends Component {
                 if(buttonInfo) {
                     this.setState({
                         villageActive: buttonInfo.buttonName.includes('接待') ? 'jieDai-2' : 'chuXing-1'
+                    }, () => {
+                        this.fetchCountyData([this.state.optionsData[this.state.villageActive.split('-')[0]][0].year, this.state.optionsData[this.state.villageActive.split('-')[0]][0].monthOrQuarter]);
                     });
                 }
             },
@@ -495,6 +551,29 @@ export default class TouristData extends Component {
                 }
             ]
         };
+
+        const economicZone = [
+            {
+                name: '成都平原经济区',
+                value: 'CHENG_DU'
+            },
+            {
+                name: '川南经济区',
+                value: 'CHUAN_NAN'
+            },
+            {
+                name: '川东北经济区',
+                value: 'CHUAN_DONG'
+            },
+            {
+                name: '攀西经济区',
+                value: 'PAN_XI'
+            },
+            {
+                name: '川西北生态经济区',
+                value: 'CHUAN_XI'
+            }
+        ];
 
         return <div className="tourist-data">
             <Row>
@@ -530,6 +609,13 @@ export default class TouristData extends Component {
                         <Row>
                             <Col span={ 24 }>
                                 <PanelCard title="四川省游客流量分析">
+                                    <Select trigger="click" className="flow-analysis" value={ selectedFlowAnalysisIndex !== undefined ? selectedFlowAnalysisIndex : ' '}>
+                                        {
+                                            (flowAnalysis && flowAnalysis.length > 0) && flowAnalysis.map((item, index) => {
+                                                return <Option value={ index } key={ index }>{ item.name }</Option>
+                                            })
+                                        }
+                                    </Select>
                                     <div id="provinceFlowLineChart" style={{ width: '100%', height: 260 }}></div>
                                 </PanelCard>
                             </Col>
@@ -585,6 +671,13 @@ export default class TouristData extends Component {
                 </Col>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
                     <PanelCard title="五大经济区游客来源排名" className="bg-grey" { ...this.getHeaderOptions([true, true, 'touristRank', true], this.fetchFiveZoneTouristRank)}>
+                        <Select trigger="click" className="economic-zone" value={ this.state.economicZoneSelected } onChange={ (e) => { this.setState({economicZoneSelected: e.target.value}); }}>
+                            {
+                                (economicZone && economicZone.length > 0) && economicZone.map((zone, index) => {
+                                    return <Option value={ zone.value } key={ index }>{ zone.name }</Option>
+                                })
+                            }
+                        </Select>
                         <table className="mt-table mt-table-noborder col-1-al" style={{ height: 280 }}>
                             <thead>
                             <tr>
@@ -594,31 +687,16 @@ export default class TouristData extends Component {
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>01</td>
-                                <td>重庆市</td>
-                                <td>179</td>
-                            </tr>
-                            <tr>
-                                <td>02</td>
-                                <td>广东省</td>
-                                <td>75</td>
-                            </tr>
-                            <tr>
-                                <td>03</td>
-                                <td>江苏省</td>
-                                <td>58</td>
-                            </tr>
-                            <tr>
-                                <td>04</td>
-                                <td>云南省</td>
-                                <td>47</td>
-                            </tr>
-                            <tr>
-                                <td>05</td>
-                                <td>贵州省</td>
-                                <td>41</td>
-                            </tr>
+                            {
+                                (peopleSourceRank[economicZoneSelected] && peopleSourceRank[economicZoneSelected].data.length > 0) &&
+                                 peopleSourceRank[economicZoneSelected].data.map((rank, index) => {
+                                    return <tr key={ index }>
+                                        <td>{ '0' + (index + 1) }</td>
+                                        <td>{ rank.resourceProvince || '--' }</td>
+                                        <td>{ rank.personCountView || '--'}</td>
+                                    </tr>
+                                })
+                            }
                             </tbody>
                         </table>
                     </PanelCard>
