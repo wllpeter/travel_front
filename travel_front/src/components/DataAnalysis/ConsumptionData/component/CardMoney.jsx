@@ -7,9 +7,7 @@ import {getShuaKaAndJiaoYiInfo} from '../../../../services/ConsumptionData/consu
 import AdCharts from '../../../../utils/adCharts';
 import {getHeaderOptions} from '../../../../utils/tools';
 
-let customerData = null;
-
-export default class ComfortDegree extends Component {
+export default class CardMoney extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -51,7 +49,6 @@ export default class ComfortDegree extends Component {
 
     print(params) {
         // 外地游客刷卡消费金额分析
-        console.log(params);
         AdCharts.pieChart({
             chartId: this.props.elementId,
             legend: params.legend,

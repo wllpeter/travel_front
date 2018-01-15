@@ -8,7 +8,8 @@ import {Row, Col} from 'antd';
 import PercentBar from '../../commonComponent/PercentBar';
 import ToggleButtonGroup from '../../commonComponent/ToggleButtonGroup';
 import ProvinceTravelConsume from './component/ProvinceTravelConsume';
-import CardMoneyPieChart from './component/CardMoneyPieChart';
+import CardMoney from './component/CardMoney';
+import CityMoney from './component/CityMoney';
 import {getSpendBigData} from '../../../services/ConsumptionData/consumptionData';
 import 'antd/lib/grid/style';
 import '../style.scss';
@@ -24,18 +25,6 @@ export default class TouristData extends Component {
     componentDidMount() {
         // 获取时间选择范围
         this.getSpendBigData();
-
-        // 各地市外地游客刷卡消费金额分析
-        AdCharts.barChart({
-            chartId: 'cityCardMoneyPieChart',
-            legend: ['消费金额'],
-            legendShow: false,
-            xAxisData: ['阿坝', '巴中', '达州', '广安', '广元'],
-            series: [[30, 70, 66, 32, 53]],
-            gridTop: 60,
-            yAxisNameFontSize: 12,
-            yAxisName: '消费(万元)'
-        });
 
         // 各地市外地游客交易笔数分析
         AdCharts.barChart({
@@ -143,6 +132,22 @@ export default class TouristData extends Component {
             timeType: 'waiDiJiaoYi'
         };
 
+        const cityCardMoney = {
+            elementId: 'cityCardMoneyPieChart',
+            type: 'B',
+            dataKey: 'dealAmount',
+            title: '各地市外地游客刷卡消费金额分析',
+            timeType: 'geDiShuaKa'
+        };
+
+        const cityTradeAmount = {
+            elementId: 'cityTradeAmountPieChart',
+            type: 'D',
+            dataKey: 'dealTime',
+            title: '各地市外地游客交易笔数分析',
+            timeType: 'geDiJiaoYi'
+        };
+
         return <div className="consumption-data">
             <Row>
                 <Col span={12} lg={24} xl={12}>
@@ -151,23 +156,19 @@ export default class TouristData extends Component {
                 <Col span={12} lg={24} xl={12}>
                     <Row>
                         <Col span={12}>
-                            <CardMoneyPieChart {...this.state} {...cardMoney}></CardMoneyPieChart>
+                            <CardMoney {...this.state} {...cardMoney}></CardMoney>
                         </Col>
                         <Col span={12}>
-                            <CardMoneyPieChart {...this.state} {...tradeAmount}></CardMoneyPieChart>
+                            <CardMoney {...this.state} {...tradeAmount}></CardMoney>
                         </Col>
                     </Row>
 
                     <Row>
                         <Col span={12}>
-                            <PanelCard title="各地市外地游客刷卡消费金额分析">
-                                <div id="cityCardMoneyPieChart" style={{width: '100%', height: 300}}></div>
-                            </PanelCard>
+                            <CityMoney {...this.state} {...cityCardMoney}></CityMoney>
                         </Col>
                         <Col span={12}>
-                            <PanelCard title="各地市外地游客交易笔数分析">
-                                <div id="cityTradeAmountPieChart" style={{width: '100%', height: 300}}></div>
-                            </PanelCard>
+                            <CityMoney {...this.state} {...cityTradeAmount}></CityMoney>
                         </Col>
                     </Row>
                 </Col>
