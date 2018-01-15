@@ -64,7 +64,7 @@ public class ProvinceHotSearchServiceImpl implements ProvinceHotSearchService{
                     .concat("&et=")
                     .concat(et)
                     .concat("&districtId=")
-                    .concat("32");
+                    .concat("32&pageSize=25");
             String data = HttpRequestUtils.sendGet(dataUrl);
             Map<String,Object> jsonObject = JSON.parseObject(data, Map.class);
             Map<String,JSONArray> temp = JSON.parseObject(jsonObject.get("data").toString(),Map.class);
