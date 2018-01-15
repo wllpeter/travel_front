@@ -27,4 +27,6 @@ public class EconomicZoneTouristResidenceTime {
     private String personCount;
     @Column(columnDefinition = "bit comment '是否删除'")
     private Boolean deleted;
+    @Transient
+    private float personCountView;
 }

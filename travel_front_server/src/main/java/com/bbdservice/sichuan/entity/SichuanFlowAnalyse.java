@@ -27,4 +27,8 @@ public class SichuanFlowAnalyse {
     private Long modifyId;
     @Column(columnDefinition = "bit comment '是否删除'")
     private Boolean deleted;
+    @Transient
+    private Float personTimeView;
+    @Transient
+    private Float personCountView;
 }
