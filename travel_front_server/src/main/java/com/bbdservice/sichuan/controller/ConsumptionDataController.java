@@ -141,7 +141,8 @@ public class ConsumptionDataController {
             JSONObject jsonObject=new JSONObject();
             JSONArray valueArray = JSONArray.fromObject(valueList.get(i));
             for(int j=0;j<9;j++){
-                jsonObject.put(keyList.get(j),valueArray.get(j));
+                String value=valueArray.get(j).toString().replace("%","");
+                jsonObject.put(keyList.get(j),value);
             }
             int year=Integer.parseInt(valueArray.getString(7))-1;
             int month=Integer.parseInt(valueArray.getString(8));
@@ -149,8 +150,7 @@ public class ConsumptionDataController {
             if(lastSingle==null){
                 jsonObject.put("singleCompare","-");
             }else{
-
-                String singleCompare=String.format("%.2f", (valueArray.getDouble(6)-Double.parseDouble(lastSingle))/Double.parseDouble(lastSingle)*100).toString()+"%";
+                String  singleCompare=String.format("%.2f", (valueArray.getDouble(6)-Double.parseDouble(lastSingle))/Double.parseDouble(lastSingle)*100).toString();
                 jsonObject.put("singleCompare",singleCompare);
             }
             result.add(jsonObject);

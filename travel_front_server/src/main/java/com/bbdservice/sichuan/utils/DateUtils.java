@@ -6,8 +6,22 @@ import org.springframework.beans.factory.annotation.Value;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class DateUtils {
+
+    public static int getSystemYear(){
+        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT+08:00"));    //获取东八区时间
+
+        int year = c.get(Calendar.YEAR);    //获取年
+        return year;
+    }
+    public static int getSystemMonth(){
+        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT+08:00"));    //获取东八区时间
+
+        int month = c.get(Calendar.MONTH) + 1;
+        return month;
+    }
 
     public static String getYear(String date){
         date = date.replace("-","");

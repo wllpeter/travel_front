@@ -3,6 +3,7 @@ package com.bbdservice.sichuan.controller;
 
 import com.bbdservice.sichuan.base.Response;
 import com.bbdservice.sichuan.service.AboutYearConditionService;
+import com.bbdservice.sichuan.utils.DateUtils;
 import io.swagger.annotations.ApiOperation;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -99,21 +100,30 @@ public class AboutYearConditionController {
     @GetMapping("/getSearchBigData")
     public Response getSearchBigData(){
         Map<String,List> map=new HashMap<>();
+        List<JSONObject> monthKey=new ArrayList<>();
+        List<JSONObject> quarterKey=new ArrayList<>();
         List<String> key= Arrays.asList("year","monthOrQuarter","type");
-        List<String> getProvinceHot=aboutYearConditionService.getProvinceHot();
-        map.put("provinceHot",putKey(key,getProvinceHot));
-        //热词云
-        List<String> getHotWords=aboutYearConditionService.getHotWords();
-        map.put("howWords",putKey(key,getHotWords));
-        //搜索人群年龄分布
-        List<String> getPersonAge=aboutYearConditionService.getPersonAge();
-        map.put("personAge",putKey(key,getPersonAge));
-        //搜索人来源地
-        List<String> getPersonResources=aboutYearConditionService.getPersonResources();
-        map.put("personResources",putKey(key,getPersonResources));
-        //搜索景点偏好地
-        List<String> getJingDian=aboutYearConditionService.getJingDian();
-        map.put("popularPlaces",getJingDian);
+
+        monthKey=getJsonObject(key,12,"月");
+        quarterKey=getJsonObject(key,4,"季");
+
+        map.put("month",monthKey);
+        map.put("quarter",quarterKey);
+
+        //        List<String> getProvinceHot=aboutYearConditionService.getProvinceHot();
+//        map.put("provinceHot",putKey(key,getProvinceHot));
+//        //热词云
+//        List<String> getHotWords=aboutYearConditionService.getHotWords();
+//        map.put("howWords",putKey(key,getHotWords));
+//        //搜索人群年龄分布
+//        List<String> getPersonAge=aboutYearConditionService.getPersonAge();
+//        map.put("personAge",putKey(key,getPersonAge));
+//        //搜索人来源地
+//        List<String> getPersonResources=aboutYearConditionService.getPersonResources();
+//        map.put("personResources",putKey(key,getPersonResources));
+//        //搜索景点偏好地
+//        List<String> getJingDian=aboutYearConditionService.getJingDian();
+//        map.put("popularPlaces",getJingDian);
         return Response.success(map);
     }
 
@@ -160,4 +170,58 @@ public class AboutYearConditionController {
         return result;
     }
 
+    public List<JSONObject> getJsonObject(List<String> keyList,int num,String type){
+        List<JSONObject> result=new ArrayList<>();
+        int quarter=-1;
+        int month=DateUtils.getSystemMonth()-1;
+        if(type.equals("月")){
+            for(int i=month;i>0;i--){
+                JSONObject jsonObject=new JSONObject();
+                jsonObject.put(keyList.get(0),2018);
+                jsonObject.put(keyList.get(1),i);
+                jsonObject.put(keyList.get(2),type);
+                result.add(jsonObject);
+            }
+        }else{
+            switch (month){
+                case 1:
+                case 2:
+                case 3:
+                    quarter=1;
+                    break;
+                case 4:
+                case 5:
+                case 6:
+                    quarter=2;
+                    break;
+                case 7:
+                case 8:
+                case 9:
+                    quarter=3;
+                    break;
+                case 10:
+                case 11:
+                case 12:
+                    quarter=4;
+                    break;
+            }
+            for(int j=quarter;j>0;j--){
+                JSONObject jsonObject=new JSONObject();
+                jsonObject.put(keyList.get(0),2018);
+                jsonObject.put(keyList.get(1),j);
+                jsonObject.put(keyList.get(2),type);
+                result.add(jsonObject);
+            }
+        }
+        for(int  i=num;i>0;i--){
+            JSONObject jsonObject=new JSONObject();
+            jsonObject.put(keyList.get(0),2017);
+            jsonObject.put(keyList.get(1),i);
+            jsonObject.put(keyList.get(2),type);
+            result.add(jsonObject);
+        }
+
+
+        return result;
+    }
 }
