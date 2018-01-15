@@ -2,8 +2,10 @@ package com.bbdservice.sichuan.controller;
 
 import com.bbdservice.sichuan.base.Response;
 import com.bbdservice.sichuan.entity.*;
+import com.bbdservice.sichuan.entity.enums.ResidenceZoneEnums;
 import com.bbdservice.sichuan.entity.enums.EconomicZoneEnums;
 import com.bbdservice.sichuan.entity.enums.FlowTypeEnums;
+import com.bbdservice.sichuan.entity.enums.TrafficTypeEnums;
 import com.bbdservice.sichuan.service.*;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.*;
 
@@ -142,12 +143,12 @@ public class CustomerController {
         }
         List<EconomicZoneTouristResidenceTime> economicZoneTouristResidenceTimes = this.economicZoneTouristResidenceTimeService.getQuarterData(year, quarter);
         Map<String,Object> zone = new HashMap<>();
-        for(EconomicZoneEnums economicZoneEnums : EconomicZoneEnums.values()){
+        for(ResidenceZoneEnums residenceZoneEnums : ResidenceZoneEnums.values()){
             Map<String,Object> zoneData = new HashMap<>();
-            zoneData.put("name",economicZoneEnums.getName());
+            zoneData.put("residence_zone",residenceZoneEnums.getName());
             List<EconomicZoneTouristResidenceTime> zoneDatas = new ArrayList<>();
             for(EconomicZoneTouristResidenceTime economicZoneTouristResidenceTime : economicZoneTouristResidenceTimes){
-                if(economicZoneTouristResidenceTime.getEconomicZone().equals(economicZoneEnums.getName())){
+                if(economicZoneTouristResidenceTime.getResidenceZone().equals(residenceZoneEnums.getName())){
                     DecimalFormat b = new DecimalFormat("#.00");
                     float prensonCountView = Float.valueOf(b.format(Float.valueOf(economicZoneTouristResidenceTime.getPersonCount())/10000));
                     economicZoneTouristResidenceTime.setPersonCountView(prensonCountView);
@@ -156,7 +157,7 @@ public class CustomerController {
                 }
             }
             zoneData.put("data",zoneDatas);
-            zone.put(economicZoneEnums.name(),zoneData);
+            zone.put(residenceZoneEnums.name(),zoneData);
         }
         return Response.success(zone);
     }
@@ -209,13 +210,13 @@ public class CustomerController {
         }
         List<EconomicZoneTrafficType> economicZoneTrafficTypes = this.economicZoneTrafficTypeService.getQuarterData(year, quarter);
         Map<String,Object> zone = new HashMap<>();
-        for(EconomicZoneEnums economicZoneEnums : EconomicZoneEnums.values()){
+        for(TrafficTypeEnums trafficTypeEnums : TrafficTypeEnums.values()){
             Map<String,Object> zoneData = new HashMap<>();
-            zoneData.put("name",economicZoneEnums.getName());
+            zoneData.put("traffic_type",trafficTypeEnums.getName());
             List<EconomicZoneTrafficType> zoneDatas = new ArrayList<>();
             int count = 0;
             for(EconomicZoneTrafficType economicZoneTrafficType : economicZoneTrafficTypes){
-                if(economicZoneTrafficType.getEconomicZone().equals(economicZoneEnums.getName())){
+                if(economicZoneTrafficType.getTrafficType().equals(trafficTypeEnums.getName())){
                     zoneDatas.add(economicZoneTrafficType);
                     count += (economicZoneTrafficType.getPersonTime()==null?0:economicZoneTrafficType.getPersonTime());
                     continue;
@@ -227,7 +228,7 @@ public class CustomerController {
                 economicZoneTrafficType.setPersonTimeRatio(Float.valueOf(ratio));
             }
             zoneData.put("data",zoneDatas);
-            zone.put(economicZoneEnums.name(),zoneData);
+            zone.put(trafficTypeEnums.name(),zoneData);
         }
         return Response.success(zone);
     }
