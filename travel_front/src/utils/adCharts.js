@@ -1204,31 +1204,12 @@ const AD_CHART = {
                     fontSize: 14
                 }
             },
-            dataZoom: [
-                {
-                    type: 'slider',
-                    backgroundColor: params.zoomBackground || '#1F3A59',
-                    fillerColor: params.zoomFiller || '#165B8A',
-                    borderColor: 'transparent',
-                    handleStyle: {
-                        color: '#00A8FD'
-                    },
-                    textStyle: {
-                        color: 'rgba(255, 255, 255, 0.95)'
-                    },
-                    xAxisIndex: 0,
-                    filterMode: 'empty',
-                    start: 0,
-                    end: 100
-                },
-                {
-                    type: 'inside',
-                    xAxisIndex: 0,
-                    filterMode: 'empty',
-                    start: 0,
-                    end: 100
-                }
-            ],
+            dataZoom: getDataZoom({
+                zoomBackground: params.zoomBackground || '#1F3A59',
+                zoomFiller: params.zoomFiller || '#165B8A',
+                lengthMax: params.lengthMax,
+                showLength: params.showLength || 6
+            }),
             xAxis: [
                 {
                     type: 'category',
