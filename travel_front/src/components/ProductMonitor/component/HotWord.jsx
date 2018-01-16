@@ -154,7 +154,7 @@ export default class HotWord extends Component {
     render() {
         let {visible} = this.state;
         return <div>
-            <PanelCard title="产品评价热词云"
+            <PanelCard title="产品评价热词云" zoomRequired={true} timeSelectRequired={true}
                        enlarge={this.showModal.bind(this)}>
                 <div id="hotWord-map" className="product-down-map"></div>
             </PanelCard>
