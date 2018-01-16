@@ -105,62 +105,67 @@ export default class TouristData extends Component {
             chartId: 'pieChart',
             borderWidth: 6,
             borderColor: '#203a59',
-            legend: [{
-                name: '旅游出行',
-                icon: 'circle'
-            },
-            {
-                name: '旅游住宿',
-                icon: 'circle'
-            },
-            {
-                name: '旅游餐饮',
-                icon: 'circle'
-            },
-            {
-                name: '旅游浏览',
-                icon: 'circle'
-            },
-            {
-                name: '旅游购物',
-                icon: 'circle'
-            },
-            {
-                name: '旅游娱乐',
-                icon: 'circle'
-            },
-            {
-                name: '旅游综合服务',
-                icon: 'circle'
-            }],
-            data: [{
-                value: 10,
-                name: '旅游出行'
-            },
-            {
-                value: 324,
-                name: '旅游住宿'
-            },
-            {
-                value: 438,
-                name: '旅游餐饮'
-            },
-            {
-                value: 23,
-                name: '旅游浏览'
-            },
-            {
-                value: 99,
-                name: '旅游购物'
-            },
-            {
-                value: 39,
-                name: '旅游娱乐'
-            },
-            {
-                value: 43,
-                name: '旅游综合服务'
-            }]
+            legend: [
+                {
+                    name: '旅游出行',
+                    icon: 'circle'
+                },
+                {
+                    name: '旅游住宿',
+                    icon: 'circle'
+                },
+                {
+                    name: '旅游餐饮',
+                    icon: 'circle'
+                },
+                {
+                    name: '旅游浏览',
+                    icon: 'circle'
+                },
+                {
+                    name: '旅游购物',
+                    icon: 'circle'
+                },
+                {
+                    name: '旅游娱乐',
+                    icon: 'circle'
+                },
+                {
+                    name: '旅游综合服务',
+                    icon: 'circle'
+                }],
+            legendTop: '28%',
+            legendRight: '6%',
+            data: [
+                {
+                    value: 10,
+                    name: '旅游出行'
+                },
+                {
+                    value: 324,
+                    name: '旅游住宿'
+                },
+                {
+                    value: 438,
+                    name: '旅游餐饮'
+                },
+                {
+                    value: 23,
+                    name: '旅游浏览'
+                },
+                {
+                    value: 99,
+                    name: '旅游购物'
+                },
+                {
+                    value: 39,
+                    name: '旅游娱乐'
+                },
+                {
+                    value: 43,
+                    name: '旅游综合服务'
+                }
+            ]
         });
 
         AD_CHART.barChart({
@@ -290,12 +295,12 @@ export default class TouristData extends Component {
             <Row gutter={ 2 }>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
                     <PanelCard title="省内旅游行业构成" className="bg-grey">
-                        <div id="pieChart" style={{ width: '100%', height: 330 }}></div>
+                        <div id="pieChart" style={{ width: '100%', height: 300 }}></div>
                     </PanelCard>
                 </Col>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
                     <PanelCard title="省内活跃度排行榜" className="bg-grey">
-                        <table className="mt-table mt-table-noborder" style={{ height: 310 }}>
+                        <table className="mt-table mt-table-noborder" style={{ height: 280 }}>
                             <thead>
                                 <tr>
                                     <th>地区</th>
@@ -335,12 +340,12 @@ export default class TouristData extends Component {
                 </Col>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
                     <PanelCard title="省内涉旅企业数量变更" className="bg-grey">
-                        <div id="companyBarChart" style={{ width: '100%', height: 330}}></div>
+                        <div id="companyBarChart" style={{ width: '100%', height: 300}}></div>
                     </PanelCard>
                 </Col>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
                     <PanelCard title="省内涉旅行业网络信息监控" className="bg-grey network-info">
-                        <ul style={{ height: 330 }}>
+                        <ul style={{ height: 300 }}>
                             <li><a href="#">世界关注中国旅游指数</a><span className="info-time">1分钟前</span></li>
                             <li><a href="#">江苏旅游局携手途牛共推"水韵江苏"旅游新产品</a><span className="info-time">1分钟前</span></li>
                             <li><a href="#">航班酒店订单取消 &nbsp; 火山喷发冲击印尼旅游业</a><span className="info-time">1分钟前</span></li>

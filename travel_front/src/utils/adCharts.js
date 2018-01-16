@@ -162,6 +162,7 @@ const AD_CHART = {
                     }
                 }
             },
+            dataZoom: params.dataZoom || null,
             series: seriesData
         };
         if (params.unit) {

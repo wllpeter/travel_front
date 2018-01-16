@@ -12,6 +12,7 @@ import { getTouristDataOptions, getProvinceCustomerData, getCountyData, getZoneC
 import { Map, List } from 'immutable';
 import { getHeaderOptions } from '../../utils/util';
 import ToggleButtonGroup from "../commonComponent/ToggleButtonGroup";
+import { getDataZoom } from '../../utils/tools';
 import { Select } from 'mtui/index';
 import './style.scss';
 
@@ -29,11 +30,15 @@ export default class TouristData extends Component {
             }),
             villageTouristData: Map({
                 ageData: null,             // 年龄分析
-                consumptionPotential: [],   // 消费潜力
+                consumptionPotential: {
+                    potentialLevels: [],
+                    data: []
+                },   // 消费潜力
                 tripTime: []                // 乡村游时长
             }),
             fiveZonePeopleNumData: List(),   // 五大经济区客游人次
             touristDelayTimeData: List(),   // 游客停留时长
+            touristTrafficTypes: List(),    // 游客交通方式
             villageActive: 'jieDai-2',    // 默认激活的为接待按钮，值为2
             optionsData: {
                 chuXing: null,          // 乡村游客分析-出行
@@ -46,19 +51,24 @@ export default class TouristData extends Component {
             },
             economicZoneSelected: 'CHENG_DU',        // 默认选择的是成都平原经济区
             peopleSourceRank: [],                    // 五大经济区游客来源排名
-            flowAnalysis: [],                        // 游客流量分析选项和数据
-            selectedFlowAnalysisOption: {}           // 选中的流量分析选项
+            flowAnalysis: Map({
+                province: [],                          // 省游客流量分析
+                country: []                            // 乡村游客流量分析
+            }),                                         // 游客流量分析选项和数据
+            peopleTimeData: {
+                citys: [],
+                data: []
+            }                       // 乡村游出游人次
         };
 
-        this.economicZoneSort = ['川西北生态经济区', '攀西经济区', '川东北经济区', '川南经济区', '成都平原经济区'];
-        this.renderProvinceTouristData = this.renderProvinceTouristData.bind(this);
+        this.trafficTypeSort = ['其他', '火车', '高铁', '飞机'];
     }
 
     /**
      * @description 渲染四川省游客分析
      */
     renderProvinceTouristData() {
-        const { provinceTouristData, flowAnalysis } = this.state;
+        const { provinceTouristData, flowAnalysis, selectedFlowAnalysisIndex } = this.state;
 
         // 四川省游客年龄分布图
         adCharts.pieChart({
@@ -76,7 +86,7 @@ export default class TouristData extends Component {
         });
 
         // 四川省客流量分析
-        if(flowAnalysis && flowAnalysis.length) {
+        if(flowAnalysis.toObject() && flowAnalysis.get('province').length) {
             adCharts.lineChart({
                 chartId: 'provinceFlowLineChart',
                 legend: ['人次', '人数'],
@@ -92,7 +102,7 @@ export default class TouristData extends Component {
                 right: 30,
                 bottom: 40,
                 colors: ['#32c889', '#00a9ff'],
-                series: flowAnalysis[0].data
+                series: flowAnalysis.get('province')[selectedFlowAnalysisIndex].data
             });
         }
     }
@@ -102,58 +112,110 @@ export default class TouristData extends Component {
      */
     renderCountryTouristData() {
 
-        const { villageTouristData } = this.state;
+        const { villageTouristData, flowAnalysis, selectedCountryFlowAnalysisIndex, peopleTimeData} = this.state;
+        const { citys, data } = peopleTimeData;
+
         // 乡村游游客年龄分析
-        adCharts.pieChart({
-            chartId: 'villageAgePieChart',
-            legend: ['20以下', '20-25', '25-30', '30-35', '35-40', '40-45', '45-50', '50-55', '55-60', '60-65', '65以上'],
-            legendIcon: 'circle',
-            borderWidth: 6,
-            borderColor: '#072848',
-            legendTop: 80,
-            legendHeight: 150,
-            legendRight: '10%',
-            color: ['#dc9473', '#ddcf73', '#b6dd74', '#32c889', '#0dbbc7', '#00a9ff', '#1b75d3', '#3559c5', '#5334c5', '#9e35c5', '#df5fa8'],
-            center: ['30%', '50%'],
-            data: villageTouristData.get('ageData')
-        });
+        if(villageTouristData.get('ageData') && villageTouristData.get('ageData').length) {
+            adCharts.pieChart({
+                chartId: 'villageAgePieChart',
+                legend: ['20以下', '20-25', '25-30', '30-35', '35-40', '40-45', '45-50', '50-55', '55-60', '60-65', '65以上'],
+                legendIcon: 'circle',
+                borderWidth: 6,
+                borderColor: '#072848',
+                legendTop: 80,
+                legendHeight: 150,
+                legendRight: '10%',
+                color: ['#dc9473', '#ddcf73', '#b6dd74', '#32c889', '#0dbbc7', '#00a9ff', '#1b75d3', '#3559c5', '#5334c5', '#9e35c5', '#df5fa8'],
+                center: ['30%', '50%'],
+                data: villageTouristData.get('ageData')
+            });
 
-        // 乡村游消费潜力分布
-        adCharts.percentBarChart({
-            chartId: 'villageConsumptionBarChart',
-            title: '释义: 星级越高，消费者潜力越强',
-            titleLeft: 20,
-            titleFontSize: 12,
-            legendShow: false,
-            xAxisData: ['1星','2星','3星','4星','5星','6星','7星','8星','9星','10星'],
-            barWidth: 13,
-            labelFontSize: 12,
-            gridTop: 60,
-            gridLeft: 0,
-            yAxisLineShow: false,
-            yAxisLabelShow: false,
-            xAxisLineShow: false,
-            colors: ['#415870', '#00a9ff'],
-            labelOffset: [0, -10],
-            labelMargin: 0,
-            labelPos: 'top',
-            series: [[100,100,100,100,100,100,100,100,100,100], villageTouristData.get('consumptionPotential')]
-        });
+        }
 
-        // 乡村游时长分布
-        adCharts.percentBarChart({
-            chartId: 'villageDurationPercentBarChart',
-            legendShow: false,
-            yAxisData: ["120h以上".padEnd(7, ' '), "96h-120h", "72h-96h".padEnd(8, ' '), "48h-72h".padEnd(8, ' '), "24h-48h".padEnd(8, ' '), "12h-24h".padEnd(8, ' '), "6h-12h".padEnd(9, ' ')],
-            row: true,
-            barWidth: 8,
-            colors: ['#415870', '#00a9ff'],
-            gridRight: 70,
-            yAxisLineShow: false,
-            xAxisLineShow: false,
-            xAxisLabelShow: false,
-            series: [ [100, 100, 100, 100, 100, 100, 100], villageTouristData.get('tripTime')]
-        });
+        let consumptionPotential = villageTouristData.get('consumptionPotential');
+
+        if( consumptionPotential.data.length && consumptionPotential.potentialLevels.length) {
+            // 乡村游消费潜力分布
+            adCharts.percentBarChart({
+                chartId: 'villageConsumptionBarChart',
+                title: '释义: 星级越高，消费者潜力越强',
+                titleLeft: 20,
+                titleFontSize: 12,
+                legendShow: false,
+                xAxisData: consumptionPotential.potentialLevels,
+                barWidth: 13,
+                labelFontSize: 12,
+                gridTop: 60,
+                gridLeft: 0,
+                yAxisLineShow: false,
+                yAxisLabelShow: false,
+                xAxisLineShow: false,
+                colors: ['#415870', '#00a9ff'],
+                labelOffset: [0, -10],
+                labelMargin: 0,
+                labelPos: 'top',
+                series: [new Array(consumptionPotential.potentialLevels.length).fill(100), consumptionPotential.data]
+            });
+        }
+
+        if(villageTouristData.get('tripTime') &&  villageTouristData.get('tripTime').length) {
+            // 乡村游时长分布
+            adCharts.percentBarChart({
+                chartId: 'villageDurationPercentBarChart',
+                legendShow: false,
+                yAxisData: ["120h以上".padEnd(7, ' '), "96h-120h", "72h-96h".padEnd(8, ' '), "48h-72h".padEnd(8, ' '), "24h-48h".padEnd(8, ' '), "12h-24h".padEnd(8, ' '), "6h-12h".padEnd(9, ' ')],
+                row: true,
+                barWidth: 8,
+                colors: ['#415870', '#00a9ff'],
+                gridRight: 70,
+                yAxisLineShow: false,
+                xAxisLineShow: false,
+                xAxisLabelShow: false,
+                series: [ [100, 100, 100, 100, 100, 100, 100], villageTouristData.get('tripTime')]
+            });
+        }
+
+        // 乡村游客流量分析
+        if(this.state.villageActive.startsWith('jieDai') && selectedCountryFlowAnalysisIndex !== undefined) {
+            adCharts.lineChart({
+                chartId: 'villageFlowLineChart',
+                legend: ['人次', '人数'],
+                legendIcon: 'circle',
+                legendRight: '12%',
+                legendTop: '0',
+                itemGap: 35,
+                xAxisData: ['1季度', '2季度', '3季度', '4季度'],
+                yAxisName: '流量 (万)',
+                smooth: false,
+                graphic: false,
+                top: 30,
+                right: 30,
+                bottom: 40,
+                colors: ['#32c889', '#00a9ff'],
+                series: flowAnalysis.get('country')[selectedCountryFlowAnalysisIndex].data
+            });
+        }
+
+        // 乡村游出游人次
+        if(this.state.villageActive.startsWith('chuXing') && citys && data) {
+            adCharts.barChart({
+                chartId: 'villageOutingBarChart',
+                legend: ['乡村游出游人次'],
+                legendShow: false,
+                gridTop: 30,
+                gridBottom: 40,
+                dataZoom: getDataZoom({
+                    lengthMax: citys.length,
+                    showLength: 7
+                }),
+                xAxisData: citys,
+                yAxisName: '流量 (万)',
+                series: [data]
+            });
+
+        }
+
     }
 
     /**
@@ -205,42 +267,14 @@ export default class TouristData extends Component {
         });
     }
 
-
-    componentDidMount() {
-        // 1. 获取客情大数据的时间选项组
-        getTouristDataOptions().then(data => {
-            console.log('时间选项组:', data);
-            this.setState({
-                optionsData: data
-            }, () => {
-                // 初始化默认数据
-                this.fetchProvinceCustomerData([data.sex[0].year, data.sex[0].monthOrQuarter]);
-                this.fetchCountyData([data.jieDai[0].year, data.jieDai[0].monthOrQuarter]);
-                this.fetchFiveZoneData([data.touristTimes[0].year, data.touristTimes[0].monthOrQuarter]);
-                this.fetchTouristDelayTime([data.stayTime[0].year, data.stayTime[0].monthOrQuarter]);
-                this.fetchFiveZoneTouristRank([data.touristRank[0].year, data.touristRank[0].monthOrQuarter]);
-                this.fetchFiveZoneTrafficType([data.trafficType[0].year, data.trafficType[0].monthOrQuarter]);
-            });
-        });
-
-        // this.fetchProvinceCustomerData();
-
-        // 乡村游出游人次
-        adCharts.barChart({
-            chartId: 'villageOutingBarChart',
-            legend: ['乡村游出游人次'],
-            legendShow: false,
-            gridTop: 60,
-            gridBottom: 40,
-            xAxisData: ['阿坝', '巴中', '成都', '达州', '广安', '广元'],
-            yAxisName: '流量 (万)',
-            series: [[6000, 8000, 11000, 4000, 6500, 3000]]
-        });
-
+    /**
+     * @description 游客交通方式
+     */
+    renderTouristTrafficTypesData() {
         // 游客交通方式
         adCharts.barChart({
             chartId: 'touristTrafficWayBarChart',
-            legend: ['其他', '火车', '高铁', '飞机'],
+            legend: this.trafficTypeSort,
             yAxisData: ['川西北生态经济区', '攀西经济区'.padEnd(14, ' '), '川东北经济区'.padEnd(12, ' '), '川南经济区'.padEnd(14, ' '), '成都平原经济区'.padEnd(10, ' ')],
             barWidth: 14,
             colors: ['#00a9ff', '#0dbbc7', '#32c889', '#b6dd74'],
@@ -253,27 +287,26 @@ export default class TouristData extends Component {
             yAxisLineShow: false,
             row: true,
             stack: true,
-            series: [[34, 32, 23, 12, 32], [43, 32, 23, 32, 32], [43, 32, 23, 32, 32], [43, 32, 23, 32, 32]]
+            series: this.state.touristTrafficTypes.toArray()
         });
+    }
 
-        adCharts.lineChart({
-            chartId: 'villageFlowLineChart',
-            legend: ['人次', '人数'],
-            legendIcon: 'circle',
-            legendRight: '12%',
-            legendTop: '0',
-            itemGap: 35,
-            xAxisData: ['1季度', '2季度', '3季度', '4季度'],
-            yAxisName: '流量 (万)',
-            smooth: false,
-            graphic: false,
-            top: 10,
-            right: 30,
-            bottom: 40,
-            colors: ['#32c889', '#00a9ff'],
-            series: [[8500, 4500, 3400, 2300], [3242, 2334, 2312, 3232]]
+    componentDidMount() {
+        // 1. 获取客情大数据的时间选项组
+        getTouristDataOptions().then(data => {
+            // console.log('时间选项组:', data);
+            this.setState({
+                optionsData: data
+            }, () => {
+                // 初始化默认数据
+                this.fetchProvinceCustomerData([data.sex[0].year, data.sex[0].monthOrQuarter]);
+                this.fetchCountyData([data.jieDai[0].year, data.jieDai[0].monthOrQuarter]);
+                this.fetchFiveZoneData([data.touristTimes[0].year, data.touristTimes[0].monthOrQuarter]);
+                this.fetchTouristDelayTime([data.stayTime[0].year, data.stayTime[0].monthOrQuarter]);
+                this.fetchFiveZoneTouristRank([data.touristRank[0].year, data.touristRank[0].monthOrQuarter]);
+                this.fetchFiveZoneTrafficType([data.trafficType[0].year, data.trafficType[0].monthOrQuarter]);
+            });
         });
-
     }
 
     /**
@@ -282,7 +315,7 @@ export default class TouristData extends Component {
      */
     fetchProvinceCustomerData = (params) => {
         getProvinceCustomerData(params).then(data => {
-            console.log('获取到四川省游客分析数据:', data);
+            // console.log('获取到四川省游客分析数据:', data);
 
             let { age_data, gender_data, flow_data } = data;
 
@@ -326,7 +359,7 @@ export default class TouristData extends Component {
             if(flow_data && flow_data.length ) {
                 for(let item of flow_data) {
                     for(let [key, value] of Object.entries(item)) {
-                        this.state.flowAnalysis.push({
+                        this.state.flowAnalysis.get('province').push({
                             name: value.name,
                             value: key,
                             data: [value.data.map((dataItem) => {
@@ -337,12 +370,13 @@ export default class TouristData extends Component {
                         });
                     }
                 }
+                // console.log('流量分析:', this.state.flowAnalysis.get('province'));
 
-                this.setState({
+                this.setState(({flowAnalysis, selectedFlowAnalysisIndex}) => ({
                     flowAnalysis: this.state.flowAnalysis,
                     selectedFlowAnalysisIndex: 0
-                }, () => {
-                    this.renderProvinceTouristData();
+                }), () => {
+                    this.renderProvinceTouristData();  // 默认传数组第一个元素
                 });
             }
         });
@@ -353,7 +387,9 @@ export default class TouristData extends Component {
      * @params params
      */
     fetchCountyData = (params) => {
-        params.push(this.state.villageActive.split('-')[1]);
+        let activeType = this.state.villageActive;
+
+        params.push(activeType.split('-')[1]);
 
         getCountyData(params).then(data => {
             console.log('乡村游游客分析:', data);
@@ -364,12 +400,23 @@ export default class TouristData extends Component {
                 country_tour_potential_reception,
                 country_tour_residence_zone_reception
             } = data;
+
+            let {
+                country_tour_age_trips,
+                country_tour_person_Time_Trips,
+                country_tour_potential_trips,
+                country_tour_residence_zone_trips
+            } = data;
+
+            let countryTourAge = activeType.startsWith('jieDai') ? country_tour_age_reception : country_tour_age_trips;
+            let countryTourPotential = activeType.startsWith('jieDai') ? country_tour_potential_reception : country_tour_potential_trips;
+            let countryTourResidenceZone = activeType.startsWith('jieDai') ? country_tour_residence_zone_reception : country_tour_residence_zone_trips;
+
             // 处理年龄数据
             let ageSeriesData = null;
 
-            if(country_tour_age_reception && country_tour_age_reception.length) {
-                let ageData = country_tour_age_reception;
-                ageSeriesData = ageData.map((ageSeries) => {
+            if(countryTourAge && countryTourAge.length) {
+                ageSeriesData = countryTourAge.map((ageSeries) => {
                     return {
                         name: ageSeries.ageZone,
                         value: (Number(ageSeries.ratio) * 100).toFixed(2) - 0
@@ -377,27 +424,31 @@ export default class TouristData extends Component {
                 });
             }
 
-            let consumptionPotential = country_tour_potential_reception;
-            let potentialData = null;
-
             // 处理乡村游消费潜力分布数据
-            if(consumptionPotential && consumptionPotential.length) {
-                potentialData = consumptionPotential.map((potentialSeries) => {
-                    return Number(potentialSeries.ratio).toFixed(2) - 0;
+            let potentialData = {
+                potentialLevels: [],
+                data: []
+            };
+
+            if(countryTourPotential && countryTourPotential.length) {
+                countryTourPotential.sort((a, b) => { return a.potential - b.potential; });
+
+                countryTourPotential.forEach((potentialSeries) => {
+                    potentialData.potentialLevels.push(potentialSeries.potential + '星');
+                    potentialData.data.push(Number(potentialSeries.ratio).toFixed(2) - 0);
                 });
             }
 
             // 乡村游时长分布
-            let tripTime = country_tour_residence_zone_reception;
             let tripTimeData = null;
 
-            if(tripTime && tripTime.length) {
-                tripTimeData = tripTime.map((time) => {
+            if(countryTourResidenceZone && countryTourResidenceZone.length) {
+                tripTimeData = countryTourResidenceZone.map((time) => {
                     return (Number(time.ratio) * 100).toFixed(2) - 0;
-                })
+                }).reverse();
             }
 
-            if(ageSeriesData && ageSeriesData.length && potentialData && potentialData.length && tripTimeData && tripTimeData.length) {
+            if(ageSeriesData && ageSeriesData.length && potentialData && tripTimeData && tripTimeData.length) {
                 this.setState(({ villageTouristData }) => ({
                     villageTouristData: villageTouristData.set('ageData', ageSeriesData)
                         .set('consumptionPotential', potentialData)
@@ -405,6 +456,53 @@ export default class TouristData extends Component {
                 }), () => {
                     this.renderCountryTouristData();
                 })
+            }
+
+
+            // 处理流量分析
+            let countryFlowAnalysis = this.state.flowAnalysis.get('country');
+
+            if(country_tour_person_Time_reception) {
+                for(let [key, value] of Object.entries(country_tour_person_Time_reception)) {
+                    countryFlowAnalysis.push({
+                        name: value.name,
+                        value: key,
+                        data: [value.data.map((dataItem) => {
+                            return Number((dataItem.personTime / 10000 - 0).toFixed(2));
+                        }), value.data.map(dataItem => {
+                            return Number((dataItem.personCount / 10000 - 0).toFixed(2));
+                        })]
+                    });
+                }
+
+                this.state.flowAnalysis.set('country', countryFlowAnalysis.reverse());
+                // console.log('乡村游客流量分析:', countryFlowAnalysis);
+
+                this.setState(({flowAnalysis, selectedCountryFlowAnalysisIndex}) => ({
+                    flowAnalysis: this.state.flowAnalysis,
+                    selectedCountryFlowAnalysisIndex: 0
+                }), () => {
+                    this.renderCountryTouristData();  // 默认传数组第一个元素
+                });
+            }
+
+            // 乡村游出游人次
+            let countryTourPeopleTime = country_tour_person_Time_Trips;
+
+            let peopleTimeData = this.state.peopleTimeData;
+
+            if(countryTourPeopleTime && countryTourPeopleTime.length) {
+                countryTourPeopleTime.forEach(item => {
+                    item.city = item.city.length > 5 ? item.city.substr(0, 2) : item.city;
+                    peopleTimeData.citys.push(item.city);
+                    peopleTimeData.data.push(Number((item.personTime / 10000).toFixed(2)));
+                });
+
+                this.setState({
+                    peopleTimeData
+                }, () => {
+                    this.renderCountryTouristData();
+                });
             }
 
         });
@@ -416,7 +514,7 @@ export default class TouristData extends Component {
      */
     fetchFiveZoneData = (params) => {
         getZoneCustomerTimes(params).then(data => {
-            console.log('获取五大经济区客游人次:', data);
+            // console.log('获取五大经济区客游人次:', data);
             let customerTimes = data;
 
             if(customerTimes && customerTimes.length) {
@@ -436,22 +534,16 @@ export default class TouristData extends Component {
      */
     fetchTouristDelayTime = (params) => {
         getZoneTouristResidentTime(params).then(resultData => {
-            console.log('获取五大经济区游客停留时长', resultData);
-            let economicZoneSort = this.economicZoneSort.slice();
-            let delayTime = [];
+            // console.log('获取五大经济区游客停留时长', resultData);
 
-            if(economicZoneSort && economicZoneSort.length) {
-                while(economicZoneSort && economicZoneSort.length) {
-                    for(let itemValue of Object.values(resultData)) {
-                        let { data, name } = itemValue;
-                        if(name === economicZoneSort[0]) {
-                            delayTime.push(data.map(item => item.personCountView - 0));
-                            economicZoneSort.shift();
-                            break;
-                        }
-                    }
+            if(resultData) {
+                let delayTime = [];
+
+                for(let value of Object.values(resultData)) {
+                    delayTime.push(value.data.map(item => item.personCountView));
                 }
-                console.log('结果：', delayTime);
+
+                // console.log('结果：', delayTime);
 
                 this.setState(({ touristDelayTimeData }) => ({
                     touristDelayTimeData: List(delayTime)
@@ -468,7 +560,7 @@ export default class TouristData extends Component {
      */
     fetchFiveZoneTouristRank = (params) => {
         getZoneTouristResourceRank(params).then(data => {
-            console.log('获取五大经济区游客来源排名', data);
+            // console.log('获取五大经济区游客来源排名', data);
 
             if(data) {
                 this.setState({
@@ -484,27 +576,28 @@ export default class TouristData extends Component {
      */
     fetchFiveZoneTrafficType = (params) => {
         getZoneTouristTrafficType(params).then(resultData => {
-            console.log('获取五大经济区游客交通方式', resultData);
-            let economicZoneSort = this.economicZoneSort.slice();
-            let delayTime = [];
+            // console.log('获取五大经济区游客交通方式', resultData);
 
-            if(economicZoneSort && economicZoneSort.length) {
-                while(economicZoneSort && economicZoneSort.length) {
+            let trafficTypeSort = this.trafficTypeSort.slice();
+            let trafficTypes = [];
+
+            if(trafficTypeSort && trafficTypeSort.length) {
+                while(trafficTypeSort && trafficTypeSort.length) {
                     for(let itemValue of Object.values(resultData)) {
-                        let { data, name } = itemValue;
-                        if(name === economicZoneSort[0]) {
-                            delayTime.push(data.map(item => item.personCount));
-                            economicZoneSort.shift();
+                        let { data, traffic_type } = itemValue;
+                        if(traffic_type === trafficTypeSort[0]) {
+                            trafficTypes.push(data.map(item => Number((item.personTime / 10000).toFixed(2))));
+                            trafficTypeSort.shift();
                             break;
                         }
                     }
                 }
-                console.log('结果：', delayTime);
+                // console.log('获取五大经济区游客交通方式结果：', trafficTypes);
 
-                this.setState(({ touristDelayTimeData }) => ({
-                    touristDelayTimeData: List(delayTime)
+                this.setState(({ touristTrafficTypes }) => ({
+                    touristTrafficTypes: List(trafficTypes)
                 }), () => {
-                    this.renderTouristDelayTimeData();
+                    this.renderTouristTrafficTypesData();
                 });
             }
         })
@@ -518,16 +611,38 @@ export default class TouristData extends Component {
      */
     getHeaderOptions(options, getDataFunc) {
         let callback = function(year, monthOrQuarter) {
-            console.log('year:', year, 'monthOrQuarter:', monthOrQuarter);
+            // console.log('year:', year, 'monthOrQuarter:', monthOrQuarter);
             getDataFunc && getDataFunc([year, monthOrQuarter]);
         }
         return getHeaderOptions(options, this.state.optionsData, callback);
     }
 
+    // 流量分析下拉选择
+    flowAnalysisSelect = (e, type) => {
+        if(type === 'province') {
+            this.setState({
+                selectedFlowAnalysisIndex: e.target.value
+            }, () => {
+                this.renderProvinceTouristData();
+            })
+        }
+
+        if(type === 'country') {
+            this.setState({
+                selectedCountryFlowAnalysisIndex: e.target.value
+            }, () => {
+                this.renderCountryTouristData();
+            })
+        }
+    }
+
     render() {
 
-        const { provinceTouristData, peopleSourceRank, economicZoneSelected, flowAnalysis, selectedFlowAnalysisIndex} = this.state;
+        const { provinceTouristData, peopleSourceRank, economicZoneSelected, flowAnalysis, selectedFlowAnalysisIndex, selectedCountryFlowAnalysisIndex} = this.state;
         const { genderData } = provinceTouristData.toObject();
+
+        const provinceFlowAnalysis = flowAnalysis.get('province');
+        const countryFlowAnalysis = flowAnalysis.get('country');
 
         const countryTripOptions = {
             clickBack: (buttonInfo) => {
@@ -609,9 +724,9 @@ export default class TouristData extends Component {
                         <Row>
                             <Col span={ 24 }>
                                 <PanelCard title="四川省游客流量分析">
-                                    <Select trigger="click" className="flow-analysis" value={ selectedFlowAnalysisIndex !== undefined ? selectedFlowAnalysisIndex : ' '}>
+                                    <Select trigger="click" className="flow-analysis" value={ selectedFlowAnalysisIndex !== undefined ? selectedFlowAnalysisIndex : ' '} onChange={ (e) => this.flowAnalysisSelect(e, 'province')}>
                                         {
-                                            (flowAnalysis && flowAnalysis.length > 0) && flowAnalysis.map((item, index) => {
+                                            (provinceFlowAnalysis && provinceFlowAnalysis.length > 0) && provinceFlowAnalysis.map((item, index) => {
                                                 return <Option value={ index } key={ index }>{ item.name }</Option>
                                             })
                                         }
@@ -638,16 +753,26 @@ export default class TouristData extends Component {
                             </Col>
                         </Row>
                         <Row>
-                            <Col span={ 16 } className="hide">
-                                <PanelCard title="乡村游出游人次" zoomRequired={ false } timeSelectRequired={ false }>
-                                    <div id="villageOutingBarChart" style={{ width: '100%', height: 260 }}></div>
-                                </PanelCard>
-                            </Col>
-                            <Col span={ 16 }>
-                                <PanelCard title="乡村游客流量分析" zoomRequired={ false } timeSelectRequired={ false }>
-                                    <div id="villageFlowLineChart" style={{ width: '100%', height: 260 }}></div>
-                                </PanelCard>
-                            </Col>
+                            {
+                                this.state.villageActive.startsWith('jieDai') ? (<Col span={ 16 }>
+                                    <PanelCard title="乡村游客流量分析" zoomRequired={ false } timeSelectRequired={ false }>
+                                        <Select trigger="click" className="flow-analysis" value={ selectedCountryFlowAnalysisIndex !== undefined ? selectedCountryFlowAnalysisIndex : ' '} onChange={ (e) => this.flowAnalysisSelect(e, 'country')}>
+                                            {
+                                                (countryFlowAnalysis && countryFlowAnalysis.length > 0) && countryFlowAnalysis.map((item, index) => {
+                                                    return <Option value={ index } key={ index }>{ item.name }</Option>
+                                                })
+                                            }
+                                        </Select>
+                                        <div id="villageFlowLineChart" style={{ width: '100%', height: 260 }}></div>
+                                    </PanelCard>
+                                </Col>) :
+                                (<Col span={ 16 }>
+                                    <PanelCard title="乡村游出游人次" zoomRequired={ false } timeSelectRequired={ false }>
+                                        <div id="villageOutingBarChart" style={{ width: '100%', height: 260 }}></div>
+                                    </PanelCard>
+                                </Col>)
+                            }
+
                             <Col span={ 8 }>
                                 <PanelCard title="乡村游时长分布" zoomRequired={ false } timeSelectRequired={ false }>
                                     <div id="villageDurationPercentBarChart" style={{ width: '100%', height: 260 }}></div>

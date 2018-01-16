@@ -44,7 +44,7 @@ export function getDataZoom(params) {
     let showZoom = false;
     if (params.showLength && params.lengthMax) {
         if (params.showLength < params.lengthMax) {
-            start = 100 - params.showLength / params.lengthMax * 100;
+            start = Math.floor(100 - params.showLength / params.lengthMax * 100);
             showZoom = true;
         }
     }
@@ -52,6 +52,23 @@ export function getDataZoom(params) {
     return [
         {
             type: 'slider',
+            show: showZoom,
+            backgroundColor: params.zoomBackground || '#1F3A59',
+            // handleIcon: 'M230 80 A 45 45, 0, 1, 0, 231 80 Z',
+            fillerColor: params.zoomFiller || '#165B8A',
+            borderColor: 'transparent',
+            zoomLock: false,
+            handleStyle: {
+                color: '#00A8FD'
+            },
+            textStyle: {
+                color: 'transparent'
+            },
+            start: start,
+            end: 100
+        },
+        {
+            type: 'inside',
             show: showZoom,
             backgroundColor: params.zoomBackground || '#1F3A59',
             // handleIcon: 'M230 80 A 45 45, 0, 1, 0, 231 80 Z',

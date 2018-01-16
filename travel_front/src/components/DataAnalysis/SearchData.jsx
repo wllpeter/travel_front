@@ -441,7 +441,7 @@ export default class TouristData extends Component {
                     </PanelCard>
                 </Col>
                 <Col span={ 6 } lg={ 12 } xl={ 6 }>
-                    <PanelCard title="搜索人群年龄分布" className="bg-grey" { ...this.getHeaderOptions([true, true, 'month'])}>
+                    <PanelCard title="搜索人群年龄分布" className="bg-grey" { ...this.getHeaderOptions([true, true, 'month'], this.fetchSearchPersonAge.bind(this))}>
                         <div id="searchPeopleAgePieChart" style={{ width: '100%', height: 300 }}></div>
                     </PanelCard>
                 </Col>
