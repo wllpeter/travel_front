@@ -12,7 +12,7 @@ import { getConsumptionDataOptions,
          getSearchPersonSource,
          getSearchPreferenceArea,
          getSearchPersonAge
-} from '../../services/DataAnalysis/consumptionData';
+} from '../../services/DataAnalysis/searchData';
 import { getHeaderOptions } from '../../utils/util';
 import 'antd/lib/grid/style';
 
