@@ -14,11 +14,7 @@ public class SysLogServiceImpl implements SysLogService {
     SysLogRepository sysLogRepository;
 
     @Override
-    public void saveLog(String userId) {
-        SysLog sysLog = new SysLog();
-        sysLog.setCreateDate(new Date());
-        sysLog.setDeleted(false);
-        sysLog.setUserId(userId);
+    public void saveLog(SysLog sysLog) {
         sysLogRepository.save(sysLog);
     }
 }

@@ -1,6 +1,7 @@
 package com.bbdservice.sichuan.controller;
 
 import com.bbdservice.sichuan.base.Response;
+import com.bbdservice.sichuan.entity.SysLog;
 import com.bbdservice.sichuan.entity.SysPermission;
 import com.bbdservice.sichuan.entity.SysUser;
 import com.bbdservice.sichuan.entity.enums.Const;
@@ -21,6 +22,7 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
+import org.apache.logging.log4j.core.appender.SyslogAppender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -148,7 +150,8 @@ public class SysUserController extends BaseController {
         UserToken userToken = new UserToken(userInfo.getSysUser().getLoginName(), token, getPermissions(userInfo.getSysUser().getUserId()), DateUtils.addSeconds(new Date(), loginExpireSeconds));
 
         userTokenService.save(userToken);
-        sysLogService.saveLog(userInfo.getSysUser().getUserId());
+        SysLog sysLog=new SysLog(loginName,new Date(),false);
+        sysLogService.saveLog(sysLog);
         return Response.success(userInfo);
     }
 
