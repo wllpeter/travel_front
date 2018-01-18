@@ -29,42 +29,47 @@
         }
 
         .mt-select-input {
-            position: absolute;
+            width: 130px;
             right: 30px;
             top: 10px;
-            z-index: 100;
-            width: 130px;
-            padding: 5px 12px;
-            border-radius: 0;
-            border: 1px solid #1ce88b;
-            background: transparent;
-            color: rgba(255, 255, 255, 0.95);
-            font-size: 0.65rem;
+        }
 
-            .iconfont {
-                color: #1ce88b;
-                right: 6px;
-            }
+        @at-root {
+            .mt-select-input {
+                position: absolute;
+                z-index: 100;
+                padding: 5px 12px;
+                border-radius: 0;
+                border: 1px solid #1ce88b;
+                background: transparent;
+                color: rgba(255, 255, 255, 0.95);
+                font-size: 0.65rem;
 
-            @at-root {
-                .mt-select {
-                    background-color: #203a59;
-                    border: 1px solid #1ce88b;
-                    margin-top: -1px;
-                    max-height: 160px;
-                    overflow: auto;
+                .iconfont {
+                    color: #1ce88b;
+                    right: 6px;
+                }
 
-                    .mt-select-option {
-                        padding: 4px 12px;
-                        font-size: 13px;
-                        color: rgba(255, 255, 255, 0.8);
+                @at-root {
+                    .mt-select {
+                        background-color: #203a59;
+                        border: 1px solid #1ce88b;
+                        margin-top: -1px;
+                        max-height: 160px;
+                        overflow: auto;
 
-                        &:first-child {
-                            padding-top: 6px;
-                        }
+                        .mt-select-option {
+                            padding: 4px 12px;
+                            font-size: 13px;
+                            color: rgba(255, 255, 255, 0.8);
 
-                        &:last-child {
-                            padding-bottom: 6px;
+                            &:first-child {
+                                padding-top: 6px;
+                            }
+
+                            &:last-child {
+                                padding-bottom: 6px;
+                            }
                         }
                     }
                 }
@@ -90,7 +95,7 @@
 
     .panel-card-body {
         overflow: hidden;
-        height: calc(100% - 46px);
+        height: calc(100% - 52px);
     }
 
     &.bg-grey {
