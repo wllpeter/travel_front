@@ -87,4 +87,19 @@ public interface AboutYearConditionService {
 
     //游客交通方式
     List<String> getTrafficType();
+
+    /**
+     * 旅游发展指数,和以上不一样，数据结构年月(季)在一个date字段里
+     */
+    //指数雷达图
+    List<String> getIndexRadar();
+
+    //旅游创新度
+    List<String> getCreateNew();
+
+    //旅游经济规模
+    List<String> getEconomicScale();
+
+    //旅游劳动输入
+    List<String> getLaborInput();
 }

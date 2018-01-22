@@ -135,4 +135,23 @@ public interface AboutYearConditionDao extends JpaRepository<ClassifyData,Long> 
     //搜索景点偏好地
     @Query(nativeQuery = true,value = "select year,`month`,'月' as type from search_preference_area where year is not null and month is not null GROUP  by year desc , `month` desc ")
     List<String> getJingDian();
+
+    /**
+     * 旅游发展指数,和以上不一样，数据结构年月(季)在一个date字段里
+     */
+    //指数雷达图
+    @Query(nativeQuery = true,value = "select left(date,4) as year,right(date,2) as month,'月' as type from dev_travel_index_radar where date is not null group by year desc,month desc")
+    List<String> getIndexRadar();
+
+    //旅游创新度
+    @Query(nativeQuery = true,value = "select left(date,4) as year,right(date,2) as month,'月' as type from dev_travel_create_new where date is not null group by year desc,month desc")
+    List<String> getCreateNew();
+
+    //旅游经济规模
+    @Query(nativeQuery = true,value = "select left(date,4) as year,right(date,2) as quarter,'季' as type from dev_travel_economies_scale where date is not null group by year desc,quarter desc\n")
+    List<String> getEconomicScale();
+
+    //旅游劳动输入
+    @Query(nativeQuery = true,value = "select left(date,4) as year,right(date,2) as month,'月' as type from dev_travel_labor_input where date is not null group by year desc,month desc")
+    List<String> getLaborInput();
 }

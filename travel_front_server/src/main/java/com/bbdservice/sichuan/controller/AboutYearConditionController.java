@@ -4,7 +4,9 @@ package com.bbdservice.sichuan.controller;
 import com.bbdservice.sichuan.base.Response;
 import com.bbdservice.sichuan.service.AboutYearConditionService;
 import com.bbdservice.sichuan.utils.DateUtils;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Tag;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +21,32 @@ import java.util.*;
  */
 @RestController
 @RequestMapping("/aboutYearCondition")
+@Api(description = "各页面条件接口")
 public class AboutYearConditionController {
     @Autowired
     private AboutYearConditionService aboutYearConditionService;
+
+    @ApiOperation(value = "旅游发展指数条件")
+    @GetMapping(value = "/getTravelDev")
+    public Response getTravelDev(){
+        Map<String,List> map=new HashMap<>();
+        List<String> key= Arrays.asList("year","monthOrQuarter","type");
+        //旅游指数雷达图
+        List<String> getIndexRadar=aboutYearConditionService.getIndexRadar();
+        //旅游创新度
+        List<String> getCreateNew=aboutYearConditionService.getCreateNew();
+        //旅游经济规模
+        List<String> getEconomicScale=aboutYearConditionService.getEconomicScale();
+        //旅游劳动输入
+        List<String> getLaborInput=aboutYearConditionService.getLaborInput();
+        //指数雷达图
+        map.put("indexRadar",putKey(key,getIndexRadar));
+        //旅游创新度
+        map.put("createNew",putKey(key,getCreateNew));
+        //旅游劳动输入
+        map.put("laborInput",putKey(key,getLaborInput));
+        return Response.success(map);
+    }
 
     @ApiOperation(value = "旅游产品监测条件")
     @GetMapping(value = "/getTravelProductMonitor")

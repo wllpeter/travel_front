@@ -4,6 +4,7 @@ import com.bbdservice.sichuan.base.Response;
 import com.bbdservice.sichuan.entity.*;
 import com.bbdservice.sichuan.service.*;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -24,6 +25,7 @@ import java.util.*;
  */
 @RequestMapping(value = "/tourismProduct")
 @RestController
+@Api(description = "旅游产品检测")
 public class TourismProductController {
      @Autowired
      private ClassifyTypeService classifyTypeService;

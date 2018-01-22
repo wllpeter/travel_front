@@ -7,6 +7,7 @@ import com.bbdservice.sichuan.entity.enums.EconomicZoneEnums;
 import com.bbdservice.sichuan.entity.enums.FlowTypeEnums;
 import com.bbdservice.sichuan.entity.enums.TrafficTypeEnums;
 import com.bbdservice.sichuan.service.*;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -24,6 +25,7 @@ import java.util.*;
  */
 @RequestMapping("/customer_data")
 @RestController
+@Api(description = "客情大数据")
 public class CustomerController {
     @Autowired
     private SichuanTouristAgeService sichuanTouristAgeService;

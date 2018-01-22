@@ -4,6 +4,7 @@ import com.bbdservice.sichuan.base.Response;
 import com.bbdservice.sichuan.entity.SearchPersonResource;
 import com.bbdservice.sichuan.entity.SearchPreferenceArea;
 import com.bbdservice.sichuan.service.*;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -22,6 +23,7 @@ import java.util.Date;
  */
 @RestController
 @RequestMapping("/search_big_data")
+@Api(description = "搜索大数据")
 public class SearchController {
     @Autowired
     private SearchCityService searchCityService;

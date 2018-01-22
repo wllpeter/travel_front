@@ -130,4 +130,25 @@ public class AboutYearConditionServiceImpl implements AboutYearConditionService 
     public List<String> getTrafficType() {
         return aboutYearConditionDao.getTrafficType();
     }
+
+
+    @Override
+    public List<String> getIndexRadar() {
+        return aboutYearConditionDao.getIndexRadar();
+    }
+
+    @Override
+    public List<String> getCreateNew() {
+        return aboutYearConditionDao.getCreateNew();
+    }
+
+    @Override
+    public List<String> getEconomicScale() {
+        return aboutYearConditionDao.getEconomicScale();
+    }
+
+    @Override
+    public List<String> getLaborInput() {
+        return aboutYearConditionDao.getLaborInput();
+    }
 }

@@ -3,6 +3,7 @@ package com.bbdservice.sichuan.controller;
 import com.bbdservice.sichuan.base.Response;
 import com.bbdservice.sichuan.entity.*;
 import com.bbdservice.sichuan.service.*;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -24,6 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/consumptionData")
+@Api(description = "消费大数据")
 public class ConsumptionDataController {
       @Autowired
       private SbdConsumeTouristCityService sbdConsumeTouristCityService;
