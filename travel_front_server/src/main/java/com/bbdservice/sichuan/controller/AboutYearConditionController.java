@@ -60,7 +60,7 @@ public class AboutYearConditionController {
         map.put("provinceIndustryPart",putKey(key,getProvinceIndustryPart));
         //省内活跃度排行榜
         List<String> getProvinceActive=aboutYearConditionService.getProvinceActive();
-        map.put("provinceActive",getProvinceActive);
+        map.put("provinceActive",putKey(key,getProvinceActive));
 
         //省内涉旅企业数量变更
         List<String> getProvinceChange=aboutYearConditionService.getProvinceChange();
