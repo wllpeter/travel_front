@@ -28,9 +28,9 @@ public class ProvinceSearchTrendServiceImpl implements ProvinceSearchTrendServic
         Calendar c = Calendar.getInstance();
         c.setTime(new Date());
         if (year.intValue() == c.get(Calendar.YEAR)) {
-            this.provinceSearchTrendRepository.deleteByYear(year);
+            this.provinceSearchTrendRepository.deleteByYearAndDeletedFalse(year);
         }
-        List<ProvinceSearchTrend> result = this.provinceSearchTrendRepository.findByYear(year);
+        List<ProvinceSearchTrend> result = this.provinceSearchTrendRepository.findByYearAndDeletedFalse(year);
         if (result != null && result.size() > 0) {
             return result;
         } else {

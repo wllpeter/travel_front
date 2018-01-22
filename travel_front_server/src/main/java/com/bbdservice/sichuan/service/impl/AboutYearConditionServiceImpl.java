@@ -151,4 +151,19 @@ public class AboutYearConditionServiceImpl implements AboutYearConditionService 
     public List<String> getLaborInput() {
         return aboutYearConditionDao.getLaborInput();
     }
+
+    @Override
+    public List<String> getProvinceIndustryPart() {
+        return aboutYearConditionDao.getProvinceIndustryPart();
+    }
+
+    @Override
+    public List<String> getProvinceActive() {
+        return aboutYearConditionDao.getProvinceActive();
+    }
+
+    @Override
+    public List<String> getProvinceChange() {
+        return aboutYearConditionDao.getProvinceChange();
+    }
 }

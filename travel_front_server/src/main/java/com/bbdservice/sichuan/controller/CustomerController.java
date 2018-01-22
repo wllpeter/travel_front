@@ -195,7 +195,9 @@ public class CustomerController {
 //                        return Integer.valueOf(o2.getPersonCount())-Integer.valueOf(o1.getPersonCount());
 //                    }
 //                });
-                zoneData.put("data",zoneDatas.subList(0,5));
+                if(zoneDatas.size()!=0) {
+                    zoneData.put("data", zoneDatas.subList(0, 5));
+                }
                 zone.put(economicZoneEnums.name(),zoneData);
         }
         return Response.success(zone);

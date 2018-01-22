@@ -10,6 +10,7 @@ import io.swagger.annotations.Tag;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,6 +46,25 @@ public class AboutYearConditionController {
         map.put("createNew",putKey(key,getCreateNew));
         //旅游劳动输入
         map.put("laborInput",putKey(key,getLaborInput));
+        return Response.success(map);
+    }
+
+    @ApiOperation("旅游市场监测条件")
+    @GetMapping("/getMarketMonitor")
+    public Response getMarketMonitor(){
+        Map<String,List> map=new HashMap<>();
+        List<String> key= Arrays.asList("year","monthOrQuarter","type");
+
+        //省内旅游行业构成
+        List<String> getProvinceIndustryPart=aboutYearConditionService.getProvinceIndustryPart();
+        map.put("provinceIndustryPart",putKey(key,getProvinceIndustryPart));
+        //省内活跃度排行榜
+        List<String> getProvinceActive=aboutYearConditionService.getProvinceActive();
+        map.put("provinceActive",getProvinceActive);
+
+        //省内涉旅企业数量变更
+        List<String> getProvinceChange=aboutYearConditionService.getProvinceChange();
+        map.put("provinceChange",putKey(key,getProvinceChange));
         return Response.success(map);
     }
 

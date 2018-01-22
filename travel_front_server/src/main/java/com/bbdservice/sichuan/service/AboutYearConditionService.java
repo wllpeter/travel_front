@@ -102,4 +102,12 @@ public interface AboutYearConditionService {
 
     //旅游劳动输入
     List<String> getLaborInput();
+
+    List<String> getProvinceIndustryPart();
+
+    //省内活跃度排行榜
+    List<String> getProvinceActive();
+
+    //省内涉旅企业数量变更
+    List<String> getProvinceChange();
 }
