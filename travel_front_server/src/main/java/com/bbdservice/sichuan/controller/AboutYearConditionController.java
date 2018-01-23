@@ -36,10 +36,9 @@ public class AboutYearConditionController {
         List<String> getIndexRadar=aboutYearConditionService.getIndexRadar();
         //旅游创新度
         List<String> getCreateNew=aboutYearConditionService.getCreateNew();
-        //旅游经济规模
-        List<String> getEconomicScale=aboutYearConditionService.getEconomicScale();
         //旅游劳动输入
         List<String> getLaborInput=aboutYearConditionService.getLaborInput();
+
         //指数雷达图
         map.put("indexRadar",putKey(key,getIndexRadar));
         //旅游创新度
@@ -54,7 +53,9 @@ public class AboutYearConditionController {
     public Response getMarketMonitor(){
         Map<String,List> map=new HashMap<>();
         List<String> key= Arrays.asList("year","monthOrQuarter","type");
-
+        List<String> getActive=aboutYearConditionService.getActive();
+        //旅游行业活跃度--3张表union
+        map.put("travelIndustryActive",putKey(key,getActive));
         //省内旅游行业构成
         List<String> getProvinceIndustryPart=aboutYearConditionService.getProvinceIndustryPart();
         map.put("provinceIndustryPart",putKey(key,getProvinceIndustryPart));
@@ -75,11 +76,15 @@ public class AboutYearConditionController {
         List<String> setClassify=aboutYearConditionService.getClassifyData();
         List<String> opinionRank=aboutYearConditionService.getOpinionRank();
         List<String> goodWords=aboutYearConditionService.getGoodWords();
+        List<String> hotWords=aboutYearConditionService.getProductHotWords();
         List<String> key= Arrays.asList("year","monthOrQuarter","type");
+        //产品类别
         map.put("classify",putKey(key,setClassify));
         map.put("opinion",putKey(key,opinionRank));
         //好评榜
         map.put("goodWords",putKey(key,goodWords));
+        //产品评价热词云
+        map.put("hotWords",putKey(key,hotWords));
         return Response.success(map);
     }
 

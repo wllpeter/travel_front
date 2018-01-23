@@ -12,6 +12,7 @@ public interface AboutYearConditionService {
     List<String> getClassifyData();
     List<String> getOpinionRank();
     List<String> getGoodWords();
+    List<String> getProductHotWords();
 
     //消费大数据
     List<String> getWaiDiShuaKa();
@@ -110,4 +111,7 @@ public interface AboutYearConditionService {
 
     //省内涉旅企业数量变更
     List<String> getProvinceChange();
+
+    //最上面的省内旅游行业活跃度
+    List<String> getActive();
 }

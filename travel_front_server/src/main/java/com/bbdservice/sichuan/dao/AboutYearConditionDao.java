@@ -26,8 +26,18 @@ public interface AboutYearConditionDao extends JpaRepository<ClassifyData,Long> 
     @Query(nativeQuery = true,value = "select year,month,'月' as type from tpm_opinion_rank where year is not null and month is not null and deleted = 0 group by year desc, month desc")
     List<String> getOpinionRank();
 
+    /**
+     * 热词榜
+     * @return
+     */
     @Query(nativeQuery = true,value = "select  year,month,'月' as type from tpm_keyword_rank where year is not null and month is not null and deleted = 0 GROUP  by year desc, month desc")
     List<String> getGoodWords();
+
+    /**
+     * 产品评价热词云
+     */
+    @Query(nativeQuery = true,value = "select  year,month,'月' as type from tpm_hotword_data where year is not null and month is not null and deleted = 0 GROUP  by year desc, month desc")
+    List<String> getProductHotWords();
 
     //消费大数据
 
@@ -160,6 +170,13 @@ public interface AboutYearConditionDao extends JpaRepository<ClassifyData,Long> 
      *旅游市场监测
      */
     //TODO旅游行业活跃度
+    @Query(nativeQuery = true,value = "select distinct * from (select left(date,4) as year,right(date,2) as month ,'月' as type \n" +
+            "from market_hang_ye_active union all\n" +
+            "select left(date,4) as year,right(date,2) as month ,'月' as type \n" +
+            "from market_hang_ye_active_city union ALL\n" +
+            "select left(date,4) as year,right(date,2) as month,'月' as type \n" +
+            "from market_hang_ye_active_province)b")
+    List<String> getActive();
 
     //省内旅游行业构成
     @Query(nativeQuery = true,value = "select left(date,4) as year,right(date,2) as month,'月' as type from market_industry_part where date is not null and deleted = 0 group by year desc,month desc")

@@ -39,6 +39,8 @@ public class TourismProductController {
      private SupplyConsumeCountService su;
      @Autowired
      private PriceTrendService priceTrendService;
+     @Autowired
+     private TpmHotWordDataService tpmHotWordDataService;
 
     @ApiOperation(value = "旅游产品分类",notes = "productType值为1-5    1-旅游产品\n" +
             "            2-住宿产品\n" +
@@ -159,5 +161,16 @@ public class TourismProductController {
         List<PriceTrend> priceTrends=null;
         priceTrends=priceTrendService.getAllList(productType,years);
         return Response.success(priceTrends);
+    }
+
+    @ApiOperation(value = "产品评价热词云")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="productType",value = "产品类型",paramType = "query",dataType = "Integer",defaultValue = "1"),
+            @ApiImplicitParam(name="year",value = "年",paramType = "query",dataType = "Integer",defaultValue = "2018"),
+            @ApiImplicitParam(name="month",value = "月",paramType = "query",dataType = "Integer",defaultValue = "1")
+    })
+    @GetMapping(value = "/getProductHotWords")
+    public Response getProductHotWords(Integer productType,Integer year,Integer month){
+        return Response.success(tpmHotWordDataService.getHotWord(year,month,productType));
     }
 }

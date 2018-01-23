@@ -32,6 +32,11 @@ public class AboutYearConditionServiceImpl implements AboutYearConditionService 
     }
 
     @Override
+    public List<String> getProductHotWords() {
+        return aboutYearConditionDao.getProductHotWords();
+    }
+
+    @Override
     public List<String> getWaiDiShuaKa() {
         return aboutYearConditionDao.getWaiDiShuaKa();
     }
@@ -165,5 +170,10 @@ public class AboutYearConditionServiceImpl implements AboutYearConditionService 
     @Override
     public List<String> getProvinceChange() {
         return aboutYearConditionDao.getProvinceChange();
+    }
+
+    @Override
+    public List<String> getActive() {
+        return aboutYearConditionDao.getActive();
     }
 }

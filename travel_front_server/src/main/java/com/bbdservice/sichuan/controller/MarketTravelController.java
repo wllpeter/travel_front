@@ -2,26 +2,19 @@ package com.bbdservice.sichuan.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.bbdservice.sichuan.base.Response;
-import com.bbdservice.sichuan.entity.MarketChange;
-import com.bbdservice.sichuan.entity.MarketHangYeActive;
-import com.bbdservice.sichuan.entity.MarketIndustryPart;
-import com.bbdservice.sichuan.entity.MarketProvinceActive;
-import com.bbdservice.sichuan.service.MarketChangeService;
-import com.bbdservice.sichuan.service.MarketHangYeActiveRightService;
-import com.bbdservice.sichuan.service.MarketIndustryPartService;
-import com.bbdservice.sichuan.service.MarketProvinceActiveService;
+import com.bbdservice.sichuan.entity.*;
+import com.bbdservice.sichuan.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by 陈亚兰 on 2018/1/22.
@@ -38,6 +31,8 @@ public class MarketTravelController {
     private MarketHangYeActiveRightService marketHangYeActiveRightService;
     @Autowired
     private MarketChangeService marketChangeService;
+    @Autowired
+    private MarketTravelActiveQuService marketTravelActiveQuService;
 
 
     @GetMapping(value = "/provinceIndustry")
@@ -106,5 +101,32 @@ public class MarketTravelController {
     public Response getCompanyChange(String year){
         List<MarketChange> change=marketChangeService.getChange(year);
         return Response.success(change);
+    }
+
+    @GetMapping(value = "/getProvinceAndFiveData")
+    @ApiOperation(value = "旅游行业活跃度-四川省")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="year",dataType = "String",defaultValue = "2018",paramType = "query"),
+            @ApiImplicitParam(name="month",dataType = "String",defaultValue = "01",paramType = "query")
+    })
+    public Response getProvinceAndFive(String year,String month){
+        String date=year+"."+month;
+        Map map=marketTravelActiveQuService.getSiChuang(date);
+        return Response.success(map);
+    }
+
+
+
+    public static List<JSONObject> putKey( List<String> keyList, List<String> valueList){
+        List<JSONObject> result=new ArrayList<>();
+        for(int i=0;i<valueList.size();i++){
+            JSONObject jsonObject=new JSONObject();
+            JSONArray valueArray = JSONArray.fromObject(valueList.get(i));
+            for(int j=0;j<2;j++){
+                jsonObject.put(keyList.get(j),valueArray.get(j));
+            }
+            result.add(jsonObject);
+        }
+        return result;
     }
 }
