@@ -2,6 +2,7 @@
  * @description 旅游经济规模
  */
 import React, {Component} from 'react';
+import PanelCard from '../../commonComponent/PanelCard';
 import ToggleButtonGroup from '../../commonComponent/ToggleButtonGroup';
 import {REGION_DATA} from '../../../constants/developmentIndex/region';
 import AD_CHART from '../../../utils/adCharts';
@@ -54,11 +55,13 @@ export default class Economics extends Component {
             activeIndex: this.state.activeIndex,
             clickBack: this.chooseRegion.bind(this)
         };
-        return <div className="switch-btn-box">
-            <ToggleButtonGroup {...switchProps}></ToggleButtonGroup>
-            <div id="dev-index-economics" className="dev-down-map">
+        return <PanelCard className="map-card" title="旅游经济规模" zoomRequired={true}>
+            <div className="switch-btn-box">
+                <ToggleButtonGroup {...switchProps}></ToggleButtonGroup>
+                <div id="dev-index-economics" className="dev-down-map">
+                </div>
             </div>
-        </div>;
+        </PanelCard>;
 
     }
 };

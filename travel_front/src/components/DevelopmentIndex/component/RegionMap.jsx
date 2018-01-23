@@ -2,6 +2,7 @@
  * @description 旅游发展指数四川省区域地图
  */
 import React, {Component} from 'react';
+import PanelCard from '../../commonComponent/PanelCard';
 import echarts from 'echarts';
 import $ from 'jquery';
 import {REGION_MAP} from '../../../constants/developmentIndex/RegionMap';
@@ -95,7 +96,9 @@ export default class RegionMap extends Component {
     }
 
     render() {
-        return <div id="region-map" className="dev-index-map">
-        </div>;
+        return <PanelCard title="旅游创新度" zoomRequired={false}>
+            <div id="region-map" className="dev-index-map">
+            </div>
+        </PanelCard>;
     }
 }

@@ -2,7 +2,7 @@
  * @description 旅游舒适度
  */
 import React, {Component} from 'react';
-import echarts from 'echarts';
+import PanelCard from '../../commonComponent/PanelCard';
 import AD_CHART from '../../../utils/adCharts';
 
 export default class ComfortDegree extends Component {
@@ -33,7 +33,9 @@ export default class ComfortDegree extends Component {
     }
 
     render() {
-        return <div id="dev-index-comfort" className="dev-down-map">
-        </div>;
+        return <PanelCard className="map-card" title="旅游舒适度" zoomRequired={true} timeSelectRequired={false}>
+            <div id="dev-index-comfort" className="dev-down-map">
+            </div>
+        </PanelCard>;
     }
 }

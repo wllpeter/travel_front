@@ -2,7 +2,7 @@
  * @description 旅游美誉度
  */
 import React, {Component} from 'react';
-import echarts from 'echarts';
+import PanelCard from '../../commonComponent/PanelCard';
 import AD_CHART from '../../../utils/adCharts';
 
 export default class Reputation extends Component {
@@ -33,7 +33,9 @@ export default class Reputation extends Component {
     }
 
     render() {
-        return <div id="dev-index-reputation" className="dev-down-map">
-        </div>;
+        return <PanelCard className="map-card" title="旅游美誉度" zoomRequired={true} timeSelectRequired={false}>
+            <div id="dev-index-reputation" className="dev-down-map">
+            </div>
+        </PanelCard>;
     }
 }

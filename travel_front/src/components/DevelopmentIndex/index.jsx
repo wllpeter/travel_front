@@ -3,7 +3,6 @@
  */
 import React, {Component} from 'react';
 import {Row, Col} from 'antd';
-import PanelCard from '../commonComponent/PanelCard';
 import DevelopmentIndexMap from './component/DevelopmentIndexMap';
 import DevelopmentIndexRadar from './component/DevelopmentIndexRadar';
 import RegionMap from './component/RegionMap';
@@ -23,41 +22,27 @@ export default class TouristData extends Component {
         return <div className="developmentIndex">
             <Row className="mb-20">
                 <Col span={6} lg={ 8 } xl={ 6 }>
-                    <PanelCard title="指数雷达图" zoomRequired={false}>
-                        <DevelopmentIndexRadar></DevelopmentIndexRadar>
-                    </PanelCard>
+                    <DevelopmentIndexRadar/>
                 </Col>
                 <Col span={12} lg={ 16 } xl={ 12 }>
-                    <PanelCard title="旅游发展指数" zoomRequired={false} timeSelectRequired={false}>
-                        <DevelopmentIndexMap></DevelopmentIndexMap>
-                    </PanelCard>
+                    <DevelopmentIndexMap/>
                 </Col>
                 <Col span={6} lg={ 24 } xl={ 6 }>
-                    <PanelCard title="旅游创新度" zoomRequired={false}>
-                        <RegionMap></RegionMap>
-                    </PanelCard>
+                    <RegionMap/>
                 </Col>
             </Row>
             <Row className="mb-20" style={{margin: 0}}>
                 <Col span={6} lg={ 12 } xl={ 6 }>
-                    <PanelCard className="map-card" title="旅游经济规模" zoomRequired={true}>
-                        <Economics></Economics>
-                    </PanelCard>
+                    <Economics/>
                 </Col>
                 <Col span={6} lg={ 12 } xl={ 6 }>
-                    <PanelCard className="map-card" title="旅游舒适度" zoomRequired={true} timeSelectRequired={false}>
-                        <ComfortDegree></ComfortDegree>
-                    </PanelCard>
+                    <ComfortDegree/>
                 </Col>
                 <Col span={6} lg={ 12 } xl={ 6 }>
-                    <PanelCard className="map-card" title="旅游美誉度" zoomRequired={true} timeSelectRequired={false}>
-                        <Reputation></Reputation>
-                    </PanelCard>
+                    <Reputation/>
                 </Col>
                 <Col span={6} lg={ 12 } xl={ 6 }>
-                    <PanelCard className="map-card" title="旅游劳动投入" zoomRequired={true}>
-                        <Labor></Labor>
-                    </PanelCard>
+                    <Labor/>
                 </Col>
             </Row>
         </div>;
