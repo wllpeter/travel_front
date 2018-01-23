@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
-import { Router, Route } from 'react-router';
+import React, {Component} from 'react';
+import {Router, Route, hashHistory, IndexRedirect} from 'react-router';
+import $ from 'jquery';
 
 // App 入口
 import App from './components/App';
+// 登录
+import Login from './components/Login';
 // 旅游发展指数
 import DevelopmentIndex from './components/DevelopmentIndex';
 // 旅游市场监测
@@ -18,7 +21,7 @@ import SearchData from './components/DataAnalysis/SearchData';
 // 旅游大数据报告
 import DataReport from './components/DataReport';
 
-import { clear } from './utils/storage';
+import {clear, getSession} from './utils/storage';
 
 class Routers extends Component {
     constructor(props) {
@@ -27,23 +30,33 @@ class Routers extends Component {
 
     // 清除用户信息
     clearAll = () => {
-        clear();
+    };
+
+    enterPath(nextPath){
+        let dataSession = getSession('user');
+        let userId = dataSession ? dataSession.userId : ''; // 用户id 判断是否登录
+        if(userId === ''){
+            hashHistory.push('/login');
+        }
+        $('body').scrollTop(0);
     }
 
     render() {
         return (
-            <Router history={ this.props.history }>
-                <Route path="/login" onEnter={ this.clearAll }/>
-                <Route path="/" component={ App }>
-                    <Route path="developmentIndex" component={ DevelopmentIndex }/>
-                    <Route path="marketMonitor" component={ MarketMonitor }/>
-                    <Route path="productMonitor" component={ ProductMonitor }/>
-                    <Route path="touristData" component={ TouristData }/>
-                    <Route path="consumptionData" component={ ConsumptionData }/>
-                    <Route path="searchData" component={ SearchData }/>
-                    <Route path="dataReport" component={ DataReport }/>
+            <Router history={this.props.history}>
+                <Route path="/login" component={Login} onEnter={this.clearAll}/>
+                <Route path="/" component={App}>
+                    <IndexRedirect to="/developmentIndex" />
+                    <Route path="developmentIndex" component={DevelopmentIndex} onEnter={this.enterPath}/>
+                    <Route path="marketMonitor" component={MarketMonitor} onEnter={this.enterPath}/>
+                    <Route path="productMonitor" component={ProductMonitor} onEnter={this.enterPath}/>
+                    <Route path="data">
+                        <Route path="touristData" component={TouristData} onEnter={this.enterPath}/>
+                        <Route path="consumptionData" component={ConsumptionData} onEnter={this.enterPath}/>
+                        <Route path="searchData" component={SearchData} onEnter={this.enterPath}/>
+                    </Route>
+                    <Route path="dataReport" component={DataReport} onEnter={this.enterPath}/>
                 </Route>
-
             </Router>
         );
     }

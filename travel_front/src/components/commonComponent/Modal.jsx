@@ -64,7 +64,7 @@ export default class PercentBar extends Component {
             boxShow: false
         });
         setTimeout(() => {
-            _this.this.props.onCancel();
+            _this.props.onCancel();
         }, 300);
     }
 
