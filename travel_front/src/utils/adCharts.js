@@ -480,23 +480,18 @@ const AD_CHART = {
             },
             tooltip: {
                 trigger: 'axis',
-                axisPointer: { // 坐标轴指示器，坐标轴触发有效
-                    type: params.tooltipTrigger === undefined ? 'none' : params.tooltipTrigger, // 默认为直线，可选为：'line' | 'shadow'
-                    lineStyle: {
-                        color: 'rgba(192, 224, 248, .8)'
-                    },
-                    snap: true
-                },
-                backgroundColor: 'rgba(255,255,255,1)',
-                // formatter: '{b}:{c}',
+                backgroundColor: '#1F3A59',
+                borderWidth: 1,
+                borderColor: '#ffffff',
+                padding: 7,
                 textStyle: {
-                    color: '#333333',
-                    fontStyle: 'normal',
-                    fontWeight: 'normal',
-                    fontFamily: 'microsoft yahei',
-                    fontSize: '14'
+                    lineHeight: 56
                 },
-                padding: [10, 10, 10, 10]
+                axisPointer: {
+                    lineStyle: {
+                        color: '#0785CB'
+                    }
+                }
             },
             legend: {
                 data: params.legend,
