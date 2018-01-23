@@ -3,10 +3,14 @@
  */
 import React, {Component} from 'react';
 import PanelCard from '../../commonComponent/PanelCard';
+import Modal from '../../commonComponent/Modal';
 
 export default class Reputation extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            visible: false
+        };
     }
 
     componentDidMount() {
@@ -20,51 +24,117 @@ export default class Reputation extends Component {
 
     }
 
+    showModal() {
+        this.setState({
+            visible: true
+        });
+    }
+
+    handleCancel() {
+        this.setState({
+            visible: false
+        });
+    }
+
     render() {
-        return <PanelCard className="map-card" title="旅游劳动投入" zoomRequired={true}>
-            <div id="dev-index-labor" className="dev-down-map" style={{padding: '0 20px'}}>
-                <table className="mt-table mt-table-noborder col-1-al">
-                    <thead>
-                    <tr>
-                        <th className="pl-12 labor_td">地区</th>
-                        <th>活跃指数</th>
-                        <th>增速</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td className="labor_td">四川省</td>
-                        <td>96.5</td>
-                        <td>15%</td>
-                    </tr>
-                    <tr>
-                        <td className="labor_td">川西北经济生态区</td>
-                        <td>96.5</td>
-                        <td>15%</td>
-                    </tr>
-                    <tr>
-                        <td className="labor_td">成都平原经济区</td>
-                        <td>96.5</td>
-                        <td>15%</td>
-                    </tr>
-                    <tr>
-                        <td className="labor_td">川东北经济区</td>
-                        <td>96.5</td>
-                        <td>15%</td>
-                    </tr>
-                    <tr>
-                        <td className="labor_td">川南经济区</td>
-                        <td>96.5</td>
-                        <td>15%</td>
-                    </tr>
-                    <tr>
-                        <td className="labor_td">攀西经济区</td>
-                        <td>96.5</td>
-                        <td>15%</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            </PanelCard>;
+        let {visible} = this.state;
+        return <div>
+            <PanelCard className="map-card" title="旅游劳动投入" zoomRequired={true}
+                       enlarge={this.showModal.bind(this)} timeSelectRequired={true}>
+                <div className="dev-down-map" style={{padding: '0 20px'}}>
+                    <table className="mt-table mt-table-noborder col-1-al">
+                        <thead>
+                        <tr>
+                            <th className="pl-12 labor_td">地区</th>
+                            <th>活跃指数</th>
+                            <th>增速</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td className="labor_td">四川省</td>
+                            <td>96.5</td>
+                            <td>15%</td>
+                        </tr>
+                        <tr>
+                            <td className="labor_td">川西北经济生态区</td>
+                            <td>96.5</td>
+                            <td>15%</td>
+                        </tr>
+                        <tr>
+                            <td className="labor_td">成都平原经济区</td>
+                            <td>96.5</td>
+                            <td>15%</td>
+                        </tr>
+                        <tr>
+                            <td className="labor_td">川东北经济区</td>
+                            <td>96.5</td>
+                            <td>15%</td>
+                        </tr>
+                        <tr>
+                            <td className="labor_td">川南经济区</td>
+                            <td>96.5</td>
+                            <td>15%</td>
+                        </tr>
+                        <tr>
+                            <td className="labor_td">攀西经济区</td>
+                            <td>96.5</td>
+                            <td>15%</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </PanelCard>
+            <Modal visible={visible} onOk={() => {
+                this.print.bind(this)();
+            }}>
+                <PanelCard className="map-card" title="旅游劳动投入" zoomOutRequired={true}
+                           narrow={this.handleCancel.bind(this)} timeSelectRequired={true}>
+                    <div className="dev-down-map labor-big" style={{padding: '0 20px'}} style={{'height': '460px'}}>
+                        <table className="mt-table mt-table-noborder col-1-al">
+                            <thead>
+                            <tr>
+                                <th className="pl-12 labor_td">地区</th>
+                                <th>活跃指数</th>
+                                <th>增速</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td className="labor_td">四川省</td>
+                                <td>96.5</td>
+                                <td>15%</td>
+                            </tr>
+                            <tr>
+                                <td className="labor_td">川西北经济生态区</td>
+                                <td>96.5</td>
+                                <td>15%</td>
+                            </tr>
+                            <tr>
+                                <td className="labor_td">成都平原经济区</td>
+                                <td>96.5</td>
+                                <td>15%</td>
+                            </tr>
+                            <tr>
+                                <td className="labor_td">川东北经济区</td>
+                                <td>96.5</td>
+                                <td>15%</td>
+                            </tr>
+                            <tr>
+                                <td className="labor_td">川南经济区</td>
+                                <td>96.5</td>
+                                <td>15%</td>
+                            </tr>
+                            <tr>
+                                <td className="labor_td">攀西经济区</td>
+                                <td>96.5</td>
+                                <td>15%</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </PanelCard>
+            </Modal>
+        </div>;
     }
 }

@@ -53,11 +53,6 @@
             .panel-card-body {
                 overflow: visible;
             }
-            //.switch-btn {
-            //  top: -3%;
-            //  right: 50%;
-            //  transform: translateX(50%);
-            //}
             .praise{
                 height: 646px;
                 padding-top: 30px;
@@ -116,5 +111,18 @@
         position: absolute;
         top: 0;
         left: 0;
+    }
+}
+
+.labor-big{
+    font-size: 18px;
+    padding: 0 40px 0 60px;
+    line-height: 2;
+    .labor_td{
+        font-size: 18px;
+        width: 240px;
+    }
+    td{
+        font-size: 18px;
     }
 }
