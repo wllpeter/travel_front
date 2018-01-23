@@ -1,0 +1,63 @@
+.login-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #1F3A59;
+  .login-box {
+    .login-title {
+      font-size: 34px;
+      text-align: center;
+      margin: 26vh 0 36px 0;
+    }
+    .login-input {
+      width: 350px;
+      margin: 15px auto;
+      .mt-input {
+        width: 350px;
+        height: 46px;
+        font-size: 16px;
+        color: #666;
+        margin-bottom: 25px;
+        .iconfont {
+          font-size: 18px;
+          margin: 0 12px;
+        }
+        input {
+          height: 42px;
+          padding: 0 40px;
+        }
+      }
+      .code-box{
+        position: relative;
+        .code{
+          cursor: pointer;
+          overflow: hidden;
+          width: 62px;
+          height: 22px;
+          position: absolute;
+          top: 13px;
+          right: 40px;
+        }
+      }
+      .mt-checkbox{
+        margin-bottom: 10px;
+        .mt-checkbox-icon{
+          background-color: #ffffff;
+          margin-right: 10px;
+        }
+      }
+      .mt-btn {
+        width: 350px;
+        height: 42px;
+        padding: 0;
+        line-height: 42px;
+        background: -webkit-linear-gradient(right, #29ABE2 , #4DDC8E); /* Safari 5.1 - 6.0 */
+        background: -o-linear-gradient(right, #29ABE2 , #4DDC8E); /* Opera 11.1 - 12.0 */
+        background: -moz-linear-gradient(right, #29ABE2 , #4DDC8E); /* Firefox 3.6 - 15 */
+        background: linear-gradient(to right, #29ABE2 , #4DDC8E); /* 标准的语法 */
+      }
+    }
+  }
+}
