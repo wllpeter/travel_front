@@ -91,31 +91,33 @@ export default class IndustryConsumeBusiness extends Component {
                 }
             ]
         };
-        return <PanelCard {...panelProps} title="各行业刷卡消费商户排名" className="bg-grey card-consumption consumption-down">
-            <ToggleButtonGroup {...cardConsumption}/>
-            <table className="mt-table mt-table-noborder wrapper w-95 mt-50 ">
-                <thead>
-                <tr>
-                    <th>排名</th>
-                    <th>商户名称</th>
-                    <th>平均单笔消费金额</th>
-                    <th>刷卡总笔数</th>
-                </tr>
-                </thead>
+        return <div>
+            <PanelCard {...panelProps} title="各行业刷卡消费商户排名" className="bg-grey card-consumption consumption-down">
+                <ToggleButtonGroup {...cardConsumption}/>
+                <table className="mt-table mt-table-noborder wrapper w-95 mt-50 ">
+                    <thead>
+                    <tr>
+                        <th>排名</th>
+                        <th>商户名称</th>
+                        <th>平均单笔消费金额</th>
+                        <th>刷卡总笔数</th>
+                    </tr>
+                    </thead>
 
-                <tbody>
-                {
-                    items && items.map((item, index) => {
-                        return <tr key={index}>
-                            <td>{item.rank}</td>
-                            <td>{item.businessName}</td>
-                            <td>{item.avgSingleConsume}</td>
-                            <td>{item.totalSwipeTimes}</td>
-                        </tr>;
-                    })
-                }
-                </tbody>
-            </table>
-        </PanelCard>;
+                    <tbody>
+                    {
+                        items && items.map((item, index) => {
+                            return <tr key={index}>
+                                <td>{item.rank}</td>
+                                <td>{item.businessName}</td>
+                                <td>{item.avgSingleConsume}</td>
+                                <td>{item.totalSwipeTimes}</td>
+                            </tr>;
+                        })
+                    }
+                    </tbody>
+                </table>
+            </PanelCard>
+        </div>;
     }
 }

@@ -2,19 +2,19 @@
  * @description 客情大数据
  */
 import React, { Component } from 'react';
-import PanelCard from '../commonComponent/PanelCard';
-import adCharts from '../../utils/adCharts';
+import PanelCard from '../../commonComponent/PanelCard';
+import adCharts from '../../../utils/adCharts';
 import { Row, Col } from 'antd';
 import 'antd/lib/grid/style';
-import maleIcon from '../../assets/images/male.png';
-import femaleIcon from '../../assets/images/female.png';
-import { getTouristDataOptions, getProvinceCustomerData, getCountyData, getZoneCustomerTimes, getZoneTouristResidentTime, getZoneTouristResourceRank, getZoneTouristTrafficType } from '../../services/DataAnalysis/touristData';
+import maleIcon from '../../../assets/images/male.png';
+import femaleIcon from '../../../assets/images/female.png';
+import { getTouristDataOptions, getProvinceCustomerData, getCountyData, getZoneCustomerTimes, getZoneTouristResidentTime, getZoneTouristResourceRank, getZoneTouristTrafficType } from '../../../services/DataAnalysis/touristData';
 import { Map, List } from 'immutable';
-import { getHeaderOptions } from '../../utils/util';
-import ToggleButtonGroup from "../commonComponent/ToggleButtonGroup";
-import { getDataZoom } from '../../utils/tools';
+import { getHeaderOptions } from '../../../utils/util';
+import ToggleButtonGroup from "../../commonComponent/ToggleButtonGroup";
+import { getDataZoom } from '../../../utils/tools';
 import { Select } from 'mtui/index';
-import './style.scss';
+import '../style.scss';
 
 const Option = Select.Option;
 
