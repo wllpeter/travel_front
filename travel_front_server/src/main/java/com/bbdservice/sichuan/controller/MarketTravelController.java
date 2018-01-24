@@ -33,6 +33,8 @@ public class MarketTravelController {
     private MarketChangeService marketChangeService;
     @Autowired
     private MarketTravelActiveQuService marketTravelActiveQuService;
+    @Autowired
+    private MarketTravelActiveCityService marketTravelActiveCityService;
 
 
     @GetMapping(value = "/provinceIndustry")
@@ -111,10 +113,35 @@ public class MarketTravelController {
     })
     public Response getProvinceAndFive(String year,String month){
         String date=year+"."+month;
-        Map map=marketTravelActiveQuService.getSiChuang(date);
+        Map map=marketTravelActiveQuService.getSiChuangAndFive(date);
         return Response.success(map);
     }
 
+    @GetMapping(value = "/getEconomicAndCity")
+    @ApiOperation(value = "旅游行业活跃度-区域和城市")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="year",dataType = "String",defaultValue = "2018",paramType = "query"),
+            @ApiImplicitParam(name="month",dataType = "String",defaultValue = "01",paramType = "query"),
+            @ApiImplicitParam(name="area",dataType = "String",defaultValue = "成都平原经济区",paramType = "query")
+    })
+    public Response getEconomicAndCity(String year,String month,String area){
+        String date=year+"."+month;
+        Map map=marketTravelActiveCityService.getCityAndFiveArea(area,date);
+        return Response.success(map);
+    }
+
+    @GetMapping(value = "/getCityDetail")
+    @ApiOperation(value = "旅游行业活跃度-具体某城市")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name="year",dataType = "String",defaultValue = "2018",paramType = "query"),
+            @ApiImplicitParam(name="month",dataType = "String",defaultValue = "01",paramType = "query"),
+            @ApiImplicitParam(name="city",dataType = "String",defaultValue = "成都",paramType = "query")
+    })
+    public Response getOneCity(String year,String month,String city){
+        String date=year+"."+month;
+        MarketHangYeActiveCity res=marketTravelActiveCityService.getOneCity(city,date);
+        return Response.success(res);
+    }
 
 
     public static List<JSONObject> putKey( List<String> keyList, List<String> valueList){

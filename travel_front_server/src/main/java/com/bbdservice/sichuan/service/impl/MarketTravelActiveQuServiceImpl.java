@@ -22,30 +22,15 @@ import java.util.Map;
 public class MarketTravelActiveQuServiceImpl implements MarketTravelActiveQuService {
     @Autowired
     private MarketTravelActiveQuDao  marketTravelActiveQuDao;
-    @Autowired
-    private SysCityDao sysCityDao;
+
 
     @Override
-    public Map getSiChuang(String date) {
-        MarketHangYeActiveProvince siChuan=marketTravelActiveQuDao.getAreaData(date,"四川");
-        List<MarketHangYeActiveProvince> fiveArea=marketTravelActiveQuDao.getFiveArea(date);
-        List<SysCityVO> sysCityVOS=new ArrayList<>();
-        for(MarketHangYeActiveProvince m:fiveArea){
-            SysCityVO sysCityVO=new SysCityVO(m.getArea(),m.getActiveDegree());
-            sysCityVOS.add(sysCityVO);
-        }
+    public Map getSiChuangAndFive(String date) {
+        MarketHangYeActiveProvince province=marketTravelActiveQuDao.getOne("四川",date);
+        List<MarketHangYeActiveProvince> five=marketTravelActiveQuDao.getFiveArea(date);
         Map map=new HashMap();
-        map.put("sichuan",siChuan);
-        map.put("five",sysCityVOS);
+        map.put("province",province);
+        map.put("economicAreas",five);
         return map;
     }
-
-    @Override
-    public Map getEconomic(String date, String area) {
-        MarketHangYeActiveProvince economic=marketTravelActiveQuDao.getAreaData(date,area);
-        List<String> city=sysCityDao.getCity(area);
-        return null;
-    }
-
-
 }

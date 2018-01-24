@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 /**
  * Created by 陈亚兰 on 2018/1/23.
- * 旅游行业活跃度
+ * 旅游行业活跃度 省和区
  */
 @Setter
 @Getter

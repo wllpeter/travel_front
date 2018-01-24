@@ -9,6 +9,5 @@ import java.util.Map;
  * Created by 陈亚兰 on 2018/1/23.
  */
 public interface MarketTravelActiveQuService {
-    Map getSiChuang(String date);
-    Map getEconomic(String date,String area);
+    Map getSiChuangAndFive(String date);
 }
