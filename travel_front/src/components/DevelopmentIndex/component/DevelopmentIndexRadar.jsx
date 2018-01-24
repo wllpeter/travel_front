@@ -2,6 +2,7 @@
  * @description 旅游发展指数雷达图
  */
 import React, {Component} from 'react';
+import PanelCard from '../../commonComponent/PanelCard';
 import echarts from 'echarts';
 
 export default class DevelopmentIndexRadar extends Component {
@@ -153,7 +154,9 @@ export default class DevelopmentIndexRadar extends Component {
     }
 
     render() {
-        return <div id="dev-index-radar" className="dev-index-map">
-        </div>;
+        return <PanelCard title="指数雷达图">
+            <div id="dev-index-radar" className="dev-index-map">
+            </div>
+        </PanelCard>;
     }
 }

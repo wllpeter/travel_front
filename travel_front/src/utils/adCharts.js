@@ -94,11 +94,11 @@ const AD_CHART = {
                 itemWidth: 8,
                 itemHeight: 8,
                 textStyle: {
-                    color: '#999',
+                    color: '#fff',
                     fontStyle: 'normal',
                     fontWeight: 'normal',
                     fontFamily: 'microsoft yahei',
-                    fontSize: '12'
+                    fontSize: params.legendSize || 12
                 }
             },
             xAxis: {
@@ -123,7 +123,8 @@ const AD_CHART = {
                 axisLabel: {
                     show: params.xAxisLabelShow === undefined ? true : params.xAxisLabelShow,
                     textStyle: {
-                        color: params.labelTextColor === undefined ? 'rgba(255, 255, 255, 0.95)' : params.labelTextColor
+                        color: params.labelTextColor === undefined ? 'rgba(255, 255, 255, 0.95)' : params.labelTextColor,
+                        fontSize: params.labelTextFontSize || 14
                     }
                 }
             },
@@ -170,7 +171,7 @@ const AD_CHART = {
                 return p[0].axisValue + '<br>' + p[0].marker + p[0].data + params.unit;
             };
         }
-        if(params.dataZoom){
+        if (params.dataZoom) {
             options.dataZoom = params.dataZoom;
         }
         BarChart.setOption(options, true);
@@ -193,7 +194,7 @@ const AD_CHART = {
                 data: [
                     {
                         value: params.series[i],
-                        name: params.legend[i],
+                        name: params.legend[i]
                     }
                 ]
             };
@@ -244,7 +245,7 @@ const AD_CHART = {
                 splitArea: {
                     areaStyle: {
                         color: [
-                           '#4b617a'
+                            '#4b617a'
                         ]
                     }
                 },
@@ -270,7 +271,7 @@ const AD_CHART = {
                 name: {
                     textStyle: {
                         color: 'rgba(255, 255, 255, 0.8)',
-                        fontSize: 15,
+                        fontSize: 15
                     }
                 },
                 indicator: params.indicator
@@ -361,7 +362,7 @@ const AD_CHART = {
                     fontStyle: 'normal',
                     fontWeight: 'normal',
                     fontFamily: 'microsoft yahei',
-                    fontSize: '14'
+                    fontSize: params.legendSize || 14
                 }
             },
             series: {
@@ -480,23 +481,18 @@ const AD_CHART = {
             },
             tooltip: {
                 trigger: 'axis',
-                axisPointer: { // 坐标轴指示器，坐标轴触发有效
-                    type: params.tooltipTrigger === undefined ? 'none' : params.tooltipTrigger, // 默认为直线，可选为：'line' | 'shadow'
-                    lineStyle: {
-                        color: 'rgba(192, 224, 248, .8)'
-                    },
-                    snap: true
-                },
-                backgroundColor: 'rgba(255,255,255,1)',
-                // formatter: '{b}:{c}',
+                backgroundColor: '#1F3A59',
+                borderWidth: 1,
+                borderColor: '#ffffff',
+                padding: 7,
                 textStyle: {
-                    color: '#333333',
-                    fontStyle: 'normal',
-                    fontWeight: 'normal',
-                    fontFamily: 'microsoft yahei',
-                    fontSize: '14'
+                    lineHeight: 56
                 },
-                padding: [10, 10, 10, 10]
+                axisPointer: {
+                    lineStyle: {
+                        color: '#0785CB'
+                    }
+                }
             },
             legend: {
                 data: params.legend,
@@ -597,20 +593,20 @@ const AD_CHART = {
         //     LineChart.resize();
         // });
     },
-    mapLevelChart: function(params, callback) {
+    mapLevelChart: function (params, callback) {
         let name = params.mapTypeName;
 
-        $.get('/static/data/map/' + name + '.json', function(geoJson) {
+        $.get('/static/data/map/' + name + '.json', function (geoJson) {
             echarts.registerMap(name, geoJson);
 
             let mapChart = echarts.init(document.getElementById(params.chartId));
 
             let seriesData = [];
 
-            if(params.series && params.series.length) {
-                for(var i = 0; i < params.series.length; i++) {
+            if (params.series && params.series.length) {
+                for (var i = 0; i < params.series.length; i++) {
                     let item = {
-                        name: (params.legend && params.legend.length) ? params.legend[i] : '' ,
+                        name: (params.legend && params.legend.length) ? params.legend[i] : '',
                         type: 'map',
                         map: name,
                         mapType: name,
@@ -644,17 +640,17 @@ const AD_CHART = {
                 },
                 visualMap: {
                     min: 0,
-                        max: 500,
-                        right: 25,
-                        bottom: 45,
-                        orient: 'horizontal',
-                        itemWidth: 20,
-                        itemHeight: 250,
-                        text: ['高', '低'],
-                        calculable: true,
-                        textStyle: {
+                    max: 500,
+                    right: 25,
+                    bottom: 45,
+                    orient: 'horizontal',
+                    itemWidth: 20,
+                    itemHeight: 250,
+                    text: ['高', '低'],
+                    calculable: true,
+                    textStyle: {
                         color: 'rgba(255, 255, 255, 0.95)',
-                            fontSize: 14
+                        fontSize: 14
                     },
                     inRange: {
                         color: ['#2e70b8', '#00a6ff', '#02c4bc', '#35d77c', '#9bdb74', '#abdd73']
@@ -671,19 +667,19 @@ const AD_CHART = {
             });
         });
     },
-    mapChart: function(params, callback) {
+    mapChart: function (params, callback) {
         let name = params.mapTypeName;
 
-        $.get(params.mapAddress, function(geoJson) {
+        $.get(params.mapAddress, function (geoJson) {
             echarts.registerMap(name, geoJson);
 
             let mapChart = echarts.init(document.getElementById(params.chartId));
 
             let seriesData = [];
 
-            if(params.series && params.series.length) {
-                for(var i = 0; i < params.series.length; i++) {
-                    let item = Object.assign({}, params.seriesOption[i], { data: params.series[i]});
+            if (params.series && params.series.length) {
+                for (var i = 0; i < params.series.length; i++) {
+                    let item = Object.assign({}, params.seriesOption[i], {data: params.series[i]});
                     seriesData.push(item);
                 }
             }
@@ -1066,23 +1062,23 @@ const AD_CHART = {
             });
         }
     },
-    multiYaxisTypeChart: function(params, callback) {
+    multiYaxisTypeChart: function (params, callback) {
         let multiTypeChart = null;
-        if(params && params.chartId) {
+        if (params && params.chartId) {
             multiTypeChart = echarts.init(document.getElementById(params.chartId));
             multiTypeChart.showLoading();
         }
 
         let seriesData = [];
-        if(params.series && params.series.length) {
-            for(var i = 0, len = params.series.length; i < len; i++) {
+        if (params.series && params.series.length) {
+            for (var i = 0, len = params.series.length; i < len; i++) {
                 let seriesItem = {
                     name: params.legend ? params.legend[i] : '',
                     type: params.series[i].type,
                     data: params.series[i].data,
                     label: {
                         normal: {
-                            show: false,
+                            show: false
                         },
                         emphasis: {
                             show: true,
@@ -1096,7 +1092,7 @@ const AD_CHART = {
                     },
                     yAxisIndex: params.series[i].yAxisIndex,
                     barWidth: params.barWidth
-                }
+                };
 
                 seriesData.push(seriesItem);
             }
@@ -1126,7 +1122,7 @@ const AD_CHART = {
                         color: '#00a9ff'
                     }
                 },
-                formatter: function(params) {
+                formatter: function (params) {
                     var res = params[0].name;
 
                     for (var i = 0, l = params.length; i < l; i++) {
@@ -1188,20 +1184,19 @@ const AD_CHART = {
             ],
             yAxis: params.yAxis || [],
             series: seriesData
-        }
+        };
 
-
-        if(options) {
+        if (options) {
             multiTypeChart.hideLoading();
             multiTypeChart.setOption(options);
         }
     },
-    wordCloudChart: function(params, callback) {
+    wordCloudChart: function (params, callback) {
         let wordCloudChart = echarts.init(document.getElementById(params.chartId));
 
         let seriesData = [];
-        if(params.series) {
-            for(var i = 0; i < params.series.length; i++) {
+        if (params.series) {
+            for (var i = 0; i < params.series.length; i++) {
                 let item = {
                     name: (params.legend && params.legend.length > 0) ? params.legend[i] : '',
                     type: 'wordCloud',
@@ -1247,7 +1242,7 @@ const AD_CHART = {
 
         wordCloudChart.setOption(options);
 
-        if(callback) {
+        if (callback) {
             callback(params);
         }
     }

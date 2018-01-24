@@ -3,8 +3,8 @@
  * @author zuilafeng
  */
 import React, {Component} from 'react';
-import { Icon } from 'antd';
-import { Select } from 'mtui/index';
+import {Icon} from 'antd';
+import {Select} from 'mtui/index';
 import './style.scss';
 
 const Option = Select.Option;
@@ -21,11 +21,11 @@ export default class PanelCard extends Component {
 
         this.state = {
             timeValue: props.defaultValue || ' '    // 日期选择
-        }
+        };
     }
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps.defaultValue !== this.props.defaultValue) {
+        if (nextProps.defaultValue !== this.props.defaultValue) {
             this.setState({
                 timeValue: nextProps.defaultValue
             });
@@ -39,14 +39,13 @@ export default class PanelCard extends Component {
             timeValue: value
         });
 
-        if(value) {
+        if (value) {
             let timeArr = value.split('-');
-            if(timeArr && timeArr.length) {
+            if (timeArr && timeArr.length) {
                 this.props.clickBack && this.props.clickBack(timeArr[0], timeArr[1]);
             }
         }
     }
-
 
     render() {
         const {
@@ -71,10 +70,10 @@ export default class PanelCard extends Component {
 
         return <div className={classNames.join(' ')}>
             <div className={`panel-card-header ${ headerClassName || ''}`}>
-                <h3>{title}</h3>
-
+                <h3 style={{'fontSize': zoomOutRequired ? '20px' : '16px'}}>{title}</h3>
                 {
-                    timeSelectRequired && <Select trigger="click" value={ this.state.timeValue } onChange={ this.selectChange.bind(this) }>
+                    timeSelectRequired &&
+                    <Select trigger="click" value={this.state.timeValue} onChange={this.selectChange.bind(this)}>
                         {
                             options
                         }
@@ -89,7 +88,7 @@ export default class PanelCard extends Component {
                 }
 
                 {
-                    zoomOutRequired && <a className="zoom-out" title="缩小"
+                    zoomOutRequired && <a className="zoom-out" title="缩小" style={{'fontSize': '20px'}}
                                           onClick={() => {
                                               narrow();
                                           }}><Icon type="shrink"/></a>
