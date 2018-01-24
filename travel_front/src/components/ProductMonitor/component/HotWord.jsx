@@ -5,18 +5,61 @@ import React, {Component} from 'react';
 import echarts from 'echarts';
 import Modal from '../../commonComponent/Modal';
 import PanelCard from '../../commonComponent/PanelCard';
+import {getProductHotWords} from '../../../services/ProductMonitor/ProductData';
+import {getHeaderOptions} from '../../../utils/tools';
 import wordcloud from 'echarts-wordcloud';
 
 export default class HotWord extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible: false
+            visible: false,
+            productType: 1,
+            year: '2018',
+            panelProps: null,
+            month: '1'
         };
     }
 
     componentDidMount() {
-        this.print('hotWord-map');
+    }
+
+    componentWillReceiveProps(nextProps) {
+        let times = nextProps.timeRange.hotWords;
+        this.getHeaderOptions(times);
+        let productType = nextProps.productType;
+        if (this.state.productType !== productType) {
+            this.setState({
+                productType: productType
+            }, () => {
+                this.getProductHotWords();
+            });
+        }
+    }
+
+    getHeaderOptions(times) {
+        if (!times) {
+            return;
+        }
+        let time = times[0] || {};
+        this.setState({
+            panelProps: getHeaderOptions({
+                data: times,
+                zoomRequired: true,
+                clickBack: (year, month) => {
+                    this.setState({
+                        year: year,
+                        month: month
+                    }, () => {
+                        this.getProductHotWords();
+                    });
+                }
+            }),
+            year: time.year || null,
+            month: time.monthOrQuarter || null
+        }, () => {
+            this.getProductHotWords();
+        });
     }
 
     showModal() {
@@ -31,7 +74,7 @@ export default class HotWord extends Component {
         });
     }
 
-    print(id) {
+    print(id, data) {
         let option = {
             title: {
                 text: ''
@@ -55,7 +98,7 @@ export default class HotWord extends Component {
                 rotationRange: [-45, 45],
                 rotationStep: 10,
                 shape: 'circle',
-                textPadding: 0,
+                textPadding: 15,
                 autoSize: {
                     enable: true,
                     minSize: 12
@@ -78,89 +121,44 @@ export default class HotWord extends Component {
                 }]
             }]
         };
-        let JosnList = [];
 
-        JosnList.push(
-            {
-                name: 'Jayfee',
-                value: 666
-            }, {
-                name: 'Nancy',
-                value: 520
-            }, {
-                name: '生活资源',
-                value: '999'
-            }, {
-                name: '供热管理',
-                value: '888'
-            }, {
-                name: '供气质量',
-                value: '777'
-            }, {
-                name: '生活用水管理',
-                value: '688'
-            }, {
-                name: '一次供水问题',
-                value: '588'
-            }, {
-                name: '交通运输',
-                value: '516'
-            }, {
-                name: '城市交通',
-                value: '515'
-            }, {
-                name: '环境保护',
-                value: '483'
-            }, {
-                name: '房地产管理',
-                value: '462'
-            }, {
-                name: '城乡建设',
-                value: '449'
-            }, {
-                name: '社会保障与福利',
-                value: '429'
-            }, {
-                name: '社会保障',
-                value: '407'
-            }, {
-                name: '文体与教育管理',
-                value: '406'
-            }, {
-                name: '供气质量',
-                value: '223'
-            }, {
-                name: '供电管理',
-                value: '223'
-            }, {
-                name: '燃气管理',
-                value: '152'
-            }, {
-                name: '教育管理',
-                value: '152'
-            }, {
-                name: '医疗纠纷',
-                value: '152'
-            }
-        );
-
-        option.series[0].data = JosnList;
+        option.series[0].data = data;
 
         let hotWord = echarts.init(document.getElementById(id));
 
         hotWord.setOption(option);
     }
 
-    render() {
+    // 获取热词云数据
+    getProductHotWords() {
         let {visible} = this.state;
+        getProductHotWords({
+            productType: this.state.productType,
+            year: this.state.year,
+            month: this.state.month
+        }).then((res) => {
+            let data = res.map((item) => {
+                return {
+                    name: item.keyWord,
+                    value: item.counts
+                };
+            });
+            this.print(visible ? 'hotWord-map2' : 'hotWord-map', data);
+        });
+    }
+
+    render() {
+        let {panelProps, visible} = this.state;
         return <div>
-            <PanelCard title="产品评价热词云" zoomRequired={true} timeSelectRequired={true}
+            <PanelCard title="产品评价热词云"  {...panelProps}
                        enlarge={this.showModal.bind(this)}>
                 <div id="hotWord-map" className="product-down-map"></div>
             </PanelCard>
-            <Modal visible={visible} onOk={() => {this.print.bind(this)('hotWord-map2');}}>
+            <Modal visible={visible} onOk={() => {
+                this.getProductHotWords.bind(this)('hotWord-map2');
+            }}>
                 <div className="hotWord-zoom">
-                    <PanelCard title="产品评价热词云" zoomRequired={false} timeSelectRequired={true}
+                    <PanelCard title="产品评价热词云" {...panelProps}
                                zoomOutRequired={true}
                                narrow={this.handleCancel.bind(this)}>
                         <div id="hotWord-map2"></div>
