@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 /**
  * Created by 陈亚兰 on 2018/1/23.
- * 旅游行业活跃度
+ * 旅游行业活跃度 市
  */
 @Setter
 @Getter
@@ -20,8 +20,10 @@ public class MarketHangYeActiveCity {
     private Long id;
     @Column(columnDefinition = "varchar(40) comment '时间'")
     private String date;
-    @Column(columnDefinition = "varchar(40) comment '地区'")
+    @Column(columnDefinition = "varchar(40) comment '经济区'")
     private String area;
+    @Column(columnDefinition = "varchar(40) comment '城市'")
+    private String city;
     @Column(columnDefinition = "varchar(40) comment '活跃度'")
     private String activeDegree;
     @Column(columnDefinition = "varchar(40) comment '环比'")
@@ -268,5 +270,12 @@ public class MarketHangYeActiveCity {
 
     public void setModifyId(Long modifyId) {
         this.modifyId = modifyId;
+    }
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }
