@@ -94,11 +94,11 @@ const AD_CHART = {
                 itemWidth: 8,
                 itemHeight: 8,
                 textStyle: {
-                    color: '#999',
+                    color: '#fff',
                     fontStyle: 'normal',
                     fontWeight: 'normal',
                     fontFamily: 'microsoft yahei',
-                    fontSize: 12
+                    fontSize: params.legendSize || 12
                 }
             },
             xAxis: {
