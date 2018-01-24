@@ -362,7 +362,7 @@ const AD_CHART = {
                     fontStyle: 'normal',
                     fontWeight: 'normal',
                     fontFamily: 'microsoft yahei',
-                    fontSize: '14'
+                    fontSize: params.legendSize || 14
                 }
             },
             series: {

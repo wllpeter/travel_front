@@ -3,17 +3,26 @@
  */
 import React, {Component} from 'react';
 import PanelCard from '../../commonComponent/PanelCard';
+import Modal from '../../commonComponent/Modal';
 import AD_CHART from '../../../utils/adCharts';
 
 export default class IndustryComposition extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            visible: false
+        };
     }
 
     componentDidMount() {
+        this.print();
+    }
+
+    print() {
+        let {visible} = this.state;
         AD_CHART.pieChart({
-            chartId: 'pieChart',
-            borderWidth: 6,
+            chartId: visible ? 'pieChart2' : 'pieChart',
+            borderWidth: visible ? 6 : 8,
             borderColor: '#203a59',
             legend: [
                 {
@@ -44,6 +53,8 @@ export default class IndustryComposition extends Component {
                     name: '旅游综合服务',
                     icon: 'circle'
                 }],
+            legendSize: visible ? 16 : 12,
+            labelFontSize: visible ? 16 : 12,
             legendTop: '28%',
             legendRight: '6%',
             data: [
@@ -79,9 +90,33 @@ export default class IndustryComposition extends Component {
         });
     }
 
+    showModal() {
+        this.setState({
+            visible: true
+        });
+    }
+
+    handleCancel() {
+        this.setState({
+            visible: false
+        });
+    }
+
     render() {
-        return <PanelCard title="省内旅游行业构成" className="bg-grey">
-            <div id="pieChart" style={{ width: '100%', height: 300 }}></div>
-        </PanelCard>;
+        let {visible} = this.state;
+        return <div>
+            <PanelCard title="省内旅游行业构成" className="bg-grey" zoomRequired={true}
+                       enlarge={this.showModal.bind(this)} timeSelectRequired={true}>
+                <div id="pieChart" style={{width: '100%', height: 300}}></div>
+            </PanelCard>
+            <Modal visible={visible} onOk={() => {
+                this.print.bind(this)();
+            }}>
+                <PanelCard title="省内旅游行业构成" className="bg-grey" zoomOutRequired={true}
+                           narrow={this.handleCancel.bind(this)} timeSelectRequired={true}>
+                    <div id="pieChart2" style={{width: '100%', height: 460}}></div>
+                </PanelCard>
+            </Modal>
+        </div>;
     }
 }
