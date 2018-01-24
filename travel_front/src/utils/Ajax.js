@@ -171,11 +171,11 @@ export default function Ajax({url = null,
 }
 
 function showLoading() {
-    LoadingModal.show('loading');
+    // LoadingModal.show('loading');
 }
 
 function hideLoading() {
-    LoadingModal.hide();
+    // LoadingModal.hide();
 }
 
 /**

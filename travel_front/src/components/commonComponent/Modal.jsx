@@ -3,7 +3,7 @@
  * @author zuilafeng
  */
 import React, {Component} from 'react';
-import {Modal, Button} from 'antd';
+import $ from 'jquery';
 import './style.scss';
 
 export default class PercentBar extends Component {
@@ -17,42 +17,28 @@ export default class PercentBar extends Component {
 
     componentDidMount() {
         let _this = this;
-        // setTimeout(() => {
-        //     _this.setState({
-        //         modalShow: true
-        //     });
-        //     setTimeout(() => {
-        //         _this.setState({
-        //             boxShow: true
-        //         });
-        //     }, 200);
-        // }, 1000);
-
-        // setTimeout(() => {
-        //     _this.setState({
-        //         modalShow: false
-        //     });
-        // }, 2000);
     }
 
-    componentDidUpdate(){
+    componentDidUpdate() {
         let {visible} = this.props;
-        if(visible === this.state.boxShow){
+        if (visible === this.state.boxShow) {
             return;
         }
         if (visible) {
             let _this = this;
+            $('body').css('overflow', 'hidden');
             setTimeout(() => {
                 _this.setState({boxShow: true}, () => {
-                    if(typeof _this.props.onOk === 'function'){
+                    if (typeof _this.props.onOk === 'function') {
                         setTimeout(() => {
                             _this.props.onOk();
                         }, 300);
                     }
                 });
             }, 200);
-        }else{
+        } else {
             let _this = this;
+            $('body').css('overflow', 'auto');
             this.setState({boxShow: false});
         }
     }
@@ -63,6 +49,7 @@ export default class PercentBar extends Component {
         this.setState({
             boxShow: false
         });
+        $('body').css('overflow', 'auto');
         setTimeout(() => {
             _this.props.onCancel();
         }, 300);
