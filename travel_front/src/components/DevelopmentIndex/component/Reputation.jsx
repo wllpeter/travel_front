@@ -1,10 +1,13 @@
 /**
- * @description 旅游舒适度
+ * @description 旅游美誉度
  */
 import React, {Component} from 'react';
 import PanelCard from '../../commonComponent/PanelCard';
+import {getGoodFame} from '../../../services/DevelopmentIndex/development';
 import Modal from '../../commonComponent/Modal';
 import AD_CHART from '../../../utils/adCharts';
+import {INDEX_NAME} from '../../../constants/developmentIndex/developmentIndex';
+import {handleDevelopmentIndex} from '../../../utils/tools';
 
 export default class Reputation extends Component {
     constructor(props) {
@@ -15,14 +18,20 @@ export default class Reputation extends Component {
     }
 
     componentDidMount() {
-        let _this = this;
-        setTimeout(() => {
-            _this.print();
+        this.getGoodFame();
+    }
+
+    getGoodFame() {
+        getGoodFame().then(res => {
+            let params = handleDevelopmentIndex(INDEX_NAME, res, 'goodFame');
+            this.print(params);
+            if (this.state.visible) {
+                this.print(params, true);
+            }
         });
     }
 
-    print() {
-        let {visible} = this.state;
+    print(params, visible) {
         AD_CHART.zoomMap({
             chartId: visible ? 'dev-index-reputation2' : 'dev-index-reputation',
             backgroundColor: '#1F3A59',
@@ -33,7 +42,8 @@ export default class Reputation extends Component {
             zoomFiller: '#054D7E',
             left: '10%',
             right: '10%',
-            bottom: '20%'
+            bottom: '20%',
+            ...params
         });
     }
 
@@ -58,7 +68,7 @@ export default class Reputation extends Component {
                 </div>
             </PanelCard>
             <Modal visible={visible} onOk={() => {
-                this.print.bind(this)();
+                this.getGoodFame.bind(this)();
             }}>
                 <PanelCard className="map-card" title="旅游美誉度" zoomOutRequired={true} timeSelectRequired={false}
                            narrow={this.handleCancel.bind(this)}>

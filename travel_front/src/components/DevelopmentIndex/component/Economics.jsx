@@ -118,7 +118,7 @@ export default class Economics extends Component {
                     <PanelCard className="map-card" title="旅游经济规模" zoomOutRequired={true}
                                narrow={this.handleCancel.bind(this)}>
                         <div className="switch-btn-box">
-                            <ToggleButtonGroup {...switchProps}></ToggleButtonGroup>
+                            <ToggleButtonGroup {...switchProps}/>
                             <div id="dev-index-economics2" className="dev-down-map" style={{'height': '460px'}}>
                             </div>
                         </div>

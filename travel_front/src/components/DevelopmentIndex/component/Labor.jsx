@@ -4,24 +4,65 @@
 import React, {Component} from 'react';
 import PanelCard from '../../commonComponent/PanelCard';
 import Modal from '../../commonComponent/Modal';
+import {getLaborInputData} from '../../../services/DevelopmentIndex/development';
+import {getHeaderOptions} from '../../../utils/tools';
 
 export default class Reputation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible: false
+            items: null,
+            visible: false,
+            year: null,
+            month: null,
+            panelProps: null
         };
     }
 
     componentDidMount() {
-        let _this = this;
-        setTimeout(() => {
-            _this.print();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        let times = nextProps.timeRange.laborInput;
+        this.getHeaderOptions(times);
+    }
+
+    getHeaderOptions(times) {
+        if (!times) {
+            return;
+        }
+        let time = times[0] || {};
+        this.setState({
+            panelProps: getHeaderOptions({
+                data: times,
+                zoomRequired: true,
+                timeSelectRequired: true,
+                clickBack: (year, month) => {
+                    let panelProps = this.state.panelProps;
+                    panelProps.defaultValue = year + '-' + month;
+                    this.setState({
+                        year: year,
+                        month: month,
+                        panelProps
+                    }, () => {
+                        this.getLaborInputData();
+                    });
+                }
+            }),
+            year: time.year || null,
+            month: time.monthOrQuarter || null
+        }, () => {
+            this.getLaborInputData();
         });
     }
 
-    print() {
-
+    getLaborInputData() {
+        getLaborInputData({
+            year: this.state.year,
+            month: this.state.month
+        }).then(res => {
+            this.setState({items: res});
+        });
     }
 
     showModal() {
@@ -37,10 +78,10 @@ export default class Reputation extends Component {
     }
 
     render() {
-        let {visible} = this.state;
+        let {visible, items, panelProps} = this.state;
         return <div>
-            <PanelCard className="map-card" title="旅游劳动投入" zoomRequired={true}
-                       enlarge={this.showModal.bind(this)} timeSelectRequired={true}>
+            <PanelCard className="map-card" title="旅游劳动投入" {...panelProps}
+                       enlarge={this.showModal.bind(this)}>
                 <div className="dev-down-map" style={{padding: '0 20px'}}>
                     <table className="mt-table mt-table-noborder col-1-al">
                         <thead>
@@ -51,45 +92,22 @@ export default class Reputation extends Component {
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td className="labor_td">四川省</td>
-                            <td>96.5</td>
-                            <td>15%</td>
-                        </tr>
-                        <tr>
-                            <td className="labor_td">川西北经济生态区</td>
-                            <td>96.5</td>
-                            <td>15%</td>
-                        </tr>
-                        <tr>
-                            <td className="labor_td">成都平原经济区</td>
-                            <td>96.5</td>
-                            <td>15%</td>
-                        </tr>
-                        <tr>
-                            <td className="labor_td">川东北经济区</td>
-                            <td>96.5</td>
-                            <td>15%</td>
-                        </tr>
-                        <tr>
-                            <td className="labor_td">川南经济区</td>
-                            <td>96.5</td>
-                            <td>15%</td>
-                        </tr>
-                        <tr>
-                            <td className="labor_td">攀西经济区</td>
-                            <td>96.5</td>
-                            <td>15%</td>
-                        </tr>
+                        {
+                            items && items.map((item, index) => {
+                                return <tr key={index}>
+                                    <td className="labor_td">{item.area}</td>
+                                    <td>{item.laborInput}</td>
+                                    <td>{item.compare}</td>
+                                </tr>;
+                            })
+                        }
                         </tbody>
                     </table>
                 </div>
             </PanelCard>
-            <Modal visible={visible} onOk={() => {
-                this.print.bind(this)();
-            }}>
-                <PanelCard className="map-card" title="旅游劳动投入" zoomOutRequired={true}
-                           narrow={this.handleCancel.bind(this)} timeSelectRequired={true}>
+            <Modal visible={visible}>
+                <PanelCard className="map-card" title="旅游劳动投入"  {...panelProps}
+                           narrow={this.handleCancel.bind(this)} zoomOutRequired={true}>
                     <div className="dev-down-map labor-big" style={{padding: '0 20px'}} style={{'height': '460px'}}>
                         <table className="mt-table mt-table-noborder col-1-al">
                             <thead>
@@ -100,36 +118,15 @@ export default class Reputation extends Component {
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td className="labor_td">四川省</td>
-                                <td>96.5</td>
-                                <td>15%</td>
-                            </tr>
-                            <tr>
-                                <td className="labor_td">川西北经济生态区</td>
-                                <td>96.5</td>
-                                <td>15%</td>
-                            </tr>
-                            <tr>
-                                <td className="labor_td">成都平原经济区</td>
-                                <td>96.5</td>
-                                <td>15%</td>
-                            </tr>
-                            <tr>
-                                <td className="labor_td">川东北经济区</td>
-                                <td>96.5</td>
-                                <td>15%</td>
-                            </tr>
-                            <tr>
-                                <td className="labor_td">川南经济区</td>
-                                <td>96.5</td>
-                                <td>15%</td>
-                            </tr>
-                            <tr>
-                                <td className="labor_td">攀西经济区</td>
-                                <td>96.5</td>
-                                <td>15%</td>
-                            </tr>
+                            {
+                                items && items.map((item, index) => {
+                                    return <tr key={index}>
+                                        <td className="labor_td">{item.area}</td>
+                                        <td>{item.laborInput}</td>
+                                        <td>{item.compare}</td>
+                                    </tr>;
+                                })
+                            }
                             </tbody>
                         </table>
                     </div>

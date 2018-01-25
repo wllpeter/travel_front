@@ -13,7 +13,6 @@ import Labor from './component/Labor';
 import {getTravelDevData} from '../../services/DevelopmentIndex/development';
 import 'antd/lib/grid/style';
 import './style.scss';
-import {productMonitorTime} from '../../services/ProductMonitor/ProductData';
 
 export default class TouristData extends Component {
     constructor(props) {
@@ -33,7 +32,7 @@ export default class TouristData extends Component {
         return <div className="developmentIndex">
             <Row className="mb-20">
                 <Col span={6} lg={8} xl={6}>
-                    <DevelopmentIndexRadar  {...this.state}/>
+                    <DevelopmentIndexRadar {...this.state}/>
                 </Col>
                 <Col span={12} lg={16} xl={12}>
                     <DevelopmentIndexMap/>
@@ -53,7 +52,7 @@ export default class TouristData extends Component {
                     <Reputation/>
                 </Col>
                 <Col span={6} lg={12} xl={6}>
-                    <Labor/>
+                    <Labor {...this.state}/>
                 </Col>
             </Row>
         </div>;
