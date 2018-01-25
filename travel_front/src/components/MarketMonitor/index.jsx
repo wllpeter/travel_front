@@ -22,7 +22,7 @@ export default class TouristData extends Component {
                     mapTypeName: '四川省区域',
                     seriesData: [
                         {
-                            name: '川西北经济区',
+                            name: '川西北生态经济区',
                             value: 220,
                         },
                         {

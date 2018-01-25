@@ -779,9 +779,9 @@ const AD_CHART = {
             },
             legend: {
                 show: params.legendShow,
-                icon: 'rect',
-                itemWidth: 14,
-                itemHeight: 5,
+                icon: 'circle',
+                itemWidth: 10,
+                itemHeight: 10,
                 width: '100%',
                 top: 20,
                 itemGap: 13,

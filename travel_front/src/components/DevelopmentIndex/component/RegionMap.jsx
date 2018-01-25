@@ -60,9 +60,6 @@ export default class RegionMap extends Component {
         }).then(res => {
             let max = 0;
             let seriesData = res.map(item => {
-                if (item.area === '川西北生态经济区') {
-                    item.area = '川西北经济区';
-                }
                 if (item.createNew > max) {
                     max = item.createNew;
                 }
