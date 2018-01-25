@@ -122,3 +122,33 @@ export function deepClone(obj) {
     let proto = Object.getPrototypeOf(obj);
     return Object.assign({}, Object.create(proto), obj);
 }
+
+// 处理旅游发展指数数据
+export function handleDevelopmentIndex(names, res, type) {
+    let legend = Object.keys(names);
+    let getArrByNum = (num) => {
+        let arr = [];
+        let data = [];
+        for (let i = 0; i < num; i++) {
+            arr.push(null);
+            data.push([]);
+        }
+        return {arr, data};
+    };
+    let timeObj = {};
+    res.forEach((item) => {
+        if (timeObj[item.date] === undefined) {
+            timeObj[item.date] = getArrByNum(legend.length).arr;
+        }
+        timeObj[item.date][names[item.area]] = item[type];
+    });
+    let xAxis = [];
+    let data = getArrByNum(legend.length).data;
+    for (let key in timeObj) {
+        xAxis.unshift(key.replace('.', '-'));
+        timeObj[key].forEach((val, index) => {
+            data[index].unshift(val);
+        });
+    }
+    return {legend, xAxis, data};
+}

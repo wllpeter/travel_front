@@ -19,7 +19,6 @@ export default class RegionMap extends Component {
 
     print() {
         $.getJSON('/static/data/map/四川省.json', function (mapjson) {
-            console.log(mapjson);
             let mapjsonData = {
                 UTF8Encoding: true,
                 features: [],
@@ -70,7 +69,7 @@ export default class RegionMap extends Component {
                     }
                 };
             });
-            console.log(mapjsonData);
+            // console.log(mapjsonData);
             // ---------------------------------------获取二级区域的json---------------------------------------------------------
             let arr = REGION_MAP.map((region) => {
                 let citys = [];

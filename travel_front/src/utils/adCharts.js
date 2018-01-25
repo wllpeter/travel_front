@@ -738,10 +738,10 @@ const AD_CHART = {
         };
 
         // 拿到数据区处理数据
-        let legend = ['四川省', '成都平原经济区', '川东北经济区', '攀西经济区', '川西北经济区', '川南经济区'];
+        let legend = params.legend || ['四川省', '成都平原经济区', '川东北经济区', '攀西经济区', '川西北经济区', '川南经济区'];
         let color = ['#B6DC74', '#32C889', '#0CBBC6', '#1B76D3', '#00A9FF', '#3459C5'];
-        let data = getData(legend.length);
-        let xAxis = getYearMonth(len);
+        let data = params.data || getData(legend.length);
+        let xAxis = params.xAxis || getYearMonth(len);
 
         let series = data.map((item, index) => {
             return {
