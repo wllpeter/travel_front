@@ -3,23 +3,88 @@
  */
 import React, {Component} from 'react';
 import PanelCard from '../../commonComponent/PanelCard';
+import {getIndexRadarData} from '../../../services/DevelopmentIndex/development';
+import {RADAR_NAME} from '../../../constants/developmentIndex/radar';
 import echarts from 'echarts';
+import {getHeaderOptions} from '../../../utils/tools';
 
 export default class DevelopmentIndexRadar extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            panelProps: null,
+            year: '2017',
+            month: '01'
+        };
     }
 
     componentDidMount() {
-        let _this = this;
-        setTimeout(() => {
-            _this.print();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        let times = nextProps.timeRange.indexRadar;
+        this.getHeaderOptions(times);
+    }
+
+    getHeaderOptions(times) {
+        if (!times) {
+            return;
+        }
+        let time = times[0] || {};
+        this.setState({
+            panelProps: getHeaderOptions({
+                data: times,
+                timeSelectRequired: true,
+                clickBack: (year, month) => {
+                    this.setState({
+                        year: year,
+                        month: month
+                    }, () => {
+                        this.getIndexRadarData();
+                    });
+                }
+            }),
+            year: time.year || null,
+            month: time.monthOrQuarter || null
+        }, () => {
+            this.getIndexRadarData();
         });
     }
 
-    print() {
-        // 制造假数据
-        let color = ['#B6DC74', '#32C889', '#0CBBC6', '#1B76D3', '#00A9FF', '#3459C5'];
+    // 获取雷达图数据
+    getIndexRadarData() {
+        getIndexRadarData({
+            year: this.state.year,
+            month: this.state.month
+        }).then(res => {
+            this.handleData(res);
+        });
+    }
+
+    // 处理数据
+    handleData(res) {
+        let colors = ['#B6DC74', '#32C889', '#0CBBC6', '#1B76D3', '#00A9FF', '#3459C5'];
+        let indicatorKeys = Object.keys(RADAR_NAME);
+        let indicator = indicatorKeys.map(key => {
+            return {text: RADAR_NAME[key]};
+        });
+        let data = res.map((item, index) => {
+            return {
+                value: indicatorKeys.map(key => {
+                    return item[key];
+                }),
+                name: item.area,
+                lineStyle: {
+                    normal: {
+                        color: colors[index]
+                    }
+                }
+            };
+        });
+        this.print({indicator, data});
+    }
+
+    print(params) {
         let option = {
             title: {
                 text: ''
@@ -39,13 +104,7 @@ export default class DevelopmentIndexRadar extends Component {
             },
             radar: [
                 {
-                    indicator: [
-                        {text: '创新度'},
-                        {text: '美誉度'},
-                        {text: '劳动投入'},
-                        {text: '经济规模'},
-                        {text: '舒适度'}
-                    ],
+                    indicator: params.indicator,
                     center: ['50%', '50%'],
                     radius: '65%',
                     startAngle: 90,
@@ -83,68 +142,12 @@ export default class DevelopmentIndexRadar extends Component {
                     type: 'radar',
                     itemStyle: {
                         emphasis: {
-                            // color: 各异,
                             lineStyle: {
                                 width: 3
                             }
                         }
                     },
-                    data: [
-                        {
-                            value: [100, 100, 100, 100, 100],
-                            name: '全省',
-                            lineStyle: {
-                                normal: {
-                                    color: color[0]
-                                }
-                            }
-                        },
-                        {
-                            value: [90, 90, 95, 87, 93],
-                            name: '成都平原经济区',
-                            lineStyle: {
-                                normal: {
-                                    color: color[1]
-                                }
-                            }
-                        },
-                        {
-                            value: [95, 80, 75, 79, 85],
-                            name: '川东北经济区',
-                            lineStyle: {
-                                normal: {
-                                    color: color[2]
-                                }
-                            }
-                        },
-                        {
-                            value: [70, 60, 80, 65, 74],
-                            name: '攀西经济区',
-                            lineStyle: {
-                                normal: {
-                                    color: color[3]
-                                }
-                            }
-                        },
-                        {
-                            value: [82, 40, 68, 83, 68],
-                            name: '川西北经济区',
-                            lineStyle: {
-                                normal: {
-                                    color: color[4]
-                                }
-                            }
-                        },
-                        {
-                            value: [65, 74, 63, 53, 77],
-                            name: '川南经济区',
-                            lineStyle: {
-                                normal: {
-                                    color: color[5]
-                                }
-                            }
-                        }
-                    ]
+                    data: params.data
                 }
             ]
         };
@@ -154,7 +157,8 @@ export default class DevelopmentIndexRadar extends Component {
     }
 
     render() {
-        return <PanelCard title="指数雷达图">
+        let {panelProps} = this.state;
+        return <PanelCard title="指数雷达图" {...panelProps}>
             <div id="dev-index-radar" className="dev-index-map">
             </div>
         </PanelCard>;
