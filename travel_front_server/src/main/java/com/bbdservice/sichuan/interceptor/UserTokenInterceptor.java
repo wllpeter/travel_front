@@ -98,7 +98,7 @@ public class UserTokenInterceptor implements HandlerInterceptor {
             return false;
         }
         userToken.setExpireDate(DateUtils.addSeconds(new Date(), loginExpireSeconds));
-        userTokenService.save(userToken);
+//        userTokenService.save(userToken);
         new UserInfo(userService.findByLoginName(userToken.getLoginName()));
 
         if (!hasPermission((HandlerMethod) method, userToken)) {
