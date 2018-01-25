@@ -611,13 +611,13 @@ const AD_CHART = {
                         map: name,
                         mapType: name,
                         roam: true,
-                        zoom: 1.1,
-                        scaleLimit: {
+                        zoom: params.zoom || 1.1,
+                        scaleLimit: params.scaleLimit || {
                             min: 1,
                             max: 2.5
                         },
-                        left: '14%',
-                        top: 25,
+                        left: params.left || '14%',
+                        top: params.top || 25,
                         label: {
                             normal: {
                                 show: true,
@@ -625,6 +625,22 @@ const AD_CHART = {
                                     color: 'rgba(255, 255, 255, 0.95)',
                                     fontSize: 14
                                 }
+                            },
+                            emphasis: {
+                                show: true,
+                                color: '#ffffff'
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                borderColor: '#0C2A4C',
+                                borderWidth: 1
+                            },
+                            emphasis: {
+                                areaColor: '',
+                                borderColor: '#ffffff',
+                                borderWidth: 2,
+                                color: '#fff'
                             }
                         },
                         data: params.series[i]
@@ -640,7 +656,7 @@ const AD_CHART = {
                 },
                 visualMap: {
                     min: 0,
-                    max: 500,
+                    max: params.max || 500,
                     right: 25,
                     bottom: 45,
                     orient: 'horizontal',
@@ -653,7 +669,7 @@ const AD_CHART = {
                         fontSize: 14
                     },
                     inRange: {
-                        color: ['#2e70b8', '#00a6ff', '#02c4bc', '#35d77c', '#9bdb74', '#abdd73']
+                        color: params.color || ['#2e70b8', '#00a6ff', '#02c4bc', '#35d77c', '#9bdb74', '#abdd73']
                     }
                 },
                 series: seriesData
@@ -696,52 +712,11 @@ const AD_CHART = {
         });
     },
     zoomMap: function (params, callback) {
-        const len = 24; // 定义数据长度为24
-        // 制造假数据
-        let getData = (m) => {
-            let getRandomArr = (n, index) => {
-                let arr = [];
-                for (let i = 0; i < n; i++) {
-                    let a = Math.ceil(Math.random() * 100) + 100 + 60 * (5 - index);
-                    arr.push(a);
-                }
-                return arr;
-            };
-            let data = [];
-            for (let i = 0; i < m; i++) {
-                data.push(getRandomArr(len, i));
-            }
-            return data;
-        };
-
-        let getYearMonth = (m) => {
-            let today = new Date();
-            let year = today.getFullYear();
-            let month = today.getMonth() + 1;
-            // 补全月份格式
-            let fn = (num) => {
-                if (num < 10) {
-                    return '0' + num;
-                }
-                return num;
-            };
-            let output = [];
-            for (let i = 0; i < m; i++) {
-                if (month === 0) {
-                    --year;
-                    month = 12;
-                }
-                output.unshift(year + '-' + fn(month));
-                month--;
-            }
-            return output;
-        };
-
         // 拿到数据区处理数据
-        let legend = params.legend || ['四川省', '成都平原经济区', '川东北经济区', '攀西经济区', '川西北经济区', '川南经济区'];
+        let legend = params.legend;
         let color = ['#B6DC74', '#32C889', '#0CBBC6', '#1B76D3', '#00A9FF', '#3459C5'];
-        let data = params.data || getData(legend.length);
-        let xAxis = params.xAxis || getYearMonth(len);
+        let data = params.data;
+        let xAxis = params.xAxis;
 
         let series = data.map((item, index) => {
             return {

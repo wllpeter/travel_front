@@ -28,6 +28,15 @@ export function getIndexData(data) {
     });
 }
 
+// 获取旅游创新度数据
+export function getCreateNewData(data) {
+    return Ajax({
+        url: '/devTravel/getCreateNew',
+        type: HttpMethod.GET,
+        data: data
+    });
+}
+
 // 获取旅游经济规模数据
 export function getEconomicScale(data) {
     return Ajax({
