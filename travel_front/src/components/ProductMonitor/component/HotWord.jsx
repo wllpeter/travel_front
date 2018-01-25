@@ -25,16 +25,14 @@ export default class HotWord extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        let times = nextProps.timeRange.hotWords;
-        this.getHeaderOptions(times);
         let productType = nextProps.productType;
         if (this.state.productType !== productType) {
             this.setState({
                 productType: productType
-            }, () => {
-                this.getProductHotWords();
             });
         }
+        let times = nextProps.timeRange.hotWords;
+        this.getHeaderOptions(times);
     }
 
     getHeaderOptions(times) {
@@ -47,9 +45,12 @@ export default class HotWord extends Component {
                 data: times,
                 zoomRequired: true,
                 clickBack: (year, month) => {
+                    let panelProps = this.state.panelProps;
+                    panelProps.defaultValue = year + '-' + month;
                     this.setState({
                         year: year,
-                        month: month
+                        month: month,
+                        panelProps
                     }, () => {
                         this.getProductHotWords();
                     });
@@ -143,7 +144,10 @@ export default class HotWord extends Component {
                     value: item.counts
                 };
             });
-            this.print(visible ? 'hotWord-map2' : 'hotWord-map', data);
+            this.print('hotWord-map', data);
+            if (visible) {
+                this.print('hotWord-map2', data);
+            }
         });
     }
 

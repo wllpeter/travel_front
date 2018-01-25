@@ -28,8 +28,6 @@ export default class PraiseList extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        let times = nextProps.timeRange.classify;
-        this.getHeaderOptions(times);
         let productType = nextProps.productType;
         if (this.state.productType !== productType) {
             this.resetButtonState();
@@ -38,10 +36,10 @@ export default class PraiseList extends Component {
                 buttons: buttons,
                 dataType: buttons[0] ? buttons[0].dataType : 1,
                 productType: productType
-            }, () => {
-                this.getOpinionRank();
             });
         }
+        let times = nextProps.timeRange.classify;
+        this.getHeaderOptions(times);
     }
 
     getHeaderOptions(times) {
@@ -53,9 +51,12 @@ export default class PraiseList extends Component {
             panelProps: getHeaderOptions({
                 data: times,
                 clickBack: (year, month) => {
+                    let panelProps = this.state.panelProps;
+                    panelProps.defaultValue = year + '-' + month;
                     this.setState({
                         year: year,
-                        month: month
+                        month: month,
+                        panelProps
                     }, () => {
                         this.getOpinionRank();
                     });

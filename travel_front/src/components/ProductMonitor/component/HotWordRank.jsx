@@ -22,20 +22,17 @@ export default class HotWordRank extends Component {
     }
 
     componentDidMount() {
-        this.getKeyWordRank();
     }
 
     componentWillReceiveProps(nextProps) {
-        let times = nextProps.timeRange.classify;
-        this.getHeaderOptions(times);
         let productType = nextProps.productType;
         if (this.state.productType !== productType) {
             this.setState({
                 productType: productType
-            }, () => {
-                this.getKeyWordRank();
             });
         }
+        let times = nextProps.timeRange.classify;
+        this.getHeaderOptions(times);
     }
 
     getHeaderOptions(times) {
