@@ -81,7 +81,7 @@ export default class PanelCard extends Component {
                 }
 
                 {
-                    zoomRequired &&
+                    !zoomOutRequired && zoomRequired &&
                     <a className="zoom-in" title="放大" onClick={() => {
                         enlarge();
                     }}><Icon type="arrows-alt"/></a>

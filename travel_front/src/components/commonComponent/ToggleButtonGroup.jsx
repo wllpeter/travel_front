@@ -14,6 +14,14 @@ export default class ToggleButtonGroup extends Component {
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.activeIndex !== this.props.activeIndex) {
+            this.setState({
+                activeIndex: nextProps.activeIndex
+            });
+        }
+    }
+
     // 选中某一项
     selectItem(index, item) {
         this.setState({

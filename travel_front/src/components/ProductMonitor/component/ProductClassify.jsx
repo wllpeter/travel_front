@@ -24,7 +24,6 @@ export default class ProductClassify extends Component {
     }
 
     componentDidMount() {
-
     }
 
     componentWillReceiveProps(nextProps) {
@@ -38,8 +37,6 @@ export default class ProductClassify extends Component {
                 buttons: buttons,
                 dataType: buttons[0] ? buttons[0].dataType : 1,
                 productType: productType
-            }, () => {
-                this.getClassifyType();
             });
         }
     }
@@ -53,9 +50,12 @@ export default class ProductClassify extends Component {
             panelProps: getHeaderOptions({
                 data: times,
                 clickBack: (year, month) => {
+                    let panelProps = this.state.panelProps;
+                    panelProps.defaultValue = year + '-' + month;
                     this.setState({
                         year: year,
-                        month: month
+                        month: month,
+                        panelProps
                     }, () => {
                         this.getClassifyType();
                     });

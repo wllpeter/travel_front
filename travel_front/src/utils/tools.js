@@ -2,7 +2,8 @@
  *  @description 封装了一些本项目用到的方法
  * */
 import React from 'react';
-import { Select } from 'mtui/index';
+import {Select} from 'mtui/index';
+
 const Option = Select.Option;
 
 // 十六进制颜色转为RGBA格式
@@ -114,4 +115,10 @@ export function getHeaderOptions(options) {
                            value={option.year + '-' + option.monthOrQuarter}>{`${ option.year }年${ option.monthOrQuarter }${ options.isQuarter ? '季度' : '月'}`}</Option>;
         }) : null
     };
+}
+
+// 深克隆
+export function deepClone(obj) {
+    let proto = Object.getPrototypeOf(obj);
+    return Object.assign({}, Object.create(proto), obj);
 }

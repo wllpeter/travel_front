@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.dev.babel.js --history-api-fallback --colors",
-    "build": "webpack --config webpack.config.prod.babel.js --progress -colors --display-error-details"
+    "build": "webpack --config webpack.config.prod.babel.js --progress --colors --display-error-details"
   },
   "keywords": [
     "React",

@@ -63,3 +63,12 @@ export function getPriceTrend(data) {
         data: data
     });
 }
+
+// 获取热词云数据
+export function getProductHotWords(data) {
+    return Ajax({
+        url: '/tourismProduct/getProductHotWords',
+        type: HttpMethod.GET,
+        data: data
+    });
+}

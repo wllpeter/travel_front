@@ -63,33 +63,33 @@ export default class ProductMonitor extends Component {
                         <Row className="mb-20">
                             <Col span={1}></Col>
                             <Col span={8} lg={23} xl={8}>
-                                <ProductClassify {...this.state}></ProductClassify>
+                                <ProductClassify {...this.state}/>
                             </Col>
                             <Col span={1}></Col>
                             <Col span={14} lg={23} xl={14}>
-                                <ProductEvaluate {...this.state}></ProductEvaluate>
+                                <ProductEvaluate {...this.state}/>
                             </Col>
                         </Row>
                         <Row className="mb-20">
                             <Col span={1}></Col>
                             <Col span={23}>
-                                <Consumption {...this.state}></Consumption>
+                                <Consumption {...this.state}/>
                             </Col>
                         </Row>
                     </Col>
                     <Col span={6} lg={8} xl={6}>
                         <Col span={24} className="product-praise">
-                            <PraiseList {...this.state}></PraiseList>
+                            <PraiseList {...this.state}/>
                         </Col>
                     </Col>
                     <Col span={6} lg={8} xl={6} className="product-down">
-                        <HotWord {...this.state}></HotWord>
+                        <HotWord {...this.state}/>
                     </Col>
                     <Col span={12} lg={16} xl={12} className="product-down">
-                        <ProductPrice {...this.state}></ProductPrice>
+                        <ProductPrice {...this.state}/>
                     </Col>
                     <Col span={6} lg={8} xl={6} className="product-down">
-                        <HotWordRank {...this.state}></HotWordRank>
+                        <HotWordRank {...this.state}/>
                     </Col>
                 </Row>
             </div>

@@ -4,12 +4,14 @@
 import React, {Component} from 'react';
 import {getKeyWordRank} from '../../../services/ProductMonitor/ProductData';
 import PanelCard from '../../commonComponent/PanelCard';
+import Modal from '../../commonComponent/Modal';
 import {dateFormat, getHeaderOptions} from '../../../utils/tools';
 
 export default class HotWordRank extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            visible: false,
             productType: 1,
             year: null,
             month: null,
@@ -20,20 +22,17 @@ export default class HotWordRank extends Component {
     }
 
     componentDidMount() {
-        this.getKeyWordRank();
     }
 
     componentWillReceiveProps(nextProps) {
-        let times = nextProps.timeRange.classify;
-        this.getHeaderOptions(times);
         let productType = nextProps.productType;
         if (this.state.productType !== productType) {
             this.setState({
                 productType: productType
-            }, () => {
-                this.getKeyWordRank();
             });
         }
+        let times = nextProps.timeRange.classify;
+        this.getHeaderOptions(times);
     }
 
     getHeaderOptions(times) {
@@ -46,9 +45,12 @@ export default class HotWordRank extends Component {
                 data: times,
                 zoomRequired: true,
                 clickBack: (year, month) => {
+                    let panelProps = this.state.panelProps;
+                    panelProps.defaultValue = year + '-' + month;
                     this.setState({
                         year: year,
-                        month: month
+                        month: month,
+                        panelProps
                     }, () => {
                         this.getKeyWordRank();
                     });
@@ -78,33 +80,76 @@ export default class HotWordRank extends Component {
         });
     }
 
+    showModal() {
+        this.setState({
+            visible: true
+        });
+    }
+
+    handleCancel() {
+        this.setState({
+            visible: false
+        });
+    }
+
     render() {
-        let {items, panelProps} = this.state;
-        return <PanelCard title="产品热词搜索指数排行榜" {...panelProps}>
-            <div className="product-down-map" style={{paddingTop: '40px'}}>
-                <table className="mt-table col-1-al">
-                    <thead>
-                    <tr>
-                        <th>排名</th>
-                        <th>产品热词</th>
-                        <th>搜索指数</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {
-                        items.map((item, index) => {
-                            return <tr key={index}>
-                                <td>
-                                    {dateFormat(item.rank)}
-                                </td>
-                                <td>{item.keyword}</td>
-                                <td>{item.wholeIndex}</td>
-                            </tr>;
-                        })
-                    }
-                    </tbody>
-                </table>
-            </div>
-        </PanelCard>;
+        let {items, panelProps, visible} = this.state;
+        return <div>
+            <PanelCard title="产品热词搜索指数排行榜" {...panelProps}
+                       enlarge={this.showModal.bind(this)}>
+                <div className="product-down-map" style={{paddingTop: '40px'}}>
+                    <table className="mt-table col-1-al">
+                        <thead>
+                        <tr>
+                            <th>排名</th>
+                            <th>产品热词</th>
+                            <th>搜索指数</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {
+                            items.map((item, index) => {
+                                return <tr key={index}>
+                                    <td>
+                                        {dateFormat(item.rank)}
+                                    </td>
+                                    <td>{item.keyword}</td>
+                                    <td>{item.wholeIndex}</td>
+                                </tr>;
+                            })
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            </PanelCard>
+            <Modal visible={visible}>
+                <PanelCard title="产品热词搜索指数排行榜" {...panelProps}
+                           className="bg-grey" zoomOutRequired={true}
+                           narrow={this.handleCancel.bind(this)} timeSelectRequired={true}>
+                    <table className="mt-table col-1-al wordRank-big">
+                        <thead>
+                        <tr>
+                            <th>排名</th>
+                            <th>产品热词</th>
+                            <th>搜索指数</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {
+                            items.map((item, index) => {
+                                return <tr key={index}>
+                                    <td>
+                                        {dateFormat(item.rank)}
+                                    </td>
+                                    <td>{item.keyword}</td>
+                                    <td>{item.wholeIndex}</td>
+                                </tr>;
+                            })
+                        }
+                        </tbody>
+                    </table>
+                </PanelCard>
+            </Modal>
+        </div>;
     }
 }

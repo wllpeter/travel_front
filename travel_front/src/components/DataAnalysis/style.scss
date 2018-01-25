@@ -86,3 +86,26 @@
 .consumption-down{
     height: 400px;
 }
+
+.modal-box{
+    .consumption-down{
+        height: 540px;
+        font-size: 18px;
+        padding: 0 40px;
+        table{
+            line-height: 2.5;
+            td{
+                font-size: 18px;
+            }
+        }
+        .percent-bar{
+            .ant-progress-outer{
+                margin-right: -2.5rem;
+                padding-right: 2.5rem;
+            }
+            .ant-progress-text{
+                font-size: 18px;
+            }
+        }
+    }
+}

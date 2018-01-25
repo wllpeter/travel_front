@@ -69,24 +69,24 @@ export default class TouristData extends Component {
         return <div className="consumption-data">
             <Row>
                 <Col span={12} lg={24} xl={12}>
-                    <ProvinceTravelConsume></ProvinceTravelConsume>
+                    <ProvinceTravelConsume/>
                 </Col>
                 <Col span={12} lg={24} xl={12}>
                     <Row>
                         <Col span={12}>
-                            <CardMoney {...this.state} {...cardMoney}></CardMoney>
+                            <CardMoney {...this.state} {...cardMoney}/>
                         </Col>
                         <Col span={12}>
-                            <CardMoney {...this.state} {...tradeAmount}></CardMoney>
+                            <CardMoney {...this.state} {...tradeAmount}/>
                         </Col>
                     </Row>
 
                     <Row>
                         <Col span={12}>
-                            <CityMoney {...this.state} {...cityCardMoney}></CityMoney>
+                            <CityMoney {...this.state} {...cityCardMoney}/>
                         </Col>
                         <Col span={12}>
-                            <CityMoney {...this.state} {...cityTradeAmount}></CityMoney>
+                            <CityMoney {...this.state} {...cityTradeAmount}/>
                         </Col>
                     </Row>
                 </Col>
@@ -94,16 +94,16 @@ export default class TouristData extends Component {
 
             <Row gutter={2}>
                 <Col span={6} lg={12} xl={6}>
-                    <ComeConsumeTourist  {...this.state}></ComeConsumeTourist>
+                    <ComeConsumeTourist  {...this.state}/>
                 </Col>
                 <Col span={6} lg={12} xl={6}>
-                    <ComeTouristAreaRank  {...this.state}></ComeTouristAreaRank>
+                    <ComeTouristAreaRank  {...this.state}/>
                 </Col>
                 <Col span={6} lg={12} xl={6}>
-                    <ConsumptionTrade  {...this.state}></ConsumptionTrade>
+                    <ConsumptionTrade  {...this.state}/>
                 </Col>
                 <Col span={6} lg={12} xl={6}>
-                    <IndustryConsumeBusiness {...this.state}></IndustryConsumeBusiness>
+                    <IndustryConsumeBusiness {...this.state}/>
                 </Col>
             </Row>
         </div>;
