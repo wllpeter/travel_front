@@ -149,7 +149,7 @@ public class SysUserController extends BaseController {
 
         UserToken userToken = new UserToken(userInfo.getSysUser().getLoginName(), token, getPermissions(userInfo.getSysUser().getUserId()), DateUtils.addSeconds(new Date(), loginExpireSeconds));
 
-        userTokenService.save(userToken);
+//        userTokenService.save(userToken);
         SysLog sysLog=new SysLog(loginName,new Date(),false);
         sysLogService.saveLog(sysLog);
         return Response.success(userInfo);
