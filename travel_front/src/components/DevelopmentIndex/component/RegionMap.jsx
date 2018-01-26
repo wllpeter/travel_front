@@ -6,18 +6,93 @@ import PanelCard from '../../commonComponent/PanelCard';
 import echarts from 'echarts';
 import $ from 'jquery';
 import {REGION_MAP} from '../../../constants/developmentIndex/RegionMap';
+import {getCreateNewData} from '../../../services/DevelopmentIndex/development';
 import {isArray} from '../../../utils/util';
+import AD_CHART from '../../../utils/adCharts';
+import {getHeaderOptions} from '../../../utils/tools';
 
 export default class RegionMap extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            year: null,
+            month: null,
+            panelProps: null
+        };
     }
 
     componentDidMount() {
-        this.print();
     }
 
-    print() {
+    componentWillReceiveProps(nextProps) {
+        let times = nextProps.timeRange.createNew;
+        this.getHeaderOptions(times);
+    }
+
+    getHeaderOptions(times) {
+        if (!times) {
+            return;
+        }
+        let time = times[0] || {};
+        this.setState({
+            panelProps: getHeaderOptions({
+                data: times,
+                clickBack: (year, month) => {
+                    this.setState({
+                        year: year,
+                        month: month
+                    }, () => {
+                        this.getCreateNewData();
+                    });
+                }
+            }),
+            year: time.year || null,
+            month: time.monthOrQuarter || null
+        }, () => {
+            this.getCreateNewData();
+        });
+    }
+
+    getCreateNewData() {
+        getCreateNewData({
+            year: this.state.year,
+            month: this.state.month
+        }).then(res => {
+            let max = 0;
+            let seriesData = res.map(item => {
+                if (item.createNew > max) {
+                    max = item.createNew;
+                }
+                return {
+                    name: item.area,
+                    value: item.createNew
+                };
+            });
+            this.renderMapLevelChart('四川省区域', seriesData, max);
+        });
+    }
+
+    // 渲染纵深层级地图
+    renderMapLevelChart(mapTypeName, seriesData, max) {
+        AD_CHART.mapLevelChart({
+            chartId: 'region-map',
+            mapTypeName: mapTypeName,
+            legend: ['旅游创新度'],
+            series: [seriesData],
+            zoom: .8,
+            scaleLimit: {
+                min: .8,
+                max: .8
+            },
+            color: ['#253F98', '#6AC2EE'],
+            left: '10%',
+            top: 12,
+            max: max,
+            roam: false
+        });
+    }
+
+    testpPrint() {
         $.getJSON('/static/data/map/四川省.json', function (mapjson) {
             let mapjsonData = {
                 UTF8Encoding: true,
@@ -95,7 +170,8 @@ export default class RegionMap extends Component {
     }
 
     render() {
-        return <PanelCard title="旅游创新度" zoomRequired={false}>
+        let {panelProps} = this.state;
+        return <PanelCard title="旅游创新度" {...panelProps}>
             <div id="region-map" className="dev-index-map">
             </div>
         </PanelCard>;

@@ -1,12 +1,13 @@
 import qs from 'qs';
 import axios from 'axios';
-import { hashHistory } from 'react-router';
+import {hashHistory} from 'react-router';
 import config from '../config/config';
 import devConfig from '../config/config.dev';
-import { ResponseInfo } from '../constants/common';
-import { HttpMethod, ContentType } from '../constants/common';
-import { Tip, LoadingModal } from 'mtui/index';
-import { isString, isArray, isFormData, isBlank, isEmpty, isNotEmpty, isNotBlank, isObject } from './util';
+import {ResponseInfo} from '../constants/common';
+import {HttpMethod, ContentType} from '../constants/common';
+import {Tip, LoadingModal} from 'mtui/index';
+import {remove} from './storage';
+import {isString, isArray, isFormData, isBlank, isEmpty, isNotEmpty, isNotBlank, isObject} from './util';
 
 /**
  * @desc 使用axios第三方库访问后台服务器, 返回封装过后的Promise对象.
@@ -24,18 +25,20 @@ import { isString, isArray, isFormData, isBlank, isEmpty, isNotEmpty, isNotBlank
  * @param {boolean} handleError 是否自动处理接口报错情况, 默认true.
  * @return {object} - 返回一个promise的实例对象.
  */
-export default function Ajax({url = null,
-                                         domain = null,
-                                         type = HttpMethod.GET,
-                                         contentType = config.ajaxPromise.contentType,
-                                         data = null,
-                                         onUpload = null,
-                                         onDownload = null,
-                                         cancel = null,
-                                         timeout = config.ajaxPromise.timeout,
-                                         loading = null,
-                                         cache = false,
-                                         handleError = true}) {
+export default function Ajax({
+                                 url = null,
+                                 domain = null,
+                                 type = HttpMethod.GET,
+                                 contentType = config.ajaxPromise.contentType,
+                                 data = null,
+                                 onUpload = null,
+                                 onDownload = null,
+                                 cancel = null,
+                                 timeout = config.ajaxPromise.timeout,
+                                 loading = null,
+                                 cache = false,
+                                 handleError = true
+                             }) {
     var getData;
     var postData;
     var cancelToken;
@@ -48,9 +51,9 @@ export default function Ajax({url = null,
     if (type === HttpMethod.POST || type === HttpMethod.PUT) {
         postData = data;
         // 根据配置的 contentType 对数据进一步处理
-        switch (contentType){
+        switch (contentType) {
             case ContentType.FORM_URLENCODED:
-                if(isNotEmpty(postData) && !isFormData(postData)){
+                if (isNotEmpty(postData) && !isFormData(postData)) {
                     postData = qs.stringify(postData, {allowDots: true});
                 }
                 break;
@@ -66,7 +69,7 @@ export default function Ajax({url = null,
     if (__DEV__) {
         // 开发模式都是跨域调用后台接口
         crossDomain = true;
-        if(isEmpty(domain)){
+        if (isEmpty(domain)) {
             domain = devConfig.DEV_API_SERVER;
         }
     }
@@ -75,7 +78,7 @@ export default function Ajax({url = null,
         cancelToken = new axios.CancelToken(cancel);
     }
 
-    if(!cache) {
+    if (!cache) {
         url += '?t=' + new Date().getTime();
     }
 
@@ -136,27 +139,34 @@ export default function Ajax({url = null,
                      * 请求失败, 会返回所有数据
                      */
                 } else {
+                    if (responseData.info === '身份验证有误，请重新登录') {
+                        Tip.error(responseData.info);
+                        remove('user');
+                        location.reload();
+                        return;
+                    }
                     reject(responseData);
-                    if(handleError){
+                    if (handleError) {
                         var errorMsg = processError(responseData);
-                        if(isNotBlank(errorMsg)){
+                        if (isNotBlank(errorMsg)) {
                             Tip.error(errorMsg);
                         }
                     }
                 }
             }
         }).catch(function (error) {
+            console.log(error.response.info);
             hideLoading(error.config, loading);
             // 服务端返回的异常
             if (error.response) {
-                if(handleError){
+                if (handleError) {
                     Tip.error(ResponseInfo['SYSTEM_ERROR']);
                 }
                 console.error(error.response);
                 reject(error.response);
                 // 浏览器抛出的异常, 不同浏览器可能有不同的行为
             } else {
-                if(handleError){
+                if (handleError) {
                     setTimeout(() => {
                         Tip.error(ResponseInfo['BROWSER_ERROR']);
                     }, 1000);
@@ -215,7 +225,7 @@ function log(data, title) {
         // console.table(data.result);
     }
 
-    if(console.table && isObject(data.result) && isArray(data.result.list)) {
+    if (console.table && isObject(data.result) && isArray(data.result.list)) {
         // console.table(data.result.list);
     }
 

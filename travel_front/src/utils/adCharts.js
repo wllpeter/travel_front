@@ -2,6 +2,8 @@ import echarts from 'echarts';
 import $ from 'jquery';
 import {colorHex, getDataZoom} from '../utils/tools';
 
+let mapChart = null;
+
 /**
  *  @description 从上到下，依次为柱状图, 雷达图，饼图，线图(折线或面积图),地图(有纵向子级),地图(散点或视觉映射),数据区域缩放,百分比柱状图，多Y轴不同类型混合图, 词云图
  * @type {{barChart: AD_CHART.barChart, radarChart: AD_CHART.radarChart, pieChart: AD_CHART.pieChart, lineChart: AD_CHART.lineChart, mapLevelChart: AD_CHART.mapLevelChart, mapChart: AD_CHART.mapChart, zoomMap: AD_CHART.zoomMap, percentBarChart: AD_CHART.percentBarChart, multiYaxisTypeChart: AD_CHART.multiYaxisTypeChart, wordCloudChart: AD_CHART.wordCloudChart}}
@@ -599,7 +601,12 @@ const AD_CHART = {
         $.get('/static/data/map/' + name + '.json', function (geoJson) {
             echarts.registerMap(name, geoJson);
 
-            let mapChart = echarts.init(document.getElementById(params.chartId));
+            // 已存在的实例解除绑定事件
+            if (mapChart) {
+                mapChart.off();
+            }
+
+            mapChart = echarts.init(document.getElementById(params.chartId));
 
             let seriesData = [];
 
@@ -610,14 +617,14 @@ const AD_CHART = {
                         type: 'map',
                         map: name,
                         mapType: name,
-                        roam: true,
-                        zoom: 1.1,
-                        scaleLimit: {
+                        roam: params.roam === undefined ? true : params.roam,
+                        zoom: params.zoom || 1.1,
+                        scaleLimit: params.scaleLimit || {
                             min: 1,
                             max: 2.5
                         },
-                        left: '14%',
-                        top: 25,
+                        left: params.left || '14%',
+                        top: params.top || 25,
                         label: {
                             normal: {
                                 show: true,
@@ -625,6 +632,22 @@ const AD_CHART = {
                                     color: 'rgba(255, 255, 255, 0.95)',
                                     fontSize: 14
                                 }
+                            },
+                            emphasis: {
+                                show: true,
+                                color: '#ffffff'
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                borderColor: '#0C2A4C',
+                                borderWidth: 1
+                            },
+                            emphasis: {
+                                areaColor: '',
+                                borderColor: '#ffffff',
+                                borderWidth: 2,
+                                color: '#fff'
                             }
                         },
                         data: params.series[i]
@@ -640,7 +663,7 @@ const AD_CHART = {
                 },
                 visualMap: {
                     min: 0,
-                    max: 500,
+                    max: params.max || 500,
                     right: 25,
                     bottom: 45,
                     orient: 'horizontal',
@@ -653,12 +676,12 @@ const AD_CHART = {
                         fontSize: 14
                     },
                     inRange: {
-                        color: ['#2e70b8', '#00a6ff', '#02c4bc', '#35d77c', '#9bdb74', '#abdd73']
+                        color: params.color || ['#2e70b8', '#00a6ff', '#02c4bc', '#35d77c', '#9bdb74', '#abdd73']
                     }
                 },
                 series: seriesData
             };
-            mapChart.setOption(options);
+            mapChart.setOption(options, true);
 
             mapChart.on('click', function (param) {
                 if (callback) {
@@ -696,52 +719,11 @@ const AD_CHART = {
         });
     },
     zoomMap: function (params, callback) {
-        const len = 24; // 定义数据长度为24
-        // 制造假数据
-        let getData = (m) => {
-            let getRandomArr = (n, index) => {
-                let arr = [];
-                for (let i = 0; i < n; i++) {
-                    let a = Math.ceil(Math.random() * 100) + 100 + 60 * (5 - index);
-                    arr.push(a);
-                }
-                return arr;
-            };
-            let data = [];
-            for (let i = 0; i < m; i++) {
-                data.push(getRandomArr(len, i));
-            }
-            return data;
-        };
-
-        let getYearMonth = (m) => {
-            let today = new Date();
-            let year = today.getFullYear();
-            let month = today.getMonth() + 1;
-            // 补全月份格式
-            let fn = (num) => {
-                if (num < 10) {
-                    return '0' + num;
-                }
-                return num;
-            };
-            let output = [];
-            for (let i = 0; i < m; i++) {
-                if (month === 0) {
-                    --year;
-                    month = 12;
-                }
-                output.unshift(year + '-' + fn(month));
-                month--;
-            }
-            return output;
-        };
-
         // 拿到数据区处理数据
-        let legend = params.legend || ['四川省', '成都平原经济区', '川东北经济区', '攀西经济区', '川西北经济区', '川南经济区'];
+        let legend = params.legend;
         let color = ['#B6DC74', '#32C889', '#0CBBC6', '#1B76D3', '#00A9FF', '#3459C5'];
-        let data = params.data || getData(legend.length);
-        let xAxis = params.xAxis || getYearMonth(len);
+        let data = params.data;
+        let xAxis = params.xAxis;
 
         let series = data.map((item, index) => {
             return {
@@ -804,9 +786,9 @@ const AD_CHART = {
             },
             legend: {
                 show: params.legendShow,
-                icon: 'rect',
-                itemWidth: 14,
-                itemHeight: 5,
+                icon: 'circle',
+                itemWidth: 10,
+                itemHeight: 10,
                 width: '100%',
                 top: 20,
                 itemGap: 13,

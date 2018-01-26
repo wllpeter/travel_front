@@ -38,7 +38,7 @@ export default class TouristData extends Component {
                     <DevelopmentIndexMap/>
                 </Col>
                 <Col span={6} lg={24} xl={6}>
-                    <RegionMap/>
+                    <RegionMap {...this.state}/>
                 </Col>
             </Row>
             <Row className="mb-20" style={{margin: 0}}>
