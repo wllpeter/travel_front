@@ -80,11 +80,15 @@ export default class RegionMap extends Component {
             legend: ['旅游创新度'],
             series: [seriesData],
             zoom: .8,
-            scaleLimit: [.8, .8],
+            scaleLimit: {
+                min: .8,
+                max: .8
+            },
             color: ['#253F98', '#6AC2EE'],
             left: '10%',
             top: 12,
-            max: max
+            max: max,
+            roam: false
         });
     }
 

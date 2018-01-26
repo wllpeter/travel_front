@@ -2,6 +2,8 @@ import echarts from 'echarts';
 import $ from 'jquery';
 import {colorHex, getDataZoom} from '../utils/tools';
 
+let mapChart = null;
+
 /**
  *  @description 从上到下，依次为柱状图, 雷达图，饼图，线图(折线或面积图),地图(有纵向子级),地图(散点或视觉映射),数据区域缩放,百分比柱状图，多Y轴不同类型混合图, 词云图
  * @type {{barChart: AD_CHART.barChart, radarChart: AD_CHART.radarChart, pieChart: AD_CHART.pieChart, lineChart: AD_CHART.lineChart, mapLevelChart: AD_CHART.mapLevelChart, mapChart: AD_CHART.mapChart, zoomMap: AD_CHART.zoomMap, percentBarChart: AD_CHART.percentBarChart, multiYaxisTypeChart: AD_CHART.multiYaxisTypeChart, wordCloudChart: AD_CHART.wordCloudChart}}
@@ -599,7 +601,12 @@ const AD_CHART = {
         $.get('/static/data/map/' + name + '.json', function (geoJson) {
             echarts.registerMap(name, geoJson);
 
-            let mapChart = echarts.init(document.getElementById(params.chartId));
+            // 已存在的实例解除绑定事件
+            if (mapChart) {
+                mapChart.off();
+            }
+
+            mapChart = echarts.init(document.getElementById(params.chartId));
 
             let seriesData = [];
 
@@ -610,7 +617,7 @@ const AD_CHART = {
                         type: 'map',
                         map: name,
                         mapType: name,
-                        roam: true,
+                        roam: params.roam === undefined ? true : params.roam,
                         zoom: params.zoom || 1.1,
                         scaleLimit: params.scaleLimit || {
                             min: 1,
@@ -674,7 +681,7 @@ const AD_CHART = {
                 },
                 series: seriesData
             };
-            mapChart.setOption(options);
+            mapChart.setOption(options, true);
 
             mapChart.on('click', function (param) {
                 if (callback) {

@@ -1,6 +1,6 @@
 const REGION_MAP = [
     {
-        name: '川西北经济区',
+        name: '川西北生态经济区',
         children: ['甘孜州', '阿坝州']
     },
     {
