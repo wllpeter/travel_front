@@ -5,23 +5,78 @@ import React, {Component} from 'react';
 import PanelCard from '../../commonComponent/PanelCard';
 import Modal from '../../commonComponent/Modal';
 import AD_CHART from '../../../utils/adCharts';
+import {getProvinceChangeData} from '../../../services/MarketMonitor/marketMonitor';
+import {getHeaderOptions} from '../../../utils/tools';
 
 export default class EnterprisesNumber extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible: false
+            visible: false,
+            year: '2017',
+            panelProps: null
         };
     }
 
     componentDidMount() {
-        setTimeout(() => {
-            this.print();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        let times = nextProps.timeRange.provinceChange;
+        this.getHeaderOptions(times);
+    }
+
+    getHeaderOptions(times) {
+        if (!times) {
+            return;
+        }
+        if (this.state.panelProps) {
+            return;
+        }
+        let time = times[0] || {};
+        this.setState({
+            panelProps: getHeaderOptions({
+                data: times,
+                zoomRequired: true,
+                clickBack: (year, month) => {
+                    let panelProps = this.state.panelProps;
+                    panelProps.defaultValue = year + '-';
+                    this.setState({
+                        year: year,
+                        panelProps
+                    }, () => {
+                        this.getProvinceChangeData();
+                    });
+                }
+            }),
+            year: time.year || null
+        }, () => {
+            this.getProvinceChangeData();
         });
     }
 
-    print() {
-        let {visible} = this.state;
+    getProvinceChangeData() {
+        getProvinceChangeData({
+            year: this.state.year
+        }).then(res => {
+            let cunData = [null, null, null, null];
+            let increaseData = [null, null, null, null];
+            res = res.sort((a, b) => {
+                return a.date > b.date;
+            });
+            res.forEach(item => {
+                let index = item.date.split('Q')[1] - 1;
+                cunData[index] = item.cun;
+                increaseData[index] = item.increase;
+            });
+            this.print({cunData, increaseData});
+            if (this.state.visible) {
+                this.print({cunData, increaseData}, true);
+            }
+        });
+    }
+
+    print(params, visible) {
         AD_CHART.barChart({
             chartId: visible ? 'companyBarChart2' : 'companyBarChart',
             barWidth: visible ? 24 : 16,
@@ -33,7 +88,7 @@ export default class EnterprisesNumber extends Component {
             gridBottom: 25,
             gridTop: 80,
             legendSize: visible ? 16 : 12,
-            series: [[233, 322, 100, 200], [323, 323, 320, 330]]
+            series: [params.cunData, params.increaseData]
         });
     }
 
@@ -50,17 +105,17 @@ export default class EnterprisesNumber extends Component {
     }
 
     render() {
-        let {visible} = this.state;
+        let {visible, panelProps} = this.state;
         return <div>
-            <PanelCard title="省内涉旅企业数量变更" className="bg-grey" zoomRequired={true}
-                       enlarge={this.showModal.bind(this)} timeSelectRequired={true}>
+            <PanelCard title="省内涉旅企业数量变更" className="bg-grey" {...panelProps}
+                       enlarge={this.showModal.bind(this)}>
                 <div id="companyBarChart" style={{width: '100%', height: 300}}></div>
             </PanelCard>
             <Modal visible={visible} onOk={() => {
-                this.print.bind(this)();
+                this.getProvinceChangeData();
             }}>
-                <PanelCard title="省内涉旅企业数量变更" className="bg-grey" zoomOutRequired={true}
-                           narrow={this.handleCancel.bind(this)} timeSelectRequired={true}>
+                <PanelCard title="省内涉旅企业数量变更" className="bg-grey" {...panelProps}
+                           narrow={this.handleCancel.bind(this)} zoomOutRequired={true}>
                     <div id="companyBarChart2" style={{width: '100%', height: 460}}></div>
                 </PanelCard>
             </Modal>

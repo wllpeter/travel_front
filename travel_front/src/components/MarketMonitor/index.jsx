@@ -391,7 +391,7 @@ export default class TouristData extends Component {
                     <ActiveRank {...this.state}/>
                 </Col>
                 <Col span={6} lg={12} xl={6}>
-                    <EnterprisesNumber/>
+                    <EnterprisesNumber {...this.state}/>
                 </Col>
                 <Col span={6} lg={12} xl={6}>
                     <InfoMonitor/>

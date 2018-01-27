@@ -5,88 +5,98 @@ import React, {Component} from 'react';
 import PanelCard from '../../commonComponent/PanelCard';
 import Modal from '../../commonComponent/Modal';
 import AD_CHART from '../../../utils/adCharts';
+import {getProvinceIndustryData} from '../../../services/MarketMonitor/marketMonitor';
+import {getHeaderOptions} from '../../../utils/tools';
 
 export default class IndustryComposition extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible: false
+            visible: false,
+            year: null,
+            month: null,
+            panelProps: null
         };
     }
 
     componentDidMount() {
-        this.print();
     }
 
-    print() {
-        let {visible} = this.state;
+    componentWillReceiveProps(nextProps) {
+        let times = nextProps.timeRange.provinceIndustryPart;
+        this.getHeaderOptions(times);
+    }
+
+    getHeaderOptions(times) {
+        if (!times) {
+            return;
+        }
+        if (this.state.panelProps) {
+            return;
+        }
+        let time = times[0] || {};
+        this.setState({
+            panelProps: getHeaderOptions({
+                data: times,
+                zoomRequired: true,
+                clickBack: (year, month) => {
+                    let panelProps = this.state.panelProps;
+                    panelProps.defaultValue = year + '-' + month;
+                    this.setState({
+                        year: year,
+                        month: month,
+                        panelProps
+                    }, () => {
+                        this.getProvinceIndustryData();
+                    });
+                }
+            }),
+            year: time.year || null,
+            month: time.monthOrQuarter || null
+        }, () => {
+            this.getProvinceIndustryData();
+        });
+    }
+
+    getProvinceIndustryData() {
+        getProvinceIndustryData({
+            year: this.state.year,
+            month: this.state.month
+        }).then(res => {
+            let describe = res.describe;
+            let industry = res.industry;
+            let keys = Object.keys(res.describe);
+            let data = [];
+            let legend = [];
+            keys.forEach(key => {
+                let name = describe[key].split('企业')[0];
+                legend.push({
+                    name: name,
+                    icon: 'circle'
+                });
+                data.push({
+                    name: name,
+                    value: industry[key]
+                });
+            });
+            this.print({data, legend});
+            if (this.state.visible) {
+                this.print({data, legend}, true);
+            }
+        });
+    }
+
+    print(params, visible) {
         AD_CHART.pieChart({
             chartId: visible ? 'pieChart2' : 'pieChart',
             borderWidth: visible ? 6 : 8,
             borderColor: '#203a59',
-            legend: [
-                {
-                    name: '旅游出行',
-                    icon: 'circle'
-                },
-                {
-                    name: '旅游住宿',
-                    icon: 'circle'
-                },
-                {
-                    name: '旅游餐饮',
-                    icon: 'circle'
-                },
-                {
-                    name: '旅游浏览',
-                    icon: 'circle'
-                },
-                {
-                    name: '旅游购物',
-                    icon: 'circle'
-                },
-                {
-                    name: '旅游娱乐',
-                    icon: 'circle'
-                },
-                {
-                    name: '旅游综合服务',
-                    icon: 'circle'
-                }],
+            legend: params.legend,
             legendSize: visible ? 16 : 12,
             labelFontSize: visible ? 16 : 12,
             legendTop: '28%',
             legendRight: '6%',
-            data: [
-                {
-                    value: 10,
-                    name: '旅游出行'
-                },
-                {
-                    value: 324,
-                    name: '旅游住宿'
-                },
-                {
-                    value: 438,
-                    name: '旅游餐饮'
-                },
-                {
-                    value: 23,
-                    name: '旅游浏览'
-                },
-                {
-                    value: 99,
-                    name: '旅游购物'
-                },
-                {
-                    value: 39,
-                    name: '旅游娱乐'
-                },
-                {
-                    value: 43,
-                    name: '旅游综合服务'
-                }
-            ]
+            data: params.data
         });
     }
 
@@ -103,17 +113,17 @@ export default class IndustryComposition extends Component {
     }
 
     render() {
-        let {visible} = this.state;
+        let {visible, panelProps} = this.state;
         return <div>
-            <PanelCard title="省内旅游行业构成" className="bg-grey" zoomRequired={true}
-                       enlarge={this.showModal.bind(this)} timeSelectRequired={true}>
+            <PanelCard title="省内旅游行业构成" className="bg-grey" {...panelProps}
+                       enlarge={this.showModal.bind(this)}>
                 <div id="pieChart" style={{width: '100%', height: 300}}></div>
             </PanelCard>
             <Modal visible={visible} onOk={() => {
-                this.print.bind(this)();
+                this.getProvinceIndustryData.bind(this)();
             }}>
-                <PanelCard title="省内旅游行业构成" className="bg-grey" zoomOutRequired={true}
-                           narrow={this.handleCancel.bind(this)} timeSelectRequired={true}>
+                <PanelCard title="省内旅游行业构成" className="bg-grey" {...panelProps}
+                           narrow={this.handleCancel.bind(this)} zoomOutRequired={true}>
                     <div id="pieChart2" style={{width: '100%', height: 460}}></div>
                 </PanelCard>
             </Modal>

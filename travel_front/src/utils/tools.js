@@ -112,7 +112,7 @@ export function getHeaderOptions(options) {
         defaultValue,
         options: (options.data && options.data.length > 0) ? options.data.map((option, index) => {
             return <Option key={index}
-                           value={option.year + '-' + option.monthOrQuarter}>{`${ option.year }年${ option.monthOrQuarter }${ options.isQuarter ? '季度' : '月'}`}</Option>;
+                           value={option.year + '-' + option.monthOrQuarter}>{`${ option.year }年${ option.monthOrQuarter }${ options.isQuarter ? '季度' : option.monthOrQuarter ? '月' : ''}`}</Option>;
         }) : null
     };
 }

@@ -45,3 +45,21 @@ export function gethangYeActiveData (data) {
         data: data
     });
 }
+
+// 省内旅游行业构成
+export function getProvinceIndustryData (data) {
+    return Ajax({
+        url: '/marketTravel/provinceIndustry',
+        type: HttpMethod.GET,
+        data: data
+    });
+}
+
+// 省内涉旅企业数量变更
+export function getProvinceChangeData (data) {
+    return Ajax({
+        url: '/marketTravel/provinceChange',
+        type: HttpMethod.GET,
+        data: data
+    });
+}
