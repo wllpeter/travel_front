@@ -43,7 +43,7 @@ const CITY_SIZE_POSITION = {
     '凉山州': {zoom: 0.004, top: 200, left: '25%'},
     '宜宾市': {top: 50},
     '内江市': {zoom: 0.007, top: -100, left: '20%'},
-    '自贡市': {},
+    '自贡市': {zoom: .9},
     '泸州市': {left: '30%'}
 };
 
