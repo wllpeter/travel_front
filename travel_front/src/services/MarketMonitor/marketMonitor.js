@@ -36,3 +36,12 @@ export function getEconomicAndCityData (data) {
         data: data
     });
 }
+
+// 旅游行业活跃度-某一区域
+export function gethangYeActiveData (data) {
+    return Ajax({
+        url: '/marketTravel/hangYeActive',
+        type: HttpMethod.GET,
+        data: data
+    });
+}
