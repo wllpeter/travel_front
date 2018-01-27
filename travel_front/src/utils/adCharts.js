@@ -599,6 +599,16 @@ const AD_CHART = {
         let name = params.mapTypeName;
 
         $.get('/static/data/map/' + name + '.json', function (geoJson) {
+            if (params.cityName) {
+                let features = [];
+                geoJson.features.forEach(item => {
+                    if (params.cityName === item.properties.name) {
+                        features.push(item);
+                    }
+                });
+                geoJson.features = features;
+            }
+
             echarts.registerMap(name, geoJson);
 
             // 已存在的实例解除绑定事件
@@ -619,10 +629,10 @@ const AD_CHART = {
                         mapType: name,
                         roam: params.roam === undefined ? true : params.roam,
                         zoom: params.zoom || 1.1,
-                        scaleLimit: params.scaleLimit || {
-                            min: 1,
-                            max: 2.5
-                        },
+                        // scaleLimit: params.scaleLimit || {
+                        //     min: 1,
+                        //     max: 2.5
+                        // },
                         left: params.left || '14%',
                         top: params.top || 25,
                         label: {

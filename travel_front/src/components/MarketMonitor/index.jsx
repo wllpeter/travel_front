@@ -9,7 +9,7 @@ import IndustryComposition from './component/IndustryComposition';
 import ActiveRank from './component/ActiveRank';
 import EnterprisesNumber from './component/EnterprisesNumber';
 import InfoMonitor from './component/InfoMonitor';
-import {MAP_SIZE_POSITION} from '../../constants/MarketMonitor/marketMonitor';
+import {MAP_SIZE_POSITION, CITY_SIZE_POSITION} from '../../constants/MarketMonitor/marketMonitor';
 import {
     getMarketMonitorCondition,
     getProvinceAndFiveData,
@@ -170,15 +170,17 @@ export default class TouristData extends Component {
         let max = 0;
         let seriesData = {
             name: name,
-            value: 0
+            value: null
         };
         let chooseCity = null;
         data.forEach(item => {
+            if (~~item.activeDegree > max) {
+                max = item.activeDegree;
+            }
             if (item.city === name) {
                 chooseCity = item;
                 if (item.activeDegree !== undefined) {
                     seriesData.value = item.activeDegree;
-                    max = item.activeDegree;
                 }
             }
         });
@@ -220,7 +222,7 @@ export default class TouristData extends Component {
     }
 
     // 渲染纵深层级地图
-    renderMapLevelChart(mapTypeName, seriesData, max, mapAdress) {
+    renderMapLevelChart(mapTypeName, seriesData, max) {
         AD_CHART.mapLevelChart({
             chartId: 'mapChart',
             mapTypeName: mapTypeName,
@@ -249,8 +251,22 @@ export default class TouristData extends Component {
         }, (params) => {
             let cityParams = this.handleCityData(this.state.regionActiveness.city, params);
             let economicRegion = this.state.economicRegion;
-            let other = MAP_SIZE_POSITION[economicRegion];
-            this.cityMapLevelChart(economicRegion, cityParams.seriesData, cityParams.max, other);
+            let other = CITY_SIZE_POSITION[params];
+            this.thirdLevelChart(economicRegion, cityParams.seriesData, cityParams.max, params, other);
+        });
+    }
+
+    // 第三层级地图
+    thirdLevelChart(economicRegion, seriesData, max, cityName, other) {
+        AD_CHART.mapLevelChart({
+            chartId: 'mapChart',
+            mapTypeName: economicRegion,
+            legend: ['旅游行业活跃度'],
+            series: [seriesData],
+            roam: false,
+            cityName: cityName,
+            max: max,
+            ...other
         });
     }
 
