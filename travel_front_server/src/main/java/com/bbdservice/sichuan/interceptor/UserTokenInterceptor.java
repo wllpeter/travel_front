@@ -73,7 +73,7 @@ public class UserTokenInterceptor implements HandlerInterceptor {
         Cookie tokenCookie = WebUtils.getCookie(request, "token");
         if (loginNameCookie == null || tokenCookie == null || loginNameCookie.getValue() == null || tokenCookie.getValue() == null) {
             request
-                    .getRequestDispatcher(String.format("%s=%s", unAuthUrl, I18nUtils.getMessage("Common.Response.Token.Missing")))
+                    .getRequestDispatcher(String.format("%s=%s", unAuthUrl, I18nUtils.getMessage("Response.Login.Failure")))
                     .forward(request, response);
             return false;
         }
@@ -81,19 +81,19 @@ public class UserTokenInterceptor implements HandlerInterceptor {
 
         if (userToken == null) {
             request
-                    .getRequestDispatcher(String.format("%s=%s", unAuthUrl, I18nUtils.getMessage("Common.Response.Token.UserMissing")))
+                    .getRequestDispatcher(String.format("%s=%s", unAuthUrl, I18nUtils.getMessage("Response.Login.Failure")))
                     .forward(request, response);
             return false;
         }
         if (!tokenCookie.getValue().equals(userToken.getToken())) {
             request
-                    .getRequestDispatcher(String.format("%s=%s", unAuthUrl, I18nUtils.getMessage("Common.Response.Token.Invalid")))
+                    .getRequestDispatcher(String.format("%s=%s", unAuthUrl, I18nUtils.getMessage("Response.Login.Failure")))
                     .forward(request, response);
             return false;
         }
         if (userToken.getExpireDate().before(new Date())) {
             request
-                    .getRequestDispatcher(String.format("%s=%s", unAuthUrl, I18nUtils.getMessage("Common.Response.Token.Expired")))
+                    .getRequestDispatcher(String.format("%s=%s", unAuthUrl, I18nUtils.getMessage("Response.Login.Failure")))
                     .forward(request, response);
             return false;
         }

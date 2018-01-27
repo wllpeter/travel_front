@@ -4,16 +4,21 @@ import com.alibaba.fastjson.JSONObject;
 import com.bbdservice.sichuan.base.Response;
 import com.bbdservice.sichuan.entity.*;
 import com.bbdservice.sichuan.service.*;
+import com.bbdservice.sichuan.utils.HttpUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.*;
 
 /**
@@ -35,6 +40,9 @@ public class MarketTravelController {
     private MarketTravelActiveQuService marketTravelActiveQuService;
     @Autowired
     private MarketTravelActiveCityService marketTravelActiveCityService;
+
+    @Value("${province.internet}")
+    private String url;
 
 
     @GetMapping(value = "/provinceIndustry")
@@ -144,6 +152,18 @@ public class MarketTravelController {
     }
 
 
+    @GetMapping(value="/getInternetMonitor")
+    @ApiOperation(value = "省内涉旅行业网络信息监控")
+    public Response getInternet(@RequestParam(required = false,defaultValue = "1") int page,
+                                @RequestParam(required = false,defaultValue = "100") int size) throws Exception {
+        Object object=null;
+        try {
+            object= HttpUtils.get(MessageFormat.format(url,page,size));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Response.success(object);
+    }
     public static List<JSONObject> putKey( List<String> keyList, List<String> valueList){
         List<JSONObject> result=new ArrayList<>();
         for(int i=0;i<valueList.size();i++){
