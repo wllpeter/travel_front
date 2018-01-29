@@ -75,7 +75,7 @@ export default class HotWord extends Component {
         });
     }
 
-    print(id, data) {
+    print(visible, data) {
         let option = {
             title: {
                 text: ''
@@ -95,7 +95,7 @@ export default class HotWord extends Component {
                 name: '产品评价热词云',
                 type: 'wordCloud',
                 size: ['90%', '90%'],
-                sizeRange: [12, 60],
+                sizeRange: visible ? [24, 100] : [12, 60],
                 rotationRange: [-45, 45],
                 rotationStep: 10,
                 shape: 'circle',
@@ -125,6 +125,8 @@ export default class HotWord extends Component {
 
         option.series[0].data = data;
 
+        let id = visible ? 'hotWord-map2' : 'hotWord-map';
+
         let hotWord = echarts.init(document.getElementById(id));
 
         hotWord.setOption(option);
@@ -144,9 +146,9 @@ export default class HotWord extends Component {
                     value: item.counts
                 };
             });
-            this.print('hotWord-map', data);
+            this.print(false, data);
             if (visible) {
-                this.print('hotWord-map2', data);
+                this.print(true, data);
             }
         });
     }

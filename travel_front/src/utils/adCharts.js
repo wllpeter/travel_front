@@ -40,7 +40,7 @@ const AD_CHART = {
                                 fontStyle: 'normal',
                                 fontWeight: 'normal',
                                 fontFamily: 'sans-serif',
-                                fontSize: 14
+                                fontSize: params.itemSize || 14
                             }
                         }
                     },
@@ -66,7 +66,7 @@ const AD_CHART = {
                     fontStyle: 'normal',
                     fontWeight: 'normal',
                     fontFamily: 'microsoft yahei',
-                    fontSize: '14'
+                    fontSize: params.titleSize || '14'
                 },
                 // left: '30%',
                 right: params.titleRight || 'auto'
@@ -93,8 +93,8 @@ const AD_CHART = {
                 orient: params.legendOrient === undefined ? 'horizontal' : 'vertical',
                 itemGap: params.legendItemGap === undefined ? 20 : params.legendItemGap,
                 top: params.legendTop === undefined ? '5%' : params.legendTop,
-                itemWidth: 8,
-                itemHeight: 8,
+                itemWidth: params.legendWidth || 8,
+                itemHeight: params.legendHeight || 8,
                 textStyle: {
                     color: '#fff',
                     fontStyle: 'normal',
@@ -225,7 +225,7 @@ const AD_CHART = {
                 itemGap: 20,
                 textStyle: {
                     color: 'rgba(255, 255, 255, 0.95)',
-                    fontSize: 14
+                    fontSize: params.legendSize || 14
                 }
             },
             tooltip: {
@@ -273,7 +273,7 @@ const AD_CHART = {
                 name: {
                     textStyle: {
                         color: 'rgba(255, 255, 255, 0.8)',
-                        fontSize: 15
+                        fontSize: params.fontSize || 14
                     }
                 },
                 indicator: params.indicator
@@ -599,6 +599,16 @@ const AD_CHART = {
         let name = params.mapTypeName;
 
         $.get('/static/data/map/' + name + '.json', function (geoJson) {
+            if (params.cityName) {
+                let features = [];
+                geoJson.features.forEach(item => {
+                    if (params.cityName === item.properties.name) {
+                        features.push(item);
+                    }
+                });
+                geoJson.features = features;
+            }
+
             echarts.registerMap(name, geoJson);
 
             // 已存在的实例解除绑定事件
@@ -619,10 +629,10 @@ const AD_CHART = {
                         mapType: name,
                         roam: params.roam === undefined ? true : params.roam,
                         zoom: params.zoom || 1.1,
-                        scaleLimit: params.scaleLimit || {
-                            min: 1,
-                            max: 2.5
-                        },
+                        // scaleLimit: params.scaleLimit || {
+                        //     min: 1,
+                        //     max: 2.5
+                        // },
                         left: params.left || '14%',
                         top: params.top || 25,
                         label: {
@@ -1183,7 +1193,7 @@ const AD_CHART = {
                     name: (params.legend && params.legend.length > 0) ? params.legend[i] : '',
                     type: 'wordCloud',
                     size: ['90%', '90%'],
-                    sizeRange: [12, 120],
+                    sizeRange: params.sizeRange || [12, 120],
                     rotationRange: [-45, 45],
                     rotationStep: 10,
                     shape: 'circle',

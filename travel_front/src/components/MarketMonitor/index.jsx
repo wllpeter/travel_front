@@ -9,20 +9,25 @@ import IndustryComposition from './component/IndustryComposition';
 import ActiveRank from './component/ActiveRank';
 import EnterprisesNumber from './component/EnterprisesNumber';
 import InfoMonitor from './component/InfoMonitor';
-import {MAP_SIZE_POSITION} from '../../constants/MarketMonitor/marketMonitor';
+import {MAP_SIZE_POSITION, CITY_SIZE_POSITION} from '../../constants/MarketMonitor/marketMonitor';
 import {
     getMarketMonitorCondition,
     getProvinceAndFiveData,
-    getEconomicAndCityData
+    getEconomicAndCityData,
+    gethangYeActiveData
 } from '../../services/MarketMonitor/marketMonitor';
 import 'antd/lib/grid/style';
 import './style.scss';
+import {getHeaderOptions} from '../../utils/tools';
 
 export default class TouristData extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            year: null,
+            month: null,
+            panelProps: null,
             industryActiveness: {},
             regionActiveness: {},
             economicRegion: null,
@@ -44,10 +49,40 @@ export default class TouristData extends Component {
     componentDidMount() {
         getMarketMonitorCondition().then(res => {
             this.setState({timeRange: res});
+            this.getHeaderOptions(res.travelIndustryActive);
         });
+    }
 
-        this.getProvinceAndFiveData();
+    getHeaderOptions(times) {
+        if (!times) {
+            return;
+        }
+        let time = times[0] || {};
+        this.setState({
+            panelProps: getHeaderOptions({
+                data: times,
+                clickBack: (year, month) => {
+                    let panelProps = this.state.panelProps;
+                    panelProps.defaultValue = year + '-' + month;
+                    this.setState({
+                        year: year,
+                        month: month,
+                        panelProps
+                    }, () => {
+                        this.getProvinceAndFiveData();
+                        this.gethangYeActiveData();
+                    });
+                }
+            }),
+            year: time.year || null,
+            month: time.monthOrQuarter || null
+        }, () => {
+            this.getProvinceAndFiveData();
+            this.gethangYeActiveData();
+        });
+    }
 
+    print(params) {
         AD_CHART.barChart({
             chartId: 'industryBarChart',
             barWidth: '14',
@@ -55,21 +90,40 @@ export default class TouristData extends Component {
             xAxisLineShow: false,
             yAxisLineShow: false,
             xAxisLabelShow: false,
-            yAxisData: ['投资总额'.padEnd(22, ' '), '投资次数'.padEnd(22, ' '), '迁移申请次数'.padEnd(18, ' '), '搜索新闻结果数'.padEnd(16, ' '), '分支机构开设数量'.padEnd(14, ' '), '企业变更备案类别数'.padEnd(12, ' '), '企业变更备案次数'.padEnd(14, ' '), '经营状态指标'.padEnd(18, ' ')],
+            yAxisData: params.yAxisData,
             legend: ['行业活跃度指标详情'],
             legendShow: false,
             gridBottom: 0,
             gridRight: 50,
             seriesLabelShow: true,
-            series: [[95.32, 85.32, 95.23, 57.32, 95.32, 85.32, 95.23, 57.32]]
+            series: [params.series]
+        });
+    }
+
+    // 获取行业活跃度详情信息
+    gethangYeActiveData() {
+        gethangYeActiveData({
+            year: this.state.year,
+            month: this.state.month
+        }).then(res => {
+            let describe = res.describe || {},
+                industry = res.industry || {},
+                yAxisData = [],
+                series = [],
+                keys = Object.keys(res.describe);
+            keys.forEach(key => {
+                yAxisData.push(describe[key]);
+                series.push(industry[key]);
+            });
+            this.print({yAxisData, series});
         });
     }
 
     // 获取四川省区域活跃度数据
     getProvinceAndFiveData() {
         getProvinceAndFiveData({
-            year: '2018',
-            month: '01'
+            year: this.state.year,
+            month: this.state.month
         }).then(res => {
             this.setState({industryActiveness: res}, () => {
                 this.printProvinceMap();
@@ -80,8 +134,8 @@ export default class TouristData extends Component {
     // 获取区域活跃度数据
     getEconomicAndCityData() {
         getEconomicAndCityData({
-            year: '2018',
-            month: '01',
+            year: this.state.year,
+            month: this.state.month,
             area: this.state.economicRegion
         }).then(res => {
             this.setState({regionActiveness: res}, () => {
@@ -116,15 +170,17 @@ export default class TouristData extends Component {
         let max = 0;
         let seriesData = {
             name: name,
-            value: 0
+            value: null
         };
         let chooseCity = null;
         data.forEach(item => {
+            if (~~item.activeDegree > max) {
+                max = item.activeDegree;
+            }
             if (item.city === name) {
                 chooseCity = item;
                 if (item.activeDegree !== undefined) {
                     seriesData.value = item.activeDegree;
-                    max = item.activeDegree;
                 }
             }
         });
@@ -173,6 +229,7 @@ export default class TouristData extends Component {
             legend: ['旅游行业活跃度'],
             series: [seriesData],
             roam: false,
+
             scaleLimit: {
                 min: 1.1,
                 max: 1.1
@@ -194,13 +251,27 @@ export default class TouristData extends Component {
         }, (params) => {
             let cityParams = this.handleCityData(this.state.regionActiveness.city, params);
             let economicRegion = this.state.economicRegion;
-            let other = MAP_SIZE_POSITION[economicRegion];
-            this.cityMapLevelChart(this.state.economicRegion, cityParams.seriesData, cityParams.max, other);
+            let other = CITY_SIZE_POSITION[params];
+            this.thirdLevelChart(economicRegion, cityParams.seriesData, cityParams.max, params, other);
+        });
+    }
+
+    // 第三层级地图
+    thirdLevelChart(economicRegion, seriesData, max, cityName, other) {
+        AD_CHART.mapLevelChart({
+            chartId: 'mapChart',
+            mapTypeName: economicRegion,
+            legend: ['旅游行业活跃度'],
+            series: [seriesData],
+            roam: false,
+            cityName: cityName,
+            max: max,
+            ...other
         });
     }
 
     render() {
-        let {economicRegion, city, activeDetail} = this.state;
+        let {economicRegion, city, activeDetail, panelProps} = this.state;
         let per = (num) => {
             if (num === undefined) {
                 return '-';
@@ -210,7 +281,7 @@ export default class TouristData extends Component {
         return <div className="market-monitor">
             <Row className="mb-20">
                 <Col span={24}>
-                    <PanelCard title="旅游行业活跃度" zoomRequired={false}>
+                    <PanelCard className="market-monitor-maps" title="旅游行业活跃度" {...panelProps}>
                         <Row>
                             <Col span={12} className="br-line" lg={24} xl={12}>
                                 <div className="map-box">
@@ -247,7 +318,7 @@ export default class TouristData extends Component {
                                     </ul>
                                 </PanelCard>
                                 {/* 分隔线 */}
-                                <div className="separate-line"></div>
+                                <div className="separate-line"/>
                                 <PanelCard title="分行业活跃度" timeSelectRequired={false} zoomRequired={false}
                                            className="custom-style">
                                     <table className="mt-table mt-table-noborder col-1-al">
@@ -320,7 +391,7 @@ export default class TouristData extends Component {
                     <ActiveRank {...this.state}/>
                 </Col>
                 <Col span={6} lg={12} xl={6}>
-                    <EnterprisesNumber/>
+                    <EnterprisesNumber {...this.state}/>
                 </Col>
                 <Col span={6} lg={12} xl={6}>
                     <InfoMonitor/>

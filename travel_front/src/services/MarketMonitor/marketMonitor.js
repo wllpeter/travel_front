@@ -36,3 +36,30 @@ export function getEconomicAndCityData (data) {
         data: data
     });
 }
+
+// 旅游行业活跃度-某一区域
+export function gethangYeActiveData (data) {
+    return Ajax({
+        url: '/marketTravel/hangYeActive',
+        type: HttpMethod.GET,
+        data: data
+    });
+}
+
+// 省内旅游行业构成
+export function getProvinceIndustryData (data) {
+    return Ajax({
+        url: '/marketTravel/provinceIndustry',
+        type: HttpMethod.GET,
+        data: data
+    });
+}
+
+// 省内涉旅企业数量变更
+export function getProvinceChangeData (data) {
+    return Ajax({
+        url: '/marketTravel/provinceChange',
+        type: HttpMethod.GET,
+        data: data
+    });
+}

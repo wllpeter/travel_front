@@ -7,7 +7,7 @@ import PanelCard from '../../commonComponent/PanelCard';
 import {getSupplyConsume} from '../../../services/ProductMonitor/ProductData';
 import ToggleButtonGroup from '../../commonComponent/ToggleButtonGroup';
 import {getDataZoom, dateFormat} from '../../../utils/tools';
-import {CONSUMPTION, PRODUCT_CLASSIFY} from '../../../constants/productMonitor/switchButton';
+import {CONSUMPTION} from '../../../constants/productMonitor/switchButton';
 
 export default class Consumption extends Component {
     constructor(props) {
@@ -24,7 +24,7 @@ export default class Consumption extends Component {
         let productType = nextProps.productType;
         if (this.state.productType !== productType) {
             this.resetButtonState();
-            let buttons = PRODUCT_CLASSIFY[productType];
+            let buttons = CONSUMPTION[productType];
             this.setState({
                 buttons: buttons,
                 dataType: buttons[0] ? buttons[0].dataType : 1,

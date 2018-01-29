@@ -117,7 +117,7 @@ export default {
         new webpack.LoaderOptionsPlugin({
             miniminze: true,
             options: {
-                postcss: function() {
+                postcss: function () {
                     return [precss, autoprefixer];
                 }
             }
@@ -127,4 +127,4 @@ export default {
         })
     ]
 
-}
+};

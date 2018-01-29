@@ -1,4 +1,4 @@
-import { HttpMethod } from '../../constants/common';
+import {HttpMethod} from '../../constants/common';
 import Ajax from '../../utils/Ajax';
 
 /**
@@ -28,7 +28,7 @@ export function getCountyData([year, quarter, type]) {
         type: HttpMethod.GET,
         cache: true,
         data: null
-    })
+    });
 }
 
 /**
@@ -37,12 +37,12 @@ export function getCountyData([year, quarter, type]) {
  * @param quarter  季度
  * @returns {Object}
  */
-export function getZoneCustomerTimes([year, quarter]) {
+export function getZoneCustomerTimes(params) {
     return Ajax({
-        url: `/customer_data/zone_customer_times/${year}/${quarter}`,
+        url: `/customer_data/zone_customer_times/${params.year}/${params.quarter}`,
         type: HttpMethod.GET,
         data: null
-    })
+    });
 }
 
 /**
@@ -51,9 +51,9 @@ export function getZoneCustomerTimes([year, quarter]) {
  * @param quarter 季度
  * @returns {Object}
  */
-export function getZoneTouristResidentTime([year, quarter]) {
+export function getZoneTouristResidentTime(params) {
     return Ajax({
-        url: `/customer_data/zone_tourists_residence_time/${year}/${quarter}`,
+        url: `/customer_data/zone_tourists_residence_time/${params.year}/${params.quarter}`,
         type: HttpMethod.GET,
         data: null
     });
@@ -65,9 +65,9 @@ export function getZoneTouristResidentTime([year, quarter]) {
  * @param quarter 季度
  * @returns {Object}
  */
-export function getZoneTouristResourceRank([year, quarter]) {
+export function getZoneTouristResourceRank(params) {
     return Ajax({
-        url: `/customer_data/zone_tourists_resource_rank/${year}/${quarter}`,
+        url: `/customer_data/zone_tourists_resource_rank/${params.year}/${params.quarter}`,
         type: HttpMethod.GET,
         data: null
     });
@@ -79,9 +79,9 @@ export function getZoneTouristResourceRank([year, quarter]) {
  * @param quarter 季度
  * @returns {Object}
  */
-export function getZoneTouristTrafficType([year, quarter]) {
+export function getZoneTouristTrafficType(params) {
     return Ajax({
-        url: `/customer_data/zone_tourists_traffic_type/${year}/${quarter}`,
+        url: `/customer_data/zone_tourists_traffic_type/${params.year}/${params.quarter}`,
         type: HttpMethod.GET,
         data: null
     });
