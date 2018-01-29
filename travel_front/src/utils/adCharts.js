@@ -1193,7 +1193,7 @@ const AD_CHART = {
                     name: (params.legend && params.legend.length > 0) ? params.legend[i] : '',
                     type: 'wordCloud',
                     size: ['90%', '90%'],
-                    sizeRange: [12, 120],
+                    sizeRange: params.sizeRange || [12, 120],
                     rotationRange: [-45, 45],
                     rotationStep: 10,
                     shape: 'circle',

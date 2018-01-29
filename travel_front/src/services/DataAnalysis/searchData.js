@@ -47,9 +47,9 @@ export function getProvinceSearchTrend([year]) {
  * @param quarter 季度
  * @returns {Object}
  */
-export function getHotword([year, quarter]) {
+export function getHotword(params) {
     return Ajax({
-        url: `/search_big_data/hot_word/${year}/${quarter}`,
+        url: `/search_big_data/hot_word/${params.year}/${params.quarter}`,
         type: HttpMethod.GET,
         data: null
     });

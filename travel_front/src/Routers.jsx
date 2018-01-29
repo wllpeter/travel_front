@@ -17,7 +17,7 @@ import TouristData from './components/DataAnalysis/TouristData/TouristData';
 // 消费大数据(旅游大数据分析)
 import ConsumptionData from './components/DataAnalysis/ConsumptionData/ConsumptionData';
 // 搜索大数据(旅游大数据分析)
-import SearchData from './components/DataAnalysis/SearchData';
+import SearchData from './components/DataAnalysis/SearchData/SearchData';
 // 旅游大数据报告
 import DataReport from './components/DataReport';
 
