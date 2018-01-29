@@ -79,9 +79,9 @@ export function getZoneTouristResourceRank(params) {
  * @param quarter 季度
  * @returns {Object}
  */
-export function getZoneTouristTrafficType([year, quarter]) {
+export function getZoneTouristTrafficType(params) {
     return Ajax({
-        url: `/customer_data/zone_tourists_traffic_type/${year}/${quarter}`,
+        url: `/customer_data/zone_tourists_traffic_type/${params.year}/${params.quarter}`,
         type: HttpMethod.GET,
         data: null
     });

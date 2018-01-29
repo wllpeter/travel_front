@@ -11,10 +11,9 @@ import femaleIcon from '../../../assets/images/female.png';
 import {
     getTouristDataOptions,
     getProvinceCustomerData,
-    getCountyData,
-    getZoneTouristTrafficType
+    getCountyData
 } from '../../../services/DataAnalysis/touristData';
-import {Map, List} from 'immutable';
+import {Map} from 'immutable';
 import {getHeaderOptions} from '../../../utils/util';
 import ToggleButtonGroup from '../../commonComponent/ToggleButtonGroup';
 import {getDataZoom} from '../../../utils/tools';
@@ -22,6 +21,7 @@ import {Select} from 'mtui/index';
 import FiveEconomicZone from './component/FiveEconomicZone';
 import TouristStay from './component/TouristStay';
 import TouristSource from './component/TouristSource';
+import TrafficType from './component/TrafficType';
 import '../style.scss';
 
 const Option = Select.Option;
@@ -44,20 +44,12 @@ export default class TouristData extends Component {
                 },   // 消费潜力
                 tripTime: []                // 乡村游时长
             }),
-            fiveZonePeopleNumData: List(),   // 五大经济区客游人次
-            touristDelayTimeData: List(),   // 游客停留时长
-            touristTrafficTypes: List(),    // 游客交通方式
             villageActive: 'jieDai-2',    // 默认激活的为接待按钮，值为2
             optionsData: {
                 chuXing: null,          // 乡村游客分析-出行
                 jieDai: null,           // 乡村游客分析-接待
-                sex: null,              // 四川省游客性别分布
-                stayTime: null,         // 游客停留时长
-                touristRank: null,      // 五大经济区游客来源排名
-                touristTimes: null,     // 五大经济区客游人次
-                trafficType: null       // 游客交通方式
+                sex: null               // 四川省游客性别分布
             },
-            peopleSourceRank: [],                    // 五大经济区游客来源排名
             flowAnalysis: Map({
                 province: [],                          // 省游客流量分析
                 country: []                            // 乡村游客流量分析
@@ -67,8 +59,6 @@ export default class TouristData extends Component {
                 data: []
             }                       // 乡村游出游人次
         };
-
-        this.trafficTypeSort = ['其他', '火车', '高铁', '飞机'];
     }
 
     /**
@@ -225,30 +215,6 @@ export default class TouristData extends Component {
 
     }
 
-    /**
-     * @description 游客交通方式
-     */
-    renderTouristTrafficTypesData() {
-        // 游客交通方式
-        adCharts.barChart({
-            chartId: 'touristTrafficWayBarChart',
-            legend: this.trafficTypeSort,
-            yAxisData: ['川西北生态经济区', '攀西经济区'.padEnd(14, ' '), '川东北经济区'.padEnd(12, ' '), '川南经济区'.padEnd(14, ' '), '成都平原经济区'.padEnd(10, ' ')],
-            barWidth: 14,
-            colors: ['#00a9ff', '#0dbbc7', '#32c889', '#b6dd74'],
-            legendIcon: 'circle',
-            legendRight: '10%',
-            legendTop: '20',
-            legendItemGap: 10,
-            gridTop: 45,
-            xAxisLineShow: false,
-            yAxisLineShow: false,
-            row: true,
-            stack: true,
-            series: this.state.touristTrafficTypes.toArray()
-        });
-    }
-
     componentDidMount() {
         // 1. 获取客情大数据的时间选项组
         getTouristDataOptions().then(data => {
@@ -258,7 +224,6 @@ export default class TouristData extends Component {
                 // 初始化默认数据
                 this.fetchProvinceCustomerData([data.sex[0].year, data.sex[0].monthOrQuarter]);
                 this.fetchCountyData([data.jieDai[0].year, data.jieDai[0].monthOrQuarter]);
-                this.fetchFiveZoneTrafficType([data.trafficType[0].year, data.trafficType[0].monthOrQuarter]);
             });
         });
     }
@@ -456,36 +421,6 @@ export default class TouristData extends Component {
     };
 
     /**
-     * @description 获取五大经济区游客交通方式
-     * @param params
-     */
-    fetchFiveZoneTrafficType = (params) => {
-        getZoneTouristTrafficType(params).then(resultData => {
-
-            let trafficTypeSort = this.trafficTypeSort.slice();
-            let trafficTypes = [];
-
-            if (trafficTypeSort && trafficTypeSort.length) {
-                while (trafficTypeSort && trafficTypeSort.length) {
-                    for (let itemValue of Object.values(resultData)) {
-                        let {data, traffic_type} = itemValue;
-                        if (traffic_type === trafficTypeSort[0]) {
-                            trafficTypes.push(data.map(item => Number((item.personTime / 10000).toFixed(2))));
-                            trafficTypeSort.shift();
-                            break;
-                        }
-                    }
-                }
-                this.setState(({touristTrafficTypes}) => ({
-                    touristTrafficTypes: List(trafficTypes)
-                }), () => {
-                    this.renderTouristTrafficTypesData();
-                });
-            }
-        });
-    };
-
-    /**
      * @description 获取PanelCard头部选项
      * @param options 各种选项
      * @param getDataFunc 获取数据的回调
@@ -663,10 +598,7 @@ export default class TouristData extends Component {
                     <TouristSource timeRange={optionsData}/>
                 </Col>
                 <Col span={6} lg={12} xl={6}>
-                    <PanelCard title="游客交通方式"
-                               className="bg-grey" {...this.getHeaderOptions([true, true, 'trafficType', true], this.fetchFiveZoneTrafficType)}>
-                        <div id="touristTrafficWayBarChart" style={{width: '100%', height: 300}}></div>
-                    </PanelCard>
+                    <TrafficType timeRange={optionsData}/>
                 </Col>
             </Row>
         </div>;
