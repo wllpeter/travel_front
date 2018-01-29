@@ -12,7 +12,6 @@ import {
     getTouristDataOptions,
     getProvinceCustomerData,
     getCountyData,
-    getZoneCustomerTimes,
     getZoneTouristResidentTime,
     getZoneTouristResourceRank,
     getZoneTouristTrafficType
@@ -23,6 +22,7 @@ import ToggleButtonGroup from '../../commonComponent/ToggleButtonGroup';
 import {getDataZoom} from '../../../utils/tools';
 import {Select} from 'mtui/index';
 import FiveEconomicZone from './component/FiveEconomicZone';
+import TouristStay from './component/TouristStay';
 import '../style.scss';
 
 const Option = Select.Option;
@@ -228,33 +228,6 @@ export default class TouristData extends Component {
     }
 
     /**
-     * @description 游客停留时长
-     */
-    renderTouristDelayTimeData() {
-
-        const {touristDelayTimeData} = this.state;
-
-        // 游客停留时长
-        adCharts.barChart({
-            chartId: 'touristStayBarChart',
-            legend: ['0-12', '13-24', '25-48', '49-72', '73-96', '97-120', '121-144', '145-360', '360+'],
-            yAxisData: ['川西北生态经济区', '攀西经济区'.padEnd(14, ' '), '川东北经济区'.padEnd(12, ' '), '川南经济区'.padEnd(14, ' '), '成都平原经济区'.padEnd(10, ' ')],
-            barWidth: 14,
-            colors: ['#00a9ff', '#32c889', '#ddcf73', '#1b75d3', '#3559c5', '#5334c5', '#0dbbc7', '#b6dd74', '#9e35c5'],
-            legendIcon: 'circle',
-            legendRight: '10%',
-            legendTop: '10',
-            legendItemGap: 10,
-            gridTop: 45,
-            xAxisLineShow: false,
-            yAxisLineShow: false,
-            row: true,
-            stack: true,
-            series: touristDelayTimeData.toArray()
-        });
-    }
-
-    /**
      * @description 游客交通方式
      */
     renderTouristTrafficTypesData() {
@@ -287,7 +260,6 @@ export default class TouristData extends Component {
                 // 初始化默认数据
                 this.fetchProvinceCustomerData([data.sex[0].year, data.sex[0].monthOrQuarter]);
                 this.fetchCountyData([data.jieDai[0].year, data.jieDai[0].monthOrQuarter]);
-                this.fetchTouristDelayTime([data.stayTime[0].year, data.stayTime[0].monthOrQuarter]);
                 this.fetchFiveZoneTouristRank([data.touristRank[0].year, data.touristRank[0].monthOrQuarter]);
                 this.fetchFiveZoneTrafficType([data.trafficType[0].year, data.trafficType[0].monthOrQuarter]);
             });
@@ -487,28 +459,6 @@ export default class TouristData extends Component {
     };
 
     /**
-     * @description 获取五大经济区游客停留时长
-     * @param params
-     */
-    fetchTouristDelayTime = (params) => {
-        getZoneTouristResidentTime(params).then(resultData => {
-            if (resultData) {
-                let delayTime = [];
-
-                for (let value of Object.values(resultData)) {
-                    delayTime.push(value.data.map(item => item.personCountView));
-                }
-
-                this.setState(({touristDelayTimeData}) => ({
-                    touristDelayTimeData: List(delayTime)
-                }), () => {
-                    this.renderTouristDelayTimeData();
-                });
-            }
-        });
-    };
-
-    /**
      * @description 获取五大经济区游客来源排名
      * @param params
      */
@@ -586,7 +536,7 @@ export default class TouristData extends Component {
 
     render() {
 
-        const {provinceTouristData, peopleSourceRank, economicZoneSelected, flowAnalysis, selectedFlowAnalysisIndex, selectedCountryFlowAnalysisIndex} = this.state;
+        const {provinceTouristData, peopleSourceRank, economicZoneSelected, flowAnalysis, selectedFlowAnalysisIndex, selectedCountryFlowAnalysisIndex, optionsData} = this.state;
         const {genderData} = provinceTouristData.toObject();
 
         const provinceFlowAnalysis = flowAnalysis.get('province');
@@ -744,13 +694,10 @@ export default class TouristData extends Component {
 
             <Row gutter={2}>
                 <Col span={6} lg={12} xl={6}>
-                    <FiveEconomicZone timeRange={this.state.optionsData}/>
+                    <FiveEconomicZone timeRange={optionsData}/>
                 </Col>
                 <Col span={6} lg={12} xl={6}>
-                    <PanelCard title="游客停留时长"
-                               className="bg-grey" {...this.getHeaderOptions([true, true, 'stayTime', true], this.fetchTouristDelayTime)}>
-                        <div id="touristStayBarChart" style={{width: '100%', height: 300}}></div>
-                    </PanelCard>
+                    <TouristStay timeRange={optionsData}/>
                 </Col>
                 <Col span={6} lg={12} xl={6}>
                     <PanelCard title="五大经济区游客来源排名"

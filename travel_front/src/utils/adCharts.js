@@ -93,8 +93,8 @@ const AD_CHART = {
                 orient: params.legendOrient === undefined ? 'horizontal' : 'vertical',
                 itemGap: params.legendItemGap === undefined ? 20 : params.legendItemGap,
                 top: params.legendTop === undefined ? '5%' : params.legendTop,
-                itemWidth: 8,
-                itemHeight: 8,
+                itemWidth: params.legendWidth || 8,
+                itemHeight: params.legendHeight || 8,
                 textStyle: {
                     color: '#fff',
                     fontStyle: 'normal',
