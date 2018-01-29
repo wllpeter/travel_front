@@ -40,7 +40,7 @@ const AD_CHART = {
                                 fontStyle: 'normal',
                                 fontWeight: 'normal',
                                 fontFamily: 'sans-serif',
-                                fontSize: 14
+                                fontSize: params.itemSize || 14
                             }
                         }
                     },
@@ -66,7 +66,7 @@ const AD_CHART = {
                     fontStyle: 'normal',
                     fontWeight: 'normal',
                     fontFamily: 'microsoft yahei',
-                    fontSize: '14'
+                    fontSize: params.titleSize || '14'
                 },
                 // left: '30%',
                 right: params.titleRight || 'auto'

@@ -37,9 +37,9 @@ export function getCountyData([year, quarter, type]) {
  * @param quarter  季度
  * @returns {Object}
  */
-export function getZoneCustomerTimes([year, quarter]) {
+export function getZoneCustomerTimes(params) {
     return Ajax({
-        url: `/customer_data/zone_customer_times/${year}/${quarter}`,
+        url: `/customer_data/zone_customer_times/${params.year}/${params.quarter}`,
         type: HttpMethod.GET,
         data: null
     })
