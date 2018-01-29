@@ -12,8 +12,6 @@ import {
     getTouristDataOptions,
     getProvinceCustomerData,
     getCountyData,
-    getZoneTouristResidentTime,
-    getZoneTouristResourceRank,
     getZoneTouristTrafficType
 } from '../../../services/DataAnalysis/touristData';
 import {Map, List} from 'immutable';
@@ -23,6 +21,7 @@ import {getDataZoom} from '../../../utils/tools';
 import {Select} from 'mtui/index';
 import FiveEconomicZone from './component/FiveEconomicZone';
 import TouristStay from './component/TouristStay';
+import TouristSource from './component/TouristSource';
 import '../style.scss';
 
 const Option = Select.Option;
@@ -58,7 +57,6 @@ export default class TouristData extends Component {
                 touristTimes: null,     // 五大经济区客游人次
                 trafficType: null       // 游客交通方式
             },
-            economicZoneSelected: 'CHENG_DU',        // 默认选择的是成都平原经济区
             peopleSourceRank: [],                    // 五大经济区游客来源排名
             flowAnalysis: Map({
                 province: [],                          // 省游客流量分析
@@ -260,7 +258,6 @@ export default class TouristData extends Component {
                 // 初始化默认数据
                 this.fetchProvinceCustomerData([data.sex[0].year, data.sex[0].monthOrQuarter]);
                 this.fetchCountyData([data.jieDai[0].year, data.jieDai[0].monthOrQuarter]);
-                this.fetchFiveZoneTouristRank([data.touristRank[0].year, data.touristRank[0].monthOrQuarter]);
                 this.fetchFiveZoneTrafficType([data.trafficType[0].year, data.trafficType[0].monthOrQuarter]);
             });
         });
@@ -459,20 +456,6 @@ export default class TouristData extends Component {
     };
 
     /**
-     * @description 获取五大经济区游客来源排名
-     * @param params
-     */
-    fetchFiveZoneTouristRank = (params) => {
-        getZoneTouristResourceRank(params).then(data => {
-            if (data) {
-                this.setState({
-                    peopleSourceRank: data
-                });
-            }
-        });
-    };
-
-    /**
      * @description 获取五大经济区游客交通方式
      * @param params
      */
@@ -536,7 +519,7 @@ export default class TouristData extends Component {
 
     render() {
 
-        const {provinceTouristData, peopleSourceRank, economicZoneSelected, flowAnalysis, selectedFlowAnalysisIndex, selectedCountryFlowAnalysisIndex, optionsData} = this.state;
+        const {provinceTouristData, flowAnalysis, selectedFlowAnalysisIndex, selectedCountryFlowAnalysisIndex, optionsData} = this.state;
         const {genderData} = provinceTouristData.toObject();
 
         const provinceFlowAnalysis = flowAnalysis.get('province');
@@ -564,29 +547,6 @@ export default class TouristData extends Component {
                 }
             ]
         };
-
-        const economicZone = [
-            {
-                name: '成都平原经济区',
-                value: 'CHENG_DU'
-            },
-            {
-                name: '川南经济区',
-                value: 'CHUAN_NAN'
-            },
-            {
-                name: '川东北经济区',
-                value: 'CHUAN_DONG'
-            },
-            {
-                name: '攀西经济区',
-                value: 'PAN_XI'
-            },
-            {
-                name: '川西北生态经济区',
-                value: 'CHUAN_XI'
-            }
-        ];
 
         return <div className="tourist-data">
             <Row>
@@ -700,40 +660,7 @@ export default class TouristData extends Component {
                     <TouristStay timeRange={optionsData}/>
                 </Col>
                 <Col span={6} lg={12} xl={6}>
-                    <PanelCard title="五大经济区游客来源排名"
-                               className="bg-grey" {...this.getHeaderOptions([true, true, 'touristRank', true], this.fetchFiveZoneTouristRank)}>
-                        <Select trigger="click" className="economic-zone" value={this.state.economicZoneSelected}
-                                onChange={(e) => {
-                                    this.setState({economicZoneSelected: e.target.value});
-                                }}>
-                            {
-                                (economicZone && economicZone.length > 0) && economicZone.map((zone, index) => {
-                                    return <Option value={zone.value} key={index}>{zone.name}</Option>;
-                                })
-                            }
-                        </Select>
-                        <table className="mt-table mt-table-noborder col-1-al" style={{height: 280}}>
-                            <thead>
-                            <tr>
-                                <th className="pl-12">排名</th>
-                                <th>省份</th>
-                                <th>游客量(万)</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {
-                                (peopleSourceRank[economicZoneSelected] && peopleSourceRank[economicZoneSelected].data.length > 0) &&
-                                peopleSourceRank[economicZoneSelected].data.map((rank, index) => {
-                                    return <tr key={index}>
-                                        <td>{'0' + (index + 1)}</td>
-                                        <td>{rank.resourceProvince || '--'}</td>
-                                        <td>{rank.personCountView || '--'}</td>
-                                    </tr>;
-                                })
-                            }
-                            </tbody>
-                        </table>
-                    </PanelCard>
+                    <TouristSource timeRange={optionsData}/>
                 </Col>
                 <Col span={6} lg={12} xl={6}>
                     <PanelCard title="游客交通方式"
