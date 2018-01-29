@@ -124,7 +124,7 @@ export default class ConsumptionTrade extends Component {
                     this.getTravelConsumeAnalyse();
                 });
             },
-            activeIndex: this.state.activeIndex,
+            activeIndex,
             buttons: [
                 {
                     buttonName: '餐饮'
