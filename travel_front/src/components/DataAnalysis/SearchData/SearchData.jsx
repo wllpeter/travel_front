@@ -9,12 +9,12 @@ import {
     getConsumptionDataOptions,
     getProvinceHotSearch,
     getProvinceSearchTrend,
-    getSearchPreferenceArea,
     getSearchPersonAge
 } from '../../../services/DataAnalysis/searchData';
 import {getHeaderOptions} from '../../../utils/util';
 import HotWord from './component/HotWord';
 import SearchPeopleSource from './component/SearchPeopleSource';
+import SearchScenic from './component/SearchScenic';
 import 'antd/lib/grid/style';
 
 export default class TouristData extends Component {
@@ -115,7 +115,6 @@ export default class TouristData extends Component {
                 optionsData: data
             }, () => {
                 this.fetchProvinceHotSearch([data.month[0].year, data.month[0].monthOrQuarter]);
-                this.fetchSearchPreferenceArea([data.month[0].year, data.month[0].monthOrQuarter]);
                 this.fetchSearchPersonAge([data.month[0].year, data.month[0].monthOrQuarter]);
                 this.fetchProvinceSearchTrend([new Date().getFullYear() - 1]);
             });
@@ -177,17 +176,6 @@ export default class TouristData extends Component {
         });
     }
 
-    // 获取景点偏好地
-    fetchSearchPreferenceArea(params) {
-        getSearchPreferenceArea(params).then(data => {
-            if (data && data.length) {
-                this.setState({
-                    preferenceArea: data
-                });
-            }
-        });
-    }
-
     // 搜索人群年龄分布
     fetchSearchPersonAge(params) {
         getSearchPersonAge(params).then(data => {
@@ -226,7 +214,7 @@ export default class TouristData extends Component {
 
     render() {
 
-        const {preferenceArea, optionsData} = this.state;
+        const {optionsData} = this.state;
 
         return <div className="tourist-data">
             <Row>
@@ -251,29 +239,7 @@ export default class TouristData extends Component {
                     <SearchPeopleSource timeRange={optionsData}/>
                 </Col>
                 <Col span={6} lg={12} xl={6}>
-                    <PanelCard title="搜索景点偏好地"
-                               className="bg-grey" {...this.getHeaderOptions([true, true, 'month'], this.fetchSearchPreferenceArea.bind(this))}>
-                        <table className="mt-table mt-table-noborder w-95 mb-34">
-                            <thead>
-                            <tr>
-                                <th>排名</th>
-                                <th>景区</th>
-                                <th>占比</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {
-                                (preferenceArea && preferenceArea.length > 0) && preferenceArea.map((area, index) => {
-                                    return <tr key={index}>
-                                        <td>{'0' + (index + 1)}</td>
-                                        <td>{area.name}</td>
-                                        <td>{Number((area.ratio - 0) * 100).toFixed(2) + '%'}</td>
-                                    </tr>;
-                                })
-                            }
-                            </tbody>
-                        </table>
-                    </PanelCard>
+                    <SearchScenic timeRange={optionsData}/>
                 </Col>
                 <Col span={6} lg={12} xl={6}>
                     <PanelCard title="搜索人群年龄分布"

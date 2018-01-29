@@ -1,6 +1,5 @@
-import { HttpMethod } from '../../constants/common';
+import {HttpMethod} from '../../constants/common';
 import Ajax from '../../utils/Ajax';
-
 
 /**
  * @description 获取搜索大数据中所有的时间选项
@@ -66,7 +65,7 @@ export function getSearchPersonSource(params) {
         url: `/search_big_data/search_person_resource/${params.year}/${params.month}`,
         type: HttpMethod.GET,
         data: null
-    })
+    });
 }
 
 /**
@@ -75,12 +74,12 @@ export function getSearchPersonSource(params) {
  * @param month
  * @returns {Object}
  */
-export function getSearchPreferenceArea([year, month]) {
+export function getSearchPreferenceArea(params) {
     return Ajax({
-        url: `/search_big_data/search_preference_area/${year}/${month}`,
+        url: `/search_big_data/search_preference_area/${params.year}/${params.month}`,
         type: HttpMethod.GET,
         data: null
-    })
+    });
 }
 
 /**
