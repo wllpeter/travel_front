@@ -63,3 +63,12 @@ export function getProvinceChangeData (data) {
         data: data
     });
 }
+
+// 省内涉旅行业网络信息监控
+export function getInternetMonitorData (data) {
+    return Ajax({
+        url: '/marketTravel/getInternetMonitor',
+        type: HttpMethod.GET,
+        data: data
+    });
+}

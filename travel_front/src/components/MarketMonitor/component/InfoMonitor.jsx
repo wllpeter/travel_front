@@ -4,6 +4,7 @@
 import React, {Component} from 'react';
 import Modal from '../../commonComponent/Modal';
 import PanelCard from '../../commonComponent/PanelCard';
+import {getInternetMonitorData} from '../../../services/MarketMonitor/marketMonitor';
 
 export default class InfoMonitor extends Component {
     constructor(props) {
@@ -14,7 +15,16 @@ export default class InfoMonitor extends Component {
     }
 
     componentDidMount() {
+        // this.getInternetMonitorData();
+    }
 
+    getInternetMonitorData(){
+        getInternetMonitorData({
+            page: 1,
+            size: 12
+        }).then(res => {
+            console.log(res);
+        });
     }
 
     showModal() {
@@ -34,7 +44,7 @@ export default class InfoMonitor extends Component {
         return <div>
             <PanelCard title="省内涉旅行业网络信息监控" className="bg-grey network-info" zoomRequired={true}
                        enlarge={this.showModal.bind(this)} timeSelectRequired={true}>
-                <ul style={{ height: 300 }}>
+                <ul style={{height: 300}}>
                     <li><a href="#">世界关注中国旅游指数</a><span className="info-time">1分钟前</span></li>
                     <li><a href="#">江苏旅游局携手途牛共推"水韵江苏"旅游新产品</a><span className="info-time">1分钟前</span></li>
                     <li><a href="#">航班酒店订单取消 &nbsp; 火山喷发冲击印尼旅游业</a><span className="info-time">1分钟前</span></li>
@@ -47,7 +57,7 @@ export default class InfoMonitor extends Component {
             <Modal visible={visible}>
                 <PanelCard title="省内旅游行业构成" className="bg-grey network-info network-big" zoomOutRequired={true}
                            narrow={this.handleCancel.bind(this)} timeSelectRequired={true}>
-                    <ul style={{ height: 460 }}>
+                    <ul style={{height: 460}}>
                         <li><a href="#">世界关注中国旅游指数</a><span className="info-time">1分钟前</span></li>
                         <li><a href="#">江苏旅游局携手途牛共推"水韵江苏"旅游新产品</a><span className="info-time">1分钟前</span></li>
                         <li><a href="#">航班酒店订单取消 &nbsp; 火山喷发冲击印尼旅游业</a><span className="info-time">1分钟前</span></li>

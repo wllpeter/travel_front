@@ -394,7 +394,7 @@ export default class TouristData extends Component {
                     <EnterprisesNumber {...this.state}/>
                 </Col>
                 <Col span={6} lg={12} xl={6}>
-                    <InfoMonitor/>
+                    <InfoMonitor {...this.state}/>
                 </Col>
             </Row>
         </div>;

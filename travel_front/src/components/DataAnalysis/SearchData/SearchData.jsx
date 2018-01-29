@@ -7,8 +7,7 @@ import {Row, Col} from 'antd';
 import AdCharts from '../../../utils/adCharts';
 import {
     getConsumptionDataOptions,
-    getProvinceHotSearch,
-    getProvinceSearchTrend
+    getProvinceHotSearch
 } from '../../../services/DataAnalysis/searchData';
 import {getHeaderOptions} from '../../../utils/util';
 import HotWord from './component/HotWord';
