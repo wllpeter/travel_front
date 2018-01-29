@@ -61,9 +61,9 @@ export function getHotword(params) {
  * @param month
  * @returns {Object}
  */
-export function getSearchPersonSource([year, month]) {
+export function getSearchPersonSource(params) {
     return Ajax({
-        url: `/search_big_data/search_person_resource/${year}/${month}`,
+        url: `/search_big_data/search_person_resource/${params.year}/${params.month}`,
         type: HttpMethod.GET,
         data: null
     })
