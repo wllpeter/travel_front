@@ -6,6 +6,7 @@ import PanelCard from '../../../commonComponent/PanelCard';
 import ToggleButtonGroup from '../../../commonComponent/ToggleButtonGroup';
 import {getTravelConsumeAnalyse} from '../../../../services/ConsumptionData/consumptionData';
 import {getHeaderOptions} from '../../../../utils/tools';
+import Modal from '../../../commonComponent/Modal';
 import AdCharts from '../../../../utils/adCharts';
 
 export default class ConsumptionTrade extends Component {
@@ -15,7 +16,9 @@ export default class ConsumptionTrade extends Component {
             panelProps: null,
             year: null,
             quarter: null,
-            industry: '餐饮'
+            industry: '餐饮',
+            visible: false,
+            activeIndex: 0
         };
     }
 
@@ -27,12 +30,15 @@ export default class ConsumptionTrade extends Component {
         this.getHeaderOptions(times);
     }
 
-    print(params) {
+    print(params, visible) {
         AdCharts.radarChart({
-            chartId: 'consumptionTrade',
+            chartId: visible ? 'consumptionTrade2' : 'consumptionTrade',
             legend: params.legend,
             series: params.series,
+            radarRadius: visible ? 150 : 100,
             colors: ['#b6dd74', '#32c889', '#00a9ff'],
+            legendSize: visible ? 16 : 14,
+            fontSize: visible ? 16 : 14,
             indicator: [
                 {text: '交易笔数'},
                 {text: '交易总额'},
@@ -52,9 +58,12 @@ export default class ConsumptionTrade extends Component {
                 isQuarter: true,
                 zoomRequired: true,
                 clickBack: (year, quarter) => {
+                    let panelProps = this.state.panelProps;
+                    panelProps.defaultValue = year + '-' + quarter;
                     this.setState({
                         year: year,
-                        quarter: quarter
+                        quarter: quarter,
+                        panelProps
                     }, () => {
                         this.getTravelConsumeAnalyse();
                     });
@@ -87,16 +96,35 @@ export default class ConsumptionTrade extends Component {
             series.push([item.swipeTimes, item.consumeAmount, item.consumeTimes]);
         });
         this.print({legend, series});
+        if (this.state.visible) {
+            this.print({legend, series}, true);
+        }
+    }
+
+    showModal() {
+        this.setState({
+            visible: true
+        });
+    }
+
+    handleCancel() {
+        this.setState({
+            visible: false
+        });
     }
 
     render() {
-        let {panelProps} = this.state;
+        let {panelProps, visible, activeIndex} = this.state;
         const consumptionTrade = {
             clickBack: (params) => {
-                this.setState({industry: params.buttonName}, () => {
+                this.setState({
+                    industry: params.buttonName,
+                    activeIndex: params.index
+                }, () => {
                     this.getTravelConsumeAnalyse();
                 });
             },
+            activeIndex: this.state.activeIndex,
             buttons: [
                 {
                     buttonName: '餐饮'
@@ -106,9 +134,23 @@ export default class ConsumptionTrade extends Component {
                 }
             ]
         };
-        return <PanelCard title="旅游消费交易分析" {...panelProps} className="bg-grey consumption-trade consumption-down">
-            <ToggleButtonGroup {...consumptionTrade}/>
-            <div id="consumptionTrade" style={{width: '100%', height: 300}}></div>
-        </PanelCard>;
+        return <div>
+            <PanelCard title="旅游消费交易分析" {...panelProps} enlarge={this.showModal.bind(this)}
+                       className="bg-grey consumption-trade consumption-down">
+                <ToggleButtonGroup {...consumptionTrade}/>
+                <div id="consumptionTrade" style={{width: '100%', height: 300}}></div>
+            </PanelCard>
+            <Modal visible={visible} onOk={() => {
+                this.getTravelConsumeAnalyse.bind(this)();
+            }}>
+                <PanelCard title="旅游消费交易分析" {...panelProps}
+                           zoomOutRequired={true}
+                           narrow={this.handleCancel.bind(this)}
+                           className="bg-grey consumption-trade consumption-down">
+                    <ToggleButtonGroup {...consumptionTrade}/>
+                    <div id="consumptionTrade2" style={{width: '100%', height: 460}}></div>
+                </PanelCard>
+            </Modal>
+        </div>;
     }
 }

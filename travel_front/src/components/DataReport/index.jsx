@@ -2,10 +2,9 @@
  * @description 旅游大数据报告
  */
 import React, {Component} from 'react';
+import '../../plugins/pdfjs/pdf';
+// import '../../plugins/pdfjs/viewer';
 import './style.scss';
-import PDFObject from 'pdfobject';
-
-const pdfUrl = 'http://www.jq22.com/demo/pdfobject-141021092802/sample.pdf';
 
 export default class TouristData extends Component {
     constructor(props) {
@@ -45,8 +44,23 @@ export default class TouristData extends Component {
     }
 
     componentDidMount() {
-        console.log(PDFObject);
-        PDFObject.embed(pdfUrl, '#my-container', {page: '1'});
+        var url = 'http://www.jq22.com/demo/pdfobject-141021092802/sample.pdf';
+        PDFJS.workerSrc = '/static/data/pdfjs/pdf.worker.js';
+        PDFJS.getDocument(url).then(function getPdf(pdf) {
+            pdf.getPage(1).then(function getPage(page) {
+                var scale = 2;
+                var viewport = page.getViewport(scale);
+                var canvas = document.getElementById('the-canvas');
+                var context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+                var renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+                page.render(renderContext);
+            });
+        });
     }
 
     chooseFatherNav(index) {
@@ -103,6 +117,7 @@ export default class TouristData extends Component {
                 </ul>
             </div>
             <div className="pdf-box" id="my-container">
+                <canvas id="the-canvas"></canvas>
                 <div className="top-buttons">
                     <i className="iconfont icon-print"></i>
                     <i className="iconfont icon-download-copy"></i>

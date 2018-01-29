@@ -225,7 +225,7 @@ const AD_CHART = {
                 itemGap: 20,
                 textStyle: {
                     color: 'rgba(255, 255, 255, 0.95)',
-                    fontSize: 14
+                    fontSize: params.legendSize || 14
                 }
             },
             tooltip: {
@@ -273,7 +273,7 @@ const AD_CHART = {
                 name: {
                     textStyle: {
                         color: 'rgba(255, 255, 255, 0.8)',
-                        fontSize: 15
+                        fontSize: params.fontSize || 14
                     }
                 },
                 indicator: params.indicator
