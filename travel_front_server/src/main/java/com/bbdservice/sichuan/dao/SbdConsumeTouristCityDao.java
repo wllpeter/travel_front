@@ -11,6 +11,6 @@ import java.util.List;
  * 入川高消费游客来源城市排名
  */
 public interface SbdConsumeTouristCityDao extends JpaRepository<ComeConsumeTouristCityRank,Long> {
-    @Query(value = "select c from ComeConsumeTouristCityRank c where c.year=?1 and c.quarter=?2 and c.modifyId is null order by c.rank")
+    @Query(value = "select c from ComeConsumeTouristCityRank c where c.deleted=0 and c.year=?1 and c.quarter=?2 and c.modifyId is null order by c.rank")
     List<ComeConsumeTouristCityRank> getAllList(int year,int quarter);
 }

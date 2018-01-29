@@ -23,4 +23,6 @@ public class SearchPreferenceArea {
     private Integer searchCount;
     @Column(columnDefinition = "varchar(40) comment '搜索占比'")
     private String ratio;
+    @Column(columnDefinition = "bit comment'是否删除'")
+    private Boolean deleted;
 }

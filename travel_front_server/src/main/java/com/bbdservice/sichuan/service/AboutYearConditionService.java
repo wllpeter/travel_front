@@ -56,6 +56,7 @@ public interface AboutYearConditionService {
     //热词云
     List<String> getHotWords();
 
+
     //搜索人群年龄分布
     List<String> getPersonAge();
 

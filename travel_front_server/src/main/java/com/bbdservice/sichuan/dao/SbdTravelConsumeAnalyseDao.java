@@ -11,6 +11,6 @@ import java.util.List;
  * 旅游消费交易分析
  */
 public interface SbdTravelConsumeAnalyseDao extends JpaRepository<TravelConsumeAnalyse,Long> {
-    @Query(value = "select t from TravelConsumeAnalyse t where t.year=?1 and t.quarter=?2 and t.industry=?3 and t.modifyId is null")
+    @Query(value = "select t from TravelConsumeAnalyse t where t.deleted=0 and t.year=?1 and t.quarter=?2 and t.industry=?3 and t.modifyId is null")
     List<TravelConsumeAnalyse> getAllList(int year,int quarter,String industry);
 }

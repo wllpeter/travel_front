@@ -11,6 +11,6 @@ import java.util.List;
  * 外地游客刷卡消费金额分析
  */
 public interface SbdWaiDiShuaKaDao extends JpaRepository<ForeignTouristSwipeAmountAnalyse,Long>{
-    @Query(value = "select f from ForeignTouristSwipeAmountAnalyse f where f.year=?1 and f.month=?2 and f.modifyId is null")
+    @Query(value = "select f from ForeignTouristSwipeAmountAnalyse f where f.deleted=0 and f.year=?1 and f.month=?2 and f.modifyId is null")
     List<ForeignTouristSwipeAmountAnalyse> getAllList(int year,int month);
 }

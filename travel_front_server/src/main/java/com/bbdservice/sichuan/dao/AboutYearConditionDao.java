@@ -150,6 +150,7 @@ public interface AboutYearConditionDao extends JpaRepository<ClassifyData,Long> 
     @Query(nativeQuery = true,value = "select year,`month`,'月' as type from search_province_hot where year is not null and month is not null and deleted = 0 GROUP  by year desc , month desc ")
     List<String> getProvinceHot();
 
+
     //热词云
     @Query(nativeQuery = true,value = "select year,`quarter`,'季' as type from search_hot_word where year is not null and `quarter` is not null and deleted = 0 GROUP  by year desc , `quarter` desc ")
     List<String> getHotWords();

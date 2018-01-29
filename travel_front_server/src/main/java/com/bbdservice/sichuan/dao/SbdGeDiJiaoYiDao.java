@@ -12,6 +12,6 @@ import java.util.List;
  * 各地市外地游客交易笔数分析
  */
 public interface SbdGeDiJiaoYiDao extends JpaRepository<CityForeignDealTime,Long> {
-    @Query(value = "select c from CityForeignDealTime c where c.year=?1 and c.month=?2 and c.modifyId is null")
+    @Query(value = "select c from CityForeignDealTime c where c.deleted=0 and c.year=?1 and c.month=?2 and c.modifyId is null")
     List<CityForeignDealTime> getAllList(int year, int month);
 }
