@@ -88,9 +88,9 @@ export function getSearchPreferenceArea(params) {
  * @param month 月份
  * @returns {Object}
  */
-export function getSearchPersonAge([year, month]) {
+export function getSearchPersonAge(params) {
     return Ajax({
-        url: `/search_big_data/search_person_age/${year}/${month}`,
+        url: `/search_big_data/search_person_age/${params.year}/${params.month}`,
         type: HttpMethod.GET,
         data: null
     });

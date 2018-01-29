@@ -8,13 +8,13 @@ import AdCharts from '../../../utils/adCharts';
 import {
     getConsumptionDataOptions,
     getProvinceHotSearch,
-    getProvinceSearchTrend,
-    getSearchPersonAge
+    getProvinceSearchTrend
 } from '../../../services/DataAnalysis/searchData';
 import {getHeaderOptions} from '../../../utils/util';
 import HotWord from './component/HotWord';
 import SearchPeopleSource from './component/SearchPeopleSource';
 import SearchScenic from './component/SearchScenic';
+import SearchPeopleAge from './component/SearchPeopleAge';
 import 'antd/lib/grid/style';
 
 export default class TouristData extends Component {
@@ -87,21 +87,6 @@ export default class TouristData extends Component {
         });
     }
 
-    // 搜索人群年龄分布
-    renderPersonAgeData() {
-        AdCharts.pieChart({
-            chartId: 'searchPeopleAgePieChart',
-            legend: ['18以下', '18-24', '25-34', '35-44', '45-54', '55-64', '65以上'],
-            legendIcon: 'circle',
-            legendOrient: 'horizontal',
-            legendLeft: '65%',
-            borderWidth: 10,
-            itemGap: 20,
-            borderColor: '#203a59',
-            data: this.state.peopleAge
-        });
-    }
-
     componentDidMount() {
         let mapNameType = 'sichuan';
 
@@ -115,7 +100,6 @@ export default class TouristData extends Component {
                 optionsData: data
             }, () => {
                 this.fetchProvinceHotSearch([data.month[0].year, data.month[0].monthOrQuarter]);
-                this.fetchSearchPersonAge([data.month[0].year, data.month[0].monthOrQuarter]);
                 this.fetchProvinceSearchTrend([new Date().getFullYear() - 1]);
             });
         });
@@ -176,28 +160,6 @@ export default class TouristData extends Component {
         });
     }
 
-    // 搜索人群年龄分布
-    fetchSearchPersonAge(params) {
-        getSearchPersonAge(params).then(data => {
-            if (data && data.length) {
-                let peopleAge = [];
-
-                peopleAge = data.map(item => {
-                    return {
-                        name: item.ageZone,
-                        value: ((item.ratio - 0) * 100).toFixed(2) - 0
-                    };
-                });
-
-                this.setState({
-                    peopleAge
-                }, () => {
-                    this.renderPersonAgeData();
-                });
-            }
-        });
-    }
-
     /**
      * @description 获取PanelCard头部选项
      * @param options 各种选项
@@ -242,10 +204,7 @@ export default class TouristData extends Component {
                     <SearchScenic timeRange={optionsData}/>
                 </Col>
                 <Col span={6} lg={12} xl={6}>
-                    <PanelCard title="搜索人群年龄分布"
-                               className="bg-grey" {...this.getHeaderOptions([true, true, 'month'], this.fetchSearchPersonAge.bind(this))}>
-                        <div id="searchPeopleAgePieChart" style={{width: '100%', height: 300}}></div>
-                    </PanelCard>
+                    <SearchPeopleAge timeRange={optionsData}/>
                 </Col>
             </Row>
         </div>;
