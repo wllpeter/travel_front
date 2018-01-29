@@ -15,6 +15,7 @@ import HotWord from './component/HotWord';
 import SearchPeopleSource from './component/SearchPeopleSource';
 import SearchScenic from './component/SearchScenic';
 import SearchPeopleAge from './component/SearchPeopleAge';
+import ProvinceSearchHot from './component/ProvinceSearchHot';
 import 'antd/lib/grid/style';
 
 export default class TouristData extends Component {
@@ -100,23 +101,8 @@ export default class TouristData extends Component {
                 optionsData: data
             }, () => {
                 this.fetchProvinceHotSearch([data.month[0].year, data.month[0].monthOrQuarter]);
-                this.fetchProvinceSearchTrend([new Date().getFullYear() - 1]);
             });
         });
-
-        // 全省旅游搜索热度趋势
-        AdCharts.lineChart({
-            chartId: 'provinceSearchHotLineChart',
-            legend: ['旅游搜索热度趋势'],
-            legendShow: false,
-            xAxisData: ['10-23', '10-24', '10-25', '10-26', '10-27', '10-28', '10-29'],
-            gradientColor: [[{offset: 0, color: 'rgba(0, 164, 250, 1)'}, {offset: 0.8, color: 'rgba(0, 164, 250, 0)'}]],
-            lineStyleColor: ['#00a2f5'],
-            smooth: true,
-            stack: true,
-            series: [[23, 32, 54, 84, 134, 90, 43]]
-        });
-
     }
 
     // 获取全省旅游搜索热力图
@@ -153,13 +139,6 @@ export default class TouristData extends Component {
         });
     }
 
-    // 获取人群来源地
-    fetchProvinceSearchTrend(params) {
-        getProvinceSearchTrend(params).then(data => {
-            console.log('获取人群来源地:', data);
-        });
-    }
-
     /**
      * @description 获取PanelCard头部选项
      * @param options 各种选项
@@ -183,13 +162,11 @@ export default class TouristData extends Component {
                 <Col span={12} lg={24} xl={12}>
                     <PanelCard title="全省旅游搜索热力图"
                                zoomRequired={false} {...this.getHeaderOptions([true, false, 'month'], this.fetchProvinceHotSearch.bind(this))}>
-                        <div id="visualMapContinuous" style={{width: '100%', height: 600}} className="br-line"></div>
+                        <div id="visualMapContinuous" style={{width: '100%', height: 600}} className="br-line"/>
                     </PanelCard>
                 </Col>
                 <Col span={12} lg={24} xl={12}>
-                    <PanelCard title="全省旅游搜索热度趋势" zoomRequired={false}>
-                        <div id="provinceSearchHotLineChart" style={{width: '100%', height: 600}}></div>
-                    </PanelCard>
+                    <ProvinceSearchHot timeRange={optionsData}/>
                 </Col>
             </Row>
 
