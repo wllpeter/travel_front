@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface SearchPersonAgeRepository extends JpaRepository<SearchPersonAge,Long>{
-    @Query("select  s from SearchPersonAge s where s.year =?1 and s.month =?2")
+    @Query("select  s from SearchPersonAge s where s.year =?1 and s.month =?2 and s.deleted=0")
     List<SearchPersonAge> getMonthData(Integer year, Integer month);
 }

@@ -11,6 +11,6 @@ import java.util.List;
  * 外地游客交易笔数分析
  */
 public interface SbdWaiDiJiaoYiDao extends JpaRepository<ForeignTouristConsumeTimesAnalyse,Long> {
-    @Query(value = "select f from ForeignTouristConsumeTimesAnalyse f where f.year=?1 and f.month=?2 and f.modifyId is null")
+    @Query(value = "select f from ForeignTouristConsumeTimesAnalyse f where f.deleted=0 and f.year=?1 and f.month=?2 and f.modifyId is null")
     List<ForeignTouristConsumeTimesAnalyse> getAllList(int year, int month);
 }

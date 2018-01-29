@@ -21,4 +21,6 @@ public class SearchPersonResource {
     private Integer year;
     @Column(columnDefinition = "int comment'月份'")
     private Integer month;
+    @Column(columnDefinition = "bit comment'是否删除'")
+    private Boolean deleted;
 }

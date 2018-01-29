@@ -19,4 +19,6 @@ public class SearchPersonAge {
     private String ratio;
     private Integer year;
     private Integer month;
+    @Column(columnDefinition = "bit comment'是否删除'")
+    private Boolean deleted;
 }
