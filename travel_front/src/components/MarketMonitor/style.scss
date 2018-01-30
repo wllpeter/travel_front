@@ -81,10 +81,15 @@
   .network-info {
     ul {
       padding: 22px 22px 20px;
-
       & > li {
         padding-bottom: 15px;
-
+        a {
+          display: inline-block;
+          max-width: 330px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
         a:hover {
           color: #00a9ff;
           text-decoration: underline;
@@ -95,7 +100,34 @@
         }
       }
     }
+    .move{
+      animation: mymove 150s infinite;
+      -webkit-animation: mymove 150s infinite; /* Safari 和 Chrome */
+    }
   }
+
+  .network-big {
+    ul {
+      & > li {
+        a {
+          max-width: 460px;
+        }
+      }
+    }
+  }
+}
+
+
+@keyframes mymove
+{
+  from {transform: translateY(0)}
+  to {transform: translateY(-100%)}
+}
+
+@-webkit-keyframes mymove /*Safari and Chrome*/
+{
+  from {transform: translateY(0)}
+  to {transform: translateY(-100%)}
 }
 
 .bg-grey {

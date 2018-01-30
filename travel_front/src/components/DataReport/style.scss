@@ -1,4 +1,5 @@
 @import "../../public";
+
 $activeColor: #00A9FF;
 $animateTime: .36s;
 .report {
@@ -52,7 +53,6 @@ $animateTime: .36s;
           border-bottom: 1px solid #374F6B;
           border-right: 4px solid transparent;
           padding-left: 30px;
-          background: $bgColor;
         }
         .active-nav {
           color: $activeColor;
@@ -65,8 +65,9 @@ $animateTime: .36s;
   .pdf-box {
     width: calc(100% - 240px);
     height: $contentHeight;
-    background: #fff;
+    background: #1F3A59;
     float: left;
+    overflow-y: scroll;
     .top-buttons {
       width: calc(100% - 240px);
       background-color: rgba(0, 0, 0, .3);
@@ -75,19 +76,19 @@ $animateTime: .36s;
       z-index: 1000;
       top: $headerHeight;
       right: 0;
-      .iconfont{
+      .iconfont {
         float: right;
         color: $activeColor;
         font-size: 26px;
         font-weight: 700;
         margin: 17px 30px 17px 40px;
         cursor: pointer;
-        &:hover{
+        &:hover {
           color: #0D82FF;
         }
       }
     }
-    .right-buttons{
+    .right-buttons {
       height: $contentHeight;
       width: 60px;
       position: fixed;
@@ -95,17 +96,22 @@ $animateTime: .36s;
       top: $headerHeight;
       padding-top: 200px;
       right: 0;
-      .iconfont{
+      .iconfont {
         display: block;
         color: $activeColor;
         font-size: 26px;
         font-weight: 500;
         margin-top: 40px;
         cursor: pointer;
-        &:hover{
+        &:hover {
           color: #0D82FF;
         }
       }
     }
   }
+}
+
+.myCanvas{
+  display: block;
+  margin-bottom: 4px;
 }

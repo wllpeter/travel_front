@@ -113,7 +113,7 @@ export default class Login extends Component {
         let {codeImage, temp, codeShow, remember} = this.state;
         return <div className="login-bg">
             <div className="login-box">
-                <div className="login-title">四川省旅游大数据分析平台</div>
+                <div className="login-title"></div>
                 <ValidateGroup submit={this.login.bind(this)}>
                     <div className="login-input">
                         <Validate exgs={[{regs: 'notempty', type: 'danger', info: '账号不能为空！'}]}>

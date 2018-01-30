@@ -16,7 +16,15 @@ $fontColor: rgba(255, 255, 255, 0.95);
 
   h2 {
     display: inline-block;
-    padding-left: 20px;
+    padding-left: 15px;
+    .app-logo{
+      display: block;
+      width: 384px;
+      height: 30px;
+      margin-top: 15px;
+      background-image: url("../assets/images/logo-title.png");
+      background-size: 384px 30px;
+    }
   }
 
   .header-nav-list {

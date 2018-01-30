@@ -3,8 +3,10 @@
  */
 import React, {Component} from 'react';
 import '../../plugins/pdfjs/pdf';
-// import '../../plugins/pdfjs/viewer';
 import './style.scss';
+import $ from 'jquery';
+
+const scaleList = [3, 2, 1.5, 1, .75, .5, .2]; // 可缩放的列表
 
 export default class TouristData extends Component {
     constructor(props) {
@@ -39,28 +41,113 @@ export default class TouristData extends Component {
                         }
                     ]
                 }
-            ]
+            ],
+            numPages: 0, // pdf总页数
+            marginLeft: 0,
+            scale: 1,
+            canvasWidth: null // 记录一倍时canvas的宽度
         };
+        this.pdf = null;
+        this.boxWidth = null;
+        this.boxHeight = null;
     }
 
     componentDidMount() {
-        var url = 'http://www.jq22.com/demo/pdfobject-141021092802/sample.pdf';
+        this.boxWidth = $('.pdf-box').width();
+        this.boxHeight = $('.pdf-box').height();
+        let _this = this;
+        let url = 'http://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf';
         PDFJS.workerSrc = '/static/data/pdfjs/pdf.worker.js';
+        this.setState({scale: 1});
         PDFJS.getDocument(url).then(function getPdf(pdf) {
-            pdf.getPage(1).then(function getPage(page) {
-                var scale = 2;
-                var viewport = page.getViewport(scale);
-                var canvas = document.getElementById('the-canvas');
-                var context = canvas.getContext('2d');
+            _this.pdf = pdf;
+            _this.setState({
+                numPages: pdf.numPages
+            }, () => {
+                setTimeout(() => {
+                    _this.drawPdf.bind(_this)();
+                });
+            });
+        });
+    }
+
+    // 绘制pdf
+    drawPdf() {
+        let _this = this;
+        let fn = (p) => {
+            _this.pdf.getPage(p).then(function getPage(page) {
+                let scale = _this.state.scale;
+                let viewport = page.getViewport(scale);
+                let canvas = document.getElementById('the-canvas' + p);
+                let context = canvas.getContext('2d');
                 canvas.height = viewport.height;
                 canvas.width = viewport.width;
-                var renderContext = {
+                if (p === 1) {
+                    _this.setState({
+                        marginLeft: (_this.boxWidth - viewport.width) / 2,
+                        scale: scale,
+                        canvasWidth: viewport.width
+                    });
+                }
+                let renderContext = {
                     canvasContext: context,
                     viewport: viewport
                 };
                 page.render(renderContext);
             });
+        };
+        for (let i = 1; i <= this.pdf.numPages; i++) {
+            fn(i);
+        }
+    }
+
+    // 缩小pdf
+    narrowPdf() {
+        let index = 0;
+        scaleList.forEach((val, i) => {
+            if (val === this.state.scale) {
+                index = i;
+            }
         });
+        if (index === scaleList.length - 1) {
+            return;
+        }
+        this.setState({
+            scale: scaleList[index + 1]
+        }, () => {
+            this.drawPdf();
+        });
+    }
+
+    // 放大pdf
+    enlargePdf() {
+        let index = 0;
+        scaleList.forEach((val, i) => {
+            if (val === this.state.scale) {
+                index = i;
+            }
+        });
+        if (index === 0) {
+            return;
+        }
+        this.setState({
+            scale: scaleList[index - 1]
+        }, () => {
+            this.drawPdf();
+        });
+    }
+
+    coverPdf() {
+        this.setState({
+            scale: this.boxWidth * this.state.scale / this.state.canvasWidth
+        }, () => {
+            this.drawPdf();
+        });
+    }
+
+    // 打印pdf
+    printPdf() {
+
     }
 
     chooseFatherNav(index) {
@@ -84,7 +171,11 @@ export default class TouristData extends Component {
     }
 
     render() {
-        let {navItems} = this.state;
+        let {navItems, marginLeft, scale, numPages} = this.state;
+        let canvasNum = [];
+        for (let i = 0; i < numPages; i++) {
+            canvasNum.push(i + 1);
+        }
         return <div className="report">
             <div className="nav-left-box">
                 <ul className="nav-left">
@@ -117,16 +208,22 @@ export default class TouristData extends Component {
                 </ul>
             </div>
             <div className="pdf-box" id="my-container">
-                <canvas id="the-canvas"></canvas>
+                {
+                    canvasNum.length > 0 && canvasNum.map((val, index) => {
+                        return <canvas id={'the-canvas' + val} key={index}
+                                       className="myCanvas"
+                                       style={{marginLeft: marginLeft}}></canvas>;
+                    })
+                }
                 <div className="top-buttons">
-                    <i className="iconfont icon-print"></i>
+                    <i className="iconfont icon-print" onClick={this.printPdf}></i>
                     <i className="iconfont icon-download-copy"></i>
                     <i className="iconfont icon-shuaxin"></i>
                 </div>
                 <div className="right-buttons">
-                    <i className="iconfont icon-big"></i>
-                    <i className="iconfont icon-fangda"></i>
-                    <i className="iconfont icon-suoxiao"></i>
+                    <i id="presentationMode" className="iconfont icon-big" onClick={this.coverPdf.bind(this)}></i>
+                    <i className="iconfont icon-fangda" onClick={this.enlargePdf.bind(this)}></i>
+                    <i className="iconfont icon-suoxiao" onClick={this.narrowPdf.bind(this)}></i>
                 </div>
             </div>
         </div>;
