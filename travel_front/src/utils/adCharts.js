@@ -590,6 +590,9 @@ const AD_CHART = {
             },
             series: seriesData
         };
+        if (params.dataZoom) {
+            options.dataZoom = params.dataZoom;
+        }
         LineChart.setOption(options);
         // $(window).resize(function () {
         //     LineChart.resize();

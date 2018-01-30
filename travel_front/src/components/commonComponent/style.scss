@@ -213,3 +213,65 @@
     }
 }
 
+// 登出的弹出框
+.logout-box{
+    .modal-box {
+        width: 500px;
+        height: 240px;
+        background: #1F3A59;
+        left: calc(50% - 250px);
+        top: calc(50% - 120px);
+        .logout-content{
+            overflow: hidden;
+            position: relative;
+            height: 240px;
+            .icon-close{
+                font-size: 20px;
+                color: #00A9FF;
+                position: absolute;
+                right: 22px;
+                top: 22px;
+                cursor: pointer;
+                transition: all .36s;
+                -moz-transition: all .36s;	/* Firefox 4 */
+                -webkit-transition: all .36s;	/* Safari 和 Chrome */
+                -o-transition: all .36s;	/* Opera */
+                &:hover{
+                    transform: rotate(90deg);
+                    -ms-transform: rotate(90deg);		/* IE 9 */
+                    -webkit-transform: rotate(90deg);	/* Safari and Chrome */
+                    -o-transform: rotate(90deg);		/* Opera */
+                    -moz-transform: rotate(90deg);		/* Firefox */
+                }
+            }
+            p{
+                color: #fff;
+                font-size: 16px;
+                text-align: center;
+                margin-top: 60px;
+            }
+            .logout-btn{
+                margin-top: 20px;
+                a{
+                    float: left;
+                    font-size: 16px;
+                    width: 100px;
+                    height: 30px;
+                    line-height: 30px;
+                    text-align: center;
+                    border-radius: 16px;
+                    border: 1px solid #00A9FF;
+                }
+                .logout-cancel{
+                    margin-left: 120px;
+                }
+                .logout-confirm{
+                    float: right;
+                    margin-right: 120px;
+                    background-color: #00A9FF;
+                    color: #1F3A59;
+                }
+            }
+        }
+    }
+}
