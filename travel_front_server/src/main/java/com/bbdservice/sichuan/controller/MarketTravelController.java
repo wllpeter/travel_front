@@ -1,5 +1,6 @@
 package com.bbdservice.sichuan.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bbdservice.sichuan.base.Response;
 import com.bbdservice.sichuan.entity.*;
@@ -154,9 +155,14 @@ public class MarketTravelController {
 
     @GetMapping(value="/getInternetMonitor")
     @ApiOperation(value = "省内涉旅行业网络信息监控")
-    public Object getInternet(@RequestParam(required = false,defaultValue = "1") int page,
+    public Response getInternet(@RequestParam(required = false,defaultValue = "1") int page,
                                 @RequestParam(required = false,defaultValue = "100") int size) throws Exception {
-        return HttpUtils.get(MessageFormat.format(url,page,size));
+        String o=HttpUtils.get(MessageFormat.format(url,page,size));
+        JSONObject jsonObject= JSON.parseObject(o);
+        String result=jsonObject.getString("data");
+        com.alibaba.fastjson.JSONArray res=JSON.parseArray(result);
+        String info=jsonObject.getString("msg");
+       return  Response.success(res,info);
     }
     public static List<JSONObject> putKey( List<String> keyList, List<String> valueList){
         List<JSONObject> result=new ArrayList<>();
