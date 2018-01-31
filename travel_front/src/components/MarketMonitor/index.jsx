@@ -338,7 +338,7 @@ export default class TouristData extends Component {
                                         <tr>
                                             <td>旅游住宿</td>
                                             <td>{activeDetail.liveDegree || '-'}</td>
-                                            <td>{per(activeDetail.liveHBe)}</td>
+                                            <td>{per(activeDetail.liveHB)}</td>
                                         </tr>
                                         <tr>
                                             <td>旅游餐饮</td>

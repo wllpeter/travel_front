@@ -121,13 +121,13 @@
 @keyframes mymove
 {
   from {transform: translateY(0)}
-  to {transform: translateY(-100%)}
+  to {transform: translateY(-96%)}
 }
 
 @-webkit-keyframes mymove /*Safari and Chrome*/
 {
   from {transform: translateY(0)}
-  to {transform: translateY(-100%)}
+  to {transform: translateY(-96%)}
 }
 
 .bg-grey {

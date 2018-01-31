@@ -53,6 +53,9 @@ $animateTime: .36s;
           border-bottom: 1px solid #374F6B;
           border-right: 4px solid transparent;
           padding-left: 30px;
+          overflow: hidden;
+          text-overflow:ellipsis;
+          white-space: nowrap;
         }
         .active-nav {
           color: $activeColor;
@@ -76,6 +79,12 @@ $animateTime: .36s;
       z-index: 1000;
       top: $headerHeight;
       right: 0;
+      .page-count{
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        margin-left: -6px;
+      }
       .iconfont {
         float: right;
         color: $activeColor;
