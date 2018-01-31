@@ -273,7 +273,7 @@ export default class TouristData extends Component {
     render() {
         let {economicRegion, city, activeDetail, panelProps} = this.state;
         let per = (num) => {
-            if (num === undefined) {
+            if (num === undefined || num === '') {
                 return '-';
             }
             return num + '%';

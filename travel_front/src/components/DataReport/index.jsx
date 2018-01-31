@@ -117,6 +117,11 @@ export default class TouristData extends Component {
                     _this.drawPdf.bind(_this)();
                 });
             });
+        }).catch(() => {
+            message.error('文件无法解析');
+            _this.setState({
+                loadingShow: false
+            });
         });
     }
 
@@ -149,6 +154,9 @@ export default class TouristData extends Component {
                     pageRender.promise.then(() => {
                         _this.setState({loadingShow: false});
                     });
+                }
+                if (p === _this.pdf.numPages) {
+                    _this.positionViewer();
                 }
             });
         };
@@ -236,7 +244,11 @@ export default class TouristData extends Component {
         if (rotate === 360) {
             rotate = 0;
         }
-        this.setState({rotate}, () => {
+        let scale = this.state.scale;
+        if (!this.state.bigBtnShow) {
+            scale = this.boxWidth * this.state.scale / canvasHeight;
+        }
+        this.setState({rotate, scale}, () => {
             this.drawPdf();
         });
     }
@@ -254,7 +266,10 @@ export default class TouristData extends Component {
     scrollEvent() {
         let _this = this;
         $('#my-pdf').scroll(function (event) {
-            let top = $('#the-canvas1').offset().top;
+            let top = 0;
+            if ($('#the-canvas1').offset()) {
+                let top = $('#the-canvas1').offset().top;
+            }
             let page = _this.state.page;
             let currentPage = parseInt((canvasTop - top + margin) / (canvasHeight + margin)) + 1;
             if (page !== currentPage) {
@@ -265,8 +280,9 @@ export default class TouristData extends Component {
 
     // 当页面重新绘制后，更具当前的page值进行定
     positionViewer() {
-        let page = _this.state.page;
+        let page = this.state.page;
         let top = (canvasHeight + margin) * (page - 1);
+        $('#my-pdf').scrollTop(top);
     }
 
     chooseFatherNav(index) {
