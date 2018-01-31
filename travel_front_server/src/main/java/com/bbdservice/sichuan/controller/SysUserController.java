@@ -125,10 +125,12 @@ public class SysUserController extends BaseController {
             return Response.error(getMessage("Login.Error.NullInfo"));
         }
         UserInfoVO userInfo = sysUserService.findByLoginName(loginName);
+        SysUser s=userInfo.getSysUser();
+        String salt=s.getSalt();
         if (userInfo == null) {
             return Response.error(getMessage("Login.Error.CantFindUser"));
         }
-        if (!PasswordUtils.verifyPassword(password, userInfo.getSysUser().getSalt(), userInfo.getSysUser().getPassword())) {
+        if (!PasswordUtils.verifyPassword(password,salt,userInfo.getSysUser().getPassword())) {
             return Response.error(getMessage("Login.Error.PasswordError"));
         }
         List<SysPermission> permissionList = sysPermissionService.selectByUserId(userInfo.getSysUser().getUserId());
@@ -186,7 +188,7 @@ public class SysUserController extends BaseController {
             return Response.error(getMessage("Login.Error.NullInfo"));
         }
         UserInfoVO userInfo = sysUserService.findByLoginName(loginName);
-        if (!PasswordUtils.verifyPassword(oldPassword, userInfo.getSysUser().getSalt(), userInfo.getSysUser().getPassword())) {
+        if (!PasswordUtils.verifyPassword(oldPassword, "",userInfo.getSysUser().getPassword())) {
             return Response.error(getMessage("Login.Error.PasswordError"));
         }
         sysUserService.resetPassword(loginName, PasswordUtils.hashPassword(newPassword, userInfo.getSysUser().getSalt()));
