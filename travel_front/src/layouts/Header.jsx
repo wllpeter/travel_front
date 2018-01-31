@@ -33,7 +33,7 @@ export default class Header extends Component {
     render() {
         let {userName, visible} = this.state;
         return <div className="app-header">
-            <h2><a>四川省旅游大数据分析平台</a></h2>
+            <h2><a className="app-logo"></a></h2>
             {
                 <div className="user-info">
                     <i className="iconfont icon-user"></i>

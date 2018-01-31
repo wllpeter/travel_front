@@ -81,14 +81,16 @@ export default class SearchPeopleSource extends Component {
         let times = nextProps.timeRange.quarter;
         let yearObj = {};
         let timeFilter = [];
-        times.forEach((time) => {
-            let year = time.year;
-            if (yearObj[year] === undefined) {
-                yearObj[year] = true;
-                timeFilter.push({year: time.year, monthOrQuarter: ''});
-            }
-        });
-        this.getHeaderOptions(timeFilter);
+        if(times){
+            times.forEach((time) => {
+                let year = time.year;
+                if (yearObj[year] === undefined) {
+                    yearObj[year] = true;
+                    timeFilter.push({year: time.year, monthOrQuarter: ''});
+                }
+            });
+            this.getHeaderOptions(timeFilter);
+        }
     }
 
     getHeaderOptions(times) {

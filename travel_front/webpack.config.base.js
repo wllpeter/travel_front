@@ -105,6 +105,7 @@ export default {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: './src/index.html',
+            favicon: 'favicon.png',
             chunks: ['commons', 'vendors', 'main']
         }),
         new CopyWebpackPlugin([
