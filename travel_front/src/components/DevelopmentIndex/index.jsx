@@ -36,18 +36,26 @@ export default class TouristData extends Component {
 
     getIndexMap(mychart) {
         indexMap = mychart;
-        if (radarMap) {
-            // echarts.connect([indexMap, radarMap]);
-            console.log(321);
-        }
+        indexMap.on('legendselectchanged', function (params) {
+            let legendName = params.name;
+            let fn = () => {
+                if (radarMap) {
+                    radarMap.dispatchAction({
+                        type: 'legendToggleSelect',
+                        name: legendName
+                    });
+                } else {
+                    setTimeout(() => {
+                        fn();
+                    }, 200);
+                }
+            };
+            fn();
+        });
     }
 
     getRadarMap(mychart) {
         radarMap = mychart;
-        if (indexMap) {
-            // echarts.connect([indexMap, radarMap]);
-            console.log(123);
-        }
     }
 
     render() {
