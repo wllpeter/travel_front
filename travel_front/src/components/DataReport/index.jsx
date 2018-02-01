@@ -188,15 +188,16 @@ export default class TouristData extends Component {
                 let viewport = page.getViewport(scale, rotate);
                 let canvas = document.getElementById('the-canvas' + p);
                 let context = canvas.getContext('2d');
-                canvas.height = viewport.height;
+                let canvasHeight = parseInt(viewport.height);
+                canvas.height = canvasHeight;
                 canvas.width = viewport.width;
-                context.clearRect(0, 0, canvas.width, canvas.width);
+                context.clearRect(0, 0, canvas.width, canvasHeight);
                 if (p === currentPage) {
                     _this.setState({
                         marginLeft: (_this.boxWidth - viewport.width) / 2,
                         scale: scale,
                         canvasWidth: viewport.width,
-                        canvasHeight: viewport.height
+                        canvasHeight: canvasHeight
                     });
                 }
                 let renderContext = {
