@@ -10,6 +10,8 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import java.io.File;
+
 /**
  * Created by lixudong on 2017/12/6.
  */
@@ -40,6 +42,14 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        String uploadPath="/root/tomcat_sichuan/pdf";
+        File file = new File(uploadPath);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        registry
+                .addResourceHandler("/download/**")
+                .addResourceLocations("file:" + uploadPath);
         registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }

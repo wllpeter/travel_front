@@ -14,12 +14,13 @@ public class PasswordUtils {
         return DigestUtils.md5Hex(password + salt);
     }
 
-    public static Boolean verifyPassword(String password, String salt, String hashedPassword) {
+    public static Boolean verifyPassword(String password,String salt, String hashedPassword) {
 
         if (password == null || hashedPassword == null) {
             return false;
         }
-        return DigestUtils.md5Hex(password + salt).equals(hashedPassword);
+        String p=DigestUtils.md5Hex(password+salt);
+        return DigestUtils.md5Hex(password+salt).equals(hashedPassword);
     }
 
     public static String createPassWord(int len){

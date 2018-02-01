@@ -32,9 +32,8 @@ public class ReportController {
 
     @GetMapping("/getPdfListByType")
     @ApiOperation(value = "根据类型展示所有文件", notes = "届时")
-    @ApiImplicitParam(name = "type", value = "类型", defaultValue = "0", paramType = "query", dataType = "Integer")
-    public Response getListByType(Integer type) {
-        List<PdfDO> list = reportService.getPdfList(type);
+    public Response getListByType() {
+        List<PdfDO> list = reportService.getPdfList();
         return Response.success(list);
     }
 

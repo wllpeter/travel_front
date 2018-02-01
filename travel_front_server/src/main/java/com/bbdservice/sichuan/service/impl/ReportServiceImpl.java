@@ -16,8 +16,8 @@ public class ReportServiceImpl implements ReportService {
     @Autowired
     private ReportDao reportDao;
     @Override
-    public List<PdfDO> getPdfList(Integer type) {
-        return reportDao.getPdfList(type);
+    public List<PdfDO> getPdfList() {
+        return reportDao.getPdfList();
     }
 
     @Override
