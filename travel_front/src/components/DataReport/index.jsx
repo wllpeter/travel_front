@@ -12,10 +12,10 @@ import $ from 'jquery';
 import {getPdfList, getReport} from '../../services/DataReport/dataReport';
 
 let baseUrl = '/download';
-const scaleList = [3, 2, 1.5, 1, .75, .5, .2]; // 可缩放的列表
+const scaleList = [3, 2, 1.5, 1, .75, .5]; // 可缩放的列表
+let timer = null; // 一次性定时器
 
 const canvasTop = 60; // 记录第一个canvas容器距页面顶部的高度
-let canvasHeight = 0; // 记录canvas的高度
 const margin = 4; // canvas之间的margin值
 
 if (__DEV__) {
@@ -44,6 +44,7 @@ export default class TouristData extends Component {
             scale: 1,
             rotate: 0, // 选择角度
             canvasWidth: null, // 记录一倍时canvas的宽度
+            canvasHeight: null, // 记录一倍时canvas的高度
             loadingCode: false,
             loadingTitle: '加载pdf解析器',
             bigBtnShow: true, // 显示放大的按钮
@@ -62,7 +63,7 @@ export default class TouristData extends Component {
         this.setState({
             loadingTitle: '加载pdf解析器'
         });
-        PDFJS.workerSrc = '/static/data/pdfjs/pdf.worker.js';
+        PDFJS.workerSrc = '/static/data/pdfjs/pdf.worker.min.js';
         this.scrollEvent();
 
         // 绑定键盘事件
@@ -82,7 +83,8 @@ export default class TouristData extends Component {
                 if (page > 1) {
                     page--;
                     this.setState({page}, () => {
-                        this.positionViewer();
+                        this.positionViewer()
+                        this.setFilpTimer(this.drawPdf.bind(this));
                     });
                 }
                 break;
@@ -90,7 +92,8 @@ export default class TouristData extends Component {
                 if (page < numPages) {
                     page++;
                     this.setState({page}, () => {
-                        this.positionViewer();
+                        this.positionViewer()
+                        this.setFilpTimer(this.drawPdf.bind(this));
                     });
                 }
                 break;
@@ -98,6 +101,20 @@ export default class TouristData extends Component {
                 break;
 
         }
+    }
+
+    // 设置一个定时器优化翻页功能
+    setFilpTimer(callback){
+        if(timer){
+            clearTimeout(timer);
+            timer = null;
+        }
+        timer = setTimeout(()=>{
+            if(callback){
+                callback();
+            }
+            timer = null;
+        }, 200);
     }
 
     // 获取所有pdf
@@ -163,6 +180,7 @@ export default class TouristData extends Component {
     // 绘制pdf
     drawPdf() {
         let _this = this;
+        var currentPage = this.state.page;
         let fn = (p) => {
             _this.pdf.getPage(p).then(function getPage(page) {
                 let scale = _this.state.scale;
@@ -172,12 +190,13 @@ export default class TouristData extends Component {
                 let context = canvas.getContext('2d');
                 canvas.height = viewport.height;
                 canvas.width = viewport.width;
-                canvasHeight = viewport.height;
-                if (p === 1) {
+                context.clearRect(0, 0, canvas.width, canvas.width);
+                if (p === currentPage) {
                     _this.setState({
                         marginLeft: (_this.boxWidth - viewport.width) / 2,
                         scale: scale,
-                        canvasWidth: viewport.width
+                        canvasWidth: viewport.width,
+                        canvasHeight: viewport.height
                     });
                 }
                 let renderContext = {
@@ -185,17 +204,21 @@ export default class TouristData extends Component {
                     viewport: viewport
                 };
                 let pageRender = page.render(renderContext);
-                if (p === 1) {
+                if (p === currentPage) {
                     pageRender.promise.then(() => {
                         _this.setState({loadingShow: false});
                     });
+                }
+                if (p === currentPage + 4) {
+                    _this.positionViewer();
+                    return;
                 }
                 if (p === _this.pdf.numPages) {
                     _this.positionViewer();
                 }
             });
         };
-        for (let i = 1; i <= this.pdf.numPages; i++) {
+        for (let i = currentPage; i < currentPage + 5 && i <= this.pdf.numPages; i++) {
             fn(i);
         }
     }
@@ -281,7 +304,7 @@ export default class TouristData extends Component {
         }
         let scale = this.state.scale;
         if (!this.state.bigBtnShow) {
-            scale = this.boxWidth * this.state.scale / canvasHeight;
+            scale = this.boxWidth * this.state.scale / this.state.canvasHeight;
         }
         this.setState({rotate, scale}, () => {
             this.drawPdf();
@@ -306,9 +329,11 @@ export default class TouristData extends Component {
                 top = $('#the-canvas1').offset().top;
             }
             let page = _this.state.page;
-            let currentPage = parseInt((canvasTop - top + margin) / (canvasHeight + margin)) + 1;
+            let currentPage = parseInt((canvasTop - top + margin) / (_this.state.canvasHeight + margin)) + 1;
             if (page !== currentPage) {
-                _this.setState({page: currentPage});
+                _this.setState({page: currentPage}, () => {
+                    _this.drawPdf();
+                });
             }
         });
     }
@@ -316,6 +341,7 @@ export default class TouristData extends Component {
     // 当页面重新绘制后，更具当前的page值进行定
     positionViewer() {
         let page = this.state.page;
+        let canvasHeight = this.state.canvasHeight;
         let top = (canvasHeight + margin) * (page - 1);
         $('#my-pdf').scrollTop(top);
     }
@@ -342,7 +368,7 @@ export default class TouristData extends Component {
     }
 
     render() {
-        let {navItems, marginLeft, scale, numPages, loadingShow, loadingTitle, bigBtnShow, page, pdfUrl} = this.state;
+        let {navItems, marginLeft, canvasWidth, canvasHeight, numPages, loadingShow, loadingTitle, bigBtnShow, page, pdfUrl} = this.state;
         let canvasNum = [];
         for (let i = 0; i < numPages; i++) {
             canvasNum.push(i + 1);
@@ -383,6 +409,8 @@ export default class TouristData extends Component {
                     canvasNum.length > 0 && canvasNum.map((val, index) => {
                         return <canvas id={'the-canvas' + val} key={index}
                                        className="myCanvas"
+                                       width={canvasWidth}
+                                       height={canvasHeight}
                                        style={{marginLeft: marginLeft}}/>;
                     })
                 }

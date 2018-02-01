@@ -874,6 +874,8 @@ const AD_CHART = {
         let zoomMap = echarts.init(document.getElementById(params.chartId));
 
         zoomMap.setOption(option);
+
+        return zoomMap;
     },
     percentBarChart: function (params, callback) {
         let percentChart = echarts.init(document.getElementById(params.chartId));

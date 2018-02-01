@@ -23,12 +23,13 @@ export default class DevelopmentIndexMap extends Component {
     }
 
     print(params) {
-        AD_CHART.zoomMap({
+        let myChart = AD_CHART.zoomMap({
             chartId: 'dev-index-map',
             backgroundColor: 'rgba(128, 128, 128, 0)',
             legendShow: true,
             ...params
         });
+        this.props.getIndexMap(myChart);
     }
 
     // 获取数据

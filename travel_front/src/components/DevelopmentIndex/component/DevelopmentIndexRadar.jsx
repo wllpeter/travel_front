@@ -5,6 +5,7 @@ import React, {Component} from 'react';
 import PanelCard from '../../commonComponent/PanelCard';
 import {getIndexRadarData} from '../../../services/DevelopmentIndex/development';
 import {RADAR_NAME} from '../../../constants/developmentIndex/radar';
+import {INDEX_NAME} from '../../../constants/developmentIndex/developmentIndex';
 import echarts from 'echarts';
 import {getHeaderOptions} from '../../../utils/tools';
 
@@ -68,7 +69,9 @@ export default class DevelopmentIndexRadar extends Component {
         let indicator = indicatorKeys.map(key => {
             return {text: RADAR_NAME[key]};
         });
+        let legend = [];
         let data = res.map((item, index) => {
+            legend.push(item.area);
             return {
                 value: indicatorKeys.map(key => {
                     return item[key];
@@ -81,16 +84,17 @@ export default class DevelopmentIndexRadar extends Component {
                 }
             };
         });
-        this.print({indicator, data});
+        this.print({indicator, data, legend});
     }
-
     print(params) {
+        console.log(params.legend);
         let option = {
             title: {
                 text: ''
             },
             legend: {
-                data: []
+                data: params.legend,
+                show: false
             },
             tooltip: {
                 trigger: 'item',
@@ -154,6 +158,8 @@ export default class DevelopmentIndexRadar extends Component {
         let radarMap = echarts.init(document.getElementById('dev-index-radar'));
 
         radarMap.setOption(option);
+
+        this.props.getRadarMap(radarMap);
     }
 
     render() {
