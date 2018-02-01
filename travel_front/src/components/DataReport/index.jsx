@@ -52,6 +52,7 @@ export default class TouristData extends Component {
         this.pdf = null;
         this.boxWidth = null;
         this.boxHeight = null;
+        this.flipPage = this.flipPage.bind(this);
     }
 
     componentDidMount() {
@@ -63,6 +64,40 @@ export default class TouristData extends Component {
         });
         PDFJS.workerSrc = '/static/data/pdfjs/pdf.worker.js';
         this.scrollEvent();
+
+        // 绑定键盘事件
+        document.addEventListener('keydown', this.flipPage);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('keydown', this.flipPage);
+    }
+
+    // 绑定键盘左右进行翻页
+    flipPage(e) {
+        let page = this.state.page;
+        let numPages = this.state.numPages;
+        switch (e.keyCode) {
+            case 37:
+                if (page > 1) {
+                    page--;
+                    this.setState({page}, () => {
+                        this.positionViewer();
+                    });
+                }
+                break;
+            case 39:
+                if (page < numPages) {
+                    page++;
+                    this.setState({page}, () => {
+                        this.positionViewer();
+                    });
+                }
+                break;
+            default:
+                break;
+
+        }
     }
 
     // 获取所有pdf
@@ -268,7 +303,7 @@ export default class TouristData extends Component {
         $('#my-pdf').scroll(function (event) {
             let top = 0;
             if ($('#the-canvas1').offset()) {
-                let top = $('#the-canvas1').offset().top;
+                top = $('#the-canvas1').offset().top;
             }
             let page = _this.state.page;
             let currentPage = parseInt((canvasTop - top + margin) / (canvasHeight + margin)) + 1;
@@ -351,6 +386,7 @@ export default class TouristData extends Component {
                                        style={{marginLeft: marginLeft}}/>;
                     })
                 }
+                <div style={{height: '80vh'}}></div>
                 <LoadingBox show={loadingShow} info={loadingTitle} type="loading3"/>
                 <div className="top-buttons">
                     <span className="page-count">{page}/{numPages}</span>
