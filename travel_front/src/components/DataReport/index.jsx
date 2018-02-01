@@ -293,21 +293,15 @@ export default class TouristData extends Component {
         });
     }
 
-    // 顺时针旋转pdf
-    rotatePdf() {
+    // 刷新pdf
+    refresh() {
         if (this.state.loadingShow) {
             message.warning('请等待报告完全载入完');
             return;
         }
-        let rotate = this.state.rotate + 90;
-        if (rotate === 360) {
-            rotate = 0;
-        }
-        let scale = this.state.scale;
-        if (!this.state.bigBtnShow) {
-            scale = this.boxWidth * this.state.scale / this.state.canvasHeight;
-        }
-        this.setState({rotate, scale}, () => {
+        let page = 1;
+        let scale = 1;
+        this.setState({page, scale}, () => {
             this.drawPdf();
         });
     }
@@ -423,7 +417,7 @@ export default class TouristData extends Component {
                     <a href={pdfUrl} download>
                         <i className="iconfont icon-download-copy" title="下载"/>
                     </a>
-                    <i className="iconfont icon-rotate" onClick={this.rotatePdf.bind(this)} title="顺时针旋转"/>
+                    <i className="iconfont icon-rotate" onClick={this.refresh.bind(this)} title="刷新"/>
                 </div>
                 <div className="right-buttons">
                     {

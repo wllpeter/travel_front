@@ -30,6 +30,31 @@ export default class DevelopmentIndexMap extends Component {
             ...params
         });
         this.props.getIndexMap(myChart);
+        let initX = 130;
+        let step = 130;
+        myChart.dispatchAction({
+            type: 'showTip',
+            // 屏幕上的 x 坐标
+            x: initX,
+            // 屏幕上的 y 坐标
+            y: 100
+        });
+        setInterval(() => {
+            initX += step;
+            if (initX === step * 7) {
+                initX = step;
+            }
+            myChart.dispatchAction({
+                type: 'showTip',
+                // 屏幕上的 x 坐标
+                x: initX,
+                // 屏幕上的 y 坐标
+                y: 100
+            });
+        }, 5000);
+        myChart.on('datazoom', (p) => {
+            console.log(p);
+        });
     }
 
     // 获取数据

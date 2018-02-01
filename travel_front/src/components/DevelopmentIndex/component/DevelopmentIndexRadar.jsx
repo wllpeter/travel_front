@@ -87,7 +87,6 @@ export default class DevelopmentIndexRadar extends Component {
         this.print({indicator, data, legend});
     }
     print(params) {
-        console.log(params.legend);
         let option = {
             title: {
                 text: ''
