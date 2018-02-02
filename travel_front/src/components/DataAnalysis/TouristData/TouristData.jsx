@@ -26,6 +26,8 @@ import '../style.scss';
 
 const Option = Select.Option;
 
+let analysisIndexObj = {};
+
 export default class TouristData extends Component {
     constructor(props) {
         super(props);
@@ -216,6 +218,10 @@ export default class TouristData extends Component {
     }
 
     componentDidMount() {
+        analysisIndexObj = {
+            province: 0,
+            country: 0
+        };
         // 1. 获取客情大数据的时间选项组
         getTouristDataOptions().then(data => {
             this.setState({
@@ -289,7 +295,7 @@ export default class TouristData extends Component {
                 }
                 this.setState(({flowAnalysis, selectedFlowAnalysisIndex}) => ({
                     flowAnalysis: this.state.flowAnalysis,
-                    selectedFlowAnalysisIndex: 0
+                    selectedFlowAnalysisIndex: analysisIndexObj.province
                 }), () => {
                     this.renderProvinceTouristData();  // 默认传数组第一个元素
                 });
@@ -389,11 +395,10 @@ export default class TouristData extends Component {
                         })]
                     });
                 }
-
                 this.state.flowAnalysis.set('country', countryFlowAnalysis.reverse());
                 this.setState(({flowAnalysis, selectedCountryFlowAnalysisIndex}) => ({
                     flowAnalysis: this.state.flowAnalysis,
-                    selectedCountryFlowAnalysisIndex: 0
+                    selectedCountryFlowAnalysisIndex: analysisIndexObj.country
                 }), () => {
                     this.renderCountryTouristData();  // 默认传数组第一个元素
                 });
@@ -436,9 +441,11 @@ export default class TouristData extends Component {
 
     // 流量分析下拉选择
     flowAnalysisSelect = (e, type) => {
+        let index = e.target.value;
+        analysisIndexObj[type] = index;
         if (type === 'province') {
             this.setState({
-                selectedFlowAnalysisIndex: e.target.value
+                selectedFlowAnalysisIndex: index
             }, () => {
                 this.renderProvinceTouristData();
             });

@@ -72,7 +72,7 @@ const AD_CHART = {
                 right: params.titleRight || 'auto'
             },
             tooltip: {
-                trigger: 'axis',
+                trigger: params.trigger || 'axis',
                 axisPointer: { // 坐标轴指示器，坐标轴触发有效
                     type: 'none' // 默认为直线，可选为：'line' | 'shadow'
                 },
@@ -83,6 +83,9 @@ const AD_CHART = {
                 textStyle: {
                     lineHeight: 56
                 },
+                // formatter: (p) => {
+                //     console.log(p);
+                // },
                 confine: true
             },
             legend: {

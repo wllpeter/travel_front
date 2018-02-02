@@ -115,6 +115,7 @@ export default class TrafficType extends Component {
             legendTop: '20',
             legendItemGap: 10,
             gridTop: 45,
+            trigger: 'item',
             labelTextSize: visible ? 16 : 12,
             barWidth: visible ? 20 : 14,
             itemSize: visible ? 16 : 12,
