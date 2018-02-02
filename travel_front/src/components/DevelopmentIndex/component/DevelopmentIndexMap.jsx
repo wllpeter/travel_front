@@ -60,7 +60,7 @@ export default class DevelopmentIndexMap extends Component {
                     // 屏幕上的 y 坐标
                     y: 100
                 });
-            }, 1000);
+            }, 5000);
         };
         // 初始化移动
         fn(6);

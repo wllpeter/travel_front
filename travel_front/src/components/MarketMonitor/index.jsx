@@ -223,13 +223,16 @@ export default class TouristData extends Component {
 
     // 渲染纵深层级地图
     renderMapLevelChart(mapTypeName, seriesData, max) {
+        let _this = this;
         AD_CHART.mapLevelChart({
             chartId: 'mapChart',
             mapTypeName: mapTypeName,
             legend: ['旅游行业活跃度'],
             series: [seriesData],
             roam: false,
-
+            formatter: (p) => {
+                return `${p.seriesName}<br/>${_this.state.activeDetail.title}：${_this.state.activeDetail.activeDegree}<br/>${p.name}：${p.value}`;
+            },
             scaleLimit: {
                 min: 1.1,
                 max: 1.1
@@ -240,12 +243,16 @@ export default class TouristData extends Component {
 
     // 渲染纵深层级地图(城市)
     cityMapLevelChart(mapTypeName, seriesData, max, params) {
+        let _this = this;
         AD_CHART.mapLevelChart({
             chartId: 'mapChart',
             mapTypeName: mapTypeName,
             legend: ['旅游行业活跃度'],
             series: [seriesData],
             roam: false,
+            formatter: (p) => {
+                return `${p.seriesName}<br/>${_this.state.activeDetail.title}：${_this.state.activeDetail.activeDegree}<br/>${p.name}：${p.value}`;
+            },
             max: max,
             ...params
         }, (params) => {
