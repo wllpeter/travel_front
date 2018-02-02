@@ -55,7 +55,9 @@ export default class TouristData extends Component {
             type: 'B',
             dataKey: 'dealAmount',
             title: '各地市外地游客刷卡消费金额分析',
-            timeType: 'geDiShuaKa'
+            timeType: 'geDiShuaKa',
+            unitName: '消费（万元）',
+            unit: '万元'
         };
 
         const cityTradeAmount = {
@@ -63,7 +65,9 @@ export default class TouristData extends Component {
             type: 'D',
             dataKey: 'dealTime',
             title: '各地市外地游客交易笔数分析',
-            timeType: 'geDiJiaoYi'
+            timeType: 'geDiJiaoYi',
+            unitName: '交易（万笔）',
+            unit: '万笔'
         };
 
         return <div className="consumption-data">

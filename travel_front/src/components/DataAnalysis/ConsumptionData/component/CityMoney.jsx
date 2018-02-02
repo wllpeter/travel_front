@@ -59,14 +59,17 @@ export default class CityMoney extends Component {
             let key = this.props.dataKey;
             let xAxisData = [];
             let data = [];
+            res.sort((a, b) => {
+                return b[key] - a[key];
+            });
             res.forEach((item) => {
                 xAxisData.push(item.city);
                 data.push(item[key]);
             });
             this.print({
                 xAxisData,
-                data,
-                zoomShow: xAxisData.length > 6
+                zoomShow: xAxisData.length > 5,
+                data
             });
         });
     }
@@ -80,13 +83,13 @@ export default class CityMoney extends Component {
             xAxisData: params.xAxisData,
             series: [params.data],
             gridTop: 60,
-            unit: '万元',
+            unit: this.props.unit,
             yAxisNameFontSize: 12,
             gridBottom: params.zoomShow ? 60 : 20,
-            yAxisName: '消费(万元)',
+            yAxisName: this.props.unitName,
             dataZoom: getDataZoom({
                 lengthMax: params.xAxisData.length,
-                showLength: 6
+                showLength: 5
             })
         });
     }

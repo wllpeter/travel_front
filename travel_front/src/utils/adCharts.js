@@ -730,7 +730,15 @@ const AD_CHART = {
 
             let options = {
                 tooltip: {
-                    trigger: 'item'
+                    trigger: 'item',
+                    backgroundColor: '#1F3A59',
+                    borderWidth: 1,
+                    borderColor: '#ffffff',
+                    padding: 7,
+                    textStyle: {
+                        lineHeight: 56
+                    },
+                    formatter: params.formatter
                 },
                 geo: params.geo || null,
                 visualMap: params.visualMap || null,

@@ -25,8 +25,9 @@ export default class ProvinceTravelConsume extends Component {
     print(params) {
         AdCharts.multiYaxisTypeChart({
             chartId: 'provinceTouristConsumption',
-            legend: ['消费', '同比'],
+            legend: [params.legend || '金额', '同比'],
             legendIcon: 'circle',
+            showLength: 12,
             xAxisData: params.xAxisData,
             lengthMax: params.xAxisData.length,
             colors: ['#00a9ff', '#32c889'],
@@ -34,7 +35,7 @@ export default class ProvinceTravelConsume extends Component {
             yAxis: [
                 {
                     type: 'value',
-                    name: '消费(万元)',
+                    name: params.unitName || '消费(万元)',
                     position: 'left',
                     nameTextStyle: {
                         color: 'rgba(255, 255, 255, 0.95)',
@@ -94,7 +95,7 @@ export default class ProvinceTravelConsume extends Component {
                 {
                     type: 'bar',
                     yAxisIndex: 0,
-                    formatter: '{c}万',
+                    formatter: '{c}' + (params.unit || '万元'),
                     data: params.data[0]
                 },
                 {
@@ -114,7 +115,7 @@ export default class ProvinceTravelConsume extends Component {
             this.setState({
                 btnShow: true
             });
-            this.chooseType(['consumeAmount', 'consumeAmountCompare']);
+            this.chooseType({keys: ['consumeAmount', 'consumeAmountCompare']});
         });
     }
 
@@ -145,10 +146,11 @@ export default class ProvinceTravelConsume extends Component {
     }
 
     // 选择不同的数据类型，刷新图表
-    chooseType(keys) {
+    chooseType(params) {
         this.print({
             xAxisData: customerData.xAxisData,
-            data: [customerData.data[keys[0]], customerData.data[keys[1]]]
+            data: [customerData.data[params.keys[0]], customerData.data[params.keys[1]]],
+            ...params
         });
     }
 
@@ -156,24 +158,36 @@ export default class ProvinceTravelConsume extends Component {
         let {btnShow} = this.state;
         const consumeInfoOptions = {
             clickBack: (params) => {
-                this.chooseType(params.keys);
+                this.chooseType(params);
             },
             buttons: [
                 {
                     buttonName: '交易金额',
-                    keys: ['consumeAmount', 'consumeAmountCompare']
+                    keys: ['consumeAmount', 'consumeAmountCompare'],
+                    unit: '万元',
+                    unitName: '交易金额（万元）',
+                    legend: '金额'
                 },
                 {
                     buttonName: '交易笔数',
-                    keys: ['consumeTimes', 'consumeTimesCompare']
+                    keys: ['consumeTimes', 'consumeTimesCompare'],
+                    unit: '万笔',
+                    unitName: '交易笔数（万笔）',
+                    legend: '笔数'
                 },
                 {
                     buttonName: '刷卡人次',
-                    keys: ['swipeTimes', 'swipeTimesCompare']
+                    keys: ['swipeTimes', 'swipeTimesCompare'],
+                    unit: '万人',
+                    unitName: '刷卡人次（万人）',
+                    legend: '人次'
                 },
                 {
                     buttonName: '单笔平均',
-                    keys: ['single', 'singleCompare']
+                    keys: ['single', 'singleCompare'],
+                    unit: '元',
+                    unitName: '单笔平均（元）',
+                    legend: '金额'
                 }
             ]
         };

@@ -208,7 +208,7 @@ export default class ProductEvaluate extends Component {
                             fontSize: 12,
                             position: [20, 0],
                             color: '#ffffff',
-                            formatter: '{c}'
+                            formatter: '{c}分'
                         }
                     }
                 },

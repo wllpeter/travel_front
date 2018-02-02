@@ -377,6 +377,7 @@ export default class TouristData extends Component {
             let countryFlowAnalysis = this.state.flowAnalysis.get('country');
 
             if (country_tour_person_Time_reception) {
+                console.log(country_tour_person_Time_reception);
                 for (let [key, value] of Object.entries(country_tour_person_Time_reception)) {
                     countryFlowAnalysis.push({
                         name: value.name,
