@@ -39,7 +39,7 @@ export default class DevelopmentIndexMap extends Component {
                 timer = null;
             }
             let initX = chartWidth * .06;
-            let step = chartWidth * .88 / num;
+            let step = chartWidth * .88 / num + 1;
             let positionX = initX;
             myChart.dispatchAction({
                 type: 'showTip',
@@ -50,7 +50,7 @@ export default class DevelopmentIndexMap extends Component {
             });
             timer = setInterval(() => {
                 positionX += step;
-                if (positionX > initX + step * num) {
+                if (positionX > initX + step * (num + 1)) {
                     positionX = initX;
                 }
                 myChart.dispatchAction({
@@ -60,7 +60,7 @@ export default class DevelopmentIndexMap extends Component {
                     // 屏幕上的 y 坐标
                     y: 100
                 });
-            }, 5000);
+            }, 1000);
         };
         // 初始化移动
         fn(6);
