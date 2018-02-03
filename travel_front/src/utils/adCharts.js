@@ -597,6 +597,7 @@ const AD_CHART = {
             options.dataZoom = params.dataZoom;
         }
         LineChart.setOption(options);
+        return LineChart;
         // $(window).resize(function () {
         //     LineChart.resize();
         // });
