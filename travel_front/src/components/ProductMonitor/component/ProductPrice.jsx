@@ -220,9 +220,9 @@ export default class ProductPrice extends Component {
                         }
                     },
                     label: {
-                        emphasis: {
+                        normal: {
                             show: true,
-                            fontSize: 16,
+                            fontSize: 12,
                             position: [20, 0],
                             color: '#ffffff',
                             formatter: '{c}元'
@@ -242,9 +242,9 @@ export default class ProductPrice extends Component {
                         }
                     },
                     label: {
-                        emphasis: {
+                        normal: {
                             show: true,
-                            fontSize: 16,
+                            fontSize: 12,
                             position: [20, 0],
                             color: '#ffffff',
                             formatter: '{c}%'

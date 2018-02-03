@@ -72,7 +72,7 @@ const AD_CHART = {
                 right: params.titleRight || 'auto'
             },
             tooltip: {
-                trigger: 'axis',
+                trigger: params.trigger || 'axis',
                 axisPointer: { // 坐标轴指示器，坐标轴触发有效
                     type: 'none' // 默认为直线，可选为：'line' | 'shadow'
                 },
@@ -83,6 +83,9 @@ const AD_CHART = {
                 textStyle: {
                     lineHeight: 56
                 },
+                // formatter: (p) => {
+                //     console.log(p);
+                // },
                 confine: true
             },
             legend: {
@@ -672,7 +675,15 @@ const AD_CHART = {
 
             let options = {
                 tooltip: {
-                    trigger: 'item'
+                    trigger: 'item',
+                    backgroundColor: '#1F3A59',
+                    borderWidth: 1,
+                    borderColor: '#ffffff',
+                    padding: 7,
+                    textStyle: {
+                        lineHeight: 56
+                    },
+                    formatter: params.formatter
                 },
                 visualMap: {
                     min: 0,
@@ -722,7 +733,15 @@ const AD_CHART = {
 
             let options = {
                 tooltip: {
-                    trigger: 'item'
+                    trigger: 'item',
+                    backgroundColor: '#1F3A59',
+                    borderWidth: 1,
+                    borderColor: '#ffffff',
+                    padding: 7,
+                    textStyle: {
+                        lineHeight: 56
+                    },
+                    formatter: params.formatter
                 },
                 geo: params.geo || null,
                 visualMap: params.visualMap || null,
@@ -874,6 +893,8 @@ const AD_CHART = {
         let zoomMap = echarts.init(document.getElementById(params.chartId));
 
         zoomMap.setOption(option);
+
+        return zoomMap;
     },
     percentBarChart: function (params, callback) {
         let percentChart = echarts.init(document.getElementById(params.chartId));

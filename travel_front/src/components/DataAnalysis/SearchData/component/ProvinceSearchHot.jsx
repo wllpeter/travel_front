@@ -144,7 +144,7 @@ export default class SearchPeopleSource extends Component {
             series: [params.series],
             dataZoom: getDataZoom({
                 lengthMax: params.series.length,
-                showLength: 6
+                showLength: 7
             })
         });
     }

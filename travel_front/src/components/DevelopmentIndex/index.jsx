@@ -13,6 +13,10 @@ import Labor from './component/Labor';
 import {getTravelDevData} from '../../services/DevelopmentIndex/development';
 import 'antd/lib/grid/style';
 import './style.scss';
+import echarts from 'echarts';
+
+let indexMap = null;
+let radarMap = null;
 
 export default class TouristData extends Component {
     constructor(props) {
@@ -23,19 +27,45 @@ export default class TouristData extends Component {
     }
 
     componentDidMount() {
+        indexMap = null;
+        radarMap = null;
         getTravelDevData().then(res => {
             this.setState({timeRange: res});
         });
+    }
+
+    getIndexMap(mychart) {
+        indexMap = mychart;
+        indexMap.on('legendselectchanged', function (params) {
+            let legendName = params.name;
+            let fn = () => {
+                if (radarMap) {
+                    radarMap.dispatchAction({
+                        type: 'legendToggleSelect',
+                        name: legendName
+                    });
+                } else {
+                    setTimeout(() => {
+                        fn();
+                    }, 200);
+                }
+            };
+            fn();
+        });
+    }
+
+    getRadarMap(mychart) {
+        radarMap = mychart;
     }
 
     render() {
         return <div className="developmentIndex">
             <Row className="mb-20">
                 <Col span={6} lg={8} xl={6}>
-                    <DevelopmentIndexRadar {...this.state}/>
+                    <DevelopmentIndexRadar {...this.state} getRadarMap={this.getRadarMap.bind(this)}/>
                 </Col>
                 <Col span={12} lg={16} xl={12}>
-                    <DevelopmentIndexMap/>
+                    <DevelopmentIndexMap getIndexMap={this.getIndexMap.bind(this)}/>
                 </Col>
                 <Col span={6} lg={24} xl={6}>
                     <RegionMap {...this.state}/>

@@ -12,10 +12,10 @@ import $ from 'jquery';
 import {getPdfList, getReport} from '../../services/DataReport/dataReport';
 
 let baseUrl = '/download';
-const scaleList = [3, 2, 1.5, 1, .75, .5, .2]; // 可缩放的列表
+const scaleList = [3, 2, 1.5, 1, .75, .5]; // 可缩放的列表
+let timer = null; // 一次性定时器
 
 const canvasTop = 60; // 记录第一个canvas容器距页面顶部的高度
-let canvasHeight = 0; // 记录canvas的高度
 const margin = 4; // canvas之间的margin值
 
 if (__DEV__) {
@@ -44,6 +44,7 @@ export default class TouristData extends Component {
             scale: 1,
             rotate: 0, // 选择角度
             canvasWidth: null, // 记录一倍时canvas的宽度
+            canvasHeight: null, // 记录一倍时canvas的高度
             loadingCode: false,
             loadingTitle: '加载pdf解析器',
             bigBtnShow: true, // 显示放大的按钮
@@ -52,6 +53,7 @@ export default class TouristData extends Component {
         this.pdf = null;
         this.boxWidth = null;
         this.boxHeight = null;
+        this.flipPage = this.flipPage.bind(this);
     }
 
     componentDidMount() {
@@ -61,8 +63,58 @@ export default class TouristData extends Component {
         this.setState({
             loadingTitle: '加载pdf解析器'
         });
-        PDFJS.workerSrc = '/static/data/pdfjs/pdf.worker.js';
+        PDFJS.workerSrc = '/static/data/pdfjs/pdf.worker.min.js';
         this.scrollEvent();
+
+        // 绑定键盘事件
+        document.addEventListener('keydown', this.flipPage);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('keydown', this.flipPage);
+    }
+
+    // 绑定键盘左右进行翻页
+    flipPage(e) {
+        let page = this.state.page;
+        let numPages = this.state.numPages;
+        switch (e.keyCode) {
+            case 37:
+                if (page > 1) {
+                    page--;
+                    this.setState({page}, () => {
+                        this.positionViewer()
+                        this.setFilpTimer(this.drawPdf.bind(this));
+                    });
+                }
+                break;
+            case 39:
+                if (page < numPages) {
+                    page++;
+                    this.setState({page}, () => {
+                        this.positionViewer()
+                        this.setFilpTimer(this.drawPdf.bind(this));
+                    });
+                }
+                break;
+            default:
+                break;
+
+        }
+    }
+
+    // 设置一个定时器优化翻页功能
+    setFilpTimer(callback){
+        if(timer){
+            clearTimeout(timer);
+            timer = null;
+        }
+        timer = setTimeout(()=>{
+            if(callback){
+                callback();
+            }
+            timer = null;
+        }, 200);
     }
 
     // 获取所有pdf
@@ -128,6 +180,7 @@ export default class TouristData extends Component {
     // 绘制pdf
     drawPdf() {
         let _this = this;
+        var currentPage = this.state.page;
         let fn = (p) => {
             _this.pdf.getPage(p).then(function getPage(page) {
                 let scale = _this.state.scale;
@@ -135,14 +188,16 @@ export default class TouristData extends Component {
                 let viewport = page.getViewport(scale, rotate);
                 let canvas = document.getElementById('the-canvas' + p);
                 let context = canvas.getContext('2d');
-                canvas.height = viewport.height;
+                let canvasHeight = parseInt(viewport.height);
+                canvas.height = canvasHeight;
                 canvas.width = viewport.width;
-                canvasHeight = viewport.height;
-                if (p === 1) {
+                context.clearRect(0, 0, canvas.width, canvasHeight);
+                if (p === currentPage) {
                     _this.setState({
                         marginLeft: (_this.boxWidth - viewport.width) / 2,
                         scale: scale,
-                        canvasWidth: viewport.width
+                        canvasWidth: viewport.width,
+                        canvasHeight: canvasHeight
                     });
                 }
                 let renderContext = {
@@ -150,17 +205,21 @@ export default class TouristData extends Component {
                     viewport: viewport
                 };
                 let pageRender = page.render(renderContext);
-                if (p === 1) {
+                if (p === currentPage) {
                     pageRender.promise.then(() => {
                         _this.setState({loadingShow: false});
                     });
+                }
+                if (p === currentPage + 4) {
+                    _this.positionViewer();
+                    return;
                 }
                 if (p === _this.pdf.numPages) {
                     _this.positionViewer();
                 }
             });
         };
-        for (let i = 1; i <= this.pdf.numPages; i++) {
+        for (let i = currentPage; i < currentPage + 5 && i <= this.pdf.numPages; i++) {
             fn(i);
         }
     }
@@ -234,21 +293,15 @@ export default class TouristData extends Component {
         });
     }
 
-    // 顺时针旋转pdf
-    rotatePdf() {
+    // 刷新pdf
+    refresh() {
         if (this.state.loadingShow) {
             message.warning('请等待报告完全载入完');
             return;
         }
-        let rotate = this.state.rotate + 90;
-        if (rotate === 360) {
-            rotate = 0;
-        }
-        let scale = this.state.scale;
-        if (!this.state.bigBtnShow) {
-            scale = this.boxWidth * this.state.scale / canvasHeight;
-        }
-        this.setState({rotate, scale}, () => {
+        let page = 1;
+        let scale = 1;
+        this.setState({page, scale}, () => {
             this.drawPdf();
         });
     }
@@ -268,12 +321,14 @@ export default class TouristData extends Component {
         $('#my-pdf').scroll(function (event) {
             let top = 0;
             if ($('#the-canvas1').offset()) {
-                let top = $('#the-canvas1').offset().top;
+                top = $('#the-canvas1').offset().top;
             }
             let page = _this.state.page;
-            let currentPage = parseInt((canvasTop - top + margin) / (canvasHeight + margin)) + 1;
+            let currentPage = parseInt((canvasTop - top + margin) / (_this.state.canvasHeight + margin)) + 1;
             if (page !== currentPage) {
-                _this.setState({page: currentPage});
+                _this.setState({page: currentPage}, () => {
+                    _this.drawPdf();
+                });
             }
         });
     }
@@ -281,6 +336,7 @@ export default class TouristData extends Component {
     // 当页面重新绘制后，更具当前的page值进行定
     positionViewer() {
         let page = this.state.page;
+        let canvasHeight = this.state.canvasHeight;
         let top = (canvasHeight + margin) * (page - 1);
         $('#my-pdf').scrollTop(top);
     }
@@ -307,7 +363,7 @@ export default class TouristData extends Component {
     }
 
     render() {
-        let {navItems, marginLeft, scale, numPages, loadingShow, loadingTitle, bigBtnShow, page, pdfUrl} = this.state;
+        let {navItems, marginLeft, canvasWidth, canvasHeight, numPages, loadingShow, loadingTitle, bigBtnShow, page, pdfUrl} = this.state;
         let canvasNum = [];
         for (let i = 0; i < numPages; i++) {
             canvasNum.push(i + 1);
@@ -348,9 +404,12 @@ export default class TouristData extends Component {
                     canvasNum.length > 0 && canvasNum.map((val, index) => {
                         return <canvas id={'the-canvas' + val} key={index}
                                        className="myCanvas"
+                                       width={canvasWidth}
+                                       height={canvasHeight}
                                        style={{marginLeft: marginLeft}}/>;
                     })
                 }
+                <div style={{height: '80vh'}}></div>
                 <LoadingBox show={loadingShow} info={loadingTitle} type="loading3"/>
                 <div className="top-buttons">
                     <span className="page-count">{page}/{numPages}</span>
@@ -358,7 +417,7 @@ export default class TouristData extends Component {
                     <a href={pdfUrl} download>
                         <i className="iconfont icon-download-copy" title="下载"/>
                     </a>
-                    <i className="iconfont icon-rotate" onClick={this.rotatePdf.bind(this)} title="顺时针旋转"/>
+                    <i className="iconfont icon-rotate" onClick={this.refresh.bind(this)} title="刷新"/>
                 </div>
                 <div className="right-buttons">
                     {

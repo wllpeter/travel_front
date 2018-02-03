@@ -59,7 +59,11 @@ export default class RegionMap extends Component {
             month: this.state.month
         }).then(res => {
             let max = 0;
+            let province = null;
             let seriesData = res.map(item => {
+                if (item.area === '四川省') {
+                    province = item.createNew;
+                }
                 if (item.createNew > max) {
                     max = item.createNew;
                 }
@@ -68,12 +72,12 @@ export default class RegionMap extends Component {
                     value: item.createNew
                 };
             });
-            this.renderMapLevelChart('四川省区域', seriesData, max);
+            this.renderMapLevelChart('四川省区域', seriesData, max, province);
         });
     }
 
     // 渲染纵深层级地图
-    renderMapLevelChart(mapTypeName, seriesData, max) {
+    renderMapLevelChart(mapTypeName, seriesData, max, province) {
         AD_CHART.mapLevelChart({
             chartId: 'region-map',
             mapTypeName: mapTypeName,
@@ -88,6 +92,9 @@ export default class RegionMap extends Component {
             left: '10%',
             top: 12,
             max: max,
+            formatter: (p) => {
+                return `${p.seriesName}<br/>四川省：${province}<br/>${p.name}：${p.value}`;
+            },
             roam: false
         });
     }

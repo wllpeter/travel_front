@@ -45,7 +45,7 @@ export function getDataZoom(params) {
     let showZoom = false;
     if (params.showLength && params.lengthMax) {
         if (params.showLength < params.lengthMax) {
-            start = Math.floor(100 - params.showLength / params.lengthMax * 100);
+            start = 100 - 100 / (params.lengthMax - 1) * (params.showLength - 1);
             showZoom = true;
         }
     }

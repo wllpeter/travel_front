@@ -99,7 +99,7 @@ export default class PraiseList extends Component {
             buttons: buttons,
             style: {
                 top: '-5%',
-                right: '50%',
+                right: '54%',
                 transform: 'translateX(50%)'
             },
             clickBack: (params) => {

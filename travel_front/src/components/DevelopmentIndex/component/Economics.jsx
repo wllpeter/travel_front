@@ -66,7 +66,7 @@ export default class Economics extends Component {
                 zoomBackground: '#072648',
                 zoomFiller: '#054D7E',
                 lengthMax: params.xAxis.length,
-                showLength: 2
+                showLength: 3
             })
         });
     }

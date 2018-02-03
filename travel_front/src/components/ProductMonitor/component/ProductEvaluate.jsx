@@ -203,9 +203,9 @@ export default class ProductEvaluate extends Component {
                         }
                     },
                     label: {
-                        emphasis: {
+                        normal: {
                             show: true,
-                            fontSize: 16,
+                            fontSize: 12,
                             position: [20, 0],
                             color: '#ffffff',
                             formatter: '{c}分'
@@ -225,9 +225,9 @@ export default class ProductEvaluate extends Component {
                         }
                     },
                     label: {
-                        emphasis: {
+                        normal: {
                             show: true,
-                            fontSize: 16,
+                            fontSize: 12,
                             position: [20, 0],
                             color: '#ffffff',
                             formatter: '{c}%'
