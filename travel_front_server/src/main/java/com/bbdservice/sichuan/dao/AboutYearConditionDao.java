@@ -97,9 +97,13 @@ public interface AboutYearConditionDao extends JpaRepository<ClassifyData,Long> 
      */
     //四川省游客性别分布(其实是四川省游客年龄分布+四川省游客性别分布+四川省客流量分析所有数据年季)
     @Query(nativeQuery = true,value = "select DISTINCT * from (select year,`quarter`,'季' as type from cbd_sichuan_tourist_gender_ratio where year is not null and `quarter` is not null and deleted = 0 GROUP  by year desc , `quarter` desc \n" +
-            "union ALL\n" +
-            "select year,`quarter`,'季' as type from cbd_sichuan_tourist_age where year is not null and `quarter` is not null and deleted = 0 GROUP  by year desc , `quarter` desc )b\n" +
-            "group by year desc ,QUARTER desc")
+            "\n" +
+            "            union ALL\n" +
+            "            select year,`quarter`,'季' as type from cbd_sichuan_tourist_age where year is not null and `quarter` is not null and deleted = 0 GROUP  by year desc , `quarter` desc\n" +
+            " union all \n" +
+            "select year,`quarter`,'季' as type from cbd_sichuan_flow_analyse where year is not null and `quarter` is not null and deleted = 0 GROUP  by year desc , `quarter` desc\n" +
+            " )b \n" +
+            "            group by year desc ,QUARTER desc")
     List<String> getSiChuanYouKeSex();
 
     //乡村游客分析-接待

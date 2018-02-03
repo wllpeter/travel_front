@@ -11,9 +11,9 @@ import java.util.List;
  * Created by 陈亚兰 on 2018/1/8.
  */
 public interface TpmOpinionRankDao  extends JpaRepository<OpinionRank,Long>{
-    @Query(value = "select o from OpinionRank o where o.year=?1 and o.month=?2 and o.productType=?3 and o.deleted=0 and o.modifyId is null order by o.rank ")
+    @Query(nativeQuery = true,value = "select * from tpm_opinion_rank o where o.year=?1 and o.month=?2 and o.product_type=?3 and o.deleted=0 and o.modify_id is null order by o.score desc limit 0,10 ")
     List<OpinionRank> getWithOutDataType(Integer year,Integer month,Integer productType);
 
-    @Query(value = "select o from OpinionRank o where o.year=?1 and o.month=?2 and o.productType=?3 and o.deleted=0 and o.dataType=?4 and o.modifyId is null order by o.rank ")
+    @Query(nativeQuery = true,value = "select * from tpm_opinion_rank o where o.year=?1 and o.month=?2 and o.product_type=?3 and o.deleted=0 and o.data_type=?4 and o.modify_id is null order by o.score desc limit 0,10 ")
     List<OpinionRank> getAllOpinion(Integer year,Integer month,Integer productType,Integer dataType);
 }

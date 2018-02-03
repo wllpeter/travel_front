@@ -93,6 +93,7 @@ public class SearchPersonResourceServiceImpl implements SearchPersonResourceServ
             srp.setResourcePlace(params.get("name").toString());
             srp.setRatio(params.get("ratio").toString());
             srp.setYear(year);
+            srp.setDeleted(false);
             srp.setMonth(month);
             ret.add(srp);
         }
@@ -121,6 +122,7 @@ public class SearchPersonResourceServiceImpl implements SearchPersonResourceServ
             srp.setRatio(provinceMap.get(pro_name).toString());
             srp.setYear(year);
             srp.setMonth(month);
+            srp.setDeleted(false);
             final_ret.add(srp);
         }
         this.searchPersonResourceRepository.save(final_ret);

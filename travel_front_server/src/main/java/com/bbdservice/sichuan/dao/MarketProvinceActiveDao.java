@@ -10,6 +10,6 @@ import java.util.List;
  * Created by 陈亚兰 on 2018/1/22.
  */
 public interface MarketProvinceActiveDao extends JpaRepository<MarketProvinceActive,Long> {
-    @Query(value = "select m from MarketProvinceActive m where m.modifyId is null and m.date=?1 and m.deleted = 0")
+    @Query(nativeQuery = true,value = "select * from market_province_active m where m.modify_id is null and m.date=?1 and m.deleted = 0 order by m.active desc limit 0,5 ")
     List<MarketProvinceActive> getMarketProvinceActive(String date);
 }

@@ -125,6 +125,9 @@ public class SysUserController extends BaseController {
             return Response.error(getMessage("Login.Error.NullInfo"));
         }
         UserInfoVO userInfo = sysUserService.findByLoginName(loginName);
+        if(userInfo==null){
+            return Response.error("该用户不存在");
+        }
         SysUser s=userInfo.getSysUser();
         String salt=s.getSalt();
         if (userInfo == null) {

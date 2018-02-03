@@ -69,6 +69,7 @@ public class SearchPersonAgeServiceImpl implements SearchPersonAgeService {
             shw.setRatio(params.get("ratio").toString());
             shw.setMonth(month);
             shw.setYear(year);
+            shw.setDeleted(false);
             spas.add(shw);
         }
         this.searchPersonAgeRepository.save(spas);

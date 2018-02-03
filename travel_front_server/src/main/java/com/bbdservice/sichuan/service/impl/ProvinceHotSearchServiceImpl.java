@@ -75,6 +75,7 @@ public class ProvinceHotSearchServiceImpl implements ProvinceHotSearchService{
                 String name = params.get("name").toString();
                 int searchCount = Integer.valueOf(params.get("searchCount").toString());
                 ProvinceHostSearch provinceHostSearch = new ProvinceHostSearch(name,searchCount,year,month);
+                provinceHostSearch.setDeleted(false);
                 ret.add(provinceHostSearch);
             }
         }

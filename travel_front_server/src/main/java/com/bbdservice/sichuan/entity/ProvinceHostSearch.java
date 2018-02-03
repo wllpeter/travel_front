@@ -41,4 +41,12 @@ public class ProvinceHostSearch {
         this.modifyId = null;
         this.createDate = new Date();
     }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
 }
