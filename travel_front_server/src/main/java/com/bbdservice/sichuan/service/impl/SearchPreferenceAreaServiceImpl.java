@@ -71,6 +71,7 @@ public class SearchPreferenceAreaServiceImpl implements SearchPreferenceAreaServ
             srp.setRatio(params.get("ratio").toString());
             srp.setYear(year);
             srp.setMonth(month);
+            srp.setDeleted(false);
             srp.setSearchCount(Integer.valueOf(params.get("searchCount").toString()));
             ret.add(srp);
         }

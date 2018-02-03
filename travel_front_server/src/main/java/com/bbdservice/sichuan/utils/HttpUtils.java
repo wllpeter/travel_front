@@ -35,7 +35,7 @@ public class HttpUtils {
 
     public static Cookie getCookie(String name, String value, int expiry, String path, boolean isSecure) {
         Cookie cookie = new Cookie(name, value);
-        cookie.setMaxAge(expiry);
+       // cookie.setMaxAge(expiry);
         cookie.setPath(path);
         cookie.setSecure(isSecure);
         return cookie;

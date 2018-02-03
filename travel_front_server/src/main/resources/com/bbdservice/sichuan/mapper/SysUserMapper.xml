@@ -33,7 +33,7 @@
         select id, user_id, login_name, user_name, password, valid_date, telephone,mobile_phone, email, province, area_code,
         salt, type, remark, create_by, create_date, modify_by, modify_date
         from sys_user
-        where login_name = #{loginName,jdbcType=VARCHAR}
+        where login_name = #{loginName,jdbcType=VARCHAR} and deleted=0
     </select>
     <select id="selectByUserId" parameterType="java.lang.String" resultMap="BaseResultMap">
             select id, user_id, login_name, user_name, password, valid_date, telephone, mobile_phone, email, province, area_code,
