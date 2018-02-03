@@ -280,9 +280,11 @@ export default class TouristData extends Component {
 
             // 处理流量分析
             if (flow_data && flow_data.length) {
+                let provinceFlowAnalysis = this.state.flowAnalysis.get('province');
+                provinceFlowAnalysis.splice(0, provinceFlowAnalysis.length);
                 for (let item of flow_data) {
                     for (let [key, value] of Object.entries(item)) {
-                        this.state.flowAnalysis.get('province').push({
+                        provinceFlowAnalysis.push({
                             name: value.name,
                             value: key,
                             data: [value.data.map((dataItem) => {
@@ -383,7 +385,7 @@ export default class TouristData extends Component {
             let countryFlowAnalysis = this.state.flowAnalysis.get('country');
 
             if (country_tour_person_Time_reception) {
-                console.log(country_tour_person_Time_reception);
+                countryFlowAnalysis.splice(0, countryFlowAnalysis.length);
                 for (let [key, value] of Object.entries(country_tour_person_Time_reception)) {
                     countryFlowAnalysis.push({
                         name: value.name,
