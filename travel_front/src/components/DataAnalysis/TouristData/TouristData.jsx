@@ -113,13 +113,6 @@ export default class TouristData extends Component {
 
             provinceTouristQuarter = quarter;
             let step = lineChart.getWidth() / 5;
-            lineChart.dispatchAction({
-                type: 'showTip',
-                // 屏幕上的 x 坐标
-                x: step * quarter,
-                // 屏幕上的 y 坐标
-                y: 100
-            });
             if (provinceTimer) {
                 clearInterval(provinceTimer);
                 provinceTimer = null;
@@ -132,7 +125,7 @@ export default class TouristData extends Component {
                     // 屏幕上的 y 坐标
                     y: 100
                 });
-            }, 5000);
+            }, 1000);
         }
     }
 
@@ -225,13 +218,6 @@ export default class TouristData extends Component {
             });
             countryTouristQuarter = quarter;
             let step = lineChart.getWidth() / 5;
-            lineChart.dispatchAction({
-                type: 'showTip',
-                // 屏幕上的 x 坐标
-                x: step * quarter,
-                // 屏幕上的 y 坐标
-                y: 100
-            });
             if (countryTimer) {
                 clearInterval(countryTimer);
                 countryTimer = null;
@@ -244,7 +230,7 @@ export default class TouristData extends Component {
                     // 屏幕上的 y 坐标
                     y: 100
                 });
-            }, 5000);
+            }, 1000);
         }
 
         // 乡村游出游人次
