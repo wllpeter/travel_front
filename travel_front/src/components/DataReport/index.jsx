@@ -39,6 +39,7 @@ export default class TouristData extends Component {
                     children: []
                 }
             ],
+            navIndex: 0, // 当前选中的左侧菜单的index
             numPages: 0, // pdf总页数
             marginLeft: 0,
             scale: 1,
@@ -83,7 +84,7 @@ export default class TouristData extends Component {
                 if (page > 1) {
                     page--;
                     this.setState({page}, () => {
-                        this.positionViewer()
+                        this.positionViewer();
                         this.setFilpTimer(this.drawPdf.bind(this));
                     });
                 }
@@ -92,7 +93,7 @@ export default class TouristData extends Component {
                 if (page < numPages) {
                     page++;
                     this.setState({page}, () => {
-                        this.positionViewer()
+                        this.positionViewer();
                         this.setFilpTimer(this.drawPdf.bind(this));
                     });
                 }
@@ -104,13 +105,13 @@ export default class TouristData extends Component {
     }
 
     // 设置一个定时器优化翻页功能
-    setFilpTimer(callback){
-        if(timer){
+    setFilpTimer(callback) {
+        if (timer) {
             clearTimeout(timer);
             timer = null;
         }
-        timer = setTimeout(()=>{
-            if(callback){
+        timer = setTimeout(() => {
+            if (callback) {
                 callback();
             }
             timer = null;
@@ -343,12 +344,20 @@ export default class TouristData extends Component {
 
     chooseFatherNav(index) {
         let {navItems} = this.state;
-        navItems[index].selected = !navItems[index].selected;
+        console.log(index)
+        navItems.forEach((item, i) => {
+            if(i === index){
+                navItems[i].selected = !navItems[i].selected;
+            }else{
+                navItems[i].selected = false;
+            }
+        });
         this.setState({navItems: navItems});
     }
 
     chooseChildrenNav(index, i, id) {
         let {navItems} = this.state;
+        this.state.navIndex = index;
         navItems.forEach((item, n) => {
             item.children.forEach((child, m) => {
                 if (index === n && i === m) {
@@ -363,7 +372,7 @@ export default class TouristData extends Component {
     }
 
     render() {
-        let {navItems, marginLeft, canvasWidth, canvasHeight, numPages, loadingShow, loadingTitle, bigBtnShow, page, pdfUrl} = this.state;
+        let {navItems, marginLeft, canvasWidth, canvasHeight, numPages, loadingShow, loadingTitle, bigBtnShow, page, pdfUrl, navIndex} = this.state;
         let canvasNum = [];
         for (let i = 0; i < numPages; i++) {
             canvasNum.push(i + 1);
@@ -374,7 +383,7 @@ export default class TouristData extends Component {
                     {
                         navItems.map((item, index) => {
                             return <li className="nav-father" key={index}>
-                                <a className="nav-father-name" onClick={() => {
+                                <a className={`nav-father-name ${index === navIndex ? 'nav-father-choose' : ''}`} onClick={() => {
                                     this.chooseFatherNav(index);
                                 }}>
                                     {item.name}
