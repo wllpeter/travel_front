@@ -54,6 +54,7 @@ export default class TouristData extends Component {
         this.pdf = null;
         this.boxWidth = null;
         this.boxHeight = null;
+        this.pageRender = null;
         this.flipPage = this.flipPage.bind(this);
     }
 
@@ -152,6 +153,18 @@ export default class TouristData extends Component {
 
     // 根据pdf的url解析pdf
     analysisPdf() {
+        if(this.pdfLoading){
+            return;
+        }
+        this.pdfLoading = true;
+        if (this.pageRender){
+            this.pageRender.cancel();
+            this.pageRender = null;
+        }
+        if (this.pdf) {
+            this.pdf.destroy();
+            this.pdf = null;
+        }
         let _this = this;
         let url = this.state.pdfUrl;
         this.setState({
@@ -160,6 +173,7 @@ export default class TouristData extends Component {
             numPages: 0
         });
         PDFJS.getDocument(url).then(function getPdf(pdf) {
+            _this.pdfLoading = false;
             _this.pdf = pdf;
             _this.setState({
                 numPages: pdf.numPages,
@@ -179,7 +193,7 @@ export default class TouristData extends Component {
     }
 
     // 绘制pdf
-    drawPdf() {
+    drawPdf(bool) {
         let _this = this;
         var currentPage = this.state.page;
         let fn = (p) => {
@@ -205,24 +219,26 @@ export default class TouristData extends Component {
                     canvasContext: context,
                     viewport: viewport
                 };
-                let pageRender = page.render(renderContext);
-                if (p === currentPage) {
-                    pageRender.promise.then(() => {
-                        _this.setState({loadingShow: false});
-                    });
-                }
-                if (p === currentPage + 4) {
-                    _this.positionViewer();
-                    return;
-                }
-                if (p === _this.pdf.numPages) {
-                    _this.positionViewer();
-                }
+                let pageRender = _this.pageRender = page.render(renderContext);
+                pageRender.promise.then(() => {
+                    if (p === currentPage) {
+                        pageRender.promise.then(() => {
+                            _this.setState({loadingShow: false});
+                        });
+                    }
+                    if (p === currentPage + 4 && !bool) {
+                        _this.positionViewer();
+                        return;
+                    }
+                    if (p === _this.pdf.numPages && !bool) {
+                        _this.positionViewer();
+                        return;
+                    }
+                    fn(++p);
+                });
             });
         };
-        for (let i = currentPage; i < currentPage + 5 && i <= this.pdf.numPages; i++) {
-            fn(i);
-        }
+        fn(currentPage);
     }
 
     // 缩小pdf
@@ -328,7 +344,7 @@ export default class TouristData extends Component {
             let currentPage = parseInt((canvasTop - top + margin) / (_this.state.canvasHeight + margin)) + 1;
             if (page !== currentPage) {
                 _this.setState({page: currentPage}, () => {
-                    _this.drawPdf();
+                    _this.drawPdf(true);
                 });
             }
         });
@@ -344,11 +360,10 @@ export default class TouristData extends Component {
 
     chooseFatherNav(index) {
         let {navItems} = this.state;
-        console.log(index)
         navItems.forEach((item, i) => {
-            if(i === index){
+            if (i === index) {
                 navItems[i].selected = !navItems[i].selected;
-            }else{
+            } else {
                 navItems[i].selected = false;
             }
         });
@@ -356,6 +371,10 @@ export default class TouristData extends Component {
     }
 
     chooseChildrenNav(index, i, id) {
+        if(this.pdfLoading){
+            message.warning('操作不要太频繁');
+            return;
+        }
         let {navItems} = this.state;
         this.state.navIndex = index;
         navItems.forEach((item, n) => {
@@ -383,9 +402,10 @@ export default class TouristData extends Component {
                     {
                         navItems.map((item, index) => {
                             return <li className="nav-father" key={index}>
-                                <a className={`nav-father-name ${index === navIndex ? 'nav-father-choose' : ''}`} onClick={() => {
-                                    this.chooseFatherNav(index);
-                                }}>
+                                <a className={`nav-father-name ${index === navIndex ? 'nav-father-choose' : ''}`}
+                                   onClick={() => {
+                                       this.chooseFatherNav(index);
+                                   }}>
                                     {item.name}
                                     <i className={`iconfont icon-xiangyou ${item.selected ? 'icon-open' : ''}`}></i>
                                 </a>

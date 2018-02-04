@@ -73,20 +73,23 @@ export default class TouristData extends Component {
      */
     renderProvinceTouristData(quarter) {
         const {provinceTouristData, flowAnalysis, selectedFlowAnalysisIndex} = this.state;
+        console.log(provinceTouristData.get('ageData'))
         // 四川省游客年龄分布图
-        adCharts.pieChart({
-            chartId: 'provinceAgePieChart',
-            legend: ['20以下', '20-25', '25-30', '30-35', '35-40', '40-45', '45-50', '50-55', '55-60', '60-65', '65以上'],
-            legendIcon: 'circle',
-            borderWidth: 6,
-            borderColor: '#072848',
-            legendTop: 80,
-            legendHeight: 150,
-            legendRight: '10%',
-            color: ['#dc9473', '#ddcf73', '#b6dd74', '#32c889', '#0dbbc7', '#00a9ff', '#1b75d3', '#3559c5', '#5334c5', '#9e35c5', '#df5fa8'],
-            center: ['30%', '50%'],
-            data: provinceTouristData.get('ageData')
-        });
+        if (provinceTouristData.get('ageData') && provinceTouristData.get('ageData').length) {
+            adCharts.pieChart({
+                chartId: 'provinceAgePieChart',
+                legend: ['20以下', '20-25', '25-30', '30-35', '35-40', '40-45', '45-50', '50-55', '55-60', '60-65', '65以上'],
+                legendIcon: 'circle',
+                borderWidth: 6,
+                borderColor: '#072848',
+                legendTop: 80,
+                legendHeight: 150,
+                legendRight: '10%',
+                color: ['#dc9473', '#ddcf73', '#b6dd74', '#32c889', '#0dbbc7', '#00a9ff', '#1b75d3', '#3559c5', '#5334c5', '#9e35c5', '#df5fa8'],
+                center: ['30%', '50%'],
+                data: provinceTouristData.get('ageData')
+            });
+        }
 
         // 四川省客流量分析
         if (flowAnalysis.toObject() && flowAnalysis.get('province').length) {
@@ -140,7 +143,7 @@ export default class TouristData extends Component {
 
         const {villageTouristData, flowAnalysis, selectedCountryFlowAnalysisIndex, peopleTimeData} = this.state;
         const {citys, data} = peopleTimeData;
-
+        // console.log(villageTouristData.get('ageData'));
         // 乡村游游客年龄分析
         if (villageTouristData.get('ageData') && villageTouristData.get('ageData').length) {
             adCharts.pieChart({
@@ -289,7 +292,6 @@ export default class TouristData extends Component {
     fetchProvinceCustomerData = (params) => {
         getProvinceCustomerData(params).then(data => {
             let {age_data, gender_data, flow_data} = data;
-
             // 处理年龄数据
             if (age_data && age_data.data && age_data.data.length) {
                 let ageData = age_data.data;
@@ -299,7 +301,6 @@ export default class TouristData extends Component {
                         value: Number(ageSeries.ratio) * 100
                     };
                 });
-
                 if (ageSeriesData && ageSeriesData.length) {
                     this.setState(({provinceTouristData}) => ({
                         provinceTouristData: provinceTouristData.set('ageData', ageSeriesData)
