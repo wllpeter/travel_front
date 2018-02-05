@@ -2,7 +2,7 @@
 import './style.scss';
 import React from 'react';
 import { render } from 'react-dom';
-import { hashHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 // redux
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -38,7 +38,7 @@ const store = createStore(
 );
 
 // 保持历史同步
-const history = syncHistoryWithStore(hashHistory, store);
+const history = syncHistoryWithStore(browserHistory, store);
 
 // 路由
 render(

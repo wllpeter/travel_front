@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Router, Route, hashHistory, IndexRedirect} from 'react-router';
+import {Router, Route, browserHistory, IndexRedirect} from 'react-router';
 import $ from 'jquery';
 
 // App 入口
@@ -36,7 +36,7 @@ class Routers extends Component {
         let dataSession = getSession('user');
         let userId = dataSession ? dataSession.userId : ''; // 用户id 判断是否登录
         if(userId === ''){
-            hashHistory.push('/login');
+            browserHistory.push('/app/login');
         }
         $('body').scrollTop(0);
     }
@@ -44,18 +44,18 @@ class Routers extends Component {
     render() {
         return (
             <Router history={this.props.history}>
-                <Route path="/login" component={Login} onEnter={this.clearAll}/>
+                <Route path="/app/login" component={Login} onEnter={this.clearAll}/>
                 <Route path="/" component={App}>
-                    <IndexRedirect to="/developmentIndex" />
-                    <Route path="developmentIndex" component={DevelopmentIndex} onEnter={this.enterPath}/>
-                    <Route path="marketMonitor" component={MarketMonitor} onEnter={this.enterPath}/>
-                    <Route path="productMonitor" component={ProductMonitor} onEnter={this.enterPath}/>
-                    <Route path="data">
+                    <IndexRedirect to="app/developmentIndex" />
+                    <Route path="app/developmentIndex" component={DevelopmentIndex} onEnter={this.enterPath}/>
+                    <Route path="app/marketMonitor" component={MarketMonitor} onEnter={this.enterPath}/>
+                    <Route path="app/productMonitor" component={ProductMonitor} onEnter={this.enterPath}/>
+                    <Route path="app/data">
                         <Route path="touristData" component={TouristData} onEnter={this.enterPath}/>
                         <Route path="consumptionData" component={ConsumptionData} onEnter={this.enterPath}/>
                         <Route path="searchData" component={SearchData} onEnter={this.enterPath}/>
                     </Route>
-                    <Route path="dataReport" component={DataReport} onEnter={this.enterPath}/>
+                    <Route path="app/dataReport" component={DataReport} onEnter={this.enterPath}/>
                 </Route>
             </Router>
         );

@@ -1,6 +1,6 @@
 import echarts from 'echarts';
 import $ from 'jquery';
-import {colorHex, getDataZoom} from '../utils/tools';
+import {colorHex, getDataZoom, deepClone} from '../utils/tools';
 
 let mapChart = null;
 

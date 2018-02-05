@@ -57,7 +57,7 @@
                         margin-top: -1px;
                         max-height: 160px;
                         overflow: auto;
-                        z-index: 5000;
+                        z-index: 99999999999;
 
                         .mt-select-option {
                             padding: 4px 12px;
@@ -198,7 +198,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 3000;
+    z-index: 9999999999;
     -webkit-overflow-scrolling: touch;
     outline: 0;
     background-color: rgba(0, 0, 0, 0.6);

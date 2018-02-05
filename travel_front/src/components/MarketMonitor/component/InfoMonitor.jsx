@@ -69,7 +69,7 @@ export default class InfoMonitor extends Component {
     render() {
         let {visible, items} = this.state;
         return <div>
-            <PanelCard title="省内涉旅行业网络信息监控" className="bg-grey network-info" zoomRequired={true}
+            <PanelCard title="省内涉旅行业网络信息监控" className="bg-grey network-info"
                        enlarge={this.showModal.bind(this)}>
                 <div style={{height: 300}}>
                     <div style={{height: 270, overflow: 'hidden'}}>
