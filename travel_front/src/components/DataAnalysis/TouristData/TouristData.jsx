@@ -28,10 +28,6 @@ const Option = Select.Option;
 
 let analysisIndexObj = {};
 
-let provinceTouristQuarter = 0;
-let countryTouristQuarter = 0;
-let provinceTimer = null;
-let countryTimer = null;
 
 export default class TouristData extends Component {
     constructor(props) {
@@ -110,22 +106,6 @@ export default class TouristData extends Component {
                 colors: ['#32c889', '#00a9ff'],
                 series: flowAnalysis.get('province')[selectedFlowAnalysisIndex].data
             });
-
-            provinceTouristQuarter = quarter;
-            let step = lineChart.getWidth() / 5;
-            if (provinceTimer) {
-                clearInterval(provinceTimer);
-                provinceTimer = null;
-            }
-            provinceTimer = setInterval(() => {
-                lineChart.dispatchAction({
-                    type: 'showTip',
-                    // 屏幕上的 x 坐标
-                    x: step * quarter,
-                    // 屏幕上的 y 坐标
-                    y: 100
-                });
-            }, 1000);
         }
     }
 
@@ -216,21 +196,6 @@ export default class TouristData extends Component {
                 colors: ['#32c889', '#00a9ff'],
                 series: flowAnalysis.get('country')[selectedCountryFlowAnalysisIndex].data
             });
-            countryTouristQuarter = quarter;
-            let step = lineChart.getWidth() / 5;
-            if (countryTimer) {
-                clearInterval(countryTimer);
-                countryTimer = null;
-            }
-            countryTimer = setInterval(() => {
-                lineChart.dispatchAction({
-                    type: 'showTip',
-                    // 屏幕上的 x 坐标
-                    x: step * quarter,
-                    // 屏幕上的 y 坐标
-                    y: 100
-                });
-            }, 1000);
         }
 
         // 乡村游出游人次
@@ -484,7 +449,7 @@ export default class TouristData extends Component {
             this.setState({
                 selectedFlowAnalysisIndex: index
             }, () => {
-                this.renderProvinceTouristData(provinceTouristQuarter);
+                this.renderProvinceTouristData();
             });
         }
 
@@ -492,7 +457,7 @@ export default class TouristData extends Component {
             this.setState({
                 selectedCountryFlowAnalysisIndex: e.target.value
             }, () => {
-                this.renderCountryTouristData(countryTouristQuarter);
+                this.renderCountryTouristData();
             });
         }
     };

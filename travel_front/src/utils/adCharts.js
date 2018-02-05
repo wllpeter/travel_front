@@ -1139,14 +1139,14 @@ const AD_CHART = {
                         color: '#00a9ff'
                     }
                 },
-                formatter: function (params) {
-                    var res = params[0].name;
+                formatter: function (p) {
+                    var res = p[0].name;
 
-                    for (var i = 0, l = params.length; i < l; i++) {
-                        if (params[i].seriesType === 'line') {
-                            res += '<br/>' + params[i].marker + params[i].seriesName + ' : ' + (params[i].value ? params[i].value : '-') + '%';
+                    for (var i = 0, l = p.length; i < l; i++) {
+                        if (p[i].seriesType === 'line') {
+                            res += '<br/>' + p[i].marker + p[i].seriesName + ' : ' + (p[i].value ? p[i].value : '-') + '%';
                         } else {
-                            res += '<br/>' + params[i].marker + params[i].seriesName + ' : ' + (params[i].value ? params[i].value : '-') + '万元';
+                            res += '<br/>' + p[i].marker + p[i].seriesName + ' : ' + (p[i].value ? p[i].value : '-') + params.unit || '万元';
                         }
                     }
                     return res;

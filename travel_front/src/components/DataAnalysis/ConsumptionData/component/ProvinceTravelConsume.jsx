@@ -91,6 +91,7 @@ export default class ProvinceTravelConsume extends Component {
                     }
                 }
             ],
+            unit: params.unit || '万元',
             series: [
                 {
                     type: 'bar',
