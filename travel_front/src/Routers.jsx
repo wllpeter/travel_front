@@ -20,6 +20,8 @@ import ConsumptionData from './components/DataAnalysis/ConsumptionData/Consumpti
 import SearchData from './components/DataAnalysis/SearchData/SearchData';
 // 旅游大数据报告
 import DataReport from './components/DataReport';
+// 页面未找到
+import NotFound from './components/notFound/NotFound';
 
 import {clear, getSession} from './utils/storage';
 
@@ -32,11 +34,11 @@ class Routers extends Component {
     clearAll = () => {
     };
 
-    enterPath(nextPath){
+    enterPath(nextPath) {
         let dataSession = getSession('user');
         let userId = dataSession ? dataSession.userId : ''; // 用户id 判断是否登录
-        if(userId === ''){
-            browserHistory.push('/app/login');
+        if (userId === '') {
+            browserHistory.push('/login');
         }
         $('body').scrollTop(0);
     }
@@ -44,19 +46,20 @@ class Routers extends Component {
     render() {
         return (
             <Router history={this.props.history}>
-                <Route path="/app/login" component={Login} onEnter={this.clearAll}/>
+                <Route path="/login" component={Login} onEnter={this.clearAll}/>
                 <Route path="/" component={App}>
-                    <IndexRedirect to="app/developmentIndex" />
-                    <Route path="app/developmentIndex" component={DevelopmentIndex} onEnter={this.enterPath}/>
-                    <Route path="app/marketMonitor" component={MarketMonitor} onEnter={this.enterPath}/>
-                    <Route path="app/productMonitor" component={ProductMonitor} onEnter={this.enterPath}/>
-                    <Route path="app/data">
+                    <IndexRedirect to="developmentIndex"/>
+                    <Route path="developmentIndex" component={DevelopmentIndex} onEnter={this.enterPath}/>
+                    <Route path="marketMonitor" component={MarketMonitor} onEnter={this.enterPath}/>
+                    <Route path="productMonitor" component={ProductMonitor} onEnter={this.enterPath}/>
+                    <Route path="data">
                         <Route path="touristData" component={TouristData} onEnter={this.enterPath}/>
                         <Route path="consumptionData" component={ConsumptionData} onEnter={this.enterPath}/>
                         <Route path="searchData" component={SearchData} onEnter={this.enterPath}/>
                     </Route>
-                    <Route path="app/dataReport" component={DataReport} onEnter={this.enterPath}/>
+                    <Route path="dataReport" component={DataReport} onEnter={this.enterPath}/>
                 </Route>
+                <Route path="*" component={NotFound}/>
             </Router>
         );
     }

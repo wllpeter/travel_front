@@ -764,7 +764,7 @@ const AD_CHART = {
                 type: 'line',
                 smooth: false,
                 symbol: 'circle',
-                symbolSize: 7,
+                symbolSize: 4,
                 showSymbol: true,
                 lineStyle: {
                     normal: {
@@ -783,7 +783,7 @@ const AD_CHART = {
                     normal: {
                         color: color[index],
                         borderColor: colorHex(color[index], 0.27),
-                        borderWidth: 12
+                        borderWidth: 8
                     }
                 },
                 data: item

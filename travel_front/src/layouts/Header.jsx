@@ -26,7 +26,7 @@ export default class Header extends Component {
     logOut() {
         logOut({}).then(() => {
             remove('user');
-            browserHistory.push('/app/login');
+            browserHistory.push('/login');
         });
     }
 
@@ -42,21 +42,21 @@ export default class Header extends Component {
                 </div>
             }
             <ul className="header-nav-list">
-                <li><Link to="/app/developmentIndex" activeClassName="active">旅游发展指数</Link></li>
-                <li><Link to="/app/marketMonitor" activeClassName="active">旅游市场监测</Link></li>
-                <li><Link to="/app/productMonitor" activeClassName="active">旅游产品监测</Link></li>
+                <li><Link to="/developmentIndex" activeClassName="active">旅游发展指数</Link></li>
+                <li><Link to="/marketMonitor" activeClassName="active">旅游市场监测</Link></li>
+                <li><Link to="/productMonitor" activeClassName="active">旅游产品监测</Link></li>
                 <li className="pos-r">
                     <Link onClick={(e) => {
                         e.preventDefault();
-                    }} activeClassName="active" to="app/data">
+                    }} activeClassName="active" to="data">
                         旅游大数据分析&nbsp;<i className="iconfont icon-xiangxia"></i></Link>
                     <ul className="header-nav-sublist">
-                        <Link to="/app/data/touristData" activeClassName="active">客情大数据</Link>
-                        <Link to="/app/data/consumptionData" activeClassName="active">消费大数据</Link>
-                        <Link to="/app/data/searchData" activeClassName="active">搜索大数据</Link>
+                        <Link to="/data/touristData" activeClassName="active">客情大数据</Link>
+                        <Link to="/data/consumptionData" activeClassName="active">消费大数据</Link>
+                        <Link to="/data/searchData" activeClassName="active">搜索大数据</Link>
                     </ul>
                 </li>
-                <li><Link to="/app/dataReport" activeClassName="active">旅游大数据报告</Link></li>
+                <li><Link to="/dataReport" activeClassName="active">旅游大数据报告</Link></li>
             </ul>
             <div className="logout-box">
                 <Modal visible={visible}>
