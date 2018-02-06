@@ -28,7 +28,6 @@ const Option = Select.Option;
 
 let analysisIndexObj = {};
 
-
 export default class TouristData extends Component {
     constructor(props) {
         super(props);
@@ -69,7 +68,6 @@ export default class TouristData extends Component {
      */
     renderProvinceTouristData(quarter) {
         const {provinceTouristData, flowAnalysis, selectedFlowAnalysisIndex} = this.state;
-        console.log(provinceTouristData.get('ageData'))
         // 四川省游客年龄分布图
         if (provinceTouristData.get('ageData') && provinceTouristData.get('ageData').length) {
             adCharts.pieChart({
@@ -278,6 +276,14 @@ export default class TouristData extends Component {
                 }
             }
 
+            let handleByQuarter = (value, key) => {
+                let output = [null, null, null, null];
+                value.data.forEach(item => {
+                    output[~~item.quarter - 1] = item[key];
+                });
+                return output;
+            };
+
             // 处理流量分析
             if (flow_data && flow_data.length) {
                 let provinceFlowAnalysis = this.state.flowAnalysis.get('province');
@@ -287,11 +293,7 @@ export default class TouristData extends Component {
                         provinceFlowAnalysis.push({
                             name: value.name,
                             value: key,
-                            data: [value.data.map((dataItem) => {
-                                return dataItem.personTimeView;
-                            }), value.data.map(dataItem => {
-                                return dataItem.personCountView;
-                            })]
+                            data: [handleByQuarter(value, 'personTimeView'), handleByQuarter(value, 'personCountView')]
                         });
                     }
                 }
@@ -384,17 +386,21 @@ export default class TouristData extends Component {
             // 处理流量分析
             let countryFlowAnalysis = this.state.flowAnalysis.get('country');
 
+            let handleByQuarter = (value, key) => {
+                let output = [null, null, null, null];
+                value.data.forEach(item => {
+                    output[~~item.quarter - 1] = Number((item[key] / 10000 - 0).toFixed(2));
+                });
+                return output;
+            };
+
             if (country_tour_person_Time_reception) {
                 countryFlowAnalysis.splice(0, countryFlowAnalysis.length);
                 for (let [key, value] of Object.entries(country_tour_person_Time_reception)) {
                     countryFlowAnalysis.push({
                         name: value.name,
                         value: key,
-                        data: [value.data.map((dataItem) => {
-                            return Number((dataItem.personTime / 10000 - 0).toFixed(2));
-                        }), value.data.map(dataItem => {
-                            return Number((dataItem.personCount / 10000 - 0).toFixed(2));
-                        })]
+                        data: [handleByQuarter(value, 'personTime'), handleByQuarter(value, 'personCount')]
                     });
                 }
                 this.state.flowAnalysis.set('country', countryFlowAnalysis.reverse());

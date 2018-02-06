@@ -231,7 +231,7 @@ export default class TouristData extends Component {
             series: [seriesData],
             roam: false,
             formatter: (p) => {
-                return `${p.seriesName}<br/>${_this.state.activeDetail.title}：${_this.state.activeDetail.activeDegree}<br/>${p.name}：${p.value}`;
+                return `${p.seriesName}<br/>${_this.state.activeDetail.title}：${_this.state.activeDetail.activeDegree || '-'}<br/>${p.name}：${p.value || '-'}`;
             },
             scaleLimit: {
                 min: 1.1,
@@ -251,7 +251,7 @@ export default class TouristData extends Component {
             series: [seriesData],
             roam: false,
             formatter: (p) => {
-                return `${p.seriesName}<br/>${_this.state.activeDetail.title}：${_this.state.activeDetail.activeDegree}<br/>${p.name}：${p.value}`;
+                return `${p.seriesName}<br/>${_this.state.activeDetail.title}：${_this.state.activeDetail.activeDegree || '-'}<br/>${p.name}：${p.value || '-'}`;
             },
             max: max,
             ...params
