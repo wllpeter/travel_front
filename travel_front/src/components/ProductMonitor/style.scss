@@ -49,13 +49,13 @@
         .product-praise {
             background: $bgColor;
             border-left: 3px solid #072648;
-            height: 704px;
+            height: 718px;
             .panel-card-body {
                 overflow: visible;
             }
             .praise{
                 height: 646px;
-                padding-top: 30px;
+                line-height: 2;
                 .praise-icon{
                     padding-left: 7px;
                     .iconfont{

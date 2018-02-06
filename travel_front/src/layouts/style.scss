@@ -16,8 +16,14 @@ $fontColor: rgba(255, 255, 255, 0.95);
 
   h2 {
     display: inline-block;
-    padding-left: 15px;
-    .app-logo{
+    background: -webkit-linear-gradient(left, #0282C8, #072648);
+    background: -o-linear-gradient(right, #0282C8, #072648); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(right, #0282C8, #072648); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right, #0282C8, #072648); /* 标准的语法 */
+    height: 60px;
+    width: 430px;
+    .app-logo {
+      margin-left: 25px;
       display: block;
       width: 384px;
       height: 30px;

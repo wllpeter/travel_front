@@ -98,7 +98,7 @@ export default class PraiseList extends Component {
         let switchProps = {
             buttons: buttons,
             style: {
-                top: '-5%',
+                top: '-9%',
                 right: '54%',
                 transform: 'translateX(50%)'
             },
@@ -116,7 +116,7 @@ export default class PraiseList extends Component {
                 <ToggleButtonGroup ref="getSwitchButton" {...switchProps}></ToggleButtonGroup>
                 <div className="praise">
                     <table className="mt-table col-1-al">
-                        <thead>
+                        <thead style={{paddingBottom: 20}}>
                         <tr>
                             <th>排名</th>
                             <th>名称</th>

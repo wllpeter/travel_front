@@ -64,8 +64,8 @@ export default class RegionMap extends Component {
                 if (item.area === '四川省') {
                     province = item.createNew;
                 }
-                if (item.createNew > max) {
-                    max = item.createNew;
+                if (~~item.createNew > max) {
+                    max = ~~item.createNew;
                 }
                 return {
                     name: item.area,
@@ -93,7 +93,7 @@ export default class RegionMap extends Component {
             top: 12,
             max: max,
             formatter: (p) => {
-                return `${p.seriesName}<br/>四川省：${province}<br/>${p.name}：${p.value}`;
+                return `${p.seriesName}<br/>四川省：${province || '-'}<br/>${p.name}：${p.value || '-'}`;
             },
             roam: false
         });

@@ -10,6 +10,10 @@
     .color-white {
         h3 {
             color: rgba(255, 255, 255, 0.95) !important;
+            padding: 0 !important;
+        }
+        .mt-select-input{
+            top: 10px !important;
         }
     }
 
@@ -26,12 +30,13 @@
             font-size: 0.8rem;
             color: rgba(0, 169, 255, 0.85);
             line-height: 1;
+            padding-top: 6px;
         }
 
         .mt-select-input {
             width: 130px;
             right: 40px;
-            top: 10px;
+            top: 16px;
         }
 
         @at-root {
@@ -103,6 +108,8 @@
         background-color: #203a59;
     }
 }
+
+
 
 // 百分比
 .percent-bar {
