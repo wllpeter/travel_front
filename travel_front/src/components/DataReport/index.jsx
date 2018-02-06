@@ -153,11 +153,11 @@ export default class TouristData extends Component {
 
     // 根据pdf的url解析pdf
     analysisPdf() {
-        if(this.pdfLoading){
+        if (this.pdfLoading) {
             return;
         }
         this.pdfLoading = true;
-        if (this.pageRender){
+        if (this.pageRender) {
             this.pageRender.cancel();
             this.pageRender = null;
         }
@@ -371,7 +371,7 @@ export default class TouristData extends Component {
     }
 
     chooseChildrenNav(index, i, id) {
-        if(this.pdfLoading){
+        if (this.pdfLoading) {
             message.warning('操作不要太频繁');
             return;
         }
