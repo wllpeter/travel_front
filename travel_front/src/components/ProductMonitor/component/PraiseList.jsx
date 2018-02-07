@@ -99,7 +99,7 @@ export default class PraiseList extends Component {
             buttons: buttons,
             style: {
                 top: '-9%',
-                right: '54%',
+                right: '50%',
                 transform: 'translateX(50%)'
             },
             clickBack: (params) => {
@@ -111,26 +111,27 @@ export default class PraiseList extends Component {
             }
         };
 
-        return <PanelCard title={`${title}产品好评榜`} {...panelProps}>
-            <div className="switch-btn-box">
-                <ToggleButtonGroup ref="getSwitchButton" {...switchProps}></ToggleButtonGroup>
-                <div className="praise">
-                    <table className="mt-table col-1-al">
-                        <thead style={{paddingBottom: 20}}>
-                        <tr>
-                            <th>排名</th>
-                            <th>名称</th>
-                            <th>评分</th>
-                            <th>环比</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {
-                            items && items.length > 0 && items.map((item, index) => {
-                                return <tr key={index}>
-                                    <td>
-                                        <span>{dateFormat(item.rank)}</span>
-                                        <span style={{display: 'inline-block', width: 60}}>
+        return <div className="praise-box">
+            <PanelCard title={`${title}产品好评榜`} {...panelProps}>
+                <div className="switch-btn-box">
+                    <ToggleButtonGroup ref="getSwitchButton" {...switchProps}></ToggleButtonGroup>
+                    <div className="praise">
+                        <table className="mt-table col-1-al">
+                            <thead style={{paddingBottom: 20}}>
+                            <tr>
+                                <th>排名</th>
+                                <th>名称</th>
+                                <th>评分</th>
+                                <th>环比</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {
+                                items && items.length > 0 && items.map((item, index) => {
+                                    return <tr key={index}>
+                                        <td>
+                                            <span>{dateFormat(item.rank)}</span>
+                                            <span style={{display: 'inline-block', width: 60}}>
                                             {
                                                 ~~item.upDown === 1 ?
                                                     <span className="praise-icon praise-icon-up">
@@ -149,17 +150,18 @@ export default class PraiseList extends Component {
                                             </span>
                                             }
                                         </span>
-                                    </td>
-                                    <td>{item.name}</td>
-                                    <td>{item.score}</td>
-                                    <td>{item.compared + '%'}</td>
-                                </tr>;
-                            })
-                        }
-                        </tbody>
-                    </table>
+                                        </td>
+                                        <td>{item.name}</td>
+                                        <td>{item.score}</td>
+                                        <td>{item.compared + '%'}</td>
+                                    </tr>;
+                                })
+                            }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-        </PanelCard>;
+            </PanelCard>
+        </div>;
     }
 }

@@ -21,7 +21,7 @@ $fontColor: rgba(255, 255, 255, 0.95);
     background: -moz-linear-gradient(right, #0282C8, #072648); /* Firefox 3.6 - 15 */
     background: linear-gradient(to right, #0282C8, #072648); /* 标准的语法 */
     height: 58px;
-    width: 430px;
+    width: 390px;
     .app-logo {
       margin-left: 25px;
       display: block;
@@ -43,7 +43,6 @@ $fontColor: rgba(255, 255, 255, 0.95);
         display: block;
         font-size: 0.8rem;
         font-weight: normal;
-        font-family: "Arial";
         height: $headerHeight;
         margin: 0 20px;
         color: $fontColor;

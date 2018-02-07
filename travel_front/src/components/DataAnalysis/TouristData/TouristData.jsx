@@ -360,7 +360,7 @@ export default class TouristData extends Component {
 
                 countryTourPotential.forEach((potentialSeries) => {
                     potentialData.potentialLevels.push(potentialSeries.potential + '星');
-                    potentialData.data.push(Number(potentialSeries.ratio).toFixed(2) - 0);
+                    potentialData.data.push((Number(potentialSeries.ratio) * 100).toFixed(2) - 0);
                 });
             }
 

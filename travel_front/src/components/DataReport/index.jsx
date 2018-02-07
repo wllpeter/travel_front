@@ -109,40 +109,6 @@ export default class TouristData extends Component {
         }
     }
 
-    downFlie() {
-        this.setState({visible: false});
-        let isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
-        let isSafari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
-        if (/(iP)/g.test(navigator.userAgent)) {
-            alert('Your device does not support files downloading. Please try again in desktop browser.');
-            return false;
-        }
-
-        if (isChrome || isChrome) {
-            let sUrl = this.state.pdfUrl;
-            let link = document.createElement('a');
-            link.href = sUrl;
-            if (link.download !== undefined) {
-                let fileName = sUrl.substring(sUrl.lastIndexOf('/') + 1, sUrl.length);
-                link.download = fileName;
-            }
-
-            if (document.createEvent) {
-                let e = document.createEvent('MouseEvents');
-                e.initEvent('click', true, true);
-                link.dispatchEvent(e);
-                return true;
-            }
-        }
-
-        // Force file download (whether supported by server).
-        if (sUrl.indexOf('?') === -1) {
-            sUrl += '?download';
-        }
-        window.open(sUrl, '_self');
-        return true;
-    }
-
     // 设置一个定时器优化翻页功能
     setFilpTimer(callback) {
         if (timer) {
@@ -512,9 +478,7 @@ export default class TouristData extends Component {
                 <div className="top-buttons">
                     <span className="page-count">{page}/{numPages}</span>
                     <i className="iconfont icon-print" title="打印" onClick={this.printPdf.bind(this)}/>
-                    <a onClick={() => {
-                        this.downFlie();
-                    }}>
+                    <a href={pdfUrl} download>
                         <i className="iconfont icon-download-copy" title="下载"/>
                     </a>
                     <i className="iconfont icon-rotate" onClick={this.refresh.bind(this)} title="刷新"/>
@@ -546,7 +510,9 @@ export default class TouristData extends Component {
                             <a className="logout-cancel" onClick={() => {
                                 this.setState({visible: false});
                             }}>取消</a>
-                            <a className="logout-confirm" onClick={this.downFlie.bind(this)}>下载</a>
+                            <a className="logout-confirm" href={pdfUrl} download onClick={() => {
+                                this.setState({visible: false});
+                            }}>下载</a>
                         </div>
                     </div>
                 </Modal>
