@@ -129,25 +129,26 @@ export default class PraiseList extends Component {
                             items && items.length > 0 && items.map((item, index) => {
                                 return <tr key={index}>
                                     <td>
-                                        {dateFormat(item.rank)}
-                                        {
-                                            ~~item.upDown === 1 ?
-                                                <span className="praise-icon praise-icon-up">
+                                        <span>{dateFormat(item.rank)}</span>
+                                        <span style={{display: 'inline-block', width: 60}}>
+                                            {
+                                                ~~item.upDown === 1 ?
+                                                    <span className="praise-icon praise-icon-up">
                                                 <i className="iconfont icon-up"></i>
-                                                    {item.changeNum}
+                                                        {item.changeNum}
                                             </span> :
-                                                ~~item.upDown === 2 ?
-                                                    <span className="praise-icon  praise-icon-down">
+                                                    ~~item.upDown === 2 ?
+                                                        <span className="praise-icon  praise-icon-down">
                                                 <i className="iconfont icon-down"></i>
-                                                        {Math.abs(item.changeNum || 0)}
+                                                            {Math.abs(item.changeNum || 0)}
                                             </span> :
-                                                    <span className="praise-icon">
+                                                        <span className="praise-icon">
                                                 &nbsp;&nbsp;
-                                                        <i className="iconfont">-</i>
-                                                        &nbsp;&nbsp;
+                                                            <i className="iconfont">-</i>
+                                                            &nbsp;&nbsp;
                                             </span>
-                                        }
-
+                                            }
+                                        </span>
                                     </td>
                                     <td>{item.name}</td>
                                     <td>{item.score}</td>

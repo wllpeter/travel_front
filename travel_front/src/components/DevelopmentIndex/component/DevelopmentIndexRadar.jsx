@@ -79,13 +79,14 @@ export default class DevelopmentIndexRadar extends Component {
                 name: item.area,
                 lineStyle: {
                     normal: {
-                        color: colors[index]
+                        color: colors[INDEX_NAME[item.area]]
                     }
                 }
             };
         });
         this.print({indicator, data, legend});
     }
+
     print(params) {
         let option = {
             title: {

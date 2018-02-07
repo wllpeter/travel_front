@@ -104,8 +104,8 @@
       }
     }
     .move{
-      animation: mymove 150s infinite;
-      -webkit-animation: mymove 150s infinite; /* Safari 和 Chrome */
+      animation: mymove 150s linear infinite;
+      -webkit-animation: mymove 150s linear infinite; /* Safari 和 Chrome */
     }
   }
 

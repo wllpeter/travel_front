@@ -3,9 +3,13 @@
  */
 import React, {Component} from 'react';
 import moment from 'moment';
+import {option} from '../../../plugins/moment/momentOption';
 import Modal from '../../commonComponent/Modal';
 import PanelCard from '../../commonComponent/PanelCard';
 import {getInternetMonitorData} from '../../../services/MarketMonitor/marketMonitor';
+
+// 中文，防止布置到服务器上显示成英文
+moment.defineLocale('zh-cn', option);
 
 export default class InfoMonitor extends Component {
     constructor(props) {
