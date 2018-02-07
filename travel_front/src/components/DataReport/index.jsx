@@ -3,6 +3,7 @@
  */
 import React, {Component} from 'react';
 import {LoadingBox} from 'mtui/index';
+import Modal from '../../components/commonComponent/Modal';
 import {message} from 'antd';
 import devConfig from '../../config/config.dev';
 import 'antd/lib/message/style';
@@ -17,6 +18,8 @@ let timer = null; // 一次性定时器
 
 const canvasTop = 60; // 记录第一个canvas容器距页面顶部的高度
 const margin = 4; // canvas之间的margin值
+
+let pagesObj = {}; // 储存已经draw过的页面
 
 if (__DEV__) {
     baseUrl = devConfig.DEV_API_SERVER + '/download';
@@ -39,6 +42,7 @@ export default class TouristData extends Component {
                     children: []
                 }
             ],
+            visible: false,
             navIndex: 0, // 当前选中的左侧菜单的index
             numPages: 0, // pdf总页数
             marginLeft: 0,
@@ -105,8 +109,9 @@ export default class TouristData extends Component {
         }
     }
 
-    downFlie (sUrl) {
-        let  isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+    downFlie() {
+        this.setState({visible: false});
+        let isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
         let isSafari = navigator.userAgent.toLowerCase().indexOf('safari') > -1;
         if (/(iP)/g.test(navigator.userAgent)) {
             alert('Your device does not support files downloading. Please try again in desktop browser.');
@@ -114,6 +119,7 @@ export default class TouristData extends Component {
         }
 
         if (isChrome || isChrome) {
+            let sUrl = this.state.pdfUrl;
             let link = document.createElement('a');
             link.href = sUrl;
             if (link.download !== undefined) {
@@ -145,7 +151,7 @@ export default class TouristData extends Component {
         }
         timer = setTimeout(() => {
             if (callback) {
-                callback();
+                callback(true);
             }
             timer = null;
         }, 200);
@@ -228,7 +234,22 @@ export default class TouristData extends Component {
     drawPdf(bool) {
         let _this = this;
         var currentPage = this.state.page;
+        if (!bool) {
+            pagesObj = {};
+        }
         let fn = (p) => {
+            if (p > currentPage + 4) {
+                return;
+            }
+            if (p > _this.state.numPages) {
+                return;
+            }
+            if (!pagesObj[p]) {
+                pagesObj[p] = true;
+            } else {
+                fn(++p);
+                return;
+            }
             _this.pdf.getPage(p).then(function getPage(page) {
                 let scale = _this.state.scale;
                 let rotate = _this.state.rotate;
@@ -357,6 +378,22 @@ export default class TouristData extends Component {
 
     // 打印pdf
     printPdf() {
+        function canNotPrint() {
+            if (!!window.ActiveXObject || 'ActiveXObject' in window) {
+                return true;
+            }
+            if (navigator.userAgent.indexOf('Firefox') >= 0) {
+                return true;
+            }
+            return false;
+        }
+
+        // ie提示框
+        if (canNotPrint()) {
+            this.setState({visible: true});
+            return;
+        }
+
         if (this.state.loadingShow) {
             message.warning('请等待报告完全载入完');
             return;
@@ -423,7 +460,7 @@ export default class TouristData extends Component {
     }
 
     render() {
-        let {navItems, marginLeft, canvasWidth, canvasHeight, numPages, loadingShow, loadingTitle, bigBtnShow, page, pdfUrl, navIndex} = this.state;
+        let {navItems, marginLeft, canvasWidth, canvasHeight, numPages, loadingShow, loadingTitle, bigBtnShow, page, pdfUrl, navIndex, visible} = this.state;
         let canvasNum = [];
         for (let i = 0; i < numPages; i++) {
             canvasNum.push(i + 1);
@@ -475,7 +512,9 @@ export default class TouristData extends Component {
                 <div className="top-buttons">
                     <span className="page-count">{page}/{numPages}</span>
                     <i className="iconfont icon-print" title="打印" onClick={this.printPdf.bind(this)}/>
-                    <a onClick={()=>{this.downFlie(pdfUrl);}}>
+                    <a onClick={() => {
+                        this.downFlie();
+                    }}>
                         <i className="iconfont icon-download-copy" title="下载"/>
                     </a>
                     <i className="iconfont icon-rotate" onClick={this.refresh.bind(this)} title="刷新"/>
@@ -494,6 +533,23 @@ export default class TouristData extends Component {
 
                 <iframe style={{display: 'none'}} id="printIframe"
                         src={pdfUrl}/>
+            </div>
+
+            <div className="logout-box">
+                <Modal visible={visible}>
+                    <div className="logout-content">
+                        <i className="iconfont icon-close" onClick={() => {
+                            this.setState({visible: false});
+                        }}/>
+                        <p style={{'lineHeight': '70px'}}>系统在改浏览器下不支持打印，请下载后打印</p>
+                        <div className="logout-btn">
+                            <a className="logout-cancel" onClick={() => {
+                                this.setState({visible: false});
+                            }}>取消</a>
+                            <a className="logout-confirm" onClick={this.downFlie.bind(this)}>下载</a>
+                        </div>
+                    </div>
+                </Modal>
             </div>
         </div>;
     }

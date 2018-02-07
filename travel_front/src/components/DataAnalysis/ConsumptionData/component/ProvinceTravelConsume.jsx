@@ -137,7 +137,11 @@ export default class ProvinceTravelConsume extends Component {
         res.forEach((item) => {
             xAxisData.unshift(item.year + '-' + dateFormat(item.month));
             keys.forEach((key) => {
-                data[key].unshift(item[key]);
+                if (key.indexOf('Compare') !== -1) {
+                    data[key].unshift((item[key] * 100).toFixed(2));
+                } else {
+                    data[key].unshift(item[key]);
+                }
             });
         });
         return {
