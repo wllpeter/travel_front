@@ -244,7 +244,8 @@ const AD_CHART = {
                 padding: 7,
                 textStyle: {
                     lineHeight: 56
-                }
+                },
+                formatter: params.formatter
             },
             radar: {
                 nameGap: 20, // 指示器名称和指示器轴的距离
@@ -681,6 +682,19 @@ const AD_CHART = {
             }
 
             let options = {
+                title: {
+                    show: false,
+                    text: params.title,
+                    textStyle: {
+                        color: '#999',
+                        fontStyle: 'normal',
+                        fontWeight: 'normal',
+                        fontFamily: 'microsoft yahei',
+                        fontSize: params.titleFontSize === undefined ? '14' : params.titleFontSize
+                    },
+                    right: 65,
+                    bottom: 15
+                },
                 tooltip: {
                     trigger: 'item',
                     backgroundColor: '#1F3A59',
@@ -800,13 +814,16 @@ const AD_CHART = {
             backgroundColor: params.backgroundColor || '#082749',
             title: {
                 show: false,
-                text: '旅游发展指数',
+                text: params.title,
                 textStyle: {
+                    color: '#999',
+                    fontStyle: 'normal',
                     fontWeight: 'normal',
-                    fontSize: 16,
-                    color: '#00A9FF'
+                    fontFamily: 'microsoft yahei',
+                    fontSize: params.titleFontSize === undefined ? '12' : params.titleFontSize
                 },
-                left: '6%'
+                bottom: '16%',
+                right: '6%'
             },
             tooltip: {
                 trigger: 'axis',

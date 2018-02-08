@@ -96,6 +96,7 @@ export default class ProductPrice extends Component {
                 icon: 'circle',
                 data: ['平均价格', '环比'],
                 right: '10%',
+                itemWidth: 8,
                 textStyle: {
                     fontSize: 12,
                     color: '#F1F1F3'

@@ -29,6 +29,7 @@ export default class DevelopmentIndexMap extends Component {
             chartId: 'dev-index-map',
             backgroundColor: 'rgba(128, 128, 128, 0)',
             legendShow: true,
+            title: '以2017年9月为基期，基期指数为100，指数越大，旅游行业发展趋势越好',
             ...params
         });
         this.props.getIndexMap(myChart);

@@ -52,7 +52,10 @@ export default class ConsumptionTrade extends Component {
                 {text: '交易笔数', max: getMax(0)},
                 {text: '交易总额', max: getMax(1)},
                 {text: '刷卡人次', max: getMax(2)}
-            ]
+            ],
+            formatter: (p) => {
+                return `${p.seriesName}<br>交易笔数：${p.value[0]}万笔<br>交易总额：${p.value[1]}万元<br>刷卡人次：${p.value[2]}万人`;
+            }
         });
     }
 

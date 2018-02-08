@@ -505,7 +505,7 @@ export default class TouristData extends Component {
                         <i className="iconfont icon-close" onClick={() => {
                             this.setState({visible: false});
                         }}/>
-                        <p style={{'lineHeight': '70px'}}>系统在改浏览器下不支持打印，请下载后打印</p>
+                        <p style={{'lineHeight': '70px'}}>系统在该浏览器下不支持打印，请下载后打印</p>
                         <div className="logout-btn">
                             <a className="logout-cancel" onClick={() => {
                                 this.setState({visible: false});

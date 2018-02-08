@@ -84,6 +84,9 @@ export default class ActiveRank extends Component {
 
     render() {
         let {visible, items, panelProps} = this.state;
+        let getIncrease = (increase) => {
+            return (increase * 1).toFixed(2);
+        };
         return <div>
             <PanelCard title="省内活跃度排行榜" className="bg-grey" {...panelProps}
                        enlarge={this.showModal.bind(this)}>
@@ -102,7 +105,7 @@ export default class ActiveRank extends Component {
                                 return <tr key={index}>
                                     <td>{item.area}</td>
                                     <td>{item.active}</td>
-                                    <td>{item.increase}%</td>
+                                    <td>{getIncrease(item.increase)}%</td>
                                 </tr>;
                             })
                         }
@@ -127,7 +130,7 @@ export default class ActiveRank extends Component {
                                 return <tr key={index}>
                                     <td>{item.area}</td>
                                     <td>{item.active}</td>
-                                    <td>{item.increase}%</td>
+                                    <td>{getIncrease(item.increase)}%</td>
                                 </tr>;
                             })
                         }

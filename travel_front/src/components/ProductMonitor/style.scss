@@ -13,6 +13,7 @@
             height: $contentHeight;
             position: fixed;
             top: $headerHeight;
+            overflow-y: auto;
             left: 0;
             & > li {
                 width: 100%;

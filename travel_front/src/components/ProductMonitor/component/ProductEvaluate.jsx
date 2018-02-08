@@ -1,5 +1,5 @@
 /**
- * @description 旅游旅游产品综合评价
+ * @description 旅游产品综合评价
  */
 import React, {Component} from 'react';
 import PanelCard from '../../commonComponent/PanelCard';
@@ -97,6 +97,7 @@ export default class ProductEvaluate extends Component {
                 icon: 'circle',
                 data: ['综合评价', '环比'],
                 right: '10%',
+                itemWidth: 8,
                 textStyle: {
                     fontSize: 12,
                     color: '#F1F1F3'
