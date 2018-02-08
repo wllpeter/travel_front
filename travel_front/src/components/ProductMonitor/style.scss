@@ -105,12 +105,23 @@
     height: 100%;
 }
 
-#particles-js{
+#particles-box{
     position: relative;
-    .dev-index-map{
+    #particles-js{
         position: absolute;
+        z-index: 10;
+        top: 6%;
+        left: 6%;
+        right: 6%;
+        bottom: 16%;
+    }
+    #dev-index-map{
+        position: absolute;
+        width: 100%;
+        z-index: 100;
         top: 0;
         left: 0;
+        bottom: 0;
     }
 }
 

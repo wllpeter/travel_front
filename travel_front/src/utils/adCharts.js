@@ -1,6 +1,7 @@
 import echarts from 'echarts';
 import $ from 'jquery';
 import {colorHex, getDataZoom, deepClone} from '../utils/tools';
+import {INDEX_NAME} from '../constants/developmentIndex/developmentIndex';
 
 let mapChart = null;
 
@@ -196,6 +197,11 @@ const AD_CHART = {
                 type: 'radar',
                 name: params.legend[i],
                 symbol: 'circle',
+                lineStyle: {
+                    normal: {
+                        color: params.colors[i]
+                    }
+                },
                 data: [
                     {
                         value: params.series[i],

@@ -94,8 +94,9 @@ export default class DevelopmentIndexMap extends Component {
 
     render() {
         return <PanelCard title="旅游发展指数">
-            <div id="particles-js">
-                <div id="dev-index-map" className="dev-index-map"/>
+            <div id="particles-box" className="dev-index-map">
+                <div id="particles-js"/>
+                <div id="dev-index-map"/>
             </div>
         </PanelCard>;
     }

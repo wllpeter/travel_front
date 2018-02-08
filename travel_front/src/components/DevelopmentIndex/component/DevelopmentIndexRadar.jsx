@@ -66,9 +66,6 @@ export default class DevelopmentIndexRadar extends Component {
     handleData(res) {
         let colors = ['#B6DC74', '#32C889', '#0CBBC6', '#1B76D3', '#00A9FF', '#3459C5'];
         let indicatorKeys = Object.keys(RADAR_NAME);
-        let indicator = indicatorKeys.map(key => {
-            return {text: RADAR_NAME[key]};
-        });
         let legend = [];
         let data = res.map((item, index) => {
             legend.push(item.area);
@@ -83,6 +80,19 @@ export default class DevelopmentIndexRadar extends Component {
                     }
                 }
             };
+        });
+        let getMax = (i) => {
+            let max = 0;
+            data.forEach((item) => {
+                if (max < item.value[i] * 1) {
+                    max = item.value[i] * 1;
+                }
+            });
+            return max;
+        };
+        let index = 0;
+        let indicator = indicatorKeys.map(key => {
+            return {name: RADAR_NAME[key], max: getMax(index++)};
         });
         this.print({indicator, data, legend});
     }
