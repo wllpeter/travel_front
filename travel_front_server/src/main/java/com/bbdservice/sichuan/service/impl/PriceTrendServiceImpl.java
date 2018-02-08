@@ -19,4 +19,9 @@ public class PriceTrendServiceImpl implements PriceTrendService {
     public List<PriceTrend> getAllList(Integer productType,int[] years) {
         return priceTrendDao.getAllList(productType,years);
     }
+
+    @Override
+    public List<PriceTrend> getAllList(Integer productType) {
+        return priceTrendDao.getAllList(productType);
+    }
 }

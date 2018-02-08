@@ -21,7 +21,7 @@ public class CountryTourPersonTimeTrip {
     private Long modifyId;
     @Column(columnDefinition = "varchar(40) comment '城市'")
     private String city;
-    @Column(columnDefinition = "int comment '人次'")
+    @Column(columnDefinition = "varchar(100) comment '人次'")
     private Integer personTime;
     @Column(columnDefinition = "bit comment '是否删除'")
     private Boolean deleted;

@@ -30,4 +30,11 @@ public class DevTravelComfort {
     @Column(columnDefinition = "bigint comment '修改后ID'")
     private Long modifyId;
 
+    public String getComfort() {
+        return comfort;
+    }
+
+    public void setComfort(String comfort) {
+        this.comfort = comfort;
+    }
 }

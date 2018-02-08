@@ -4,10 +4,12 @@ import com.bbdservice.sichuan.base.Response;
 import com.bbdservice.sichuan.entity.*;
 import com.bbdservice.sichuan.service.*;
 
+import com.bbdservice.sichuan.utils.TwoPointUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
@@ -103,11 +105,19 @@ public class TourismProductController {
     @ApiImplicitParam(name="productType",value = "产品类型",paramType = "query",dataType = "Integer",defaultValue = "1")
     @GetMapping(value = "/getOverAllMerit")
     public Response getOverAllMerit(Integer productType){
-        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT+08:00"));    //获取东八区时间
-        Integer year = c.get(Calendar.YEAR);    //获取年
-        int[] years={year,year-1};
+//        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT+08:00"));    //获取东八区时间
+//        Integer year = c.get(Calendar.YEAR);    //获取年
+//        int[] years={year,year-1};
         List<OverallMerit> overallMerits=null;
-        overallMerits=ov.getAllList(productType,years);
+//        overallMerits=ov.getAllList(productType,years);
+         overallMerits=ov.getAllList(productType);
+         for(OverallMerit o:overallMerits){
+             if(StringUtils.isEmpty(o.getCompared())){
+                 o.setCompared("-");
+                 continue;
+             }
+             o.setCompared(TwoPointUtils.getTwo(Double.valueOf(o.getCompared().toString())*100+""));
+         }
         return Response.success(overallMerits);
     }
 
@@ -137,13 +147,13 @@ public class TourismProductController {
         List<SupplyConsumeCount> list=null;
         switch (productType){
             case 1:
-                list=su.getAllList(productType,dataType,year,year-1);
+                list=su.getAllList(productType,dataType);
                 break;
             case 2:
             case 3:
             case 4:
             case 5:
-                list=su.getWithOutDataType(productType,year,year-1);
+                list=su.getWithOutDataType(productType);
                 break;
             default:break;
 
@@ -155,11 +165,19 @@ public class TourismProductController {
     @ApiImplicitParam(name="productType",value = "产品类型",paramType = "query",dataType = "Integer",defaultValue = "1")
     @GetMapping(value = "/getPriceTrend")
     public Response getPriceTrend(Integer productType){
-        Calendar c= Calendar.getInstance(TimeZone.getTimeZone("GMT+08:00"));    //获取东八区时间
-        Integer year = c.get(Calendar.YEAR);
-        int[] years={year,year-1};
+//        Calendar c= Calendar.getInstance(TimeZone.getTimeZone("GMT+08:00"));    //获取东八区时间
+//        Integer year = c.get(Calendar.YEAR);
+//        int[] years={year,year-1};
         List<PriceTrend> priceTrends=null;
-        priceTrends=priceTrendService.getAllList(productType,years);
+        priceTrends=priceTrendService.getAllList(productType);
+//        priceTrends=priceTrendService.getAllList(productType,years);
+        for(PriceTrend p:priceTrends){
+            if(StringUtils.isEmpty(p.getCompared())){
+                p.setCompared("-");
+                continue;
+            }
+            p.setCompared(TwoPointUtils.getTwo(Double.valueOf(p.getCompared().toString())*100+""));
+        }
         return Response.success(priceTrends);
     }
 

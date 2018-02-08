@@ -25,4 +25,12 @@ public class ForeignTouristConsumeTimesAnalyse {
     private String consumeTimes;
     @Column(columnDefinition = "bit comment '是否删除'")
     private Boolean deleted;
+
+    public String getConsumeTimes() {
+        return consumeTimes;
+    }
+
+    public void setConsumeTimes(String consumeTimes) {
+        this.consumeTimes = consumeTimes;
+    }
 }

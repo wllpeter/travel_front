@@ -26,4 +26,6 @@ public class ProvinceSearchTrend {
     private Integer year;
     @Column(columnDefinition = "bigint comment '修改后数据'")
     private Long modifyId;
+    @Transient
+    private Date showDate;
 }

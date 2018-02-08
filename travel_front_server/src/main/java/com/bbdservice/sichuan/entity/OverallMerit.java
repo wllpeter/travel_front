@@ -65,4 +65,12 @@ public class OverallMerit {
      */
     @Column(name = "modify_id")
     private Long modifyId;
+
+    public String getCompared() {
+        return compared;
+    }
+
+    public void setCompared(String compared) {
+        this.compared = compared;
+    }
 }

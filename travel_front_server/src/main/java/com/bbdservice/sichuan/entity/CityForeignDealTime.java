@@ -30,4 +30,12 @@ public class CityForeignDealTime {
     private String dealTime;
     @Column(columnDefinition = "bit comment '是否删除'")
     private Boolean deleted;
+
+    public String getDealTime() {
+        return dealTime;
+    }
+
+    public void setDealTime(String dealTime) {
+        this.dealTime = dealTime;
+    }
 }

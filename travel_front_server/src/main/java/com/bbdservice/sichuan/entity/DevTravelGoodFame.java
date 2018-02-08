@@ -30,4 +30,11 @@ public class DevTravelGoodFame {
     @Column(columnDefinition = "bigint comment '修改后ID'")
     private Long modifyId;
 
+    public String getGoodFame() {
+        return goodFame;
+    }
+
+    public void setGoodFame(String goodFame) {
+        this.goodFame = goodFame;
+    }
 }

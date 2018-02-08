@@ -30,4 +30,11 @@ public class DevTravelCreateNew {
     @Column(columnDefinition = "bigint comment '修改后ID'")
     private Long modifyId;
 
+    public String getCreateNew() {
+        return createNew;
+    }
+
+    public void setCreateNew(String createNew) {
+        this.createNew = createNew;
+    }
 }

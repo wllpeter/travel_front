@@ -30,4 +30,11 @@ public class DevTravelIndex {
     @Column(columnDefinition = "bigint comment '修改后ID'")
     private Long modifyId;
 
+    public String getTravelIndex() {
+        return travelIndex;
+    }
+
+    public void setTravelIndex(String travelIndex) {
+        this.travelIndex = travelIndex;
+    }
 }

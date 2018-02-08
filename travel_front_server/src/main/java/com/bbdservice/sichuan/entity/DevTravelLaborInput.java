@@ -32,4 +32,19 @@ public class DevTravelLaborInput {
     @Column(columnDefinition = "bigint comment '修改后ID'")
     private Long modifyId;
 
+    public String getLaborInput() {
+        return laborInput;
+    }
+
+    public void setLaborInput(String laborInput) {
+        this.laborInput = laborInput;
+    }
+
+    public String getCompare() {
+        return compare;
+    }
+
+    public void setCompare(String compare) {
+        this.compare = compare;
+    }
 }

@@ -40,4 +40,68 @@ public class MarketIndustryPart {
     private Boolean deleted;
     @Column(columnDefinition = "bigint comment '修改后ID'")
     private Long modifyId;
+
+    public String getFood() {
+        return food;
+    }
+
+    public void setFood(String food) {
+        this.food = food;
+    }
+
+    public String getLive() {
+        return live;
+    }
+
+    public void setLive(String live) {
+        this.live = live;
+    }
+
+    public String getGo() {
+        return go;
+    }
+
+    public void setGo(String go) {
+        this.go = go;
+    }
+
+    public String getSee() {
+        return see;
+    }
+
+    public void setSee(String see) {
+        this.see = see;
+    }
+
+    public String getShopping() {
+        return shopping;
+    }
+
+    public void setShopping(String shopping) {
+        this.shopping = shopping;
+    }
+
+    public String getEntertainment() {
+        return entertainment;
+    }
+
+    public void setEntertainment(String entertainment) {
+        this.entertainment = entertainment;
+    }
+
+    public String getGeneral() {
+        return general;
+    }
+
+    public void setGeneral(String general) {
+        this.general = general;
+    }
+
+    public String getOther() {
+        return other;
+    }
+
+    public void setOther(String other) {
+        this.other = other;
+    }
 }

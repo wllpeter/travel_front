@@ -183,7 +183,13 @@ public class CustomerController {
                 for(EconomicZoneTouristResourceRank economicZoneTouristResourceRank : economicZoneTouristResourceRanks){
                     if(economicZoneTouristResourceRank.getEconomicZone().equals(economicZoneEnums.getName())){
                         DecimalFormat decimalFormat = new DecimalFormat("#.00");
-                        String resourcePersonCount = decimalFormat.format(Float.valueOf(economicZoneTouristResourceRank.getPersonCount())/10000);
+
+                        String resourcePersonCount ;
+                        try{
+                            resourcePersonCount= decimalFormat.format(Float.valueOf(economicZoneTouristResourceRank.getPersonCount())/10000);
+                        }catch (Exception e){
+                            resourcePersonCount="0.00";
+                        }
                         economicZoneTouristResourceRank.setPersonCountView(Float.valueOf(resourcePersonCount));
                         zoneDatas.add(economicZoneTouristResourceRank);
                         continue;
@@ -222,13 +228,14 @@ public class CustomerController {
             for(EconomicZoneTrafficType economicZoneTrafficType : economicZoneTrafficTypes){
                 if(economicZoneTrafficType.getTrafficType().equals(trafficTypeEnums.getName())){
                     zoneDatas.add(economicZoneTrafficType);
-                    count += (economicZoneTrafficType.getPersonTime()==null?0:economicZoneTrafficType.getPersonTime());
+
+             count += (economicZoneTrafficType.getPersonTime()==null?0:economicZoneTrafficType.getPersonTime());
                     continue;
                 }
             }
             for(EconomicZoneTrafficType economicZoneTrafficType : zoneDatas){
                 DecimalFormat d = new DecimalFormat("#.00");
-                String ratio = d.format((economicZoneTrafficType.getPersonTime()==null?0:economicZoneTrafficType.getPersonTime().floatValue())/count);
+                String ratio = d.format((economicZoneTrafficType.getPersonTime()==null?0:Integer.valueOf(economicZoneTrafficType.getPersonTime()).floatValue())/count);
                 economicZoneTrafficType.setPersonTimeRatio(Float.valueOf(ratio));
             }
             zoneData.put("data",zoneDatas);

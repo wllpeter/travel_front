@@ -23,7 +23,7 @@ public class EconomicZoneTrafficType {
     private String economicZone;
     @Column(columnDefinition = "varchar(10) comment '交通方式'")
     private String trafficType;
-    @Column(columnDefinition = "int comment '人次'")
+    @Column(columnDefinition = "varchar(100) comment '人次'")
     private Integer personTime;
     @Column(columnDefinition = "bit comment '是否删除'")
     private Boolean deleted;

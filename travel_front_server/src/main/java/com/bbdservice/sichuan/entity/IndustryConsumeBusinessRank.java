@@ -25,7 +25,25 @@ public class IndustryConsumeBusinessRank {
     private Integer rank;
     @Column(columnDefinition = "varchar(40) comment '企业名称'")
     private String businessName;
+
+    public String getAvgSingleConsume() {
+        return avgSingleConsume;
+    }
+
+    public void setAvgSingleConsume(String avgSingleConsume) {
+        this.avgSingleConsume = avgSingleConsume;
+    }
+
+    public Integer getTotalSwipeTimes() {
+        return totalSwipeTimes;
+    }
+
+    public void setTotalSwipeTimes(Integer totalSwipeTimes) {
+        this.totalSwipeTimes = totalSwipeTimes;
+    }
+
     @Column(columnDefinition = "varchar(40) comment '平均单笔消费'")
+
     private String avgSingleConsume;
     @Column(columnDefinition = "int comment '刷卡总笔数'")
     private Integer totalSwipeTimes;

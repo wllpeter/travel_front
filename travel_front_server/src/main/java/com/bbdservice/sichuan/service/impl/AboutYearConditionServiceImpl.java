@@ -102,6 +102,11 @@ public class AboutYearConditionServiceImpl implements AboutYearConditionService 
     }
 
     @Override
+    public List<String> getProvinceTrend() {
+        return aboutYearConditionDao.getProvinceTrend();
+    }
+
+    @Override
     public List<String> getSiChuanYouKeSex() {
         return aboutYearConditionDao.getSiChuanYouKeSex();
     }

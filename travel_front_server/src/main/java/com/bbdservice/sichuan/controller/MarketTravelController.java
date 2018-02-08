@@ -6,6 +6,7 @@ import com.bbdservice.sichuan.base.Response;
 import com.bbdservice.sichuan.entity.*;
 import com.bbdservice.sichuan.service.*;
 import com.bbdservice.sichuan.utils.HttpUtils;
+import com.bbdservice.sichuan.utils.TwoPointUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -54,7 +55,7 @@ public class MarketTravelController {
     })
     public Response getProvinceIndustry(String year, String month){
         String date=year+"."+month;
-        MarketIndustryPart marketIndustryPart=marketIndustryPartService.getMarketIndustryPart(date);
+        MarketIndustryPart m=marketIndustryPartService.getMarketIndustryPart(date);
         Map map=new HashMap<>();
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("entertainment","旅游娱乐企业");
@@ -66,7 +67,15 @@ public class MarketTravelController {
         jsonObject.put("see","旅游游览企业");
         jsonObject.put("shopping","旅游购物企业");
         map.put("describe",jsonObject);
-        map.put("industry",marketIndustryPart);
+        m.setEntertainment(TwoPointUtils.getFour(m.getEntertainment()));
+        m.setFood(TwoPointUtils.getFour(m.getFood()));
+        m.setGeneral(TwoPointUtils.getFour(m.getGeneral()));
+        m.setGo(TwoPointUtils.getFour(m.getGo()));
+        m.setLive(TwoPointUtils.getFour(m.getLive()));
+        m.setOther(TwoPointUtils.getFour(m.getOther()));
+        m.setSee(TwoPointUtils.getFour(m.getSee()));
+        m.setShopping(TwoPointUtils.getFour(m.getShopping()));
+        map.put("industry",m);
         return Response.success(map);
     }
 
@@ -79,6 +88,10 @@ public class MarketTravelController {
     public Response getProvinceActive(String year, String month){
         String date=year+"."+month;
         List<MarketProvinceActive> marketIndustryPart=marketProvinceActiveService.getMarketProvinceActive(date);
+        for(MarketProvinceActive m:marketIndustryPart){
+            m.setActive(TwoPointUtils.getTwo(m.getActive()));
+            m.setIncrease(TwoPointUtils.getFour(m.getIncrease()));
+        }
         return Response.success(marketIndustryPart);
     }
 
@@ -111,6 +124,10 @@ public class MarketTravelController {
     @ApiImplicitParam(name="year",dataType = "String",defaultValue = "2017",paramType = "query")
     public Response getCompanyChange(String year){
         List<MarketChange> change=marketChangeService.getChange(year);
+        for(MarketChange m:change){
+            m.setCun(TwoPointUtils.getTwo(m.getCun()));
+            m.setIncrease(TwoPointUtils.getTwo(m.getIncrease()));
+        }
         return Response.success(change);
     }
 
