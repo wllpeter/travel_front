@@ -97,7 +97,7 @@ export default class Reputation extends Component {
                                 return <tr key={index}>
                                     <td className="labor_td">{item.area}</td>
                                     <td>{item.laborInput}</td>
-                                    <td>{item.compare}</td>
+                                    <td>{(item.compare * 100).toFixed(2) + '%'}</td>
                                 </tr>;
                             })
                         }
@@ -123,7 +123,7 @@ export default class Reputation extends Component {
                                     return <tr key={index}>
                                         <td className="labor_td">{item.area}</td>
                                         <td>{item.laborInput}</td>
-                                        <td>{item.compare}</td>
+                                        <td>{(item.compare * 100).toFixed(2) + '%'}</td>
                                     </tr>;
                                 })
                             }

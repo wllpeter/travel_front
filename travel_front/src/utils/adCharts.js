@@ -791,7 +791,7 @@ const AD_CHART = {
                 showSymbol: true,
                 lineStyle: {
                     normal: {
-                        width: 1
+                        width: 2
                     }
                 },
                 label: {
