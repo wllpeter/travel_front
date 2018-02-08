@@ -119,10 +119,10 @@ export default class IndustryConsumeBusiness extends Component {
                 <table className="mt-table mt-table-noborder wrapper w-95 mt-50 ">
                     <thead>
                     <tr>
-                        <th>排名</th>
+                        <th style={{width: 76}}>排名</th>
                         <th>商户名称</th>
-                        <th>平均单笔消费金额</th>
-                        <th>刷卡总笔数</th>
+                        <th>平均单笔消费金额(元)</th>
+                        <th>刷卡总笔数(笔)</th>
                     </tr>
                     </thead>
 

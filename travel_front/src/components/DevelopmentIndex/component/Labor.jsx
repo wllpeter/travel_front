@@ -82,7 +82,7 @@ export default class Reputation extends Component {
         return <div>
             <PanelCard className="map-card" title="旅游劳动投入" {...panelProps}
                        enlarge={this.showModal.bind(this)}>
-                <div className="dev-down-map" style={{padding: '0 20px'}}>
+                <div className="dev-down-map" style={{padding: '0 20px', 'lineHeight': 2.2}}>
                     <table className="mt-table mt-table-noborder col-1-al">
                         <thead>
                         <tr>
@@ -97,7 +97,7 @@ export default class Reputation extends Component {
                                 return <tr key={index}>
                                     <td className="labor_td">{item.area}</td>
                                     <td>{item.laborInput}</td>
-                                    <td>{item.compare}</td>
+                                    <td>{(item.compare * 100).toFixed(2) + '%'}</td>
                                 </tr>;
                             })
                         }
@@ -123,7 +123,7 @@ export default class Reputation extends Component {
                                     return <tr key={index}>
                                         <td className="labor_td">{item.area}</td>
                                         <td>{item.laborInput}</td>
-                                        <td>{item.compare}</td>
+                                        <td>{(item.compare * 100).toFixed(2) + '%'}</td>
                                     </tr>;
                                 })
                             }

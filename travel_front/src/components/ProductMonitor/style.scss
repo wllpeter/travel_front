@@ -13,6 +13,7 @@
             height: $contentHeight;
             position: fixed;
             top: $headerHeight;
+            overflow-y: auto;
             left: 0;
             & > li {
                 width: 100%;
@@ -49,13 +50,13 @@
         .product-praise {
             background: $bgColor;
             border-left: 3px solid #072648;
-            height: 704px;
+            height: 718px;
             .panel-card-body {
                 overflow: visible;
             }
             .praise{
                 height: 646px;
-                padding-top: 30px;
+                line-height: 2;
                 .praise-icon{
                     padding-left: 7px;
                     .iconfont{
@@ -105,12 +106,23 @@
     height: 100%;
 }
 
-#particles-js{
+#particles-box{
     position: relative;
-    .dev-index-map{
+    #particles-js{
         position: absolute;
+        z-index: 10;
+        top: 6%;
+        left: 6%;
+        right: 6%;
+        bottom: 16%;
+    }
+    #dev-index-map{
+        position: absolute;
+        width: 100%;
+        z-index: 100;
         top: 0;
         left: 0;
+        bottom: 0;
     }
 }
 
@@ -119,5 +131,15 @@
     line-height: 2.5;
     td{
         font-size: 18px;
+    }
+}
+
+.praise-box{
+    .panel-card {
+        .panel-card-header{
+            .mt-select-input{
+                right: 10px;
+            }
+        }
     }
 }

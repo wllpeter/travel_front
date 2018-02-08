@@ -2,9 +2,14 @@
  * @description  省内涉旅企业数量变更
  */
 import React, {Component} from 'react';
+import moment from 'moment';
+import {option} from '../../../plugins/moment/momentOption';
 import Modal from '../../commonComponent/Modal';
 import PanelCard from '../../commonComponent/PanelCard';
 import {getInternetMonitorData} from '../../../services/MarketMonitor/marketMonitor';
+
+// 中文，防止布置到服务器上显示成英文
+moment.defineLocale('zh-cn', option);
 
 export default class InfoMonitor extends Component {
     constructor(props) {
@@ -45,25 +50,7 @@ export default class InfoMonitor extends Component {
         if (!time) {
             return '';
         }
-        let stamp = new Date(time).getTime();
-        let nowStamp = new Date().getTime();
-        let interval = nowStamp - stamp;
-        if (interval < 60 * 1000) {
-            return '刚刚';
-        }
-        if (interval < 60 * 1000 * 60) {
-            return parseInt(interval / (60 * 1000)) + '分钟前';
-        }
-        if (interval < 60 * 1000 * 60 * 24) {
-            return parseInt(interval / (60 * 1000 * 60)) + '小时前';
-        }
-        if (interval < 60 * 1000 * 60 * 24 * 30) {
-            return parseInt(interval / (60 * 1000 * 60 * 24)) + '天前';
-        }
-        if (interval < 60 * 1000 * 60 * 24 * 30 * 12) {
-            return parseInt(interval / (60 * 1000 * 60 * 24 * 30)) + '个月前';
-        }
-        return parseInt(interval / (60 * 1000 * 60 * 24 * 30 * 12)) + '年前';
+        return moment(time, 'YYYY-MM-DD h:mm:ss').fromNow();
     }
 
     render() {

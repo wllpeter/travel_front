@@ -97,7 +97,7 @@ export default class HotWordRank extends Component {
         return <div>
             <PanelCard title="产品热词搜索指数排行榜" {...panelProps}
                        enlarge={this.showModal.bind(this)}>
-                <div className="product-down-map" style={{paddingTop: '40px'}}>
+                <div className="product-down-map" style={{lineHeight: 2.2}}>
                     <table className="mt-table col-1-al">
                         <thead>
                         <tr>

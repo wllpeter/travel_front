@@ -1,7 +1,7 @@
 import './style.scss';
 import React from 'react';
 import { render } from 'react-dom';
-import { hashHistory } from 'react-router'; //  路由
+import { browserHistory } from 'react-router'; //  路由
 
 // reducers
 import { createStore, applyMiddleware} from 'redux';
@@ -22,7 +22,7 @@ const store = createStore(
 );
 
 // 保持历史同步
-const history = syncHistoryWithStore(hashHistory, store);
+const history = syncHistoryWithStore(browserHistory, store);
 
 // 路由
 render(

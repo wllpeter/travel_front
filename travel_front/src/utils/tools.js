@@ -82,6 +82,7 @@ export function getDataZoom(params) {
             textStyle: {
                 color: 'transparent'
             },
+            bottom: params.zoomBottom || 'auto',
             start: start,
             end: 100
         }

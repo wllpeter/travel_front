@@ -231,12 +231,13 @@ export default class TouristData extends Component {
             series: [seriesData],
             roam: false,
             formatter: (p) => {
-                return `${p.seriesName}<br/>${_this.state.activeDetail.title}：${_this.state.activeDetail.activeDegree}<br/>${p.name}：${p.value}`;
+                return `${p.seriesName}<br/>${_this.state.activeDetail.title}：${_this.state.activeDetail.activeDegree || '-'}<br/>${p.name}：${p.value || '-'}`;
             },
             scaleLimit: {
                 min: 1.1,
                 max: 1.1
             },
+            title: '',
             max: max
         }, this.mapCallback.bind(this));
     }
@@ -251,7 +252,7 @@ export default class TouristData extends Component {
             series: [seriesData],
             roam: false,
             formatter: (p) => {
-                return `${p.seriesName}<br/>${_this.state.activeDetail.title}：${_this.state.activeDetail.activeDegree}<br/>${p.name}：${p.value}`;
+                return `${p.seriesName}<br/>${_this.state.activeDetail.title}：${_this.state.activeDetail.activeDegree || '-'}<br/>${p.name}：${p.value || '-'}`;
             },
             max: max,
             ...params
@@ -283,7 +284,7 @@ export default class TouristData extends Component {
             if (num === undefined || num === '') {
                 return '-';
             }
-            return num + '%';
+            return (num * 100).toFixed(2) + '%';
         };
         return <div className="market-monitor">
             <Row className="mb-20">

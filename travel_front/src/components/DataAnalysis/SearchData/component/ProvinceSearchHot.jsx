@@ -78,16 +78,12 @@ export default class SearchPeopleSource extends Component {
         if (this.state.panelProps) {
             return;
         }
-        let times = nextProps.timeRange.quarter;
+        let times = nextProps.timeRange.tend;
         let yearObj = {};
         let timeFilter = [];
-        if(times){
-            times.forEach((time) => {
-                let year = time.year;
-                if (yearObj[year] === undefined) {
-                    yearObj[year] = true;
-                    timeFilter.push({year: time.year, monthOrQuarter: ''});
-                }
+        if (times) {
+            times.forEach((val) => {
+                timeFilter.push({year: val, monthOrQuarter: ''});
             });
             this.getHeaderOptions(timeFilter);
         }
@@ -121,9 +117,15 @@ export default class SearchPeopleSource extends Component {
             let xAxisData = [],
                 series = [];
             data.forEach(item => {
-                let date = item.searchDate.split(' ')[0];
-                let dateArr = date.split('-');
-                xAxisData.push(dateArr[1] + '-' + dateArr[2]);
+                if (item.searchDate.length > 8) {
+                    let date = item.searchDate.split(' ')[0];
+                    let dateArr = date.split('-');
+                    xAxisData.push(dateArr[1] + '-' + dateArr[2]);
+                } else {
+                    let s = item.searchDate;
+                    let l = s.length;
+                    xAxisData.push(s[l - 4] + s[l - 3] + '-' + s[l - 2] + s[l - 1]);
+                }
                 series.push(item.searchCount);
             });
             this.print({xAxisData, series});

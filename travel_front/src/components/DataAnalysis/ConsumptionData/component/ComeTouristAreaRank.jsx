@@ -108,7 +108,7 @@ export default class ComeTouristAreaRank extends Component {
         };
         let style = {
             top: '60px'
-        }
+        };
         return <div>
             <PanelCard title="入川游客来源地排名" {...panelProps} enlarge={this.showModal.bind(this)}
                        className="bg-grey source-place-rank consumption-down">
@@ -129,7 +129,7 @@ export default class ComeTouristAreaRank extends Component {
                                 <td>{item.rank}</td>
                                 <td>{item.area}</td>
                                 <td>{item.personTimes}</td>
-                                <td><PercentBar percent={~~item.ratio}/></td>
+                                <td><PercentBar percent={(item.ratio * 100).toFixed(2)}/></td>
                             </tr>;
                         })
                     }
@@ -157,7 +157,7 @@ export default class ComeTouristAreaRank extends Component {
                                     <td>{item.rank}</td>
                                     <td>{item.area}</td>
                                     <td>{item.personTimes}</td>
-                                    <td><PercentBar percent={~~item.ratio}/></td>
+                                    <td><PercentBar percent={(item.ratio * 100).toFixed(2)}/></td>
                                 </tr>;
                             })
                         }

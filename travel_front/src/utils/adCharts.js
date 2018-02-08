@@ -1,6 +1,7 @@
 import echarts from 'echarts';
 import $ from 'jquery';
-import {colorHex, getDataZoom} from '../utils/tools';
+import {colorHex, getDataZoom, deepClone} from '../utils/tools';
+import {INDEX_NAME} from '../constants/developmentIndex/developmentIndex';
 
 let mapChart = null;
 
@@ -69,7 +70,8 @@ const AD_CHART = {
                     fontSize: params.titleSize || '14'
                 },
                 // left: '30%',
-                right: params.titleRight || 'auto'
+                right: params.titleRight || 'auto',
+                top: params.titleTop || 'auto'
             },
             tooltip: {
                 trigger: params.trigger || 'axis',
@@ -91,11 +93,13 @@ const AD_CHART = {
             legend: {
                 data: params.legend,
                 right: params.legendRight === undefined ? 'right' : params.legendRight,
+                left: params.legendLeft === undefined ? 'auto' : params.legendLeft,
                 icon: params.legendIcon === undefined ? '' : params.legendIcon,
                 show: params.legendShow === undefined ? true : params.legendShow,
                 orient: params.legendOrient === undefined ? 'horizontal' : 'vertical',
                 itemGap: params.legendItemGap === undefined ? 20 : params.legendItemGap,
                 top: params.legendTop === undefined ? '5%' : params.legendTop,
+                width: params.legendBoxWidth === undefined ? 'auto' : params.legendBoxWidth,
                 itemWidth: params.legendWidth || 8,
                 itemHeight: params.legendHeight || 8,
                 textStyle: {
@@ -196,6 +200,11 @@ const AD_CHART = {
                 type: 'radar',
                 name: params.legend[i],
                 symbol: 'circle',
+                lineStyle: {
+                    normal: {
+                        color: params.colors[i]
+                    }
+                },
                 data: [
                     {
                         value: params.series[i],
@@ -238,7 +247,8 @@ const AD_CHART = {
                 padding: 7,
                 textStyle: {
                     lineHeight: 56
-                }
+                },
+                formatter: params.formatter
             },
             radar: {
                 nameGap: 20, // 指示器名称和指示器轴的距离
@@ -597,6 +607,7 @@ const AD_CHART = {
             options.dataZoom = params.dataZoom;
         }
         LineChart.setOption(options);
+        return LineChart;
         // $(window).resize(function () {
         //     LineChart.resize();
         // });
@@ -674,6 +685,19 @@ const AD_CHART = {
             }
 
             let options = {
+                title: {
+                    show: false,
+                    text: params.title,
+                    textStyle: {
+                        color: '#999',
+                        fontStyle: 'normal',
+                        fontWeight: 'normal',
+                        fontFamily: 'microsoft yahei',
+                        fontSize: params.titleFontSize === undefined ? '14' : params.titleFontSize
+                    },
+                    right: 65,
+                    bottom: 15
+                },
                 tooltip: {
                     trigger: 'item',
                     backgroundColor: '#1F3A59',
@@ -763,11 +787,11 @@ const AD_CHART = {
                 type: 'line',
                 smooth: false,
                 symbol: 'circle',
-                symbolSize: 7,
+                symbolSize: 4,
                 showSymbol: true,
                 lineStyle: {
                     normal: {
-                        width: 1
+                        width: 2
                     }
                 },
                 label: {
@@ -782,7 +806,7 @@ const AD_CHART = {
                     normal: {
                         color: color[index],
                         borderColor: colorHex(color[index], 0.27),
-                        borderWidth: 12
+                        borderWidth: 8
                     }
                 },
                 data: item
@@ -793,13 +817,16 @@ const AD_CHART = {
             backgroundColor: params.backgroundColor || '#082749',
             title: {
                 show: false,
-                text: '旅游发展指数',
+                text: params.title,
                 textStyle: {
+                    color: '#999',
+                    fontStyle: 'normal',
                     fontWeight: 'normal',
-                    fontSize: 16,
-                    color: '#00A9FF'
+                    fontFamily: 'microsoft yahei',
+                    fontSize: params.titleFontSize === undefined ? '12' : params.titleFontSize
                 },
-                left: '6%'
+                bottom: '16%',
+                right: '6%'
             },
             tooltip: {
                 trigger: 'axis',
@@ -1138,14 +1165,14 @@ const AD_CHART = {
                         color: '#00a9ff'
                     }
                 },
-                formatter: function (params) {
-                    var res = params[0].name;
+                formatter: function (p) {
+                    var res = p[0].name;
 
-                    for (var i = 0, l = params.length; i < l; i++) {
-                        if (params[i].seriesType === 'line') {
-                            res += '<br/>' + params[i].marker + params[i].seriesName + ' : ' + (params[i].value ? params[i].value : '-') + '%';
+                    for (var i = 0, l = p.length; i < l; i++) {
+                        if (p[i].seriesType === 'line') {
+                            res += '<br/>' + p[i].marker + p[i].seriesName + ' : ' + (p[i].value ? p[i].value : '-') + '%';
                         } else {
-                            res += '<br/>' + params[i].marker + params[i].seriesName + ' : ' + (params[i].value ? params[i].value : '-') + '万元';
+                            res += '<br/>' + p[i].marker + p[i].seriesName + ' : ' + (p[i].value ? p[i].value : '-') + params.unit || '万元';
                         }
                     }
                     return res;

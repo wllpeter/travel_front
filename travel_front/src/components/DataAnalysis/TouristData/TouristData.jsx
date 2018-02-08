@@ -66,27 +66,28 @@ export default class TouristData extends Component {
     /**
      * @description 渲染四川省游客分析
      */
-    renderProvinceTouristData() {
+    renderProvinceTouristData(quarter) {
         const {provinceTouristData, flowAnalysis, selectedFlowAnalysisIndex} = this.state;
-
         // 四川省游客年龄分布图
-        adCharts.pieChart({
-            chartId: 'provinceAgePieChart',
-            legend: ['20以下', '20-25', '25-30', '30-35', '35-40', '40-45', '45-50', '50-55', '55-60', '60-65', '65以上'],
-            legendIcon: 'circle',
-            borderWidth: 6,
-            borderColor: '#072848',
-            legendTop: 80,
-            legendHeight: 150,
-            legendRight: '10%',
-            color: ['#dc9473', '#ddcf73', '#b6dd74', '#32c889', '#0dbbc7', '#00a9ff', '#1b75d3', '#3559c5', '#5334c5', '#9e35c5', '#df5fa8'],
-            center: ['30%', '50%'],
-            data: provinceTouristData.get('ageData')
-        });
+        if (provinceTouristData.get('ageData') && provinceTouristData.get('ageData').length) {
+            adCharts.pieChart({
+                chartId: 'provinceAgePieChart',
+                legend: ['20以下', '20-25', '25-30', '30-35', '35-40', '40-45', '45-50', '50-55', '55-60', '60-65', '65以上'],
+                legendIcon: 'circle',
+                borderWidth: 6,
+                borderColor: '#072848',
+                legendTop: 80,
+                legendHeight: 150,
+                legendRight: '10%',
+                color: ['#dc9473', '#ddcf73', '#b6dd74', '#32c889', '#0dbbc7', '#00a9ff', '#1b75d3', '#3559c5', '#5334c5', '#9e35c5', '#df5fa8'],
+                center: ['30%', '50%'],
+                data: provinceTouristData.get('ageData')
+            });
+        }
 
         // 四川省客流量分析
         if (flowAnalysis.toObject() && flowAnalysis.get('province').length) {
-            adCharts.lineChart({
+            let lineChart = adCharts.lineChart({
                 chartId: 'provinceFlowLineChart',
                 legend: ['人次', '人数'],
                 legendIcon: 'circle',
@@ -109,11 +110,11 @@ export default class TouristData extends Component {
     /**
      * @description 渲染乡村游游客分析
      */
-    renderCountryTouristData() {
+    renderCountryTouristData(quarter) {
 
         const {villageTouristData, flowAnalysis, selectedCountryFlowAnalysisIndex, peopleTimeData} = this.state;
         const {citys, data} = peopleTimeData;
-
+        // console.log(villageTouristData.get('ageData'));
         // 乡村游游客年龄分析
         if (villageTouristData.get('ageData') && villageTouristData.get('ageData').length) {
             adCharts.pieChart({
@@ -129,7 +130,6 @@ export default class TouristData extends Component {
                 center: ['30%', '50%'],
                 data: villageTouristData.get('ageData')
             });
-
         }
 
         let consumptionPotential = villageTouristData.get('consumptionPotential');
@@ -163,7 +163,7 @@ export default class TouristData extends Component {
             adCharts.percentBarChart({
                 chartId: 'villageDurationPercentBarChart',
                 legendShow: false,
-                yAxisData: ['120h以上'.padEnd(7, ' '), '96h-120h', '72h-96h'.padEnd(8, ' '), '48h-72h'.padEnd(8, ' '), '24h-48h'.padEnd(8, ' '), '12h-24h'.padEnd(8, ' '), '6h-12h'.padEnd(9, ' ')],
+                yAxisData: ['120h以上'.padEnd(7, ' '), '96h-120h', '72h-96h'.padEnd(8, ' '), '48h-72h'.padEnd(8, ' '), '24h-48h'.padEnd(8, ' '), '12h-24h'.padEnd(8, ' '), '3h-12h'.padEnd(9, ' ')],
                 row: true,
                 barWidth: 8,
                 colors: ['#415870', '#00a9ff'],
@@ -177,7 +177,7 @@ export default class TouristData extends Component {
 
         // 乡村游客流量分析
         if (this.state.villageActive.startsWith('jieDai') && selectedCountryFlowAnalysisIndex !== undefined) {
-            adCharts.lineChart({
+            let lineChart = adCharts.lineChart({
                 chartId: 'villageFlowLineChart',
                 legend: ['人次', '人数'],
                 legendIcon: 'circle',
@@ -241,7 +241,6 @@ export default class TouristData extends Component {
     fetchProvinceCustomerData = (params) => {
         getProvinceCustomerData(params).then(data => {
             let {age_data, gender_data, flow_data} = data;
-
             // 处理年龄数据
             if (age_data && age_data.data && age_data.data.length) {
                 let ageData = age_data.data;
@@ -251,12 +250,11 @@ export default class TouristData extends Component {
                         value: Number(ageSeries.ratio) * 100
                     };
                 });
-
                 if (ageSeriesData && ageSeriesData.length) {
                     this.setState(({provinceTouristData}) => ({
                         provinceTouristData: provinceTouristData.set('ageData', ageSeriesData)
                     }), () => {
-                        this.renderProvinceTouristData();
+                        this.renderProvinceTouristData(params[1]);
                     });
                 }
             }
@@ -278,6 +276,14 @@ export default class TouristData extends Component {
                 }
             }
 
+            let handleByQuarter = (value, key) => {
+                let output = [null, null, null, null];
+                value.data.forEach(item => {
+                    output[~~item.quarter - 1] = item[key];
+                });
+                return output;
+            };
+
             // 处理流量分析
             if (flow_data && flow_data.length) {
                 let provinceFlowAnalysis = this.state.flowAnalysis.get('province');
@@ -287,11 +293,7 @@ export default class TouristData extends Component {
                         provinceFlowAnalysis.push({
                             name: value.name,
                             value: key,
-                            data: [value.data.map((dataItem) => {
-                                return dataItem.personTimeView;
-                            }), value.data.map(dataItem => {
-                                return dataItem.personCountView;
-                            })]
+                            data: [handleByQuarter(value, 'personTimeView'), handleByQuarter(value, 'personCountView')]
                         });
                     }
                 }
@@ -299,7 +301,7 @@ export default class TouristData extends Component {
                     flowAnalysis: this.state.flowAnalysis,
                     selectedFlowAnalysisIndex: analysisIndexObj.province
                 }), () => {
-                    this.renderProvinceTouristData();  // 默认传数组第一个元素
+                    this.renderProvinceTouristData(params[1]);  // 默认传数组第一个元素
                 });
             }
         });
@@ -358,18 +360,25 @@ export default class TouristData extends Component {
 
                 countryTourPotential.forEach((potentialSeries) => {
                     potentialData.potentialLevels.push(potentialSeries.potential + '星');
-                    potentialData.data.push(Number(potentialSeries.ratio).toFixed(2) - 0);
+                    potentialData.data.push((Number(potentialSeries.ratio) * 100).toFixed(2) - 0);
                 });
             }
 
             // 乡村游时长分布
-            let tripTimeData = null;
+            let tripTimeData = [];
 
             if (countryTourResidenceZone && countryTourResidenceZone.length) {
-                tripTimeData = countryTourResidenceZone.map((time) => {
-                    return (Number(time.ratio) * 100).toFixed(2) - 0;
-                }).reverse();
+                let timey = ['3h-12h', '12h-24h', '24h-48h', '48h-72h', '72h-96h', '96h-120h', '120h以上'];
+                timey.forEach(time => {
+                    countryTourResidenceZone.forEach(item => {
+                        if (item.residenceZone === time) {
+                            tripTimeData.unshift((Number(item.ratio) * 100).toFixed(2) - 0);
+                        }
+                    });
+                });
             }
+
+            console.log(tripTimeData)
 
             if (ageSeriesData && ageSeriesData.length && potentialData && tripTimeData && tripTimeData.length) {
                 this.setState(({villageTouristData}) => ({
@@ -377,12 +386,20 @@ export default class TouristData extends Component {
                         .set('consumptionPotential', potentialData)
                         .set('tripTime', tripTimeData)
                 }), () => {
-                    this.renderCountryTouristData();
+                    this.renderCountryTouristData(params[1]);
                 });
             }
 
             // 处理流量分析
             let countryFlowAnalysis = this.state.flowAnalysis.get('country');
+
+            let handleByQuarter = (value, key) => {
+                let output = [null, null, null, null];
+                value.data.forEach(item => {
+                    output[~~item.quarter - 1] = Number((item[key] / 10000 - 0).toFixed(2));
+                });
+                return output;
+            };
 
             if (country_tour_person_Time_reception) {
                 countryFlowAnalysis.splice(0, countryFlowAnalysis.length);
@@ -390,11 +407,7 @@ export default class TouristData extends Component {
                     countryFlowAnalysis.push({
                         name: value.name,
                         value: key,
-                        data: [value.data.map((dataItem) => {
-                            return Number((dataItem.personTime / 10000 - 0).toFixed(2));
-                        }), value.data.map(dataItem => {
-                            return Number((dataItem.personCount / 10000 - 0).toFixed(2));
-                        })]
+                        data: [handleByQuarter(value, 'personTime'), handleByQuarter(value, 'personCount')]
                     });
                 }
                 this.state.flowAnalysis.set('country', countryFlowAnalysis.reverse());
@@ -402,7 +415,7 @@ export default class TouristData extends Component {
                     flowAnalysis: this.state.flowAnalysis,
                     selectedCountryFlowAnalysisIndex: analysisIndexObj.country
                 }), () => {
-                    this.renderCountryTouristData();  // 默认传数组第一个元素
+                    this.renderCountryTouristData(params[1]);  // 默认传数组第一个元素
                 });
             }
 
@@ -421,7 +434,7 @@ export default class TouristData extends Component {
                 this.setState({
                     peopleTimeData
                 }, () => {
-                    this.renderCountryTouristData();
+                    this.renderCountryTouristData(params[1]);
                 });
             }
 

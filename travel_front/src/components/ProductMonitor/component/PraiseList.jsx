@@ -98,8 +98,8 @@ export default class PraiseList extends Component {
         let switchProps = {
             buttons: buttons,
             style: {
-                top: '-5%',
-                right: '54%',
+                top: '-9%',
+                right: '50%',
                 transform: 'translateX(50%)'
             },
             clickBack: (params) => {
@@ -111,54 +111,57 @@ export default class PraiseList extends Component {
             }
         };
 
-        return <PanelCard title={`${title}产品好评榜`} {...panelProps}>
-            <div className="switch-btn-box">
-                <ToggleButtonGroup ref="getSwitchButton" {...switchProps}></ToggleButtonGroup>
-                <div className="praise">
-                    <table className="mt-table col-1-al">
-                        <thead>
-                        <tr>
-                            <th>排名</th>
-                            <th>名称</th>
-                            <th>评分</th>
-                            <th>环比</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {
-                            items && items.length > 0 && items.map((item, index) => {
-                                return <tr key={index}>
-                                    <td>
-                                        {dateFormat(item.rank)}
-                                        {
-                                            ~~item.upDown === 1 ?
-                                                <span className="praise-icon praise-icon-up">
+        return <div className="praise-box">
+            <PanelCard title={`${title}产品好评榜`} {...panelProps}>
+                <div className="switch-btn-box">
+                    <ToggleButtonGroup ref="getSwitchButton" {...switchProps}></ToggleButtonGroup>
+                    <div className="praise">
+                        <table className="mt-table col-1-al">
+                            <thead style={{paddingBottom: 20}}>
+                            <tr>
+                                <th>排名</th>
+                                <th>名称</th>
+                                <th>评分</th>
+                                <th>环比</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {
+                                items && items.length > 0 && items.map((item, index) => {
+                                    return <tr key={index}>
+                                        <td>
+                                            <span>{dateFormat(item.rank)}</span>
+                                            <span style={{display: 'inline-block', width: 60}}>
+                                            {
+                                                ~~item.upDown === 1 ?
+                                                    <span className="praise-icon praise-icon-up">
                                                 <i className="iconfont icon-up"></i>
-                                                    {item.changeNum}
+                                                        {item.changeNum}
                                             </span> :
-                                                ~~item.upDown === 2 ?
-                                                    <span className="praise-icon  praise-icon-down">
+                                                    ~~item.upDown === 2 ?
+                                                        <span className="praise-icon  praise-icon-down">
                                                 <i className="iconfont icon-down"></i>
-                                                        {Math.abs(item.changeNum || 0)}
+                                                            {Math.abs(item.changeNum || 0)}
                                             </span> :
-                                                    <span className="praise-icon">
+                                                        <span className="praise-icon">
                                                 &nbsp;&nbsp;
-                                                        <i className="iconfont">-</i>
-                                                        &nbsp;&nbsp;
+                                                            <i className="iconfont">-</i>
+                                                            &nbsp;&nbsp;
                                             </span>
-                                        }
-
-                                    </td>
-                                    <td>{item.name}</td>
-                                    <td>{item.score}</td>
-                                    <td>{item.compared + '%'}</td>
-                                </tr>;
-                            })
-                        }
-                        </tbody>
-                    </table>
+                                            }
+                                        </span>
+                                        </td>
+                                        <td>{item.name}</td>
+                                        <td>{item.score}</td>
+                                        <td>{item.compared + '%'}</td>
+                                    </tr>;
+                                })
+                            }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-        </PanelCard>;
+            </PanelCard>
+        </div>;
     }
 }

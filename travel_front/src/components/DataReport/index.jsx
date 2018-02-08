@@ -3,6 +3,7 @@
  */
 import React, {Component} from 'react';
 import {LoadingBox} from 'mtui/index';
+import Modal from '../../components/commonComponent/Modal';
 import {message} from 'antd';
 import devConfig from '../../config/config.dev';
 import 'antd/lib/message/style';
@@ -17,6 +18,8 @@ let timer = null; // 一次性定时器
 
 const canvasTop = 60; // 记录第一个canvas容器距页面顶部的高度
 const margin = 4; // canvas之间的margin值
+
+let pagesObj = {}; // 储存已经draw过的页面
 
 if (__DEV__) {
     baseUrl = devConfig.DEV_API_SERVER + '/download';
@@ -39,6 +42,8 @@ export default class TouristData extends Component {
                     children: []
                 }
             ],
+            visible: false,
+            navIndex: 0, // 当前选中的左侧菜单的index
             numPages: 0, // pdf总页数
             marginLeft: 0,
             scale: 1,
@@ -53,6 +58,7 @@ export default class TouristData extends Component {
         this.pdf = null;
         this.boxWidth = null;
         this.boxHeight = null;
+        this.pageRender = null;
         this.flipPage = this.flipPage.bind(this);
     }
 
@@ -83,7 +89,7 @@ export default class TouristData extends Component {
                 if (page > 1) {
                     page--;
                     this.setState({page}, () => {
-                        this.positionViewer()
+                        this.positionViewer();
                         this.setFilpTimer(this.drawPdf.bind(this));
                     });
                 }
@@ -92,7 +98,7 @@ export default class TouristData extends Component {
                 if (page < numPages) {
                     page++;
                     this.setState({page}, () => {
-                        this.positionViewer()
+                        this.positionViewer();
                         this.setFilpTimer(this.drawPdf.bind(this));
                     });
                 }
@@ -104,14 +110,14 @@ export default class TouristData extends Component {
     }
 
     // 设置一个定时器优化翻页功能
-    setFilpTimer(callback){
-        if(timer){
+    setFilpTimer(callback) {
+        if (timer) {
             clearTimeout(timer);
             timer = null;
         }
-        timer = setTimeout(()=>{
-            if(callback){
-                callback();
+        timer = setTimeout(() => {
+            if (callback) {
+                callback(true);
             }
             timer = null;
         }, 200);
@@ -151,6 +157,18 @@ export default class TouristData extends Component {
 
     // 根据pdf的url解析pdf
     analysisPdf() {
+        if (this.pdfLoading) {
+            return;
+        }
+        this.pdfLoading = true;
+        if (this.pageRender) {
+            this.pageRender.cancel();
+            this.pageRender = null;
+        }
+        if (this.pdf) {
+            this.pdf.destroy();
+            this.pdf = null;
+        }
         let _this = this;
         let url = this.state.pdfUrl;
         this.setState({
@@ -159,6 +177,7 @@ export default class TouristData extends Component {
             numPages: 0
         });
         PDFJS.getDocument(url).then(function getPdf(pdf) {
+            _this.pdfLoading = false;
             _this.pdf = pdf;
             _this.setState({
                 numPages: pdf.numPages,
@@ -178,10 +197,25 @@ export default class TouristData extends Component {
     }
 
     // 绘制pdf
-    drawPdf() {
+    drawPdf(bool) {
         let _this = this;
         var currentPage = this.state.page;
+        if (!bool) {
+            pagesObj = {};
+        }
         let fn = (p) => {
+            if (p > currentPage + 4) {
+                return;
+            }
+            if (p > _this.state.numPages) {
+                return;
+            }
+            if (!pagesObj[p]) {
+                pagesObj[p] = true;
+            } else {
+                fn(++p);
+                return;
+            }
             _this.pdf.getPage(p).then(function getPage(page) {
                 let scale = _this.state.scale;
                 let rotate = _this.state.rotate;
@@ -204,24 +238,26 @@ export default class TouristData extends Component {
                     canvasContext: context,
                     viewport: viewport
                 };
-                let pageRender = page.render(renderContext);
-                if (p === currentPage) {
-                    pageRender.promise.then(() => {
-                        _this.setState({loadingShow: false});
-                    });
-                }
-                if (p === currentPage + 4) {
-                    _this.positionViewer();
-                    return;
-                }
-                if (p === _this.pdf.numPages) {
-                    _this.positionViewer();
-                }
+                let pageRender = _this.pageRender = page.render(renderContext);
+                pageRender.promise.then(() => {
+                    if (p === currentPage) {
+                        pageRender.promise.then(() => {
+                            _this.setState({loadingShow: false});
+                        });
+                    }
+                    if (p === currentPage + 4 && !bool) {
+                        _this.positionViewer();
+                        return;
+                    }
+                    if (p === _this.pdf.numPages && !bool) {
+                        _this.positionViewer();
+                        return;
+                    }
+                    fn(++p);
+                });
             });
         };
-        for (let i = currentPage; i < currentPage + 5 && i <= this.pdf.numPages; i++) {
-            fn(i);
-        }
+        fn(currentPage);
     }
 
     // 缩小pdf
@@ -308,6 +344,22 @@ export default class TouristData extends Component {
 
     // 打印pdf
     printPdf() {
+        function canNotPrint() {
+            if (!!window.ActiveXObject || 'ActiveXObject' in window) {
+                return true;
+            }
+            if (navigator.userAgent.indexOf('Firefox') >= 0) {
+                return true;
+            }
+            return false;
+        }
+
+        // ie提示框
+        if (canNotPrint()) {
+            this.setState({visible: true});
+            return;
+        }
+
         if (this.state.loadingShow) {
             message.warning('请等待报告完全载入完');
             return;
@@ -327,7 +379,7 @@ export default class TouristData extends Component {
             let currentPage = parseInt((canvasTop - top + margin) / (_this.state.canvasHeight + margin)) + 1;
             if (page !== currentPage) {
                 _this.setState({page: currentPage}, () => {
-                    _this.drawPdf();
+                    _this.drawPdf(true);
                 });
             }
         });
@@ -343,12 +395,23 @@ export default class TouristData extends Component {
 
     chooseFatherNav(index) {
         let {navItems} = this.state;
-        navItems[index].selected = !navItems[index].selected;
+        navItems.forEach((item, i) => {
+            if (i === index) {
+                navItems[i].selected = !navItems[i].selected;
+            } else {
+                navItems[i].selected = false;
+            }
+        });
         this.setState({navItems: navItems});
     }
 
     chooseChildrenNav(index, i, id) {
+        if (this.pdfLoading) {
+            message.warning('操作不要太频繁');
+            return;
+        }
         let {navItems} = this.state;
+        this.state.navIndex = index;
         navItems.forEach((item, n) => {
             item.children.forEach((child, m) => {
                 if (index === n && i === m) {
@@ -363,7 +426,7 @@ export default class TouristData extends Component {
     }
 
     render() {
-        let {navItems, marginLeft, canvasWidth, canvasHeight, numPages, loadingShow, loadingTitle, bigBtnShow, page, pdfUrl} = this.state;
+        let {navItems, marginLeft, canvasWidth, canvasHeight, numPages, loadingShow, loadingTitle, bigBtnShow, page, pdfUrl, navIndex, visible} = this.state;
         let canvasNum = [];
         for (let i = 0; i < numPages; i++) {
             canvasNum.push(i + 1);
@@ -374,9 +437,10 @@ export default class TouristData extends Component {
                     {
                         navItems.map((item, index) => {
                             return <li className="nav-father" key={index}>
-                                <a className="nav-father-name" onClick={() => {
-                                    this.chooseFatherNav(index);
-                                }}>
+                                <a className={`nav-father-name ${index === navIndex ? 'nav-father-choose' : ''}`}
+                                   onClick={() => {
+                                       this.chooseFatherNav(index);
+                                   }}>
                                     {item.name}
                                     <i className={`iconfont icon-xiangyou ${item.selected ? 'icon-open' : ''}`}></i>
                                 </a>
@@ -414,7 +478,7 @@ export default class TouristData extends Component {
                 <div className="top-buttons">
                     <span className="page-count">{page}/{numPages}</span>
                     <i className="iconfont icon-print" title="打印" onClick={this.printPdf.bind(this)}/>
-                    <a href={pdfUrl} download>
+                    <a href={pdfUrl} download  target="_blank">
                         <i className="iconfont icon-download-copy" title="下载"/>
                     </a>
                     <i className="iconfont icon-rotate" onClick={this.refresh.bind(this)} title="刷新"/>
@@ -433,6 +497,25 @@ export default class TouristData extends Component {
 
                 <iframe style={{display: 'none'}} id="printIframe"
                         src={pdfUrl}/>
+            </div>
+
+            <div className="logout-box">
+                <Modal visible={visible}>
+                    <div className="logout-content">
+                        <i className="iconfont icon-close" onClick={() => {
+                            this.setState({visible: false});
+                        }}/>
+                        <p style={{'lineHeight': '70px'}}>系统在该浏览器下不支持打印，请下载后打印</p>
+                        <div className="logout-btn">
+                            <a className="logout-cancel" onClick={() => {
+                                this.setState({visible: false});
+                            }}>取消</a>
+                            <a className="logout-confirm" href={pdfUrl} download target="_blank" onClick={() => {
+                                this.setState({visible: false});
+                            }}>下载</a>
+                        </div>
+                    </div>
+                </Modal>
             </div>
         </div>;
     }

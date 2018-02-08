@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {hashHistory} from 'react-router';
+import {browserHistory} from 'react-router';
 import {getSession, remove} from '../utils/storage';
 import {Link} from 'react-router';
 import {logOut} from '../services/Login/login';
@@ -14,11 +14,11 @@ export default class Header extends Component {
         };
     }
 
-    openLogOut(){
+    openLogOut() {
         this.setState({visible: true});
     }
 
-    closeLogOut(){
+    closeLogOut() {
         this.setState({visible: false});
     }
 
@@ -26,7 +26,7 @@ export default class Header extends Component {
     logOut() {
         logOut({}).then(() => {
             remove('user');
-            hashHistory.push('/login');
+            browserHistory.push('/login');
         });
     }
 
@@ -42,21 +42,21 @@ export default class Header extends Component {
                 </div>
             }
             <ul className="header-nav-list">
-                <li><Link to="developmentIndex" activeClassName="active">旅游发展指数</Link></li>
-                <li><Link to="marketMonitor" activeClassName="active">旅游市场监测</Link></li>
-                <li><Link to="productMonitor" activeClassName="active">旅游产品监测</Link></li>
+                <li><Link to="/developmentIndex" activeClassName="active">旅游发展指数</Link></li>
+                <li><Link to="/marketMonitor" activeClassName="active">旅游市场监测</Link></li>
+                <li><Link to="/productMonitor" activeClassName="active">旅游产品监测</Link></li>
                 <li className="pos-r">
                     <Link onClick={(e) => {
                         e.preventDefault();
-                    }} to="data" activeClassName="active">
+                    }} activeClassName="active" to="data">
                         旅游大数据分析&nbsp;<i className="iconfont icon-xiangxia"></i></Link>
                     <ul className="header-nav-sublist">
-                        <Link to="data/touristData" activeClassName="active">客情大数据</Link>
-                        <Link to="data/consumptionData" activeClassName="active">消费大数据</Link>
-                        <Link to="data/searchData" activeClassName="active">搜索大数据</Link>
+                        <Link to="/data/touristData" activeClassName="active">客情大数据</Link>
+                        <Link to="/data/consumptionData" activeClassName="active">消费大数据</Link>
+                        <Link to="/data/searchData" activeClassName="active">搜索大数据</Link>
                     </ul>
                 </li>
-                <li><Link to="dataReport" activeClassName="active">旅游大数据报告</Link></li>
+                <li><Link to="/dataReport" activeClassName="active">旅游大数据报告</Link></li>
             </ul>
             <div className="logout-box">
                 <Modal visible={visible}>

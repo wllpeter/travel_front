@@ -2,7 +2,7 @@
  * @description 登录页
  */
 import React, {Component} from 'react';
-import {hashHistory} from 'react-router';
+import {browserHistory} from 'react-router';
 import 'antd/lib/grid/style';
 import {Tip, Input, Button, Checkbox, Validate} from 'mtui/index';
 import {getIdentifyingCode, login} from '../../services/Login/login';
@@ -72,7 +72,7 @@ export default class Login extends Component {
                 } else {
                     remove('temp');
                 }
-                hashHistory.push('/');
+                browserHistory.push('/');
             }).catch(res => {
                 Tip.error(res.info);
                 // 用户名和密码连续输入错误时

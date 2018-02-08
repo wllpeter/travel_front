@@ -91,6 +91,7 @@ export default class ProvinceTravelConsume extends Component {
                     }
                 }
             ],
+            unit: params.unit || '万元',
             series: [
                 {
                     type: 'bar',
@@ -136,7 +137,15 @@ export default class ProvinceTravelConsume extends Component {
         res.forEach((item) => {
             xAxisData.unshift(item.year + '-' + dateFormat(item.month));
             keys.forEach((key) => {
-                data[key].unshift(item[key]);
+                if (key.indexOf('Compare') !== -1) {
+                    if(item[key] === '-'){
+                        data[key].unshift('-');
+                        return;
+                    }
+                    data[key].unshift((item[key] * 100).toFixed(2));
+                } else {
+                    data[key].unshift(item[key]);
+                }
             });
         });
         return {

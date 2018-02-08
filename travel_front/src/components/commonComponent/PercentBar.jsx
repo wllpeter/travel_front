@@ -14,7 +14,6 @@ export default class PercentBar extends Component {
 
     render() {
         const {percent, strokeWidth} = this.props;
-
-        return <Progress percent={percent} strokeWidth={strokeWidth || 7} className="percent-bar"></Progress>;
+        return <Progress percent={Number(percent)} strokeWidth={strokeWidth || 7} className="percent-bar"></Progress>;
     }
 }

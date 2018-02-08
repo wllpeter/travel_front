@@ -1,6 +1,6 @@
 import qs from 'qs';
 import axios from 'axios';
-import {hashHistory} from 'react-router';
+import {browserHistory} from 'react-router';
 import config from '../config/config';
 import devConfig from '../config/config.dev';
 import {ResponseInfo} from '../constants/common';
@@ -195,14 +195,14 @@ function processError(response) {
     var errorMessage;
     switch (response.code) {
         case 403:
-            hashHistory.push('/noPermission');
+            browserHistory.push('/noPermission');
             break;
         case 405:
-            hashHistory.push('/noAcount');
+            browserHistory.push('/noAcount');
             break;
         case 406:
         case 407:   // 没有登陆
-            hashHistory.push('/noAuthority');
+            browserHistory.push('/noAuthority');
             break;
         case 500:   // 系统异常
             errorMessage = ResponseInfo[500];

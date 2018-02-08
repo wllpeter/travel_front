@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Router, Route, hashHistory, IndexRedirect} from 'react-router';
+import {Router, Route, browserHistory, IndexRedirect} from 'react-router';
 import $ from 'jquery';
 
 // App 入口
@@ -20,6 +20,8 @@ import ConsumptionData from './components/DataAnalysis/ConsumptionData/Consumpti
 import SearchData from './components/DataAnalysis/SearchData/SearchData';
 // 旅游大数据报告
 import DataReport from './components/DataReport';
+// 页面未找到
+import NotFound from './components/notFound/NotFound';
 
 import {clear, getSession} from './utils/storage';
 
@@ -32,11 +34,11 @@ class Routers extends Component {
     clearAll = () => {
     };
 
-    enterPath(nextPath){
+    enterPath(nextPath) {
         let dataSession = getSession('user');
         let userId = dataSession ? dataSession.userId : ''; // 用户id 判断是否登录
-        if(userId === ''){
-            hashHistory.push('/login');
+        if (userId === '') {
+            browserHistory.push('/login');
         }
         $('body').scrollTop(0);
     }
@@ -46,7 +48,7 @@ class Routers extends Component {
             <Router history={this.props.history}>
                 <Route path="/login" component={Login} onEnter={this.clearAll}/>
                 <Route path="/" component={App}>
-                    <IndexRedirect to="/developmentIndex" />
+                    <IndexRedirect to="developmentIndex"/>
                     <Route path="developmentIndex" component={DevelopmentIndex} onEnter={this.enterPath}/>
                     <Route path="marketMonitor" component={MarketMonitor} onEnter={this.enterPath}/>
                     <Route path="productMonitor" component={ProductMonitor} onEnter={this.enterPath}/>
@@ -57,6 +59,7 @@ class Routers extends Component {
                     </Route>
                     <Route path="dataReport" component={DataReport} onEnter={this.enterPath}/>
                 </Route>
+                <Route path="*" component={NotFound}/>
             </Router>
         );
     }
