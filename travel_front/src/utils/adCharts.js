@@ -70,7 +70,8 @@ const AD_CHART = {
                     fontSize: params.titleSize || '14'
                 },
                 // left: '30%',
-                right: params.titleRight || 'auto'
+                right: params.titleRight || 'auto',
+                top: params.titleTop || 'auto'
             },
             tooltip: {
                 trigger: params.trigger || 'axis',
@@ -92,11 +93,13 @@ const AD_CHART = {
             legend: {
                 data: params.legend,
                 right: params.legendRight === undefined ? 'right' : params.legendRight,
+                left: params.legendLeft === undefined ? 'auto' : params.legendLeft,
                 icon: params.legendIcon === undefined ? '' : params.legendIcon,
                 show: params.legendShow === undefined ? true : params.legendShow,
                 orient: params.legendOrient === undefined ? 'horizontal' : 'vertical',
                 itemGap: params.legendItemGap === undefined ? 20 : params.legendItemGap,
                 top: params.legendTop === undefined ? '5%' : params.legendTop,
+                width: params.legendBoxWidth === undefined ? 'auto' : params.legendBoxWidth,
                 itemWidth: params.legendWidth || 8,
                 itemHeight: params.legendHeight || 8,
                 textStyle: {

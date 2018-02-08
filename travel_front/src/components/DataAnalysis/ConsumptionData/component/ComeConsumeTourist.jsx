@@ -102,7 +102,7 @@ export default class ComeConsumeTourist extends Component {
                                 <td>{item.rank}</td>
                                 <td>{item.city}</td>
                                 <td>{item.personCount}</td>
-                                <td><PercentBar percent={~~item.ratio}/></td>
+                                <td><PercentBar percent={(item.ratio * 100).toFixed(2)}/></td>
                             </tr>;
                         })
                     }
@@ -129,7 +129,7 @@ export default class ComeConsumeTourist extends Component {
                                     <td>{item.rank}</td>
                                     <td>{item.city}</td>
                                     <td>{item.personCount}</td>
-                                    <td width="130"><PercentBar percent={~~item.ratio} strokeWidth={ 12 }/></td>
+                                    <td width="130"><PercentBar percent={(item.ratio * 100).toFixed(2)} strokeWidth={12}/></td>
                                 </tr>;
                             })
                         }

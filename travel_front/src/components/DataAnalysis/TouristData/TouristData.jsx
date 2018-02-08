@@ -163,7 +163,7 @@ export default class TouristData extends Component {
             adCharts.percentBarChart({
                 chartId: 'villageDurationPercentBarChart',
                 legendShow: false,
-                yAxisData: ['120h以上'.padEnd(7, ' '), '96h-120h', '72h-96h'.padEnd(8, ' '), '48h-72h'.padEnd(8, ' '), '24h-48h'.padEnd(8, ' '), '12h-24h'.padEnd(8, ' '), '6h-12h'.padEnd(9, ' ')],
+                yAxisData: ['120h以上'.padEnd(7, ' '), '96h-120h', '72h-96h'.padEnd(8, ' '), '48h-72h'.padEnd(8, ' '), '24h-48h'.padEnd(8, ' '), '12h-24h'.padEnd(8, ' '), '3h-12h'.padEnd(9, ' ')],
                 row: true,
                 barWidth: 8,
                 colors: ['#415870', '#00a9ff'],
@@ -365,13 +365,20 @@ export default class TouristData extends Component {
             }
 
             // 乡村游时长分布
-            let tripTimeData = null;
+            let tripTimeData = [];
 
             if (countryTourResidenceZone && countryTourResidenceZone.length) {
-                tripTimeData = countryTourResidenceZone.map((time) => {
-                    return (Number(time.ratio) * 100).toFixed(2) - 0;
-                }).reverse();
+                let timey = ['3h-12h', '12h-24h', '24h-48h', '48h-72h', '72h-96h', '96h-120h', '120h以上'];
+                timey.forEach(time => {
+                    countryTourResidenceZone.forEach(item => {
+                        if (item.residenceZone === time) {
+                            tripTimeData.unshift((Number(item.ratio) * 100).toFixed(2) - 0);
+                        }
+                    });
+                });
             }
+
+            console.log(tripTimeData)
 
             if (ageSeriesData && ageSeriesData.length && potentialData && tripTimeData && tripTimeData.length) {
                 this.setState(({villageTouristData}) => ({
