@@ -1,5 +1,12 @@
+@import '~include-media/dist/_include-media.scss';
 $headerHeight: 60px;
 
 $contentHeight: calc(100vh - 60px);
 
 $bgColor: #1F3A59;
+
+$breakpoints: (sm: 1366px, lg: 1920);
+
+@function smpx($px){
+  @return $px / 1920 * 1366px;
+}

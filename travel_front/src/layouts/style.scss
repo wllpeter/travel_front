@@ -1,3 +1,4 @@
+@import "../public";
 $headerHeight: 60px;
 $fontColor: rgba(255, 255, 255, 0.95);
 
@@ -24,12 +25,27 @@ $fontColor: rgba(255, 255, 255, 0.95);
     width: 390px;
     .app-logo {
       margin-left: 25px;
+      @include media("<=sm") {
+        margin-left: smpx(25);
+      }
       display: block;
       width: 384px;
+      @include media("<=sm") {
+        width: smpx(384);
+      }
       height: 30px;
+      @include media("<=sm") {
+        height: smpx(30);
+      }
       margin-top: 14px;
+      @include media("<=sm") {
+        margin-top: smpx(14);
+      }
       background-image: url("../assets/images/logo-title.png");
       background-size: 384px 30px;
+      @include media("<=sm") {
+        background-size: smpx(384) smpx(30);
+      }
     }
   }
 
