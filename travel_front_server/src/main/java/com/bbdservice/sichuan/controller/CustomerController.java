@@ -76,8 +76,8 @@ public class CustomerController {
             List<SichuanFlowAnalyse> tempList = new ArrayList<>();
             for(SichuanFlowAnalyse sfa : retFlowData){
                 DecimalFormat d = new DecimalFormat("#.00");
-                String personCount = d.format(Float.valueOf(sfa.getPersonCount())/10000);
-                String personTime = d.format(Float.valueOf(sfa.getPersonTime())/10000);
+                String personCount = d.format(Float.valueOf(sfa.getPersonCount() == null?0: sfa.getPersonCount())/10000);
+                String personTime = d.format(Float.valueOf(sfa.getPersonTime() == null?0:sfa.getPersonTime())/10000);
                 sfa.setPersonCountView(Float.valueOf(personCount));
                 sfa.setPersonTimeView(Float.valueOf(personTime));
                 if(sfa.getCustomerType().equals(str)){
