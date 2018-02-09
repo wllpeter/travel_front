@@ -97,6 +97,13 @@ public class TourismProductController {
                 break;
                 default:break;
         }
+        for(OpinionRank o:opinionRanks){
+            if(StringUtils.isEmpty(o.getCompared())||o.getCompared()==null){
+                o.setCompared("");
+                continue;
+            }
+            o.setCompared(TwoPointUtils.getTwo(Double.valueOf(o.getCompared())*100+""));
+        }
         return Response.success(opinionRanks);
     }
 
@@ -112,8 +119,8 @@ public class TourismProductController {
 //        overallMerits=ov.getAllList(productType,years);
          overallMerits=ov.getAllList(productType);
          for(OverallMerit o:overallMerits){
-             if(StringUtils.isEmpty(o.getCompared())){
-                 o.setCompared("-");
+             if(StringUtils.isEmpty(o.getCompared())||o.getCompared()==null){
+                 o.setCompared("");
                  continue;
              }
              o.setCompared(TwoPointUtils.getTwo(Double.valueOf(o.getCompared().toString())*100+""));
@@ -172,8 +179,8 @@ public class TourismProductController {
         priceTrends=priceTrendService.getAllList(productType);
 //        priceTrends=priceTrendService.getAllList(productType,years);
         for(PriceTrend p:priceTrends){
-            if(StringUtils.isEmpty(p.getCompared())){
-                p.setCompared("-");
+            if(StringUtils.isEmpty(p.getCompared())||p.getCompared()==null){
+                p.setCompared("");
                 continue;
             }
             p.setCompared(TwoPointUtils.getTwo(Double.valueOf(p.getCompared().toString())*100+""));

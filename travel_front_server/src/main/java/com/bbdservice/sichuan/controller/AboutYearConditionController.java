@@ -153,13 +153,20 @@ public class AboutYearConditionController {
         List<JSONObject> monthKey=new ArrayList<>();
         List<JSONObject> quarterKey=new ArrayList<>();
         List<String> key= Arrays.asList("year","monthOrQuarter","type");
-        List<String> trend=aboutYearConditionService.getProvinceTrend();
+        String trend=aboutYearConditionService.getProvinceTrend();
+        Integer oldYear=Integer.valueOf(trend.toString());
+        Calendar a=Calendar.getInstance();
+        Integer now=a.get(Calendar.YEAR);
+        List<String> years=new ArrayList<>();
+        for(Integer year=now;year>=oldYear;year--){
+            years.add(year+"");
+        }
         monthKey=getJsonObject(key,12,"月");
         quarterKey=getJsonObject(key,4,"季");
 
         map.put("month",monthKey);
         map.put("quarter",quarterKey);
-        map.put("tend",trend);
+        map.put("tend",years);
         //        List<String> getProvinceHot=aboutYearConditionService.getProvinceHot();
 //        map.put("provinceHot",putKey(key,getProvinceHot));
 //        //热词云

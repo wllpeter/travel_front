@@ -67,7 +67,7 @@ public interface AboutYearConditionService {
     List<String> getJingDian();
 
     //搜索 全省旅游热度搜索趋势
-    List<String> getProvinceTrend();
+    String getProvinceTrend();
 
     /**
      * 客情大数据模块

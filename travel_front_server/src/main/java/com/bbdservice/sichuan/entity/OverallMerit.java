@@ -73,4 +73,12 @@ public class OverallMerit {
     public void setCompared(String compared) {
         this.compared = compared;
     }
+
+    public Float getAvgscore() {
+        return avgscore;
+    }
+
+    public void setAvgscore(Float avgscore) {
+        this.avgscore = avgscore;
+    }
 }

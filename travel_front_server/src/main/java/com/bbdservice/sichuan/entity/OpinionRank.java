@@ -97,4 +97,12 @@ public class OpinionRank {
      * 环比
      */
     private String compared;
+
+    public String getCompared() {
+        return compared;
+    }
+
+    public void setCompared(String compared) {
+        this.compared = compared;
+    }
 }

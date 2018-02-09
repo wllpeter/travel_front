@@ -174,8 +174,8 @@ public interface AboutYearConditionDao extends JpaRepository<ClassifyData,Long> 
     List<String> getJingDian();
 
     //搜索 全省旅游热度搜索趋势
-    @Query(nativeQuery = true,value = "select year  from search_province_trend where year is not null  and deleted = 0 GROUP  by year desc ")
-    List<String> getProvinceTrend();
+    @Query(nativeQuery = true,value = "select min(year) from search_province_trend where year is not null  and deleted = 0 ")
+    String getProvinceTrend();
 
     /**
      * 旅游发展指数,和以上不一样，数据结构年月(季)在一个date字段里

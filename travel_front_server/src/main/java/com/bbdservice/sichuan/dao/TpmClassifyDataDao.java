@@ -11,10 +11,10 @@ import java.util.List;
  */
 public interface TpmClassifyDataDao extends JpaRepository<ClassifyData,Long>{
 
-    @Query(value = "select c from ClassifyData  c where c.dataType=?1 and c.year=?2 and c.month=?3 and c.productType=?4 and c.modifyId is null and c.deleted=0")
+    @Query(nativeQuery = true,value = "select * from tpm_classify_data  c where c.data_type=?1 and c.year=?2 and c.month=?3 and c.product_type=?4 and c.modify_id is null and c.deleted=0 limit 0,8")
     List<ClassifyData> getClassifyDataList(String dataType,Long year,Long month,Long productType);
 
-    @Query(value="select c from ClassifyData  c where c.productType=?1 and c.year=?2 and c.month=?3 and c.modifyId is null and c.deleted=0")
+    @Query(nativeQuery = true,value="select * from tpm_classify_data  c where c.product_type=?1 and c.year=?2 and c.month=?3 and c.modify_id is null and c.deleted=0 limit 0,8")
     List<ClassifyData> getWithoutClassifyDataList(Long productType,Long year,Long month);
 
 }
