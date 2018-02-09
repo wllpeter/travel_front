@@ -7,6 +7,7 @@ import ToggleButtonGroup from '../../../commonComponent/ToggleButtonGroup';
 import {getIndustryConsumeBusiness} from '../../../../services/ConsumptionData/consumptionData';
 import {getHeaderOptions} from '../../../../utils/tools';
 import Modal from '../../../commonComponent/Modal';
+import '../style.scss';
 
 export default class IndustryConsumeBusiness extends Component {
     constructor(props) {
@@ -131,7 +132,7 @@ export default class IndustryConsumeBusiness extends Component {
                         items && items.map((item, index) => {
                             return <tr key={index}>
                                 <td>{item.rank}</td>
-                                <td>{item.businessName}</td>
+                                <td className="industry-name" title={item.businessName}>{item.businessName}</td>
                                 <td>{item.avgSingleConsume}</td>
                                 <td>{item.totalSwipeTimes}</td>
                             </tr>;

@@ -111,6 +111,13 @@ export default class PraiseList extends Component {
             }
         };
 
+        let per = (num) => {
+            if (num === undefined || num === '' || num === null) {
+                return '-';
+            }
+            return num + '%';
+        };
+
         return <div className="praise-box">
             <PanelCard title={`${title}产品好评榜`} {...panelProps}>
                 <div className="switch-btn-box">
@@ -134,14 +141,14 @@ export default class PraiseList extends Component {
                                             <span style={{display: 'inline-block', width: 60}}>
                                             {
                                                 ~~item.upDown === 1 ?
-                                                    <span className="praise-icon praise-icon-up">
+                                                    <span className="praise-icon praise-icon-up" title={item.changeNum}>
                                                 <i className="iconfont icon-up"></i>
-                                                        {item.changeNum}
+                                                        {item.changeNum > 999 ? '999+' : item.changeNum}
                                             </span> :
                                                     ~~item.upDown === 2 ?
-                                                        <span className="praise-icon  praise-icon-down">
+                                                        <span className="praise-icon  praise-icon-down" title={Math.abs(item.changeNum || 0)}>
                                                 <i className="iconfont icon-down"></i>
-                                                            {Math.abs(item.changeNum || 0)}
+                                                            {Math.abs(item.changeNum || 0) > 999 ? '999+' : Math.abs(item.changeNum || 0)}
                                             </span> :
                                                         <span className="praise-icon">
                                                 &nbsp;&nbsp;
@@ -151,9 +158,9 @@ export default class PraiseList extends Component {
                                             }
                                         </span>
                                         </td>
-                                        <td>{item.name}</td>
+                                        <td className="scenic-name" title={item.name}>{item.name}</td>
                                         <td>{item.score}</td>
-                                        <td>{item.compared + '%'}</td>
+                                        <td>{per(item.compared)}</td>
                                     </tr>;
                                 })
                             }

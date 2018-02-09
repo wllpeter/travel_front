@@ -64,7 +64,15 @@ export default class ProductEvaluate extends Component {
 
     print(params) {
         let color = ['#00A9FF', '#32C889'];
-
+        const fn = (val, unit) => {
+            if (val === '' || val === null || val === '' || val === '-') {
+                return '-';
+            }
+            if (unit) {
+                return val + unit;
+            }
+            return val;
+        };
         let option = {
             tooltip: {
                 trigger: 'axis',
@@ -82,10 +90,10 @@ export default class ProductEvaluate extends Component {
                 },
                 formatter: (p) => {
                     let tooltipText = p[0].axisValue + '<br>' +
-                        p[0].marker + p[0].seriesName + '：' + p[0].data + '分';
+                        p[0].marker + p[0].seriesName + '：' + fn(p[0].data, '分');
                     if (p[1]) {
                         tooltipText += '<br>' +
-                            p[1].marker + p[1].seriesName + '：' + p[1].data + '%';
+                            p[1].marker + p[1].seriesName + '：' + fn(p[1].data, '%');
                     }
                     return tooltipText;
                 }
