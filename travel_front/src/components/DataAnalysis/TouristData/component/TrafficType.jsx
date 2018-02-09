@@ -145,14 +145,14 @@ export default class TrafficType extends Component {
     render() {
         let {visible, panelProps} = this.state;
         return <div>
-            <PanelCard title="游客交通方式"  enlarge={this.showModal.bind(this)}
+            <PanelCard title="五大经济区游客交通方式"  enlarge={this.showModal.bind(this)}
                        className="bg-grey" {...panelProps}>
                 <div id="touristTrafficWayBarChart" style={{width: '100%', height: 300}}/>
             </PanelCard>
             <Modal visible={visible} onOk={() => {
                 this.fetchFiveZoneTrafficType.bind(this)();
             }}>
-                <PanelCard className="map-card" title="游客停留时长"
+                <PanelCard className="map-card" title="五大经济区游客停留时长"
                            zoomOutRequired={true} {...panelProps}
                            narrow={this.handleCancel.bind(this)}>
                     <div id="touristTrafficWayBarChart2" style={{width: '100%', height: 460}}/>

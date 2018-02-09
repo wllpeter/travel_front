@@ -46,7 +46,7 @@ export default {
                 test: /\.(css|scss)$/,
                 include: [
                     path.join(__dirname, 'src'),
-                    path.join(__dirname, 'node_modules/__include-media@1.4.9@include-media/dist')
+                    path.join(__dirname, 'node_modules/_include-media@1.4.9@include-media/dist')
                 ],
                 use: extractStyle.extract(['css-loader', 'postcss-loader', 'sass-loader'])
             },

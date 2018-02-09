@@ -144,14 +144,14 @@ export default class TouristStay extends Component {
     render() {
         let {visible, panelProps} = this.state;
         return <div>
-            <PanelCard title="游客停留时长" enlarge={this.showModal.bind(this)}
+            <PanelCard title="五大经济区游客停留时长" enlarge={this.showModal.bind(this)}
                        className="bg-grey" {...panelProps}>
                 <div id="touristStayBarChart" style={{width: '100%', height: 300}}></div>
             </PanelCard>
             <Modal visible={visible} onOk={() => {
                 this.fetchTouristDelayTime.bind(this)();
             }}>
-                <PanelCard className="map-card" title="游客停留时长"
+                <PanelCard className="map-card" title="五大经济区游客停留时长"
                            zoomOutRequired={true} {...panelProps}
                            narrow={this.handleCancel.bind(this)}>
                     <div id="touristStayBarChart2" style={{width: '100%', height: 460}}/>
