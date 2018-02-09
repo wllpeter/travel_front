@@ -24,8 +24,8 @@ public class EconomicZoneTouristResourceRank {
     @Column(columnDefinition = "varchar(40) comment '来源省份'")
     private String resourceProvince;
     @Column(columnDefinition = "varchar(40) comment '全网人数'")
-    private String personCount;
-    @Column(columnDefinition = "int comment '排名'")
+    private Integer personCount;
+    @Column(columnDefinition = "varchar(100) comment '排名'")
     private String rank;
     @Column(columnDefinition = "bit comment '是否删除'")
     private Boolean deleted;

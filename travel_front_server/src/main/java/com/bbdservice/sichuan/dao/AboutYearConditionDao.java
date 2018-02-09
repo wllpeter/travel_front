@@ -96,14 +96,16 @@ public interface AboutYearConditionDao extends JpaRepository<ClassifyData,Long> 
      * @return
      */
     //四川省游客性别分布(其实是四川省游客年龄分布+四川省游客性别分布+四川省客流量分析所有数据年季)
-    @Query(nativeQuery = true,value = "select DISTINCT * from (select year,`quarter`,'季' as type from cbd_sichuan_tourist_gender_ratio where year is not null and `quarter` is not null and deleted = 0 GROUP  by year desc , `quarter` desc \n" +
+    @Query(nativeQuery = true,value = " select * from(  select * from ( select year,`quarter`,'季' as type from cbd_sichuan_tourist_gender_ratio\n" +
+            "    where year is not null and `quarter` is not null and deleted = 0 and modify_id is null GROUP  by year desc , `quarter` desc \n" +
             "\n" +
-            "            union ALL\n" +
-            "            select year,`quarter`,'季' as type from cbd_sichuan_tourist_age where year is not null and `quarter` is not null and deleted = 0 GROUP  by year desc , `quarter` desc\n" +
-            " union all \n" +
-            "select year,`quarter`,'季' as type from cbd_sichuan_flow_analyse where year is not null and `quarter` is not null and deleted = 0 GROUP  by year desc , `quarter` desc\n" +
-            " )b \n" +
-            "            group by year desc ,QUARTER desc")
+            "              union ALL\n" +
+            "      select year,`quarter`,'季' as type from cbd_sichuan_tourist_age \n" +
+            "    where year is not null and `quarter` is not null and deleted = 0  and modify_id is null GROUP  by year desc , `quarter` desc\n" +
+            "             union all \n" +
+            "          select year,`quarter`,'季' as type from cbd_sichuan_flow_analyse \n" +
+            "    where year is not null and `quarter` is not null and deleted = 0  and modify_id is null GROUP  by year desc , `quarter` desc)a\n" +
+            "where a.`year`!=0  group by year desc ,quarter desc ,type)b\n")
     List<String> getSiChuanYouKeSex();
 
     //乡村游客分析-接待
@@ -170,6 +172,10 @@ public interface AboutYearConditionDao extends JpaRepository<ClassifyData,Long> 
     //搜索景点偏好地
     @Query(nativeQuery = true,value = "select year,`month`,'月' as type from search_preference_area where year is not null and month is not null and deleted = 0 GROUP  by year desc , `month` desc ")
     List<String> getJingDian();
+
+    //搜索 全省旅游热度搜索趋势
+    @Query(nativeQuery = true,value = "select year  from search_province_trend where year is not null  and deleted = 0 GROUP  by year desc ")
+    List<String> getProvinceTrend();
 
     /**
      * 旅游发展指数,和以上不一样，数据结构年月(季)在一个date字段里

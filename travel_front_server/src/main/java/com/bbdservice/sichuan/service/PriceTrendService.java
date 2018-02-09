@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface PriceTrendService {
     List<PriceTrend> getAllList(Integer productType,int[] years);
+    List<PriceTrend> getAllList(Integer productType);
 }

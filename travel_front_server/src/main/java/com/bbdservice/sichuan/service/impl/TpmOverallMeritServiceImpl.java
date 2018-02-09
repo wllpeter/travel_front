@@ -17,8 +17,13 @@ public class TpmOverallMeritServiceImpl implements OverallMeritService {
    @Autowired
     private TpmOverallMeritDao overallMeritDao;
 
+//    @Override
+//    public List<OverallMerit> getAllList(Integer productType, int[] years) {
+//        return overallMeritDao.getAllList(productType,years);
+//    }
+
     @Override
-    public List<OverallMerit> getAllList(Integer productType, int[] years) {
-        return overallMeritDao.getAllList(productType,years);
+    public List<OverallMerit> getAllList(Integer productType) {
+        return overallMeritDao.getAllList(productType);
     }
 }

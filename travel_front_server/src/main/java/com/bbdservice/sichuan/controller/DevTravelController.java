@@ -5,6 +5,7 @@ import com.bbdservice.sichuan.base.Response;
 import com.bbdservice.sichuan.entity.*;
 import com.bbdservice.sichuan.service.*;
 import com.bbdservice.sichuan.utils.DateUtils;
+import com.bbdservice.sichuan.utils.TwoPointUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -49,6 +50,13 @@ public class DevTravelController {
     public Response getIndexRadar(String year,String month){
         String date=year+"."+month;
       List<DevTravelIndexRadar> radarList=indexRadar.getIndexRadar(date);
+      for(DevTravelIndexRadar d:radarList){
+          d.setComfort(TwoPointUtils.getTwo(d.getComfort()));
+          d.setCreateNew(TwoPointUtils.getTwo(d.getCreateNew()));
+          d.setEconomicScale(TwoPointUtils.getTwo(d.getEconomicScale()));
+          d.setGoodFame(TwoPointUtils.getTwo(d.getGoodFame()));
+          d.setLaborInput(TwoPointUtils.getTwo(d.getLaborInput()));
+      }
       return Response.success(radarList);
     }
 
@@ -56,6 +64,9 @@ public class DevTravelController {
     @GetMapping(value = "/getIndex")
     public Response getIndex(){
         List<DevTravelIndex> indexList=devIndexService.getDevTravelIndex();
+        for(DevTravelIndex d:indexList){
+            d.setTravelIndex(TwoPointUtils.getTwo(d.getTravelIndex()));
+        }
         return Response.success(indexList);
     }
 
@@ -68,6 +79,9 @@ public class DevTravelController {
     public Response getCreateNew(String year,String month){
         String date=year+"."+month;
         List<DevTravelCreateNew> createNew=createNewService.getCreateNew(date);
+        for(DevTravelCreateNew d:createNew){
+            d.setCreateNew(TwoPointUtils.getTwo(d.getCreateNew()));
+        }
         return Response.success(createNew);
     }
 
@@ -81,6 +95,9 @@ public class DevTravelController {
         }else{
           result=economicService.getCreateNewQu();
         }
+        for(DevTravelEonomiesScale d:result){
+            d.setScale(TwoPointUtils.getTwo(d.getScale()));
+        }
         return Response.success(result);
     }
 
@@ -88,6 +105,9 @@ public class DevTravelController {
     @GetMapping(value = "/getComfort")
     public Response getComfort(){
         List<DevTravelComfort> result=comfortService.getComfort();
+        for(DevTravelComfort d:result){
+            d.setComfort(TwoPointUtils.getTwo(d.getComfort()));
+        }
         return Response.success(result);
     }
 
@@ -95,6 +115,9 @@ public class DevTravelController {
     @GetMapping(value = "/getGoodFame")
     public Response getGoodFame(){
         List<DevTravelGoodFame> result=devGoodFameService.getGoodFame();
+        for(DevTravelGoodFame d:result){
+            d.setGoodFame(TwoPointUtils.getTwo(d.getGoodFame()));
+        }
         return Response.success(result);
     }
 
@@ -107,6 +130,10 @@ public class DevTravelController {
     public Response getLaborInput(String year,String month){
         String date=year+"."+month;
         List<DevTravelLaborInput> laborInput=devLaborInputService.getLaborInput(date);
+        for(DevTravelLaborInput d:laborInput){
+            d.setLaborInput(TwoPointUtils.getTwo(d.getLaborInput()));
+            d.setCompare(TwoPointUtils.getFour(d.getCompare()));
+        }
         return Response.success(laborInput);
     }
 

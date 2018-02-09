@@ -6,13 +6,21 @@ import lombok.Setter;
 import javax.persistence.*;
 
 /**
- * 消费大数据-各地市外地游客刷卡交易金额分析（万元）
+ * 消费大数据-各地市外地游客刷卡消费金额分析（万元）
  */
 @Table(name = "sbd_city_foreign_deal_amount")
 @Entity
 @Getter
 @Setter
 public class CityForeignDealAmount {
+    public String getDealAmount() {
+        return dealAmount;
+    }
+
+    public void setDealAmount(String dealAmount) {
+        this.dealAmount = dealAmount;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

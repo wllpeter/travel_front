@@ -24,7 +24,7 @@ public class EconomicZoneTouristResidenceTime {
     @Column(columnDefinition = "varchar(10) comment '停留时长'")
     private String residenceZone;
     @Column(columnDefinition = "varchar(40) comment '全网人数'")
-    private String personCount;
+    private Integer personCount;
     @Column(columnDefinition = "bit comment '是否删除'")
     private Boolean deleted;
     @Transient

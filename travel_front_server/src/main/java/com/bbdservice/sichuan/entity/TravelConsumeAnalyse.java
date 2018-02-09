@@ -31,4 +31,28 @@ public class TravelConsumeAnalyse {
     private String swipeTimes;
     @Column(columnDefinition = "bit comment '是否删除'")
     private Boolean deleted;
+
+    public String getConsumeAmount() {
+        return consumeAmount;
+    }
+
+    public void setConsumeAmount(String consumeAmount) {
+        this.consumeAmount = consumeAmount;
+    }
+
+    public String getConsumeTimes() {
+        return consumeTimes;
+    }
+
+    public void setConsumeTimes(String consumeTimes) {
+        this.consumeTimes = consumeTimes;
+    }
+
+    public String getSwipeTimes() {
+        return swipeTimes;
+    }
+
+    public void setSwipeTimes(String swipeTimes) {
+        this.swipeTimes = swipeTimes;
+    }
 }

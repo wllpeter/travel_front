@@ -153,13 +153,13 @@ public class AboutYearConditionController {
         List<JSONObject> monthKey=new ArrayList<>();
         List<JSONObject> quarterKey=new ArrayList<>();
         List<String> key= Arrays.asList("year","monthOrQuarter","type");
-
+        List<String> trend=aboutYearConditionService.getProvinceTrend();
         monthKey=getJsonObject(key,12,"月");
         quarterKey=getJsonObject(key,4,"季");
 
         map.put("month",monthKey);
         map.put("quarter",quarterKey);
-
+        map.put("tend",trend);
         //        List<String> getProvinceHot=aboutYearConditionService.getProvinceHot();
 //        map.put("provinceHot",putKey(key,getProvinceHot));
 //        //热词云
@@ -270,8 +270,6 @@ public class AboutYearConditionController {
             jsonObject.put(keyList.get(2),type);
             result.add(jsonObject);
         }
-
-
         return result;
     }
 }

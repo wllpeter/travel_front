@@ -16,12 +16,12 @@ public class TpmSupplyConsumeCountServiceImpl implements SupplyConsumeCountServi
     @Autowired
     private TpmSupplyConsumeCountDao tpmSupplyConsumeCountDao;
     @Override
-    public List<SupplyConsumeCount> getAllList(Integer productType,Integer dataType, Integer year, Integer prevYear) {
-        return tpmSupplyConsumeCountDao.getAllList(productType,dataType,year,prevYear);
+    public List<SupplyConsumeCount> getAllList(Integer productType,Integer dataType) {
+        return tpmSupplyConsumeCountDao.getAllList(productType,dataType);
     }
 
     @Override
-    public List<SupplyConsumeCount> getWithOutDataType(Integer productType, Integer year, Integer prevYear) {
-        return tpmSupplyConsumeCountDao.getWithOutDataType(productType,year,prevYear);
+    public List<SupplyConsumeCount> getWithOutDataType(Integer productType) {
+        return tpmSupplyConsumeCountDao.getWithOutDataType(productType);
     }
 }

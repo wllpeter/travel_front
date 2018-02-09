@@ -1,6 +1,7 @@
 package com.bbdservice.sichuan.controller;
 
 import com.bbdservice.sichuan.base.Response;
+import com.bbdservice.sichuan.entity.ProvinceSearchTrend;
 import com.bbdservice.sichuan.entity.SearchPersonResource;
 import com.bbdservice.sichuan.entity.SearchPreferenceArea;
 import com.bbdservice.sichuan.service.*;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 搜索大数据

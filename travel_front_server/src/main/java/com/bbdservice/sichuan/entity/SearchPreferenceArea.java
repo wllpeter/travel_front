@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-
+//搜索景点偏好地
 @Entity
 @Table(name = "search_preference_area")
 @Getter

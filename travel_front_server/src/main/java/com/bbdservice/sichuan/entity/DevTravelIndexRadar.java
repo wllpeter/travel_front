@@ -38,4 +38,51 @@ public class DevTravelIndexRadar {
     @Column(columnDefinition = "bigint comment '修改后ID'")
     private Long modifyId;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getComfort() {
+        return comfort;
+    }
+
+    public void setComfort(String comfort) {
+        this.comfort = comfort;
+    }
+
+    public String getCreateNew() {
+        return createNew;
+    }
+
+    public void setCreateNew(String createNew) {
+        this.createNew = createNew;
+    }
+
+    public String getGoodFame() {
+        return goodFame;
+    }
+
+    public void setGoodFame(String goodFame) {
+        this.goodFame = goodFame;
+    }
+
+    public String getEconomicScale() {
+        return economicScale;
+    }
+
+    public void setEconomicScale(String economicScale) {
+        this.economicScale = economicScale;
+    }
+
+    public String getLaborInput() {
+        return laborInput;
+    }
+
+    public void setLaborInput(String laborInput) {
+        this.laborInput = laborInput;
+    }
 }

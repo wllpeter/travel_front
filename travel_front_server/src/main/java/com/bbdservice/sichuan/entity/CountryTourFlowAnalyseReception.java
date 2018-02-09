@@ -15,9 +15,9 @@ public class CountryTourFlowAnalyseReception {
     private Long id;
     @Column(columnDefinition = "varchar(40) comment '客情类型'")
     private String customerType;
-    @Column(columnDefinition = "int comment '人次'")
+    @Column(columnDefinition = "varchar(100) comment '人次'")
     private Integer personTime;
-    @Column(columnDefinition = "int comment '人数'")
+    @Column(columnDefinition = "varchar(100) comment '人数'")
     private Integer personCount;
     @Column(columnDefinition = "int comment '年份'")
     private int year;

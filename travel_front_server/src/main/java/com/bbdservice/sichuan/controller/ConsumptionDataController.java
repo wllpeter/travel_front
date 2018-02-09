@@ -3,6 +3,7 @@ package com.bbdservice.sichuan.controller;
 import com.bbdservice.sichuan.base.Response;
 import com.bbdservice.sichuan.entity.*;
 import com.bbdservice.sichuan.service.*;
+import com.bbdservice.sichuan.utils.TwoPointUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -55,7 +57,10 @@ public class ConsumptionDataController {
       public Response getComeConsumeTourist(int year,int quarter){
          List<ComeConsumeTouristCityRank> list=null;
          list=sbdConsumeTouristCityService.getAllList(year,quarter);
-         return Response.success(list);
+        for(ComeConsumeTouristCityRank c:list){
+            c.setPersonCount(TwoPointUtils.getTwo(c.getPersonCount()));
+        }
+        return Response.success(list);
       }
 
     @ApiOperation(value = "入川游客来源地排名")
@@ -68,6 +73,9 @@ public class ConsumptionDataController {
     public Response getComeTouristAreaRank(int year,int quarter,String type){
         List<ComeTouristAreaRank> list=null;
         list=sbdComeTouristAreaRankService.getAllList(year,quarter,type);
+        for(ComeTouristAreaRank c:list){
+              c.setPersonTimes(TwoPointUtils.getTwo(c.getPersonTimes()));
+        }
         return Response.success(list);
     }
 
@@ -81,6 +89,9 @@ public class ConsumptionDataController {
     public Response get(int year,int quarter,String industry){
         List<IndustryConsumeBusinessRank> list=null;
         list=sbdIndustryConsumeBusinessRankService.getAllList(year,quarter,industry);
+        for(IndustryConsumeBusinessRank i:list){
+              i.setAvgSingleConsume(TwoPointUtils.getTwo(i.getAvgSingleConsume()));
+         }
         return Response.success(list);
     }
 
@@ -104,6 +115,11 @@ public class ConsumptionDataController {
     public Response getTravelConsumeAnalyse(int year,int quarter,String industry){
         List<TravelConsumeAnalyse> list=null;
         list=sbdTravelConsumeAnalyseService.getAllList(year,quarter,industry);
+        for(TravelConsumeAnalyse t:list){
+            t.setSwipeTimes(TwoPointUtils.getTwo(t.getSwipeTimes()));
+            t.setConsumeTimes(TwoPointUtils.getTwo(t.getConsumeTimes()));
+            t.setConsumeAmount(TwoPointUtils.getTwo(t.getConsumeAmount()));
+        }
         return Response.success(list);
     }
 
@@ -123,16 +139,28 @@ public class ConsumptionDataController {
             //  外地刷卡
             case "A":
                 listA=sbdWaidiShuaKaService.getAllList(year,month);
+                for(ForeignTouristSwipeAmountAnalyse f:listA){
+                   f.setSwipeAmount(TwoPointUtils.getTwo(f.getSwipeAmount()));
+                }
                 return Response.success(listA);
                 //各地刷卡
             case "B":
                 cityLeft=sbdGeDiShuaKaService.getAllList(year,month);
+                for(CityForeignDealAmount c:cityLeft){
+                    c.setDealAmount(TwoPointUtils.getTwo(c.getDealAmount()));
+                }
                 return Response.success(cityLeft);
             case "C":
                 listB=sbdWaiDiJiaoYiService.getAllList(year,month);
+                for(ForeignTouristConsumeTimesAnalyse f:listB){
+                    f.setConsumeTimes(TwoPointUtils.getTwo(f.getConsumeTimes()));
+                }
                 return Response.success(listB);
             case "D":
                 cityRight=sbdGediJiaoYiService.getAllList(year,month);
+                for(CityForeignDealTime c:cityRight){
+                    c.setDealTime(TwoPointUtils.getTwo(c.getDealTime()));
+                }
                 return Response.success(cityRight);
         }
         return Response.success();
@@ -143,7 +171,23 @@ public class ConsumptionDataController {
             JSONObject jsonObject=new JSONObject();
             JSONArray valueArray = JSONArray.fromObject(valueList.get(i));
             for(int j=0;j<9;j++){
+                Object o=valueArray.get(j);
+                if(o.equals(null)){
+                    jsonObject.put(keyList.get(j),"-");
+                    continue;
+                }
                 String value=valueArray.get(j).toString().replace("%","");
+                switch (j){
+                    case 0:
+                    case 2:
+                    case 4:
+                        value=TwoPointUtils.getTwo(value);
+                        break;
+                    case 1:
+                    case 3:
+                        value=TwoPointUtils.getFour(value);
+                        break;
+                }
                 jsonObject.put(keyList.get(j),value);
             }
             int year=Integer.parseInt(valueArray.getString(7))-1;

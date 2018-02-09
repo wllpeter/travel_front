@@ -25,4 +25,12 @@ public class ForeignTouristSwipeAmountAnalyse {
     private String swipeAmount;
     @Column(columnDefinition = "bit comment '是否删除'")
     private Boolean deleted;
+
+    public String getSwipeAmount() {
+        return swipeAmount;
+    }
+
+    public void setSwipeAmount(String swipeAmount) {
+        this.swipeAmount = swipeAmount;
+    }
 }

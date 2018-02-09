@@ -30,4 +30,20 @@ public class MarketProvinceActive {
     private Boolean deleted;
     @Column(columnDefinition = "bigint comment '修改后ID'")
     private Long modifyId;
+
+    public String getActive() {
+        return active;
+    }
+
+    public void setActive(String active) {
+        this.active = active;
+    }
+
+    public String getIncrease() {
+        return increase;
+    }
+
+    public void setIncrease(String increase) {
+        this.increase = increase;
+    }
 }

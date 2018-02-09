@@ -28,4 +28,20 @@ public class MarketChange {
     private Boolean deleted;
     @Column(columnDefinition = "bigint comment '修改后ID'")
     private Long modifyId;
+
+    public String getCun() {
+        return cun;
+    }
+
+    public void setCun(String cun) {
+        this.cun = cun;
+    }
+
+    public String getIncrease() {
+        return increase;
+    }
+
+    public void setIncrease(String increase) {
+        this.increase = increase;
+    }
 }
