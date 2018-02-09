@@ -158,28 +158,28 @@ export default class TouristData extends Component {
 
         return <div className="tourist-data">
             <Row>
-                <Col span={12} lg={24} xl={12}>
+                <Col span={12}  xl={12}>
                     <PanelCard title="全省旅游搜索热力图"
                                zoomRequired={false} {...this.getHeaderOptions([true, false, 'month'], this.fetchProvinceHotSearch.bind(this))}>
                         <div id="visualMapContinuous" style={{width: '100%', height: 600}} className="br-line"/>
                     </PanelCard>
                 </Col>
-                <Col span={12} lg={24} xl={12}>
+                <Col span={12}  xl={12}>
                     <ProvinceSearchHot timeRange={optionsData}/>
                 </Col>
             </Row>
 
             <Row gutter={2}>
-                <Col span={6} lg={12} xl={6}>
+                <Col span={6}  xl={6}>
                     <HotWord timeRange={optionsData}/>
                 </Col>
-                <Col span={6} lg={12} xl={6}>
+                <Col span={6}  xl={6}>
                     <SearchPeopleSource timeRange={optionsData}/>
                 </Col>
-                <Col span={6} lg={12} xl={6}>
+                <Col span={6}  xl={6}>
                     <SearchScenic timeRange={optionsData}/>
                 </Col>
-                <Col span={6} lg={12} xl={6}>
+                <Col span={6}  xl={6}>
                     <SearchPeopleAge timeRange={optionsData}/>
                 </Col>
             </Row>

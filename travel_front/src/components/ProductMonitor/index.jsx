@@ -59,14 +59,14 @@ export default class ProductMonitor extends Component {
             </div>
             <div className="product-container">
                 <Row className="mb-20">
-                    <Col span={18} lg={16} xl={18}>
+                    <Col span={18}  xl={18}>
                         <Row className="mb-20">
                             <Col span={1}></Col>
-                            <Col span={8} lg={23} xl={8}>
+                            <Col span={8}  xl={8}>
                                 <ProductClassify {...this.state}/>
                             </Col>
                             <Col span={1}></Col>
-                            <Col span={14} lg={23} xl={14}>
+                            <Col span={14}  xl={14}>
                                 <ProductEvaluate {...this.state}/>
                             </Col>
                         </Row>
@@ -77,18 +77,18 @@ export default class ProductMonitor extends Component {
                             </Col>
                         </Row>
                     </Col>
-                    <Col span={6} lg={8} xl={6}>
+                    <Col span={6}  xl={6}>
                         <Col span={24} className="product-praise">
                             <PraiseList {...this.state}/>
                         </Col>
                     </Col>
-                    <Col span={6} lg={8} xl={6} className="product-down">
+                    <Col span={6}  xl={6} className="product-down">
                         <HotWord {...this.state}/>
                     </Col>
-                    <Col span={12} lg={16} xl={12} className="product-down">
+                    <Col span={12}  xl={12} className="product-down">
                         <ProductPrice {...this.state}/>
                     </Col>
-                    <Col span={6} lg={8} xl={6} className="product-down">
+                    <Col span={6}  xl={6} className="product-down">
                         <HotWordRank {...this.state}/>
                     </Col>
                 </Row>

@@ -508,7 +508,7 @@ export default class TouristData extends Component {
 
         return <div className="tourist-data">
             <Row>
-                <Col span={12} lg={24} xl={12}>
+                <Col span={12}  xl={12}>
                     <PanelCard
                         title="四川省游客分析" {...this.getHeaderOptions([true, false, 'sex', true], this.fetchProvinceCustomerData)}
                         className="br-line" headerClassName="header-bg color-white month-top-12">
@@ -559,7 +559,7 @@ export default class TouristData extends Component {
                         </Row>
                     </PanelCard>
                 </Col>
-                <Col span={12} lg={24} xl={12}>
+                <Col span={12}  xl={12}>
                     <PanelCard
                         title="乡村游游客分析"  {...this.getHeaderOptions([true, false, this.state.villageActive.split('-')[0], true], this.fetchCountyData)}
                         headerClassName="header-bg color-white month-top-12">
@@ -611,16 +611,16 @@ export default class TouristData extends Component {
             </Row>
 
             <Row gutter={2}>
-                <Col span={6} lg={12} xl={6}>
+                <Col span={6}  xl={6}>
                     <FiveEconomicZone timeRange={optionsData}/>
                 </Col>
-                <Col span={6} lg={12} xl={6}>
+                <Col span={6}  xl={6}>
                     <TouristStay timeRange={optionsData}/>
                 </Col>
-                <Col span={6} lg={12} xl={6}>
+                <Col span={6}  xl={6}>
                     <TouristSource timeRange={optionsData}/>
                 </Col>
-                <Col span={6} lg={12} xl={6}>
+                <Col span={6}  xl={6}>
                     <TrafficType timeRange={optionsData}/>
                 </Col>
             </Row>

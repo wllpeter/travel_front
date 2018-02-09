@@ -72,10 +72,10 @@ export default class TouristData extends Component {
 
         return <div className="consumption-data">
             <Row>
-                <Col span={12} lg={24} xl={12}>
+                <Col span={12}  xl={12}>
                     <ProvinceTravelConsume/>
                 </Col>
-                <Col span={12} lg={24} xl={12}>
+                <Col span={12}  xl={12}>
                     <Row>
                         <Col span={12}>
                             <CardMoney {...this.state} {...cardMoney}/>
@@ -97,16 +97,16 @@ export default class TouristData extends Component {
             </Row>
 
             <Row gutter={2}>
-                <Col span={6} lg={12} xl={6}>
+                <Col span={6}  xl={6}>
                     <ComeConsumeTourist  {...this.state}/>
                 </Col>
-                <Col span={6} lg={12} xl={6}>
+                <Col span={6}  xl={6}>
                     <ComeTouristAreaRank  {...this.state}/>
                 </Col>
-                <Col span={6} lg={12} xl={6}>
+                <Col span={6}  xl={6}>
                     <ConsumptionTrade  {...this.state}/>
                 </Col>
-                <Col span={6} lg={12} xl={6}>
+                <Col span={6}  xl={6}>
                     <IndustryConsumeBusiness {...this.state}/>
                 </Col>
             </Row>

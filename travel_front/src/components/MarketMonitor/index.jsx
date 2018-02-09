@@ -291,7 +291,7 @@ export default class TouristData extends Component {
                 <Col span={24}>
                     <PanelCard className="market-monitor-maps" title="旅游行业活跃度" {...panelProps}>
                         <Row>
-                            <Col span={12} className="br-line" lg={24} xl={12}>
+                            <Col span={12} className="br-line"  xl={12}>
                                 <div className="map-box">
                                     <div id="mapChart" style={{width: '100%', height: 600}}/>
                                     <ul className="map-breadcrumb">
@@ -314,7 +314,7 @@ export default class TouristData extends Component {
                                     </ul>
                                 </div>
                             </Col>
-                            <Col span={5} className="br-line" lg={12} xl={5}>
+                            <Col span={5} className="br-line"  xl={5}>
                                 <PanelCard title={`${activeDetail.title}旅游行业活跃度`} timeSelectRequired={false}
                                            zoomRequired={false}
                                            className="custom-style">
@@ -382,7 +382,7 @@ export default class TouristData extends Component {
                                     </table>
                                 </PanelCard>
                             </Col>
-                            <Col span={7} lg={12} xl={7}>
+                            <Col span={7}  xl={7}>
                                 <PanelCard title="行业活跃度指标详情" timeSelectRequired={false} zoomRequired={false}>
                                     <div id="industryBarChart" style={{width: '100%', height: 535}}/>
                                 </PanelCard>
@@ -392,16 +392,16 @@ export default class TouristData extends Component {
                 </Col>
             </Row>
             <Row gutter={2}>
-                <Col span={6} lg={12} xl={6}>
+                <Col span={6}  xl={6}>
                     <IndustryComposition {...this.state}/>
                 </Col>
-                <Col span={6} lg={12} xl={6}>
+                <Col span={6}  xl={6}>
                     <ActiveRank {...this.state}/>
                 </Col>
-                <Col span={6} lg={12} xl={6}>
+                <Col span={6}  xl={6}>
                     <EnterprisesNumber {...this.state}/>
                 </Col>
-                <Col span={6} lg={12} xl={6}>
+                <Col span={6}  xl={6}>
                     <InfoMonitor {...this.state}/>
                 </Col>
             </Row>
