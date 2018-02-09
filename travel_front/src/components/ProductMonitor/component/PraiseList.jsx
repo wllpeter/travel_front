@@ -111,6 +111,13 @@ export default class PraiseList extends Component {
             }
         };
 
+        let per = (num) => {
+            if (num === undefined || num === '' || num === null) {
+                return '-';
+            }
+            return num + '%';
+        };
+
         return <div className="praise-box">
             <PanelCard title={`${title}产品好评榜`} {...panelProps}>
                 <div className="switch-btn-box">
@@ -151,9 +158,9 @@ export default class PraiseList extends Component {
                                             }
                                         </span>
                                         </td>
-                                        <td>{item.name}</td>
+                                        <td className="scenic-name" title={item.name}>{item.name}</td>
                                         <td>{item.score}</td>
-                                        <td>{item.compared + '%'}</td>
+                                        <td>{per(item.compared)}</td>
                                     </tr>;
                                 })
                             }
