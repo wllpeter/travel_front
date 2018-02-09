@@ -2,7 +2,6 @@
  * @description 旅游产品好评榜
  */
 import React, {Component} from 'react';
-import {Popover} from 'mtui/index';
 import {getOpinionRank} from '../../../services/ProductMonitor/ProductData';
 import ToggleButtonGroup from '../../commonComponent/ToggleButtonGroup';
 import PanelCard from '../../commonComponent/PanelCard';
@@ -159,9 +158,7 @@ export default class PraiseList extends Component {
                                             }
                                         </span>
                                         </td>
-                                        <Popover trigger="hover" content={item.name} place="top">
-                                            <td className="scenic-name">{item.name}</td>
-                                        </Popover>
+                                        <td className="scenic-name" title={item.name}>{item.name}</td>
                                         <td>{item.score}</td>
                                         <td>{per(item.compared)}</td>
                                     </tr>;
