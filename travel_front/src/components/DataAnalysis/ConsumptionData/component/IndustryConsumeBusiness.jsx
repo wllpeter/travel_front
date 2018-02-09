@@ -2,11 +2,13 @@
  * @description 各行业刷卡消费商户排名
  */
 import React, {Component} from 'react';
+import {Popover} from 'mtui/index';
 import PanelCard from '../../../commonComponent/PanelCard';
 import ToggleButtonGroup from '../../../commonComponent/ToggleButtonGroup';
 import {getIndustryConsumeBusiness} from '../../../../services/ConsumptionData/consumptionData';
 import {getHeaderOptions} from '../../../../utils/tools';
 import Modal from '../../../commonComponent/Modal';
+import '../style.scss';
 
 export default class IndustryConsumeBusiness extends Component {
     constructor(props) {
@@ -131,7 +133,9 @@ export default class IndustryConsumeBusiness extends Component {
                         items && items.map((item, index) => {
                             return <tr key={index}>
                                 <td>{item.rank}</td>
-                                <td>{item.businessName}</td>
+                                <Popover trigger="hover" content={item.businessName} place="top">
+                                    <td className="industry-name">{item.businessName}</td>
+                                </Popover>
                                 <td>{item.avgSingleConsume}</td>
                                 <td>{item.totalSwipeTimes}</td>
                             </tr>;
