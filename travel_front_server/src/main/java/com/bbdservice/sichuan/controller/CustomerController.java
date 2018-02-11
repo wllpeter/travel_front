@@ -130,10 +130,12 @@ public class CustomerController {
             return Response.error("传递参数有误");
         }
         List<EconomicZonePersonTime> ret = this.economicZonePersonTimeService.getQuarterData(year, quarter);
+        DecimalFormat d = new DecimalFormat("#.00");
         for(EconomicZonePersonTime economicZonePersonTime:ret){
-            DecimalFormat d = new DecimalFormat("#.00");
-            String temp = d.format(Float.valueOf(economicZonePersonTime.getPersonTime())/10000);
-            economicZonePersonTime.setPersonTimeView(Float.valueOf(temp));
+            if(null != economicZonePersonTime.getPersonTime()) {
+                String temp = d.format(Float.valueOf(economicZonePersonTime.getPersonTime()) / 10000);
+                economicZonePersonTime.setPersonTimeView(Float.valueOf(temp));
+            }
         }
         return Response.success(ret);
     }
@@ -150,15 +152,17 @@ public class CustomerController {
         }
         List<EconomicZoneTouristResidenceTime> economicZoneTouristResidenceTimes = this.economicZoneTouristResidenceTimeService.getQuarterData(year, quarter);
         Map<String,Object> zone = new HashMap<>();
+        DecimalFormat b = new DecimalFormat("#.00");
         for(ResidenceZoneEnums residenceZoneEnums : ResidenceZoneEnums.values()){
             Map<String,Object> zoneData = new HashMap<>();
             zoneData.put("residence_zone",residenceZoneEnums.getName());
             List<EconomicZoneTouristResidenceTime> zoneDatas = new ArrayList<>();
             for(EconomicZoneTouristResidenceTime economicZoneTouristResidenceTime : economicZoneTouristResidenceTimes){
                 if(economicZoneTouristResidenceTime.getResidenceZone().equals(residenceZoneEnums.getName())){
-                    DecimalFormat b = new DecimalFormat("#.00");
-                    float prensonCountView = Float.valueOf(b.format(Float.valueOf(economicZoneTouristResidenceTime.getPersonCount())/10000));
-                    economicZoneTouristResidenceTime.setPersonCountView(prensonCountView);
+                    if(null != economicZoneTouristResidenceTime.getPersonCount()) {
+                        float prensonCountView = Float.valueOf(b.format(Float.valueOf(economicZoneTouristResidenceTime.getPersonCount()) / 10000));
+                        economicZoneTouristResidenceTime.setPersonCountView(prensonCountView);
+                    }
                     zoneDatas.add(economicZoneTouristResidenceTime);
                     continue;
                 }
@@ -181,14 +185,13 @@ public class CustomerController {
         }
         List<EconomicZoneTouristResourceRank> economicZoneTouristResourceRanks = this.economicZoneTouristResourceRankService.getQuarterData(year, quarter);
         Map<String,Object> zone = new HashMap<>();
+        DecimalFormat decimalFormat = new DecimalFormat("#.00");
         for(EconomicZoneEnums economicZoneEnums : EconomicZoneEnums.values()){
                 Map<String,Object> zoneData = new LinkedHashMap<>();
                 zoneData.put("name",economicZoneEnums.getName());
                 List<EconomicZoneTouristResourceRank> zoneDatas = new ArrayList<>();
                 for(EconomicZoneTouristResourceRank economicZoneTouristResourceRank : economicZoneTouristResourceRanks){
                     if(economicZoneTouristResourceRank.getEconomicZone().equals(economicZoneEnums.getName())){
-                        DecimalFormat decimalFormat = new DecimalFormat("#.00");
-
                         String resourcePersonCount ;
                         try{
                             resourcePersonCount= decimalFormat.format(Float.valueOf(economicZoneTouristResourceRank.getPersonCount())/10000);
