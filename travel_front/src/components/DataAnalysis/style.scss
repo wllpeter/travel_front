@@ -1,3 +1,4 @@
+@import "../../public";
 .tourist-data {
 
     .sex-distribution {
@@ -114,12 +115,105 @@
     font-size: 18px;
     padding: 0 40px 0 60px;
     line-height: 2.3;
-    margin-top: 60px;
+    margin-top: 40px;
     .labor_td{
         font-size: 18px;
         width: 240px;
     }
-    td{
-        font-size: 18px;
+    tr{
+        td, th{
+            font-size: 18px;
+        }
+    }
+}
+
+@include media("<=sm") {
+    .tourist-data {
+
+        .sex-distribution {
+            padding-left: smpx(25);
+            padding-top: smpx(30);
+
+            .total {
+                img {
+                    float: left;
+                    vertical-align: middle;
+                }
+            }
+
+            .male-total {
+                margin-bottom: smpx(50);
+            }
+
+            .info-data {
+                display: block;
+                overflow: hidden;
+                height: smpx(60);
+
+                & > span {
+                    font-size: 0.7rem;
+                    line-height: 1.5;
+                    em {
+                        font-size: 1.1rem;
+                        padding-left: smpx(10);
+                    }
+                }
+                .data-bar {
+                    height: smpx(15);
+                    margin-top: smpx(10);
+                }
+
+                .male-bar {
+                    background-color: #00a9ff;
+                }
+
+                .female-bar {
+                    background-color: #32c889;
+                }
+            }
+        }
+
+        .economic-zone {
+            top: smpx(43);
+            left: smpx(22);
+            width: smpx(180);
+        }
+
+        .flow-analysis {
+            top: smpx(15);
+            right: smpx(260);
+            width: smpx(180);
+        }
+    }
+
+    .consumption-data {
+
+        // 全省旅游消费情况
+        .province-consumption {
+            .toggle-button-group {
+                position: absolute;
+                right: smpx(20);
+                top: smpx(18);
+                z-index: 50;
+            }
+        }
+
+        // 入川游客来源地排名
+        // 旅游消费交易分析
+        // 各行业刷卡消费商户排名
+        .source-place-rank,
+        .consumption-trade,
+        .card-consumption {
+            .toggle-button-group {
+                position: absolute;
+                right: smpx(30);
+                top: smpx(68);
+                z-index: 50;
+            }
+        }
+    }
+
+    .consumption-down{
+        height: smpx(400);
     }
 }

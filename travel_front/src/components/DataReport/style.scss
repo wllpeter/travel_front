@@ -130,3 +130,134 @@ $animateTime: .36s;
   margin-bottom: 4px;
   background-color: #ffffff;
 }
+
+@include media("<=sm") {
+  .report {
+    .nav-left-box {
+      font-size: smpx(16);
+      width: smpx(240);
+      height: $contentHeight;
+      float: left;
+      .nav-left {
+        width: smpx(240);
+        height: $contentHeight;
+        position: absolute;
+        top: $headerHeight;
+        left: 0;
+        .nav-father-name {
+          display: block;
+          box-sizing: border-box;
+          height: smpx(60);
+          line-height: smpx(60);
+          border-bottom: smpx(1) solid #374F6B;
+          padding-left: smpx(30);
+          border-right: smpx(4) solid transparent;
+          .iconfont {
+            float: right;
+            margin: smpx(22) smpx(16) 0 0;
+            transition: all $animateTime;
+            -moz-transition: all $animateTime; /* Firefox 4 */
+            -webkit-transition: all $animateTime; /* Safari 和 Chrome */
+            -o-transition: all $animateTime; /* Opera */
+          }
+          .icon-open {
+            transform: rotate(90deg);
+            -ms-transform: rotate(90deg); /* IE 9 */
+            -moz-transform: rotate(90deg); /* Firefox */
+            -webkit-transform: rotate(90deg); /* Safari 和 Chrome */
+            -o-transform: rotate(90deg); /* Opera */
+          }
+        }
+        .nav-father-choose{
+          border-right-color: $activeColor;
+          color: $activeColor;
+        }
+        .nav-children {
+          overflow: hidden;
+          width: smpx(240);
+          transition: all $animateTime ease;
+          -moz-transition: all $animateTime ease; /* Firefox 4 */
+          -webkit-transition: all $animateTime ease; /* Safari 和 Chrome */
+          -o-transition: all $animateTime ease; /* Opera */
+          height: smpx(120);
+          border-bottom: smpx(1) solid #374F6B;
+          .nav-children-name {
+            box-sizing: border-box;
+            height: smpx(60);
+            line-height: smpx(60);
+            cursor: pointer;
+            padding-left: smpx(30);
+            overflow: hidden;
+            text-overflow:ellipsis;
+            white-space: nowrap;
+          }
+          .active-nav {
+            background-color: $activeColor;
+            //color: $activeColor;
+            //border-right-color: $activeColor;
+          }
+        }
+      }
+    }
+
+    .pdf-box {
+      width: calc(100% - 240 /1920 * 1366px);
+      height: $contentHeight;
+      background: #1F3A59;
+      float: left;
+      overflow-y: scroll;
+      .top-buttons {
+        width: calc(100% - 240 /1920 * 1366px);
+        background-color: rgba(0, 0, 0, .3);
+        height: smpx(60);
+        position: fixed;
+        z-index: 1000;
+        top: smpx(60);
+        right: 0;
+        .page-count{
+          position: absolute;
+          top: smpx(20);
+          left: 50%;
+          margin-left: smpx(-6);
+        }
+        .iconfont {
+          float: right;
+          color: $activeColor;
+          font-size: smpx(26);
+          font-weight: 700;
+          margin: smpx(17) smpx(30) smpx(17) smpx(40);
+          cursor: pointer;
+          &:hover {
+            color: #0D82FF;
+          }
+        }
+      }
+      .right-buttons {
+        height: $contentHeight;
+        width: smpx(60);
+        position: fixed;
+        z-index: 500;
+        top: $headerHeight;
+        padding-top: smpx(200);
+        right: 0;
+        .iconfont {
+          display: block;
+          color: $activeColor;
+          font-size: smpx(26);
+          font-weight: 500;
+          margin-top: smpx(40);
+          cursor: pointer;
+          &:hover {
+            color: #0D82FF;
+          }
+        }
+      }
+    }
+  }
+
+  .myCanvas{
+    display: block;
+    margin-bottom: smpx(4);
+    background-color: #ffffff;
+  }
+}

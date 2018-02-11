@@ -108,12 +108,15 @@ export default class ProductClassify extends Component {
     print(data) {
         AD_CHART.pieChart({
             chartId: 'classify-map',
-            borderWidth: 6,
-            legendTop: 70,
-            center: ['30%', '50%'],
+            borderWidth: 6 * sizeRatio,
+            legendTop: 70 * sizeRatio,
+            center: ['28%', '48%'],
+            legendRight: 40 * sizeRatio,
             borderColor: '#072648',
             legend: data.legend,
-            data: data.data
+            data: data.data,
+            labelFontSize: 12 * sizeRatio,
+            sizeRatio
         });
     }
 

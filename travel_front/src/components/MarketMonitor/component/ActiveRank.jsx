@@ -90,7 +90,7 @@ export default class ActiveRank extends Component {
         return <div>
             <PanelCard title="省内活跃度排行榜" className="bg-grey" {...panelProps}
                        enlarge={this.showModal.bind(this)}>
-                <div style={{height: 280}}>
+                <div style={{height: 300 * sizeRatio, overflow: 'hidden'}}>
                     <table className="mt-table mt-table-noborder">
                         <thead>
                         <tr>

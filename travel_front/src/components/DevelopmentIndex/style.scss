@@ -1,3 +1,4 @@
+@import "../../public";
 .developmentIndex{
 
 }
@@ -65,13 +66,78 @@
 
 .labor-big{
     font-size: 18px;
-    padding: 0 40px 0 60px;
     line-height: 2;
     .labor_td{
         font-size: 18px;
         width: 240px;
     }
-    td{
+    td, th{
         font-size: 18px;
+    }
+}
+
+@include media("<=sm") {
+    .developmentIndex{
+
+    }
+
+    .dev-index-map{
+        width: 100%;
+        height: smpx(500);
+        border-right: smpx(1) solid #213D5C;
+    }
+
+    .map-card{
+        background: #1F3A59;
+        border-right: smpx(2) solid #072648;
+        border-top: smpx(2) solid #072648;
+        .dev-down-map{
+            width: 100%;
+            height: smpx(350);
+            overflow: hidden;
+        }
+        .labor_td{
+            width: smpx(140);
+            text-align: left;
+            padding-left: smpx(12);
+        }
+    }
+
+    .index-economics-box{
+        position: relative;
+        .economics-btn{
+            position: absolute;
+            top: 9%;
+            right: 9%;
+            z-index: 100;
+            overflow: hidden;
+            &>div{
+                float: left;
+                text-align: center;
+                height: smpx(24);
+                line-height: smpx(24);
+                color: #00A9FF;
+                cursor: pointer;
+            }
+            .economics-btn-left{
+                padding: 0 smpx(8) 0 smpx(13);
+                border-top-left-radius: smpx(12);
+                border-bottom-left-radius: smpx(12);
+                border: smpx(1) solid #00A9FF;
+                border-right: none;
+            }
+            .economics-btn-right{
+                padding: 0 smpx(13) 0 smpx(8);
+                border-top-right-radius: smpx(12);
+                border-bottom-right-radius: smpx(12);
+                border: smpx(1) solid #00A9FF;
+                border-left: none;
+            }
+            .economics-btn-active{
+                background-color: #00A9FF;
+                color: #1F3A59;
+                cursor: default;
+            }
+        }
     }
 }

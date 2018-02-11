@@ -126,7 +126,7 @@ export default class HotWordRank extends Component {
                 <PanelCard title="产品热词搜索指数排行榜" {...panelProps}
                            className="bg-grey" zoomOutRequired={true}
                            narrow={this.handleCancel.bind(this)} timeSelectRequired={true}>
-                    <table className="mt-table col-1-al wordRank-big">
+                    <table className="mt-table col-1-al table-big">
                         <thead>
                         <tr>
                             <th>排名</th>

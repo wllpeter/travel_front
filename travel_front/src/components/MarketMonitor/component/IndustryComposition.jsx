@@ -89,12 +89,13 @@ export default class IndustryComposition extends Component {
     print(params, visible) {
         AD_CHART.pieChart({
             chartId: visible ? 'pieChart2' : 'pieChart',
-            borderWidth: visible ? 6 : 8,
+            borderWidth: visible ? 8 : 6 * sizeRatio,
             borderColor: '#203a59',
             legend: params.legend,
-            legendSize: visible ? 16 : 12,
-            labelFontSize: visible ? 16 : 12,
-            legendTop: '28%',
+            legendSize: visible ? 16 : 12 * sizeRatio,
+            labelFontSize: visible ? 16 : 12 * sizeRatio,
+            sizeRatio: visible ? 1 : sizeRatio,
+            legendTop: 28 * sizeRatio + '%',
             legendRight: '6%',
             data: params.data
         });
@@ -117,7 +118,7 @@ export default class IndustryComposition extends Component {
         return <div>
             <PanelCard title="省内旅游行业构成" className="bg-grey" {...panelProps}
                        enlarge={this.showModal.bind(this)}>
-                <div id="pieChart" style={{width: '100%', height: 300}}></div>
+                <div id="pieChart" style={{width: '100%', height: 300 * sizeRatio}}></div>
             </PanelCard>
             <Modal visible={visible} onOk={() => {
                 this.getProvinceIndustryData.bind(this)();

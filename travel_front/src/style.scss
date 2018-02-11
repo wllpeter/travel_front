@@ -1,6 +1,7 @@
 /**
  * 项目公共样式, 根据实际项目调整
  */
+@import "./public";
 html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
@@ -173,6 +174,185 @@ input::-webkit-input-placeholder {
     border-bottom: 0;
     text-align: center;
     padding: 10px;
+    font-size: 14px;
+  }
+}
+
+@include media("<=sm"){
+  html {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    padding-right: 0 !important;
+    body {
+      color: #333;
+      font-weight: 400;
+      position: relative;
+    }
+  }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    font-size: smpx(20);
+    font-family: "Microsoft YaHei", "Segoe UI", "Lucida Grande", Helvetica, Arial, FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", FontAwesome, sans-serif;
+  }
+
+  body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    margin: 0;
+    padding: 0;
+  }
+
+  img {
+    border-style: none;
+    box-sizing: border-box;
+    vertical-align: middle;
+  }
+
+  *, :after, :before {
+    box-sizing: border-box;
+  }
+
+  .clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+
+  .hide {
+    display: none !important;
+  }
+
+  .mr-n-1 {
+    margin-right: smpx(-1);
+  }
+
+  .tac {
+    text-align: center;
+  }
+
+  .pl-23 {
+    padding-left: smpx(23) !important;
+  }
+
+  .mt-20 {
+    margin-top: smpx(20) !important;
+  }
+
+  .mt-50 {
+    margin-top: smpx(50) !important;
+  }
+
+  .mb-20 {
+    margin-bottom: smpx(20);
+  }
+
+  .mb-12 {
+    margin-bottom: smpx(12);
+  }
+
+  .mb-45 {
+    margin-bottom: smpx(45) !important;
+  }
+
+  .mb-34 {
+    margin-bottom: smpx(34) !important;
+  }
+
+  .mr-5 {
+    margin-right: smpx(5);
+  }
+
+  .mr-10 {
+    margin-right: smpx(10);
+  }
+
+  .mr-20 {
+    margin-right: smpx(20);
+  }
+
+  .ov-h {
+    overflow: hidden;
+  }
+
+  .fl-l {
+    float: left;
+  }
+
+  .fl-r {
+    float: right;
+  }
+
+  .pos-r {
+    position: relative;
+  }
+
+  .pt-80 {
+    padding-top: smpx(80);
+  }
+
+  a, a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+    color: #fff;
+  }
+
+  .br-line {
+    border-right: smpx(2) solid #213c5b;
+  }
+
+  .bb-line {
+    border-bottom: smpx(2) solid #213c5b;
+  }
+
+  .w-95 {
+    width: 95% !important;
+  }
+
+  // 修改 Placeholder 样式
+
+  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #000;
+    opacity: 0.4;
+  }
+
+  ::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #000;
+    opacity: 0.4;
+  }
+
+  input:-ms-input-placeholder {
+    color: #000;
+    opacity: 0.4;
+  }
+
+  input::-webkit-input-placeholder {
+    color: #000;
+    opacity: 0.4;
+  }
+
+  #App {
+    height: 100%;
+
+    & > div, .app {
+      height: 100%;
+      font-size: 0.7rem;
+      color: #fff;
+    }
+  }
+
+  .mt-table {
+    margin-top: smpx(20);
+    margin-bottom: 0;
+    tr th,
+    tr td {
+      color: rgba(255, 255, 255, 0.95);
+      border-bottom: 0;
+      text-align: center;
+      padding: smpx(10);
+      font-size: smpx(14);
+    }
   }
 }
 

@@ -19,6 +19,7 @@ import {
 import 'antd/lib/grid/style';
 import './style.scss';
 import {getHeaderOptions} from '../../utils/tools';
+import {isString} from '../../utils/util';
 
 export default class TouristData extends Component {
     constructor(props) {
@@ -85,7 +86,7 @@ export default class TouristData extends Component {
     print(params) {
         AD_CHART.barChart({
             chartId: 'industryBarChart',
-            barWidth: '14',
+            barWidth: 14 * sizeRatio,
             row: true,
             xAxisLineShow: false,
             yAxisLineShow: false,
@@ -94,7 +95,8 @@ export default class TouristData extends Component {
             legend: ['行业活跃度指标详情'],
             legendShow: false,
             gridBottom: 0,
-            gridRight: 50,
+            gridRight: 50 * sizeRatio,
+            sizeRatio,
             seriesLabelShow: true,
             series: [params.series]
         });
@@ -230,13 +232,11 @@ export default class TouristData extends Component {
             legend: ['旅游行业活跃度'],
             series: [seriesData],
             roam: false,
+            sizeRatio,
             formatter: (p) => {
                 return `${p.seriesName}<br/>${_this.state.activeDetail.title}：${_this.state.activeDetail.activeDegree || '-'}<br/>${p.name}：${p.value || '-'}`;
             },
-            scaleLimit: {
-                min: 1.1,
-                max: 1.1
-            },
+            zoom: isSmallScreen ? 1 : 1.1,
             title: '',
             max: max
         }, this.mapCallback.bind(this));
@@ -251,6 +251,7 @@ export default class TouristData extends Component {
             legend: ['旅游行业活跃度'],
             series: [seriesData],
             roam: false,
+            sizeRatio,
             formatter: (p) => {
                 return `${p.seriesName}<br/>${_this.state.activeDetail.title}：${_this.state.activeDetail.activeDegree || '-'}<br/>${p.name}：${p.value || '-'}`;
             },
@@ -260,6 +261,14 @@ export default class TouristData extends Component {
             let cityParams = this.handleCityData(this.state.regionActiveness.city, params);
             let economicRegion = this.state.economicRegion;
             let other = CITY_SIZE_POSITION[params];
+            if (other) {
+                if (other.top && !isString(other.top)) {
+                    other.top = other.top * sizeRatio;
+                }
+                if (other.left && !isString(other.left)) {
+                    other.left = other.left * sizeRatio;
+                }
+            }
             this.thirdLevelChart(economicRegion, cityParams.seriesData, cityParams.max, params, other);
         });
     }
@@ -273,6 +282,7 @@ export default class TouristData extends Component {
             series: [seriesData],
             roam: false,
             cityName: cityName,
+            sizeRatio,
             max: max,
             ...other
         });
@@ -291,9 +301,9 @@ export default class TouristData extends Component {
                 <Col span={24}>
                     <PanelCard className="market-monitor-maps" title="旅游行业活跃度" {...panelProps}>
                         <Row>
-                            <Col span={12} className="br-line"  xl={12}>
+                            <Col span={12} className="br-line" xl={12}>
                                 <div className="map-box">
-                                    <div id="mapChart" style={{width: '100%', height: 600}}/>
+                                    <div id="mapChart" style={{width: '100%', height: 600 * sizeRatio}}/>
                                     <ul className="map-breadcrumb">
                                         {
                                             city && <div>
@@ -314,7 +324,7 @@ export default class TouristData extends Component {
                                     </ul>
                                 </div>
                             </Col>
-                            <Col span={5} className="br-line"  xl={5}>
+                            <Col span={5} className="br-line" xl={5}>
                                 <PanelCard title={`${activeDetail.title}旅游行业活跃度`} timeSelectRequired={false}
                                            zoomRequired={false}
                                            className="custom-style">
@@ -339,7 +349,7 @@ export default class TouristData extends Component {
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td style={{width: 120}}>旅游出行</td>
+                                            <td style={{width: 120 * sizeRatio}}>旅游出行</td>
                                             <td>{activeDetail.goDegree || '-'}</td>
                                             <td>{per(activeDetail.goHB)}</td>
                                         </tr>
@@ -382,9 +392,9 @@ export default class TouristData extends Component {
                                     </table>
                                 </PanelCard>
                             </Col>
-                            <Col span={7}  xl={7}>
+                            <Col span={7} xl={7}>
                                 <PanelCard title="行业活跃度指标详情" timeSelectRequired={false} zoomRequired={false}>
-                                    <div id="industryBarChart" style={{width: '100%', height: 535}}/>
+                                    <div id="industryBarChart" style={{width: '100%', height: 535 * sizeRatio}}/>
                                 </PanelCard>
                             </Col>
                         </Row>
@@ -392,16 +402,16 @@ export default class TouristData extends Component {
                 </Col>
             </Row>
             <Row gutter={2}>
-                <Col span={6}  xl={6}>
+                <Col span={6} xl={6}>
                     <IndustryComposition {...this.state}/>
                 </Col>
-                <Col span={6}  xl={6}>
+                <Col span={6} xl={6}>
                     <ActiveRank {...this.state}/>
                 </Col>
-                <Col span={6}  xl={6}>
+                <Col span={6} xl={6}>
                     <EnterprisesNumber {...this.state}/>
                 </Col>
-                <Col span={6}  xl={6}>
+                <Col span={6} xl={6}>
                     <InfoMonitor {...this.state}/>
                 </Col>
             </Row>

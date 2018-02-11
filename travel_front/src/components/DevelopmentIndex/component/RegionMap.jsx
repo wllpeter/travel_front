@@ -92,6 +92,7 @@ export default class RegionMap extends Component {
             left: '10%',
             top: 12,
             max: max,
+            sizeRatio,
             formatter: (p) => {
                 return `${p.seriesName}<br/>四川省：${province || '-'}<br/>${p.name}：${p.value || '-'}`;
             },

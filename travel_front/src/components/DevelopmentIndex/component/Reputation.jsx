@@ -39,10 +39,12 @@ export default class Reputation extends Component {
             fontSize: visible ? 16 : 12,
             showLength: 3,
             zoomBackground: '#072648',
+            sizeRatio: visible ? 1 : sizeRatio,
             zoomFiller: '#054D7E',
-            left: '10%',
-            right: '10%',
-            bottom: '20%',
+            left: '14%',
+            right: '6%',
+            bottom: visible ? '20%' : '24%',
+            zoomHeight: visible ? 25 : 15 * sizeRatio,
             ...params
         });
     }

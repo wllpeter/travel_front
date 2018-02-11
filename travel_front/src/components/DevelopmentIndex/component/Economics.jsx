@@ -50,23 +50,23 @@ export default class Economics extends Component {
     print(params, visible) {
         AD_CHART.barChart({
             chartId: visible ? 'dev-index-economics2' : 'dev-index-economics',
-            barWidth: visible ? '22' : '16',
+            barWidth: visible ? '22' : 16 * sizeRatio,
             xAxisData: params.xAxis,
             yAxisName: '',
             legend: params.legend,
-            gridTop: 100,
-            gridBottom: 50,
+            gridTop: 100 * sizeRatio,
+            gridBottom: visible ? '16%' : '18%',
             legendShow: false,
-            legendRight: '22',
             colors: params.color,
             series: params.data,
-            labelTextSize: visible ? 16 : 12,
-            labelTextFontSize: visible ? 16 : 12,
+            labelTextSize: visible ? 16 : 12 * sizeRatio,
+            labelTextFontSize: visible ? 16 : 12 * sizeRatio,
             dataZoom: getDataZoom({
                 zoomBackground: '#072648',
                 zoomFiller: '#054D7E',
                 lengthMax: params.xAxis.length,
-                showLength: 3
+                showLength: 3,
+                zoomHeight: visible ? 25 : 15 * sizeRatio
             })
         });
     }
