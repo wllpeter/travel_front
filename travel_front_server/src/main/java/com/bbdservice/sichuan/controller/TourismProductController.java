@@ -145,7 +145,7 @@ public class TourismProductController {
     @ApiOperation(value = "旅游产品供给/消费总量")
     @ApiImplicitParams({
             @ApiImplicitParam(name="productType",value = "产品类型",paramType = "query",dataType = "Integer",defaultValue = "1"),
-            @ApiImplicitParam(name="dataType",value = "数据类型 值为1和2  1-供给 2-消费",paramType = "query",dataType = "Integer",defaultValue = "1"),
+            @ApiImplicitParam(name="dataType",value = "数据类型 值为1和2  1-供给 0-消费",paramType = "query",dataType = "Integer",defaultValue = "1"),
     })
     @GetMapping(value = "/getSupplyConsume")
     public Response getSupplyConsume(Integer productType,Integer dataType){
@@ -154,6 +154,9 @@ public class TourismProductController {
         List<SupplyConsumeCount> list=null;
         switch (productType){
             case 1:
+                if(dataType==2){
+                    dataType=0;
+                }
                 list=su.getAllList(productType,dataType);
                 break;
             case 2:
