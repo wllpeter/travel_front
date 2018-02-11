@@ -11,6 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -76,10 +77,14 @@ public class CustomerController {
             List<SichuanFlowAnalyse> tempList = new ArrayList<>();
             for(SichuanFlowAnalyse sfa : retFlowData){
                 DecimalFormat d = new DecimalFormat("#.00");
-                String personCount = d.format(Float.valueOf(sfa.getPersonCount() == null?0: sfa.getPersonCount())/10000);
-                String personTime = d.format(Float.valueOf(sfa.getPersonTime() == null?0:sfa.getPersonTime())/10000);
-                sfa.setPersonCountView(Float.valueOf(personCount));
-                sfa.setPersonTimeView(Float.valueOf(personTime));
+                if(StringUtils.isNotEmpty(sfa.getPersonTime().toString())) {
+                    String personTime = d.format(Float.valueOf(sfa.getPersonTime()) / 10000);
+                    sfa.setPersonTimeView(Float.valueOf(personTime));
+                }
+                if(StringUtils.isNotEmpty(sfa.getPersonCount().toString())) {
+                    String personCount = d.format(Float.valueOf(sfa.getPersonCount()) / 10000);
+                    sfa.setPersonCountView(Float.valueOf(personCount));
+                }
                 if(sfa.getCustomerType().equals(str)){
                     tempList.add(sfa);
                 }

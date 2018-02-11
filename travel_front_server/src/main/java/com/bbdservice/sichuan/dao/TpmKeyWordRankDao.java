@@ -11,6 +11,6 @@ import java.util.List;
  */
 public interface TpmKeyWordRankDao extends JpaRepository<KeywordRank,Long> {
     @Query(nativeQuery = true,value = "select * from tpm_keyword_rank r where r.year=?2 and r.month=?3 and r.deleted=0 and r.modify_id is null \n" +
-            "and r.product_type=?1  order by r.rank desc LIMIT 0,5")
+            "and r.product_type=?1  order by r.rank LIMIT 0,5")
     List<KeywordRank> getAllKeyWordRank(Integer productType,Integer year,Integer month);
 }

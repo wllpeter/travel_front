@@ -31,4 +31,21 @@ public class SichuanFlowAnalyse {
     private Float personTimeView;
     @Transient
     private Float personCountView;
+
+    public Integer getPersonTime() {
+        return personTime;
+    }
+
+    public void setPersonTime(Integer personTime) {
+        this.personTime = personTime;
+    }
+
+    public Integer getPersonCount() {
+        return personCount;
+    }
+
+    public void setPersonCount(Integer personCount) {
+        this.personCount = personCount;
+    }
+
 }
