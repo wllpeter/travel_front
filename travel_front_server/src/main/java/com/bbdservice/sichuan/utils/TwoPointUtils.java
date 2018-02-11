@@ -13,6 +13,9 @@ public class TwoPointUtils {
         if(StringUtils.isEmpty(value)){
             return "";
         }
+        if(!JudgeIsNum.isNum(value)){
+            return "-";
+        }
         DecimalFormat b = new DecimalFormat("#.00");
         String res=b.format(Double.valueOf(value));
         String[] r=res.split("\\.");
@@ -26,6 +29,9 @@ public class TwoPointUtils {
     }
 
     public static String getFour(String value){
+        if(!JudgeIsNum.isNum(value)){
+            return "";
+        }
         DecimalFormat b = new DecimalFormat("#.0000");
         return b.format(Double.valueOf(value));
     }

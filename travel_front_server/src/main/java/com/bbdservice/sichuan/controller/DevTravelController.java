@@ -5,6 +5,7 @@ import com.bbdservice.sichuan.base.Response;
 import com.bbdservice.sichuan.entity.*;
 import com.bbdservice.sichuan.service.*;
 import com.bbdservice.sichuan.utils.DateUtils;
+import com.bbdservice.sichuan.utils.JudgeIsNum;
 import com.bbdservice.sichuan.utils.TwoPointUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -51,11 +53,31 @@ public class DevTravelController {
         String date=year+"."+month;
       List<DevTravelIndexRadar> radarList=indexRadar.getIndexRadar(date);
       for(DevTravelIndexRadar d:radarList){
-          d.setComfort(TwoPointUtils.getTwo(d.getComfort()));
-          d.setCreateNew(TwoPointUtils.getTwo(d.getCreateNew()));
-          d.setEconomicScale(TwoPointUtils.getTwo(d.getEconomicScale()));
-          d.setGoodFame(TwoPointUtils.getTwo(d.getGoodFame()));
-          d.setLaborInput(TwoPointUtils.getTwo(d.getLaborInput()));
+          try{
+              d.setComfort(TwoPointUtils.getTwo(d.getComfort()));
+          }catch (Exception e){
+              d.setComfort("-");
+          }
+          try {
+              d.setCreateNew(TwoPointUtils.getTwo(d.getCreateNew()));
+          }catch (Exception e){
+              d.setCreateNew("-");
+          }
+          try {
+              d.setEconomicScale(TwoPointUtils.getTwo(d.getEconomicScale()));
+          }catch (Exception e){
+              d.setEconomicScale("-");
+          }
+          try {
+              d.setGoodFame(TwoPointUtils.getTwo(d.getGoodFame()));
+          }catch (Exception e){
+              d.setGoodFame("-");
+          }
+          try {
+              d.setLaborInput(TwoPointUtils.getTwo(d.getLaborInput()));
+          }catch (Exception e){
+              d.setLaborInput("-");
+          }
       }
       return Response.success(radarList);
     }
@@ -65,6 +87,10 @@ public class DevTravelController {
     public Response getIndex(){
         List<DevTravelIndex> indexList=devIndexService.getDevTravelIndex();
         for(DevTravelIndex d:indexList){
+            if(!JudgeIsNum.isNum(d.getTravelIndex())){
+                d.setTravelIndex("-");
+                continue;
+            }
             d.setTravelIndex(TwoPointUtils.getTwo(d.getTravelIndex()));
         }
         return Response.success(indexList);
@@ -80,6 +106,10 @@ public class DevTravelController {
         String date=year+"."+month;
         List<DevTravelCreateNew> createNew=createNewService.getCreateNew(date);
         for(DevTravelCreateNew d:createNew){
+            if(!JudgeIsNum.isNum(d.getCreateNew())){
+                d.setCreateNew("-");
+                continue;
+            }
             d.setCreateNew(TwoPointUtils.getTwo(d.getCreateNew()));
         }
         return Response.success(createNew);
@@ -96,7 +126,11 @@ public class DevTravelController {
           result=economicService.getCreateNewQu();
         }
         for(DevTravelEonomiesScale d:result){
-            d.setScale(TwoPointUtils.getTwo(d.getScale()));
+            try{
+                d.setScale(TwoPointUtils.getTwo(d.getScale()));
+            }catch (Exception e){
+                d.setScale("-");
+            }
         }
         return Response.success(result);
     }
@@ -106,6 +140,10 @@ public class DevTravelController {
     public Response getComfort(){
         List<DevTravelComfort> result=comfortService.getComfort();
         for(DevTravelComfort d:result){
+            if(!JudgeIsNum.isNum(d.getComfort())){
+                d.setComfort("-");
+                continue;
+            }
             d.setComfort(TwoPointUtils.getTwo(d.getComfort()));
         }
         return Response.success(result);
@@ -116,10 +154,16 @@ public class DevTravelController {
     public Response getGoodFame(){
         List<DevTravelGoodFame> result=devGoodFameService.getGoodFame();
         for(DevTravelGoodFame d:result){
+            if(!JudgeIsNum.isNum(d.getGoodFame())){
+                d.setGoodFame("-");
+                continue;
+            }
             d.setGoodFame(TwoPointUtils.getTwo(d.getGoodFame()));
         }
         return Response.success(result);
     }
+
+
 
     @ApiOperation(value = "旅游劳动投入")
     @GetMapping(value = "/getLaborInput")
@@ -131,8 +175,16 @@ public class DevTravelController {
         String date=year+"."+month;
         List<DevTravelLaborInput> laborInput=devLaborInputService.getLaborInput(date);
         for(DevTravelLaborInput d:laborInput){
-            d.setLaborInput(TwoPointUtils.getTwo(d.getLaborInput()));
-            d.setCompare(TwoPointUtils.getFour(d.getCompare()));
+            try{
+                d.setLaborInput(TwoPointUtils.getTwo(d.getLaborInput()));
+            }catch (Exception e){
+                d.setLaborInput("-");
+            }
+            try{
+                d.setCompare(TwoPointUtils.getFour(d.getCompare()));
+            }catch (Exception e){
+                d.setCompare("-");
+            }
         }
         return Response.success(laborInput);
     }

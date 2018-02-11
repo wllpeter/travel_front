@@ -3,6 +3,7 @@ package com.bbdservice.sichuan.controller;
 import com.bbdservice.sichuan.base.Response;
 import com.bbdservice.sichuan.entity.*;
 import com.bbdservice.sichuan.service.*;
+import com.bbdservice.sichuan.utils.JudgeIsNum;
 import com.bbdservice.sichuan.utils.TwoPointUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -58,7 +59,11 @@ public class ConsumptionDataController {
          List<ComeConsumeTouristCityRank> list=null;
          list=sbdConsumeTouristCityService.getAllList(year,quarter);
         for(ComeConsumeTouristCityRank c:list){
-            c.setPersonCount(TwoPointUtils.getTwo(c.getPersonCount()));
+            try{
+                c.setPersonCount(TwoPointUtils.getTwo(c.getPersonCount()));
+            }catch (Exception e){
+                c.setPersonCount("-");
+            }
         }
         return Response.success(list);
       }
@@ -74,7 +79,11 @@ public class ConsumptionDataController {
         List<ComeTouristAreaRank> list=null;
         list=sbdComeTouristAreaRankService.getAllList(year,quarter,type);
         for(ComeTouristAreaRank c:list){
-              c.setPersonTimes(TwoPointUtils.getTwo(c.getPersonTimes()));
+              try{
+                  c.setPersonTimes(TwoPointUtils.getTwo(c.getPersonTimes()));
+              }catch (Exception e){
+                  c.setPersonTimes("-");
+              }
         }
         return Response.success(list);
     }
@@ -90,7 +99,11 @@ public class ConsumptionDataController {
         List<IndustryConsumeBusinessRank> list=null;
         list=sbdIndustryConsumeBusinessRankService.getAllList(year,quarter,industry);
         for(IndustryConsumeBusinessRank i:list){
-              i.setAvgSingleConsume(TwoPointUtils.getTwo(i.getAvgSingleConsume()));
+            try{
+                i.setAvgSingleConsume(TwoPointUtils.getTwo(i.getAvgSingleConsume()));
+            }catch (Exception e){
+                i.setAvgSingleConsume("-");
+            }
          }
         return Response.success(list);
     }
@@ -116,9 +129,22 @@ public class ConsumptionDataController {
         List<TravelConsumeAnalyse> list=null;
         list=sbdTravelConsumeAnalyseService.getAllList(year,quarter,industry);
         for(TravelConsumeAnalyse t:list){
-            t.setSwipeTimes(TwoPointUtils.getTwo(t.getSwipeTimes()));
-            t.setConsumeTimes(TwoPointUtils.getTwo(t.getConsumeTimes()));
-            t.setConsumeAmount(TwoPointUtils.getTwo(t.getConsumeAmount()));
+            try{
+                t.setSwipeTimes(TwoPointUtils.getTwo(t.getSwipeTimes()));
+
+            }catch (Exception e){
+                t.setSwipeTimes("-");
+            }
+            try{
+                t.setConsumeTimes(TwoPointUtils.getTwo(t.getConsumeTimes()));
+            }catch (Exception e){
+               t.setConsumeTimes("-");
+            }
+            try{
+                t.setConsumeAmount(TwoPointUtils.getTwo(t.getConsumeAmount()));
+            }catch (Exception e){
+               t.setConsumeAmount("-");
+            }
         }
         return Response.success(list);
     }
@@ -140,26 +166,42 @@ public class ConsumptionDataController {
             case "A":
                 listA=sbdWaidiShuaKaService.getAllList(year,month);
                 for(ForeignTouristSwipeAmountAnalyse f:listA){
-                   f.setSwipeAmount(TwoPointUtils.getTwo(f.getSwipeAmount()));
+                    try{
+                        f.setSwipeAmount(TwoPointUtils.getTwo(f.getSwipeAmount()));
+                    }catch (Exception e){
+                        f.setSwipeAmount("-");
+                    }
                 }
                 return Response.success(listA);
                 //各地刷卡
             case "B":
                 cityLeft=sbdGeDiShuaKaService.getAllList(year,month);
                 for(CityForeignDealAmount c:cityLeft){
-                    c.setDealAmount(TwoPointUtils.getTwo(c.getDealAmount()));
+                    try{
+                        c.setDealAmount(TwoPointUtils.getTwo(c.getDealAmount()));
+                    }catch (Exception e){
+                        c.setDealAmount("-");
+                    }
                 }
                 return Response.success(cityLeft);
             case "C":
                 listB=sbdWaiDiJiaoYiService.getAllList(year,month);
                 for(ForeignTouristConsumeTimesAnalyse f:listB){
-                    f.setConsumeTimes(TwoPointUtils.getTwo(f.getConsumeTimes()));
+                    try{
+                        f.setConsumeTimes(TwoPointUtils.getTwo(f.getConsumeTimes()));
+                    }catch (Exception e){
+                        f.setConsumeTimes("-");
+                    }
                 }
                 return Response.success(listB);
             case "D":
                 cityRight=sbdGediJiaoYiService.getAllList(year,month);
                 for(CityForeignDealTime c:cityRight){
-                    c.setDealTime(TwoPointUtils.getTwo(c.getDealTime()));
+                    try{
+                        c.setDealTime(TwoPointUtils.getTwo(c.getDealTime()));
+                    }catch (Exception e){
+                        c.setDealTime("-");
+                    }
                 }
                 return Response.success(cityRight);
         }
