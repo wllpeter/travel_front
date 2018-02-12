@@ -85,12 +85,12 @@ public class UserTokenInterceptor implements HandlerInterceptor {
                     .forward(request, response);
             return false;
         }
-        if (!tokenCookie.getValue().equals(userToken.getToken())) {
-            request
-                    .getRequestDispatcher(String.format("%s=%s", unAuthUrl, I18nUtils.getMessage("Response.Login.Failure")))
-                    .forward(request, response);
-            return false;
-        }
+//        if (!tokenCookie.getValue().equals(userToken.getToken())) {
+//            request
+//                    .getRequestDispatcher(String.format("%s=%s", unAuthUrl, I18nUtils.getMessage("Response.Login.Failure")))
+//                    .forward(request, response);
+//            return false;
+//        }
 //        if (userToken.getExpireDate().before(new Date())) {
 //            request
 //                    .getRequestDispatcher(String.format("%s=%s", unAuthUrl, I18nUtils.getMessage("Response.Login.Failure")))
