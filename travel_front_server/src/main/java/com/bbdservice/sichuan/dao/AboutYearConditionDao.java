@@ -95,41 +95,42 @@ public interface AboutYearConditionDao extends JpaRepository<ClassifyData,Long> 
      * 客情大数据模块
      * @return
      */
-    //四川省游客性别分布(其实是四川省游客年龄分布+四川省游客性别分布+四川省客流量分析所有数据年季)
-    @Query(nativeQuery = true,value = " select * from(  select * from ( select year,`quarter`,'季' as type from cbd_sichuan_tourist_gender_ratio\n" +
-            "    where year is not null and `quarter` is not null and deleted = 0 and modify_id is null GROUP  by year desc , `quarter` desc \n" +
-            "\n" +
-            "              union ALL\n" +
-            "      select year,`quarter`,'季' as type from cbd_sichuan_tourist_age \n" +
+    //四川省游客性别分布(其实是四川省游客年龄分布+四川省游客性别分布+四川省客流量分析所有数据年季) order by
+    @Query(nativeQuery = true,value = " select DISTINCT* from(  select * from ( select year,`quarter`,'季' as type from cbd_sichuan_tourist_gender_ratio\n" +
+            " where year is not null and `quarter` is not null and deleted = 0 and modify_id is null GROUP  by year desc , `quarter` desc \n" +
+            "       union ALL\n" +
+            "  select year,`quarter`,'季' as type from cbd_sichuan_tourist_age\n" +
             "    where year is not null and `quarter` is not null and deleted = 0  and modify_id is null GROUP  by year desc , `quarter` desc\n" +
-            "             union all \n" +
-            "          select year,`quarter`,'季' as type from cbd_sichuan_flow_analyse \n" +
-            "    where year is not null and `quarter` is not null and deleted = 0  and modify_id is null GROUP  by year desc , `quarter` desc)a\n" +
-            "where a.`year`!=0  group by year desc ,quarter desc ,type)b\n")
+            "        union all \n" +
+            "     select year,`quarter`,'季' as type from cbd_sichuan_flow_analyse \n" +
+            " where year is not null and `quarter` is not null and deleted = 0  and modify_id is null GROUP  by year desc , `quarter` desc)a\n" +
+            "where a.`year`!=0  order by year desc ,quarter desc ,type)b\n")
     List<String> getSiChuanYouKeSex();
 
-    //乡村游客分析-接待
+    //乡村游客分析-接待 order by
     @Query(nativeQuery = true,value = "select DISTINCT * from (select year,`quarter`,'季' as type from cbd_country_tour_flow_analyse_reception where year is not null and `quarter` is not null and deleted = 0 GROUP  by year desc , `quarter` desc \n" +
             "union ALL\n" +
             "select year,`quarter`,'季' as type from cbd_country_tour_age_reception where year is not null and `quarter` is not null and deleted = 0 GROUP  by year desc , `quarter` desc\n" +
             "union all\n" +
             "select year,`quarter`,'季' as type from cbd_country_tour_residence_zone_reception where year is not null and `quarter` is not null and deleted = 0 GROUP  by year desc , `quarter` desc\n" +
             "union ALL\n" +
-            "select year,`quarter`,'季' as type from cbd_country_tour_potential_reception where year is not null and `quarter` is not null and deleted = 0 GROUP  by year desc , `quarter` desc) \n" +
-            "b\n" +
-            "group by year desc,quarter desc ")
+            "select year,`quarter`,'季' as type from cbd_country_tour_potential_reception where year is not null and `quarter` is not null and deleted = 0 GROUP  by year desc , `quarter` desc) b\n" +
+            " order by year desc,quarter desc")
     List<String> getXiangCunYouKeJieDai();
 
     //乡村游客分析-出行
     @Query(nativeQuery = true,value = "select DISTINCT * from (select year,`quarter`,'季' as type from cbd_country_tour_age_trip where year is not null and `quarter` is not null and deleted = 0 GROUP  by year desc , `quarter` desc \n" +
+            "\n" +
             "union ALL\n" +
-            "select year,`quarter`,'季' as type from cbd_country_tour_person_time_trip where year is not null and `quarter` is not null and deleted = 0 GROUP  by year desc , `quarter` desc\n" +
+            "select year,`quarter`,'季' as type from cbd_country_tour_person_time_trip\n" +
+            " where year is not null and `quarter` is not null and deleted = 0 GROUP  by year desc , `quarter` desc\n" +
             "union all\n" +
-            "select year,`quarter`,'季' as type from cbd_country_tour_potential_trip where year is not null and `quarter` is not null and deleted = 0 GROUP  by year desc , `quarter` desc\n" +
+            "select year,`quarter`,'季' as type from cbd_country_tour_potential_trip\n" +
+            " where year is not null and `quarter` is not null and deleted = 0 GROUP  by year desc , `quarter` desc\n" +
             "union ALL\n" +
-            "select year,`quarter`,'季' as type from cbd_country_tour_residence_zone_trip where year is not null and `quarter` is not null and deleted = 0 GROUP  by year desc , `quarter` desc) \n" +
-            "b\n" +
-            "group by year desc,quarter desc")
+            "select year,`quarter`,'季' as type from cbd_country_tour_residence_zone_trip \n" +
+            "where year is not null and `quarter` is not null and deleted = 0 GROUP  by year desc , `quarter` desc) b\n" +
+            "order by year desc,quarter desc")
     List<String> getXiangCunYouChuXing();
 
     //五大经济区客游人次
