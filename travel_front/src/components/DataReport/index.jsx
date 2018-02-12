@@ -337,7 +337,7 @@ export default class TouristData extends Component {
         }
         let page = 1;
         let scale = 1;
-        this.setState({page, scale}, () => {
+        this.setState({page, scale, bigBtnShow: true}, () => {
             this.drawPdf();
         });
     }

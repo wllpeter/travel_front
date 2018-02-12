@@ -79,13 +79,14 @@ export default class Consumption extends Component {
             chartId: 'consumption-map',
             legend: [],
             legendShow: false,
-            gridTop: 10,
-            gridBottom: params.zoomShow ? 60 : 20,
-            barWidth: 40,
+            gridTop: 10 * sizeRatio,
+            gridBottom: (params.zoomShow ? 60 : 20) * sizeRatio,
+            barWidth: 40 * sizeRatio,
             unit: '万元',
             dataZoom: params.dataZoom,
             xAxisData: params.xAxis,
-            series: [params.serie]
+            series: [params.serie],
+            sizeRatio
         });
     }
 

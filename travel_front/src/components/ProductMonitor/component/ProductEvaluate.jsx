@@ -79,7 +79,7 @@ export default class ProductEvaluate extends Component {
                 backgroundColor: '#1F3A59',
                 borderWidth: 1,
                 borderColor: '#ffffff',
-                padding: 7,
+                padding: 7 * sizeRatio,
                 textStyle: {
                     lineHeight: 56
                 },
@@ -105,15 +105,15 @@ export default class ProductEvaluate extends Component {
                 icon: 'circle',
                 data: ['综合评价', '环比'],
                 right: '10%',
-                itemWidth: 8,
+                itemWidth: 8 * sizeRatio,
                 textStyle: {
-                    fontSize: 12,
+                    fontSize: 12 * sizeRatio,
                     color: '#F1F1F3'
                 }
             },
             grid: {
                 show: false,
-                bottom: params.zoomShow ? 70 : 60,
+                bottom: (params.zoomShow ? 70 : 60) * sizeRatio,
                 containLabel: false
             },
             dataZoom: params.dataZoom,
@@ -127,7 +127,7 @@ export default class ProductEvaluate extends Component {
                     axisLabel: {
                         color: '#ffffff',
                         textStyle: {
-                            fontSize: 16
+                            fontSize: 16 * sizeRatio
                         }
                     },
                     splitLine: {
@@ -146,12 +146,12 @@ export default class ProductEvaluate extends Component {
                     name: '评价',
                     nameTextStyle: {
                         color: '#ffffff',
-                        fontSize: 16
+                        fontSize: 16 * sizeRatio
                     },
                     axisLabel: {
                         color: '#ffffff',
                         textStyle: {
-                            fontSize: 16
+                            fontSize: 16 * sizeRatio
                         },
                         formatter: (p) => {
                             if (p === 0) {
@@ -177,12 +177,12 @@ export default class ProductEvaluate extends Component {
                     name: '环比',
                     nameTextStyle: {
                         color: '#ffffff',
-                        fontSize: 16
+                        fontSize: 16 * sizeRatio
                     },
                     axisLabel: {
                         color: '#ffffff',
                         textStyle: {
-                            fontSize: 16
+                            fontSize: 16 * sizeRatio
                         },
                         formatter: '{value} %'
                     },
@@ -208,13 +208,13 @@ export default class ProductEvaluate extends Component {
                         normal: {
                             color: color[0],
                             borderColor: colorHex(color[0], 0.27),
-                            borderWidth: 12
+                            borderWidth: 12 * sizeRatio
                         }
                     },
                     label: {
                         normal: {
                             show: true,
-                            fontSize: 12,
+                            fontSize: 12 * sizeRatio,
                             position: [20, 0],
                             color: '#ffffff',
                             formatter: '{c}分'
@@ -230,14 +230,14 @@ export default class ProductEvaluate extends Component {
                         normal: {
                             color: color[1],
                             borderColor: colorHex(color[1], 0.27),
-                            borderWidth: 12
+                            borderWidth: 12 * sizeRatio
                         }
                     },
                     label: {
                         normal: {
                             show: true,
-                            fontSize: 12,
-                            position: [20, 0],
+                            fontSize: 12 * sizeRatio,
+                            position: [20 * sizeRatio, 0],
                             color: '#ffffff',
                             formatter: '{c}%'
                         }
