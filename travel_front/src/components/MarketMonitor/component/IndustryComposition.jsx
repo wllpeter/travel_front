@@ -92,7 +92,7 @@ export default class IndustryComposition extends Component {
             borderWidth: visible ? 8 : 6 * sizeRatio,
             borderColor: '#203a59',
             legend: params.legend,
-            legendSize: visible ? 16 : 12 * sizeRatio,
+            legendSize: visible ? 16 : 12,
             labelFontSize: visible ? 16 : 12 * sizeRatio,
             sizeRatio: visible ? 1 : sizeRatio,
             legendTop: 28 * sizeRatio + '%',
