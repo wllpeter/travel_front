@@ -95,7 +95,7 @@
         padding: 0 40px;
         table{
             line-height: 2.5;
-            td{
+            th, td{
                 font-size: 18px;
             }
         }
@@ -193,7 +193,11 @@
     }
 
     .consumption-data {
-
+        .panel-card-header{
+            .mt-select-input {
+                width: 102px;
+            }
+        }
         // 全省旅游消费情况
         .province-consumption {
             .toggle-button-group {
@@ -221,5 +225,19 @@
 
     .consumption-down{
         height: smpx(400);
+    }
+
+    .modal-box{
+        .consumption-down{
+            .percent-bar{
+                .ant-progress-outer{
+                    margin-right: -3.5rem;
+                    padding-right: 3.5rem;
+                }
+                .ant-progress-text{
+                    font-size: 18px;
+                }
+            }
+        }
     }
 }

@@ -82,15 +82,18 @@ export default class CityMoney extends Component {
             legendShow: false,
             xAxisData: params.xAxisData,
             series: [params.data],
-            gridTop: 60,
+            gridTop: 60 * sizeRatio,
             unit: this.props.unit,
+            barWidth: 22 * sizeRatio,
             yAxisNameFontSize: 12,
-            gridBottom: params.zoomShow ? 60 : 20,
+            gridBottom: (params.zoomShow ? 60 : 20) * sizeRatio,
             yAxisName: this.props.unitName,
             dataZoom: getDataZoom({
                 lengthMax: params.xAxisData.length,
-                showLength: 5
-            })
+                showLength: 5,
+                zoomHeight: 15 * sizeRatio
+            }),
+            sizeRatio
         });
     }
 
@@ -98,7 +101,7 @@ export default class CityMoney extends Component {
         let {panelProps} = this.state;
         let {elementId, title} = this.props;
         return <PanelCard title={title} {...panelProps}>
-            <div id={elementId} style={{width: '100%', height: 300}}></div>
+            <div id={elementId} style={{width: '100%', height: 300 * sizeRatio}}></div>
         </PanelCard>;
     }
 }

@@ -234,7 +234,7 @@ const AD_CHART = {
                 orient: 'vertical',
                 itemWidth: 8,
                 itemHeight: 8,
-                itemGap: 20,
+                itemGap: params.itemGap === undefined ? 20 : params.itemGap,
                 textStyle: {
                     color: 'rgba(255, 255, 255, 0.95)',
                     fontSize: params.legendSize || 14

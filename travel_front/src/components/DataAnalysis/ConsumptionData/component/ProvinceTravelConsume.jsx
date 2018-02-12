@@ -206,7 +206,7 @@ export default class ProvinceTravelConsume extends Component {
                 btnShow && <ToggleButtonGroup {...consumeInfoOptions}/>
             }
 
-            <div id="provinceTouristConsumption" style={{width: '100%', height: 640}}></div>
+            <div id="provinceTouristConsumption" style={{width: '100%', height: 640 * sizeRatio}}></div>
         </PanelCard>;
     }
 }
