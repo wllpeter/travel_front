@@ -1773,7 +1773,7 @@ input::-webkit-input-placeholder {
       width: 170.75px;
       height: calc(100vh - 60 / 1920 * 1366px);
       position: absolute;
-      top: 60px;
+      top: 42.6875px;
       left: 0; }
       .report .nav-left-box .nav-left .nav-father-name {
         display: block;
@@ -1862,7 +1862,7 @@ input::-webkit-input-placeholder {
       width: 42.6875px;
       position: fixed;
       z-index: 500;
-      top: 60px;
+      top: 42.6875px;
       padding-top: 142.29167px;
       right: 0; }
       .report .pdf-box .right-buttons .iconfont {
@@ -1912,4 +1912,4 @@ input::-webkit-input-placeholder {
     font-size: 16px;
     outline: none; }
 
-/*# sourceMappingURL=9bfcc23f029be2d412182c45161de30c.style.css.map*/
+/*# sourceMappingURL=4f21db20e53d679d2680efe6e5a1b802.style.css.map*/
