@@ -143,6 +143,7 @@ export default class SearchPeopleSource extends Component {
             lineStyleColor: ['#00a2f5'],
             smooth: true,
             stack: true,
+            bottom: 70,
             series: [params.series],
             dataZoom: getDataZoom({
                 lengthMax: params.series.length,
@@ -167,7 +168,7 @@ export default class SearchPeopleSource extends Component {
         let {visible, panelProps} = this.state;
         return <div>
             <PanelCard title="全省旅游搜索热度趋势" {...panelProps}>
-                <div id="provinceSearchHotLineChart" style={{width: '100%', height: 600}}/>
+                <div id="provinceSearchHotLineChart" style={{width: '100%', height: 600 * sizeRatio}}/>
             </PanelCard>
         </div>;
     }

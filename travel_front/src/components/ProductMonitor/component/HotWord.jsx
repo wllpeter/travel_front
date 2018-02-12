@@ -96,7 +96,7 @@ export default class HotWord extends Component {
                 name: '产品评价热词云',
                 type: 'wordCloud',
                 size: ['90%', '90%'],
-                sizeRange: visible ? [24, 100] : [12 * ratio, 60 * ratio],
+                sizeRange: visible ? [24, 100] : [12, 60 * ratio],
                 rotationRange: [-45, 45],
                 rotationStep: 10,
                 shape: 'circle',

@@ -40,16 +40,16 @@ export default class TouristData extends Component {
             visualMap: {
                 min: minMax[0],
                 max: minMax[1],
-                right: 25,
-                bottom: 45,
+                right: 25 * sizeRatio,
+                bottom: 45 * sizeRatio,
                 orient: 'horizontal',
-                itemWidth: 20,
-                itemHeight: 250,
+                itemWidth: 20 * sizeRatio,
+                itemHeight: 250 * sizeRatio,
                 text: ['高', '低'],
                 calculable: true,
                 textStyle: {
                     color: 'rgba(255, 255, 255, 0.95)',
-                    fontSize: 14
+                    fontSize: 14 * sizeRatio
                 },
                 inRange: {
                     color: ['#2e70b8', '#00a6ff', '#02c4bc', '#35d77c', '#9bdb74', '#abdd73']
@@ -72,13 +72,13 @@ export default class TouristData extends Component {
                     '阿坝州': '阿坝藏族自治州'
                 },
                 left: '14%',
-                top: 25,
+                top: 25 * sizeRatio,
                 label: {
                     normal: {
                         show: true,
                         textStyle: {
                             color: 'rgba(255, 255, 255, 0.95)',
-                            fontSize: 14
+                            fontSize: 14 * sizeRatio
                         }
                     }
                 }
@@ -161,7 +161,7 @@ export default class TouristData extends Component {
                 <Col span={12}  xl={12}>
                     <PanelCard title="全省旅游搜索热力图"
                                zoomRequired={false} {...this.getHeaderOptions([true, false, 'month'], this.fetchProvinceHotSearch.bind(this))}>
-                        <div id="visualMapContinuous" style={{width: '100%', height: 600}} className="br-line"/>
+                        <div id="visualMapContinuous" style={{width: '100%', height: 600 * sizeRatio}} className="br-line"/>
                     </PanelCard>
                 </Col>
                 <Col span={12}  xl={12}>

@@ -40,14 +40,17 @@ export default class ConsumptionTrade extends Component {
             });
             return max;
         };
+        let ratio = visible ? 1 : sizeRatio;
         AdCharts.radarChart({
             chartId: visible ? 'consumptionTrade2' : 'consumptionTrade',
             legend: params.legend,
             series: params.series,
-            radarRadius: visible ? 150 : 100,
+            radarRadius: (visible ? 150 : 100) * ratio,
+            legendTop: (!visible && isSmallScreen) ? '40%' : '60%',
+            itemGap: (!visible && isSmallScreen) ? 10 : 20,
             colors: ['#b6dd74', '#32c889', '#00a9ff'],
-            legendSize: visible ? 16 : 14,
-            fontSize: visible ? 16 : 14,
+            legendSize: (visible ? 16 : 14) * ratio,
+            fontSize: (visible ? 16 : 14) * ratio,
             indicator: [
                 {text: '交易笔数', max: getMax(0)},
                 {text: '交易总额', max: getMax(1)},
@@ -55,7 +58,8 @@ export default class ConsumptionTrade extends Component {
             ],
             formatter: (p) => {
                 return `${p.seriesName}<br>交易笔数：${p.value[0]}万笔<br>交易总额：${p.value[1]}万元<br>刷卡人次：${p.value[2]}万人`;
-            }
+            },
+            sizeRatio: ratio
         });
     }
 
@@ -150,7 +154,7 @@ export default class ConsumptionTrade extends Component {
             <PanelCard title="旅游消费交易分析" {...panelProps} enlarge={this.showModal.bind(this)}
                        className="bg-grey consumption-trade consumption-down">
                 <ToggleButtonGroup {...consumptionTrade}/>
-                <div id="consumptionTrade" style={{width: '100%', height: 300}}></div>
+                <div id="consumptionTrade" style={{width: '100%', height: 300 * sizeRatio}}></div>
             </PanelCard>
             <Modal visible={visible} onOk={() => {
                 this.getTravelConsumeAnalyse.bind(this)();

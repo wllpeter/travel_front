@@ -56,10 +56,14 @@ export default class CardMoney extends Component {
             chartId: this.props.elementId,
             legend: params.legend,
             legendIcon: 'circle',
-            borderWidth: 10,
+            legendRight: isSmallScreen ? 20 : 40,
+            borderWidth: 10 * sizeRatio,
             borderColor: '#072848',
-            legendTop: 146,
-            data: params.data
+            legendTop: isSmallScreen ? 70 : 146,
+            labelFontSize: 12 * sizeRatio,
+            center: isSmallScreen ? ['35%', '45%'] : ['40%', '50%'],
+            data: params.data,
+            sizeRatio
         });
     }
 
@@ -90,7 +94,7 @@ export default class CardMoney extends Component {
         let {panelProps} = this.state;
         let {elementId, title} = this.props;
         return <PanelCard title={title} {...panelProps}>
-            <div id={elementId} style={{width: '100%', height: 300}}></div>
+            <div id={elementId} style={{width: '100%', height: 300 * sizeRatio}}></div>
         </PanelCard>;
     }
 }

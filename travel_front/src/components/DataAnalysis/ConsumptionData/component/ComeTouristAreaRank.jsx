@@ -157,7 +157,7 @@ export default class ComeTouristAreaRank extends Component {
                                     <td>{item.rank}</td>
                                     <td>{item.area}</td>
                                     <td>{item.personTimes}</td>
-                                    <td><PercentBar percent={(item.ratio * 100).toFixed(2)}/></td>
+                                    <td><PercentBar strokeWidth={12} percent={(item.ratio * 100).toFixed(2)}/></td>
                                 </tr>;
                             })
                         }

@@ -234,7 +234,7 @@ const AD_CHART = {
                 orient: 'vertical',
                 itemWidth: 8,
                 itemHeight: 8,
-                itemGap: 20,
+                itemGap: params.itemGap === undefined ? 20 : params.itemGap,
                 textStyle: {
                     color: 'rgba(255, 255, 255, 0.95)',
                     fontSize: params.legendSize || 14
@@ -947,6 +947,7 @@ const AD_CHART = {
                         formatter: function (data) {
                             return params.series[params.series.length - 1][data.dataIndex] + '%';
                         },
+                        distance: params.labelDistance === undefined ? 4 : params.labelDistance,
                         position: params.labelPos === undefined ? 'right' : params.labelPos,
                         offset: params.labelOffset === undefined ? [4, 0] : params.labelOffset,
                         textStyle: {

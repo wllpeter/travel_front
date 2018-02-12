@@ -91,6 +91,7 @@ export default class SearchPeopleAge extends Component {
 
     // 搜索人群年龄分布
     renderPersonAgeData(visible) {
+        let ratio = (visible ? 1 : sizeRatio);
         AdCharts.pieChart({
             chartId: visible ? 'searchPeopleAgePieChart2' : 'searchPeopleAgePieChart',
             legend: ['18以下', '18-24', '25-34', '35-44', '45-54', '55-64', '65以上'],
@@ -98,9 +99,10 @@ export default class SearchPeopleAge extends Component {
             legendOrient: 'horizontal',
             legendLeft: '65%',
             borderWidth: 10,
-            legendSize: visible ? 16 : 14,
-            labelFontSize: visible ? 16 : 12,
-            itemGap: 20,
+            legendSize: (visible ? 16 : 14) * ratio,
+            labelFontSize: (visible ? 16 : 12) * ratio,
+            legendTop: visible && !isSmallScreen ? 140 : 80,
+            itemGap: visible && !isSmallScreen ? 20 : 10,
             borderColor: '#203a59',
             data: this.state.peopleAge
         });
@@ -123,7 +125,7 @@ export default class SearchPeopleAge extends Component {
         return <div>
             <PanelCard title="搜索人群年龄分布" enlarge={this.showModal.bind(this)}
                        className="bg-grey" {...panelProps}>
-                <div id="searchPeopleAgePieChart" style={{width: '100%', height: 300}}/>
+                <div id="searchPeopleAgePieChart" style={{width: '100%', height: 300 * sizeRatio}}/>
             </PanelCard>
             <Modal visible={visible} onOk={() => {
                 this.fetchSearchPersonAge.bind(this)();

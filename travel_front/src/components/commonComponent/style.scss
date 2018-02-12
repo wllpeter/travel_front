@@ -336,7 +336,7 @@
                     border: smpx(1) solid #1ce88b;
                     background: transparent;
                     color: rgba(255, 255, 255, 0.95);
-                    font-size: smpx(12);
+                    font-size: 0.65rem;
 
                     .iconfont {
                         color: #1ce88b;
@@ -395,8 +395,8 @@
 
         &.ant-progress-show-info {
             .ant-progress-outer {
-                margin-right: -1.75rem;
-                padding-right: 1.75rem;
+                margin-right: -2rem;
+                padding-right: 2rem;
             }
         }
 

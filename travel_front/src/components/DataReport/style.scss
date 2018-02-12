@@ -133,6 +133,7 @@ $animateTime: .36s;
 
 @include media("<=sm") {
   $contentHeight: calc(100vh - 60 / 1920 * 1366px);
+  $headerHeight: 60 / 1920 * 1366px;
   .report {
     .nav-left-box {
       font-size: smpx(16);
