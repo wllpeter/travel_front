@@ -17,7 +17,7 @@ const scaleList = [3, 2, 1.5, 1, .75, .5]; // 可缩放的列表
 let timer = null; // 一次性定时器
 
 const canvasTop = 60 * sizeRatio; // 记录第一个canvas容器距页面顶部的高度
-const margin = 4; // canvas之间的margin值
+const margin = 4 * sizeRatio; // canvas之间的margin值
 
 let pagesObj = {}; // 储存已经draw过的页面
 
@@ -25,7 +25,7 @@ if (__DEV__) {
     baseUrl = devConfig.DEV_API_SERVER + '/download';
 }
 
-export default class TouristData extends Component {
+export default class DataReport extends Component {
     constructor(props) {
         super(props);
         this.state = {

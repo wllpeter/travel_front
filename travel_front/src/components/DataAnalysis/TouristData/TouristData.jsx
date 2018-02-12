@@ -145,8 +145,9 @@ export default class TouristData extends Component {
                 chartId: 'villageConsumptionBarChart',
                 title: '释义: 星级越高，消费者潜力越强',
                 titleLeft: 20 * sizeRatio,
-                titleTop: isSmallScreen ? 3 : 8,
+                titleTop: isSmallScreen ? 2 : 8,
                 titleFontSize: 12 * sizeRatio,
+                labelDistance: 4 * sizeRatio,
                 legendShow: false,
                 xAxisData: consumptionPotential.potentialLevels,
                 barWidth: 13 * sizeRatio,
@@ -532,7 +533,8 @@ export default class TouristData extends Component {
                                 <PanelCard title="四川省游客性别分布">
                                     <div className="sex-distribution">
                                         <div className="total male-total">
-                                            <img style={{width: 38 * sizeRatio, height: 60 * sizeRatio}} src={maleIcon} alt="男性"/>
+                                            <img style={{width: 38 * sizeRatio, height: 60 * sizeRatio}} src={maleIcon}
+                                                 alt="男性"/>
                                             <div className="info-data">
                                                 <span>男性<em>{genderData[0] || '0%'}</em></span>
                                                 <div className="data-bar male-bar"
@@ -540,7 +542,8 @@ export default class TouristData extends Component {
                                             </div>
                                         </div>
                                         <div className="total">
-                                            <img style={{width: 38 * sizeRatio, height: 60 * sizeRatio}} src={femaleIcon} alt="女性"/>
+                                            <img style={{width: 38 * sizeRatio, height: 60 * sizeRatio}}
+                                                 src={femaleIcon} alt="女性"/>
                                             <div className="info-data">
                                                 <span>女性<em>{genderData[1] || '0%'}</em></span>
                                                 <div className="data-bar female-bar"

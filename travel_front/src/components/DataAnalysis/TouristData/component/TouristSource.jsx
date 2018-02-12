@@ -134,7 +134,7 @@ export default class TouristSource extends Component {
                     }
                 </Select>
                 <div style={{height: 300 * sizeRatio, overflow: 'hidden'}}>
-                    <table className="mt-table mt-table-noborder col-1-al" style={{height: 280 * sizeRatio}}>
+                    <table className="mt-table mt-table-noborder col-1-al">
                         <thead>
                         <tr>
                             <th className="pl-12">排名</th>
