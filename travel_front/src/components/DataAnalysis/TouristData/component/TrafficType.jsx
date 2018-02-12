@@ -115,7 +115,7 @@ export default class TrafficType extends Component {
             legendRight: '10%',
             legendTop: '20',
             legendItemGap: 10,
-            gridLeft: (isSmallScreen && !visible) ? 0 : 22,
+            gridLeft: (isSmallScreen && !visible) ? 10 : 22,
             gridTop: 45,
             trigger: 'item',
             labelTextSize: visible ? 16 : 12,
