@@ -92,12 +92,13 @@ export default class FiveEconomicZone extends Component {
      */
     renderFiveZonePeopleData(visible) {
         // 五大经济区客游人次
+        let ratio = visible ? 1 : sizeRatio;
         adCharts.barChart({
             chartId: visible ? 'fiveEconomicZoneBarChart2' : 'fiveEconomicZoneBarChart',
             legend: ['五大经济区客游人次'],
             legendShow: false,
             title: '单位 : 万',
-            titleRight: 28,
+            titleRight: 28 * ratio,
             yAxisData: ['川西北生态经济区', '攀西经济区'.padEnd(14, ' '), '川东北经济区'.padEnd(12, ' '), '川南经济区'.padEnd(14, ' '), '成都平原经济区'.padEnd(10, ' ')],
             xAxisLineShow: false,
             xAxisLabelShow: false,
@@ -105,12 +106,13 @@ export default class FiveEconomicZone extends Component {
             row: true,
             titleSize: visible ? 18 : 14,
             labelTextSize: visible ? 16 : 14,
-            barWidth: visible ? 26 : 22,
+            barWidth: (visible ? 26 : 22) * ratio,
             itemSize: visible ? 16 : 14,
             gridLeft: '5%',
             gridRight: '18%',
             seriesLabelShow: true,
-            series: [this.state.fiveZonePeopleNumData.reverse().toArray()]
+            series: [this.state.fiveZonePeopleNumData.reverse().toArray()],
+            sizeRatio: ratio
         });
     }
 
@@ -131,7 +133,7 @@ export default class FiveEconomicZone extends Component {
         return <div>
             <PanelCard title="五大经济区客游人次" className="bg-grey" {...panelProps}
                        enlarge={this.showModal.bind(this)}>
-                <div id="fiveEconomicZoneBarChart" style={{width: '100%', height: 300}}/>
+                <div id="fiveEconomicZoneBarChart" style={{width: '100%', height: 300 * sizeRatio}}/>
             </PanelCard>
             <Modal visible={visible} onOk={() => {
                 this.fetchFiveZoneData.bind(this)();

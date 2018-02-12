@@ -92,7 +92,7 @@ export default class TrafficType extends Component {
                     touristTrafficTypes: List(trafficTypes)
                 }), () => {
                     this.renderTouristTrafficTypesData();
-                    if(this.state.visible){
+                    if (this.state.visible) {
                         this.renderTouristTrafficTypesData(true);
                     }
                 });
@@ -105,6 +105,7 @@ export default class TrafficType extends Component {
      */
     renderTouristTrafficTypesData(visible) {
         // 游客交通方式
+        let ratio = visible ? 1 : sizeRatio;
         adCharts.barChart({
             chartId: visible ? 'touristTrafficWayBarChart2' : 'touristTrafficWayBarChart',
             legend: this.trafficTypeSort,
@@ -117,16 +118,17 @@ export default class TrafficType extends Component {
             gridTop: 45,
             trigger: 'item',
             labelTextSize: visible ? 16 : 12,
-            barWidth: visible ? 20 : 14,
+            barWidth: (visible ? 20 : 14) * ratio,
             itemSize: visible ? 16 : 12,
-            legendSize: visible ? 16 : 12,
+            legendSize: (visible ? 16 : 12) * ratio,
             legendWidth: visible ? 12 : 8,
             legendHeight: visible ? 12 : 8,
             xAxisLineShow: false,
             yAxisLineShow: false,
             row: true,
             stack: true,
-            series: this.state.touristTrafficTypes.toArray()
+            series: this.state.touristTrafficTypes.toArray(),
+            sizeRatio: ratio
         });
     }
 
@@ -145,9 +147,9 @@ export default class TrafficType extends Component {
     render() {
         let {visible, panelProps} = this.state;
         return <div>
-            <PanelCard title="五大经济区游客交通方式"  enlarge={this.showModal.bind(this)}
+            <PanelCard title="五大经济区游客交通方式" enlarge={this.showModal.bind(this)}
                        className="bg-grey" {...panelProps}>
-                <div id="touristTrafficWayBarChart" style={{width: '100%', height: 300}}/>
+                <div id="touristTrafficWayBarChart" style={{width: '100%', height: 300 * sizeRatio}}/>
             </PanelCard>
             <Modal visible={visible} onOk={() => {
                 this.fetchFiveZoneTrafficType.bind(this)();
