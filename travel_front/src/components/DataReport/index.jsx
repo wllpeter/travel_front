@@ -16,7 +16,7 @@ let baseUrl = '/download';
 const scaleList = [3, 2, 1.5, 1, .75, .5]; // 可缩放的列表
 let timer = null; // 一次性定时器
 
-const canvasTop = 60; // 记录第一个canvas容器距页面顶部的高度
+const canvasTop = 60 * sizeRatio; // 记录第一个canvas容器距页面顶部的高度
 const margin = 4; // canvas之间的margin值
 
 let pagesObj = {}; // 储存已经draw过的页面
@@ -337,7 +337,7 @@ export default class TouristData extends Component {
         }
         let page = 1;
         let scale = 1;
-        this.setState({page, scale}, () => {
+        this.setState({page, scale, bigBtnShow: true}, () => {
             this.drawPdf();
         });
     }
@@ -445,7 +445,7 @@ export default class TouristData extends Component {
                                     <i className={`iconfont icon-xiangyou ${item.selected ? 'icon-open' : ''}`}></i>
                                 </a>
                                 <ul className="nav-children"
-                                    style={{height: item.selected ? item.children.length * 60 + 'px' : 0}}>
+                                    style={{height: item.selected ? item.children.length * canvasTop + 'px' : 0}}>
                                     {
                                         item.children.map((child, i) => {
                                             return <li key={i}

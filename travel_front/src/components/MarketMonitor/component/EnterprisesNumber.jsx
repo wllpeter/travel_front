@@ -77,17 +77,19 @@ export default class EnterprisesNumber extends Component {
     }
 
     print(params, visible) {
+        let ratio = visible ? 1 : sizeRatio;
         AD_CHART.barChart({
             chartId: visible ? 'companyBarChart2' : 'companyBarChart',
-            barWidth: visible ? 24 : 16,
+            barWidth: visible ? 24 : 16 * ratio,
             xAxisData: ['1季度', '2季度', '3季度', '4季度'],
             yAxisName: '企业(家)',
             legend: ['存量企业', '增量企业'],
             legendIcon: 'circle',
-            legendRight: '22',
-            gridBottom: 25,
-            gridTop: 80,
-            legendSize: visible ? 16 : 12,
+            legendRight: 22 * ratio,
+            gridBottom: 25 * ratio,
+            gridTop: 80 * ratio,
+            legendSize: visible ? 16 : 12 * ratio,
+            sizeRatio: ratio,
             series: [params.cunData, params.increaseData]
         });
     }
@@ -109,7 +111,7 @@ export default class EnterprisesNumber extends Component {
         return <div>
             <PanelCard title="省内涉旅企业数量变更" className="bg-grey" {...panelProps}
                        enlarge={this.showModal.bind(this)}>
-                <div id="companyBarChart" style={{width: '100%', height: 300}}></div>
+                <div id="companyBarChart" style={{width: '100%', height: 300 * sizeRatio}}></div>
             </PanelCard>
             <Modal visible={visible} onOk={() => {
                 this.getProvinceChangeData();

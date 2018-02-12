@@ -129,7 +129,7 @@ export default class DevelopmentIndexRadar extends Component {
                         textStyle: {
                             color: '#FFFFFF'
                         },
-                        fontSize: 16
+                        fontSize: 16 * sizeRatio
                     },
                     splitArea: {
                         areaStyle: {

@@ -1,84 +1,84 @@
 @import "../../public";
 .productMonitor {
-    overflow: hidden;
-    background: $bgColor;
-    min-height: $contentHeight;
-    .left-nav-box {
-        width: 82px;
-        height: $contentHeight;
-        float: left;
-        .left-nav {
-            overflow: hidden;
-            width: 82px;
-            height: $contentHeight;
-            position: fixed;
-            top: $headerHeight;
-            overflow-y: auto;
-            left: 0;
-            & > li {
-                width: 100%;
-                float: left;
-                margin-top: 8vh;
-                padding: 4px 0;
-                border-right: 3px solid transparent;
-                cursor: pointer;
-                .iconfont {
-                    text-align: center;
-                    font-size: 26px;
-                    &:before {
-                        display: block;
-                        margin: 0 auto;
-                    }
-                }
-                p {
-                    width: 100%;
-                    text-align: center;
-                    font-size: 16px;
-                    margin-top: 10px;
-                }
-            }
-            .active {
-                color: #00A9FF;
-                border-color: #00A9FF;
-            }
-        }
-    }
-    .product-container {
-        width: calc(100% - 82px);
-        background: #072648;
-        float: left;
-        .product-praise {
-            background: $bgColor;
-            border-left: 3px solid #072648;
-            height: 718px;
-            .panel-card-body {
-                overflow: visible;
-            }
-            .praise{
-                height: 646px;
-                line-height: 2;
-                .praise-icon{
-                    padding-left: 7px;
-                    .iconfont{
-                        font-size: 14px;
-                    }
-                }
-                .praise-icon-up{
-                    color: #DC9474;
-                }
-                .praise-icon-down{
-                    color: #32C788;
-                }
-                .mt-table tr td{
-                    padding: 13px 8px;
-                }
-            }
-        }
-    }
-    .mb-20 {
-        margin: 0;
-    }
-}
+     overflow: hidden;
+     background: $bgColor;
+     min-height: $contentHeight;
+     .left-nav-box {
+         width: 82px;
+         height: $contentHeight;
+         float: left;
+         .left-nav {
+             overflow: hidden;
+             width: 82px;
+             height: $contentHeight;
+             position: fixed;
+             top: $headerHeight;
+             overflow-y: auto;
+             left: 0;
+             & > li {
+                 width: 100%;
+                 float: left;
+                 margin-top: 8vh;
+                 padding: 4px 0;
+                 border-right: 3px solid transparent;
+                 cursor: pointer;
+                 .iconfont {
+                     text-align: center;
+                     font-size: 26px;
+                     &:before {
+                         display: block;
+                         margin: 0 auto;
+                     }
+                 }
+                 p {
+                     width: 100%;
+                     text-align: center;
+                     font-size: 16px;
+                     margin-top: 10px;
+                 }
+             }
+             .active {
+                 color: #00A9FF;
+                 border-color: #00A9FF;
+             }
+         }
+     }
+     .product-container {
+         width: calc(100% - 82px);
+         background: #072648;
+         float: left;
+         .product-praise {
+             background: $bgColor;
+             border-left: 3px solid #072648;
+             height: 718px;
+             .panel-card-body {
+                 overflow: visible;
+             }
+             .praise{
+                 height: 646px;
+                 line-height: 2;
+                 .praise-icon{
+                     padding-left: 7px;
+                     .iconfont{
+                         font-size: 14px;
+                     }
+                 }
+                 .praise-icon-up{
+                     color: #DC9474;
+                 }
+                 .praise-icon-down{
+                     color: #32C788;
+                 }
+                 .mt-table tr td{
+                     padding: 13px 8px;
+                 }
+             }
+         }
+     }
+     .mb-20 {
+         margin: 0;
+     }
+ }
 
 .product-map {
     width: 100%;
@@ -126,14 +126,6 @@
     }
 }
 
-.wordRank-big{
-    font-size: 18px;
-    line-height: 2.5;
-    td{
-        font-size: 18px;
-    }
-}
-
 .praise-box{
     .panel-card {
         .panel-card-header{
@@ -150,4 +142,151 @@
     white-space:nowrap;
     text-overflow:ellipsis;
     cursor: pointer;
+}
+
+@include media("<=sm"){
+    .productMonitor {
+        overflow: hidden;
+        background: $bgColor;
+        min-height: $contentHeight;
+        .left-nav-box {
+            width: smpx(82);
+            height: $contentHeight;
+            float: left;
+            .left-nav {
+                overflow: hidden;
+                width: smpx(82);
+                height: $contentHeight;
+                position: fixed;
+                top: $headerHeight;
+                overflow-y: auto;
+                left: 0;
+                & > li {
+                    width: 100%;
+                    float: left;
+                    margin-top: 8vh;
+                    padding: smpx(4) 0;
+                    border-right: smpx(3) solid transparent;
+                    cursor: pointer;
+                    .iconfont {
+                        text-align: center;
+                        font-size: smpx(26);
+                        &:before {
+                            display: block;
+                            margin: 0 auto;
+                        }
+                    }
+                    p {
+                        width: 100%;
+                        text-align: center;
+                        font-size: smpx(16);
+                        margin-top: smpx(10);
+                    }
+                }
+                .active {
+                    color: #00A9FF;
+                    border-color: #00A9FF;
+                }
+            }
+        }
+        .product-container {
+            width: calc(100% - 82 / 1920 * 1366px);
+            background: #072648;
+            float: left;
+            .product-praise {
+                background: $bgColor;
+                border-left: smpx(3) solid #072648;
+                height: smpx(718);
+                .panel-card-body {
+                    overflow: visible;
+                }
+                .praise{
+                    height: smpx(646);
+                    line-height: 2;
+                    .praise-icon{
+                        padding-left: smpx(7);
+                        .iconfont{
+                            font-size: smpx(14);
+                        }
+                    }
+                    .praise-icon-up{
+                        color: #DC9474;
+                    }
+                    .praise-icon-down{
+                        color: #32C788;
+                    }
+                    .mt-table tr td{
+                        padding: smpx(13) smpx(8);
+                    }
+                }
+            }
+        }
+        .mb-20 {
+            margin: 0;
+        }
+    }
+
+    .product-map {
+        width: 100%;
+        height: smpx(300);
+    }
+
+    .product-down-map{
+        width: 100%;
+        height: smpx(360);
+        overflow: hidden;
+    }
+
+    .product-down{
+        background: $bgColor;
+        border-top: smpx(3) solid #072648;
+        border-left: smpx(3) solid #072648;
+    }
+
+    .hotWord-zoom{
+        background: $bgColor;
+        height: 100%;
+    }
+
+    #hotWord-map2{
+        height: 100%;
+    }
+
+    #particles-box{
+        position: relative;
+        #particles-js{
+            position: absolute;
+            z-index: 10;
+            top: 6%;
+            left: 6%;
+            right: 6%;
+            bottom: 16%;
+        }
+        #dev-index-map{
+            position: absolute;
+            width: 100%;
+            z-index: 100;
+            top: 0;
+            left: 0;
+            bottom: 0;
+        }
+    }
+
+    .praise-box{
+        .panel-card {
+            .panel-card-header{
+                .mt-select-input{
+                    right: smpx(10);
+                }
+            }
+        }
+    }
+
+    .scenic-name{
+        max-width: smpx(200);
+        overflow:hidden;
+        white-space:nowrap;
+        text-overflow:ellipsis;
+        cursor: pointer;
+    }
 }

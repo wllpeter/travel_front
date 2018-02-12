@@ -39,6 +39,7 @@ export function colorHex(color, opacity) {
  *          params.zoomFiller底部滑动框的填充颜色
  *          params.lengthMax数据的总长度
  *          params.showLength用于展示的数据长度
+ *          params.zoomHeight滚动条的高度
  * */
 export function getDataZoom(params) {
     let start = 0;
@@ -65,6 +66,7 @@ export function getDataZoom(params) {
             textStyle: {
                 color: 'transparent'
             },
+            height: params.zoomHeight || 20,
             start: start,
             end: 100
         },

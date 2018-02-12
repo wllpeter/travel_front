@@ -76,6 +76,7 @@ export default class HotWord extends Component {
     }
 
     print(visible, data) {
+        let ratio = visible ? 1 : sizeRatio;
         let option = {
             title: {
                 text: ''
@@ -86,30 +87,30 @@ export default class HotWord extends Component {
                 backgroundColor: '#1F3A59',
                 borderWidth: 1,
                 borderColor: '#ffffff',
-                padding: 7,
+                padding: 7 * ratio,
                 textStyle: {
-                    lineHeight: 56
+                    lineHeight: 56 * ratio
                 }
             },
             series: [{
                 name: '产品评价热词云',
                 type: 'wordCloud',
                 size: ['90%', '90%'],
-                sizeRange: visible ? [24, 100] : [12, 60],
+                sizeRange: visible ? [24, 100] : [12 * ratio, 60 * ratio],
                 rotationRange: [-45, 45],
                 rotationStep: 10,
                 shape: 'circle',
-                textPadding: 15,
+                textPadding: 15 * ratio,
                 autoSize: {
                     enable: true,
-                    minSize: 12
+                    minSize: 12 * ratio
                 },
                 textStyle: {
                     normal: {
                         color: '#00AFEC'
                     },
                     emphasis: {
-                        shadowBlur: 10,
+                        shadowBlur: 10 * ratio,
                         shadowColor: '#333'
                     }
                 },

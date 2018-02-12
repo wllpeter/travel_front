@@ -1,3 +1,4 @@
+@import "../../public";
 .market-monitor {
   .ul-list {
     padding: 32px 0;
@@ -147,8 +148,10 @@
   font-size: 18px;
   line-height: 2.5;
   margin-top: 30px;
-  td {
-    font-size: 18px;
+  tr{
+    td {
+      font-size: 18px;
+    }
   }
 }
 
@@ -156,4 +159,152 @@
   font-size: 18px;
   padding: 0 40px;
   line-height: 2.5;
+}
+
+@include media("<=sm") {
+  .market-monitor {
+    .ul-list {
+      padding: smpx(32) 0;
+      & > li {
+        display: inline-block;
+        width: 50%;
+        margin: smpx(8) 0;
+
+        &:nth-child(even) {
+          padding-left: 2rem;
+        }
+      }
+    }
+
+    .map-box {
+      position: relative;
+      margin-top: 22px;
+      // 地图按钮样式
+      .map-breadcrumb {
+        width: 100%;
+        height: smpx(40);
+        position: absolute;
+        right: 5%;
+        top: 0;
+        li {
+          float: right;
+          height: smpx(32);
+          line-height: smpx(32);
+        }
+        .breadcrumb-button {
+          border-radius: smpx(16);
+          background-color: #00A9FF;
+          cursor: pointer;
+          color: #072648;
+          font-size: smpx(16);
+          font-weight: 500;
+          text-align: center;
+          padding: 0 smpx(12);
+          margin: 0 smpx(10);
+          &:hover {
+            background-color: #36c5ff;
+          }
+        }
+        .breadcrumb-break {
+          color: #00A9FF;
+          font-size: smpx(20);
+        }
+      }
+    }
+
+    .market-monitor-maps {
+      .panel-card-header {
+        .mt-select-input {
+          right: auto;
+          left: smpx(160);
+        }
+      }
+    }
+    .custom-style {
+      margin: 1rem 9.5% 0;
+
+      .panel-card-header {
+        padding: 0;
+        h3{
+          font-weight: 600;
+        }
+      }
+    }
+
+    .col-1-al {
+      tr {
+        td:first-child, th:first-child {
+          text-align: left;
+        }
+      }
+    }
+
+    .separate-line {
+      height: smpx(2);
+      margin: smpx(0) 9.5%;
+      background-color: #213c5b;
+    }
+
+    .network-info {
+      ul {
+        padding: smpx(22) smpx(22) smpx(20);
+        & > li {
+          padding-bottom: smpx(15);
+          a {
+            display: inline-block;
+            max-width: smpx(330);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+          a:hover {
+            color: #00a9ff;
+            text-decoration: underline;
+          }
+
+          .info-time {
+            float: right;
+          }
+        }
+      }
+      .move{
+        animation: mymove 150s linear infinite;
+        -webkit-animation: mymove 150s linear infinite; /* Safari 和 Chrome */
+      }
+    }
+
+    .network-big {
+      ul {
+        & > li {
+          a {
+            max-width: smpx(460);
+          }
+        }
+      }
+    }
+  }
+
+
+  @keyframes mymove
+  {
+    from {transform: translateY(0)}
+    to {transform: translateY(-96%)}
+  }
+
+  @-webkit-keyframes mymove /*Safari and Chrome*/
+  {
+    from {transform: translateY(0)}
+    to {transform: translateY(-96%)}
+  }
+
+  .bg-grey {
+    margin-top: smpx(2);
+  }
+
+  .modal-box {
+    .bg-grey {
+      margin-top: 0;
+    }
+  }
+
 }

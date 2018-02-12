@@ -13,6 +13,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
 </head>
+<script>
+    var isSmallScreen = document.documentElement.clientWidth <= 1366;
+    var sizeRatio = isSmallScreen ? 1366 / 1920 : 1;
+</script>
 <body>
 <div id="App"></div>
 </body>

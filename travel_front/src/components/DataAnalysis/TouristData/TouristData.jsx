@@ -74,14 +74,16 @@ export default class TouristData extends Component {
                 chartId: 'provinceAgePieChart',
                 legend: ['20以下', '20-25', '25-30', '30-35', '35-40', '40-45', '45-50', '50-55', '55-60', '60-65', '65以上'],
                 legendIcon: 'circle',
-                borderWidth: 6,
+                borderWidth: 6 * sizeRatio,
                 borderColor: '#072848',
-                legendTop: 80,
-                legendHeight: 150,
+                legendTop: isSmallScreen ? 40 : 80,
+                legendHeight: isSmallScreen ? 120 : 150,
+                labelFontSize: 12 * sizeRatio,
                 legendRight: '10%',
                 color: ['#dc9473', '#ddcf73', '#b6dd74', '#32c889', '#0dbbc7', '#00a9ff', '#1b75d3', '#3559c5', '#5334c5', '#9e35c5', '#df5fa8'],
                 center: ['30%', '50%'],
-                data: provinceTouristData.get('ageData')
+                data: provinceTouristData.get('ageData'),
+                sizeRatio
             });
         }
 
@@ -93,7 +95,7 @@ export default class TouristData extends Component {
                 legendIcon: 'circle',
                 legendRight: '12%',
                 legendTop: '0',
-                itemGap: 35,
+                itemGap: 35 * sizeRatio,
                 xAxisData: ['1季度', '2季度', '3季度', '4季度'],
                 yAxisName: '流量 (万)',
                 smooth: false,
@@ -102,7 +104,8 @@ export default class TouristData extends Component {
                 right: 30,
                 bottom: 40,
                 colors: ['#32c889', '#00a9ff'],
-                series: flowAnalysis.get('province')[selectedFlowAnalysisIndex].data
+                series: flowAnalysis.get('province')[selectedFlowAnalysisIndex].data,
+                sizeRatio
             });
         }
     }
@@ -121,14 +124,16 @@ export default class TouristData extends Component {
                 chartId: 'villageAgePieChart',
                 legend: ['20以下', '20-25', '25-30', '30-35', '35-40', '40-45', '45-50', '50-55', '55-60', '60-65', '65以上'],
                 legendIcon: 'circle',
-                borderWidth: 6,
+                borderWidth: 6 * sizeRatio,
                 borderColor: '#072848',
-                legendTop: 80,
-                legendHeight: 150,
+                legendTop: isSmallScreen ? 40 : 80,
+                legendHeight: isSmallScreen ? 120 : 150,
+                labelFontSize: 12 * sizeRatio,
                 legendRight: '10%',
                 color: ['#dc9473', '#ddcf73', '#b6dd74', '#32c889', '#0dbbc7', '#00a9ff', '#1b75d3', '#3559c5', '#5334c5', '#9e35c5', '#df5fa8'],
                 center: ['30%', '50%'],
-                data: villageTouristData.get('ageData')
+                data: villageTouristData.get('ageData'),
+                sizeRatio
             });
         }
 
@@ -139,22 +144,24 @@ export default class TouristData extends Component {
             adCharts.percentBarChart({
                 chartId: 'villageConsumptionBarChart',
                 title: '释义: 星级越高，消费者潜力越强',
-                titleLeft: 20,
-                titleFontSize: 12,
+                titleLeft: 20 * sizeRatio,
+                titleTop: isSmallScreen ? 3 : 8,
+                titleFontSize: 12 * sizeRatio,
                 legendShow: false,
                 xAxisData: consumptionPotential.potentialLevels,
-                barWidth: 13,
-                labelFontSize: 12,
-                gridTop: 60,
+                barWidth: 13 * sizeRatio,
+                labelFontSize: 12 * sizeRatio,
+                gridTop: 60 * sizeRatio,
                 gridLeft: 0,
                 yAxisLineShow: false,
                 yAxisLabelShow: false,
                 xAxisLineShow: false,
                 colors: ['#415870', '#00a9ff'],
-                labelOffset: [0, -10],
+                labelOffset: [0, -10 * sizeRatio],
                 labelMargin: 0,
                 labelPos: 'top',
-                series: [new Array(consumptionPotential.potentialLevels.length).fill(100), consumptionPotential.data]
+                series: [new Array(consumptionPotential.potentialLevels.length).fill(100), consumptionPotential.data],
+                sizeRatio
             });
         }
 
@@ -165,13 +172,14 @@ export default class TouristData extends Component {
                 legendShow: false,
                 yAxisData: ['120h以上'.padEnd(7, ' '), '96h-120h', '72h-96h'.padEnd(8, ' '), '48h-72h'.padEnd(8, ' '), '24h-48h'.padEnd(8, ' '), '12h-24h'.padEnd(8, ' '), '3h-12h'.padEnd(9, ' ')],
                 row: true,
-                barWidth: 8,
+                barWidth: 8 * sizeRatio,
                 colors: ['#415870', '#00a9ff'],
-                gridRight: 70,
+                gridRight: 70 * sizeRatio,
                 yAxisLineShow: false,
                 xAxisLineShow: false,
                 xAxisLabelShow: false,
-                series: [[100, 100, 100, 100, 100, 100, 100], villageTouristData.get('tripTime')]
+                series: [[100, 100, 100, 100, 100, 100, 100], villageTouristData.get('tripTime')],
+                sizeRatio
             });
         }
 
@@ -183,7 +191,7 @@ export default class TouristData extends Component {
                 legendIcon: 'circle',
                 legendRight: '12%',
                 legendTop: '0',
-                itemGap: 35,
+                itemGap: 35 * sizeRatio,
                 xAxisData: ['1季度', '2季度', '3季度', '4季度'],
                 yAxisName: '流量 (万)',
                 smooth: false,
@@ -192,7 +200,8 @@ export default class TouristData extends Component {
                 right: 30,
                 bottom: 40,
                 colors: ['#32c889', '#00a9ff'],
-                series: flowAnalysis.get('country')[selectedCountryFlowAnalysisIndex].data
+                series: flowAnalysis.get('country')[selectedCountryFlowAnalysisIndex].data,
+                sizeRatio
             });
         }
 
@@ -378,7 +387,7 @@ export default class TouristData extends Component {
                 });
             }
 
-            console.log(tripTimeData)
+            console.log(tripTimeData);
 
             if (ageSeriesData && ageSeriesData.length && potentialData && tripTimeData && tripTimeData.length) {
                 this.setState(({villageTouristData}) => ({
@@ -508,21 +517,22 @@ export default class TouristData extends Component {
 
         return <div className="tourist-data">
             <Row>
-                <Col span={12}  xl={12}>
+                <Col span={12} xl={12}>
                     <PanelCard
                         title="四川省游客分析" {...this.getHeaderOptions([true, false, 'sex', true], this.fetchProvinceCustomerData)}
                         className="br-line" headerClassName="header-bg color-white month-top-12">
                         <Row>
                             <Col span={12}>
                                 <PanelCard title="四川省游客年龄分布">
-                                    <div id="provinceAgePieChart" style={{width: '100%', height: 260}}></div>
+                                    <div id="provinceAgePieChart"
+                                         style={{width: '100%', height: 260 * sizeRatio}}></div>
                                 </PanelCard>
                             </Col>
                             <Col span={12}>
                                 <PanelCard title="四川省游客性别分布">
                                     <div className="sex-distribution">
                                         <div className="total male-total">
-                                            <img src={maleIcon} alt="男性"/>
+                                            <img style={{width: 38 * sizeRatio, height: 60 * sizeRatio}} src={maleIcon} alt="男性"/>
                                             <div className="info-data">
                                                 <span>男性<em>{genderData[0] || '0%'}</em></span>
                                                 <div className="data-bar male-bar"
@@ -530,7 +540,7 @@ export default class TouristData extends Component {
                                             </div>
                                         </div>
                                         <div className="total">
-                                            <img src={femaleIcon} alt="女性"/>
+                                            <img style={{width: 38 * sizeRatio, height: 60 * sizeRatio}} src={femaleIcon} alt="女性"/>
                                             <div className="info-data">
                                                 <span>女性<em>{genderData[1] || '0%'}</em></span>
                                                 <div className="data-bar female-bar"
@@ -553,27 +563,33 @@ export default class TouristData extends Component {
                                             })
                                         }
                                     </Select>
-                                    <div id="provinceFlowLineChart" style={{width: '100%', height: 260}}></div>
+                                    <div id="provinceFlowLineChart"
+                                         style={{width: '100%', height: 260 * sizeRatio}}></div>
                                 </PanelCard>
                             </Col>
                         </Row>
                     </PanelCard>
                 </Col>
-                <Col span={12}  xl={12}>
+                <Col span={12} xl={12}>
                     <PanelCard
                         title="乡村游游客分析"  {...this.getHeaderOptions([true, false, this.state.villageActive.split('-')[0], true], this.fetchCountyData)}
                         headerClassName="header-bg color-white month-top-12">
                         <ToggleButtonGroup {...countryTripOptions}
-                                           style={{'position': 'absolute', 'top': 15, 'right': 195}}/>
+                                           style={{
+                                               'position': 'absolute',
+                                               'top': 15 * sizeRatio,
+                                               'right': 195 * sizeRatio
+                                           }}/>
                         <Row>
                             <Col span={12}>
                                 <PanelCard title="乡村游游客年龄分析" zoomRequired={false} timeSelectRequired={false}>
-                                    <div id="villageAgePieChart" style={{width: '100%', height: 260}}></div>
+                                    <div id="villageAgePieChart" style={{width: '100%', height: 260 * sizeRatio}}></div>
                                 </PanelCard>
                             </Col>
                             <Col span={12}>
                                 <PanelCard title="乡村游消费潜力分布" zoomRequired={false} timeSelectRequired={false}>
-                                    <div id="villageConsumptionBarChart" style={{width: '100%', height: 260}}></div>
+                                    <div id="villageConsumptionBarChart"
+                                         style={{width: '100%', height: 260 * sizeRatio}}></div>
                                 </PanelCard>
                             </Col>
                         </Row>
@@ -590,19 +606,22 @@ export default class TouristData extends Component {
                                                     })
                                                 }
                                             </Select>
-                                            <div id="villageFlowLineChart" style={{width: '100%', height: 260}}></div>
+                                            <div id="villageFlowLineChart"
+                                                 style={{width: '100%', height: 260 * sizeRatio}}></div>
                                         </PanelCard>
                                     </Col>) :
                                     (<Col span={16}>
                                         <PanelCard title="乡村游出游人次" zoomRequired={false} timeSelectRequired={false}>
-                                            <div id="villageOutingBarChart" style={{width: '100%', height: 260}}></div>
+                                            <div id="villageOutingBarChart"
+                                                 style={{width: '100%', height: 260 * sizeRatio}}></div>
                                         </PanelCard>
                                     </Col>)
                             }
 
                             <Col span={8}>
                                 <PanelCard title="乡村游时长分布" zoomRequired={false} timeSelectRequired={false}>
-                                    <div id="villageDurationPercentBarChart" style={{width: '100%', height: 260}}></div>
+                                    <div id="villageDurationPercentBarChart"
+                                         style={{width: '100%', height: 260 * sizeRatio}}></div>
                                 </PanelCard>
                             </Col>
                         </Row>
@@ -611,16 +630,16 @@ export default class TouristData extends Component {
             </Row>
 
             <Row gutter={2}>
-                <Col span={6}  xl={6}>
+                <Col span={6} xl={6}>
                     <FiveEconomicZone timeRange={optionsData}/>
                 </Col>
-                <Col span={6}  xl={6}>
+                <Col span={6} xl={6}>
                     <TouristStay timeRange={optionsData}/>
                 </Col>
-                <Col span={6}  xl={6}>
+                <Col span={6} xl={6}>
                     <TouristSource timeRange={optionsData}/>
                 </Col>
-                <Col span={6}  xl={6}>
+                <Col span={6} xl={6}>
                     <TrafficType timeRange={optionsData}/>
                 </Col>
             </Row>

@@ -98,7 +98,7 @@ export default class TouristStay extends Component {
     renderTouristDelayTimeData(visible) {
 
         const {touristDelayTimeData} = this.state;
-
+        let ratio = visible ? 1 : sizeRatio;
         // 游客停留时长
         adCharts.barChart({
             chartId: visible ? 'touristStayBarChart2' : 'touristStayBarChart',
@@ -112,20 +112,21 @@ export default class TouristStay extends Component {
             legendBoxWidth: '65%',
             legendLeft: '5%',
             legendTop: '10',
-            legendItemGap: 10,
+            legendItemGap: (isSmallScreen && !visible) ? 0 : 10,
             gridTop: 45,
             trigger: 'item',
             labelTextSize: visible ? 16 : 12,
-            barWidth: visible ? 20 : 14,
+            barWidth: (visible ? 20 : 14) * ratio,
             itemSize: visible ? 16 : 12,
-            legendSize: visible ? 16 : 12,
+            legendSize: (visible ? 16 : 12) * ratio,
             legendWidth: visible ? 12 : 8,
             legendHeight: visible ? 12 : 8,
             xAxisLineShow: false,
             yAxisLineShow: false,
             row: true,
             stack: true,
-            series: touristDelayTimeData.toArray()
+            series: touristDelayTimeData.toArray(),
+            sizeRatio: ratio
         });
     }
 
@@ -146,7 +147,7 @@ export default class TouristStay extends Component {
         return <div>
             <PanelCard title="五大经济区游客停留时长" enlarge={this.showModal.bind(this)}
                        className="bg-grey" {...panelProps}>
-                <div id="touristStayBarChart" style={{width: '100%', height: 300}}></div>
+                <div id="touristStayBarChart" style={{width: '100%', height: 300 * sizeRatio}}></div>
             </PanelCard>
             <Modal visible={visible} onOk={() => {
                 this.fetchTouristDelayTime.bind(this)();

@@ -109,10 +109,10 @@ export default class Reputation extends Component {
                 <PanelCard className="map-card" title="旅游劳动投入"  {...panelProps}
                            narrow={this.handleCancel.bind(this)} zoomOutRequired={true}>
                     <div className="dev-down-map labor-big" style={{padding: '0 20px'}} style={{'height': '460px'}}>
-                        <table className="mt-table mt-table-noborder col-1-al">
+                        <table className="mt-table mt-table-noborder col-1-al table-big">
                             <thead>
                             <tr>
-                                <th className="pl-12 labor_td">地区</th>
+                                <th>地区</th>
                                 <th>活跃指数</th>
                                 <th>增速</th>
                             </tr>
@@ -121,7 +121,7 @@ export default class Reputation extends Component {
                             {
                                 items && items.map((item, index) => {
                                     return <tr key={index}>
-                                        <td className="labor_td">{item.area}</td>
+                                        <td>{item.area}</td>
                                         <td>{item.laborInput}</td>
                                         <td>{(item.compare * 100).toFixed(2) + '%'}</td>
                                     </tr>;

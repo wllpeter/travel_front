@@ -1,3 +1,4 @@
+@import "../../public.scss";
 .panel-card {
     background-color: inherit;
     position: relative;
@@ -48,7 +49,7 @@
                 border: 1px solid #1ce88b;
                 background: transparent;
                 color: rgba(255, 255, 255, 0.95);
-                font-size: 0.65rem;
+                font-size: 12px;
 
                 .iconfont {
                     color: #1ce88b;
@@ -155,7 +156,7 @@
             padding: 2px 15px;
             color: rgba(255, 255, 255, 0.95);
             background-color: #203a59;
-            font-size: 0.65rem;
+            font-size: 12px;
             border: 1px solid #00a9ff;
 
             &.active {
@@ -279,6 +280,241 @@
                     color: #1F3A59;
                 }
             }
+        }
+    }
+}
+
+
+@include media("<=sm") {
+    .panel-card {
+        background-color: inherit;
+        position: relative;
+        height: 100%;
+
+        .header-bg {
+            background-color: #06335C;
+        }
+
+        .color-white {
+            h3 {
+                color: rgba(255, 255, 255, 0.95) !important;
+                padding: 0 !important;
+            }
+            .mt-select-input{
+                top: smpx(10) !important;
+            }
+        }
+
+        .month-top-12 {
+            .month-select {
+                top: smpx(12) !important;
+            }
+        }
+
+        .panel-card-header {
+            padding: smpx(18) 0 smpx(18) smpx(22);
+
+            h3 {
+                font-size: 0.8rem;
+                color: rgba(0, 169, 255, 0.85);
+                line-height: 1;
+                padding-top: smpx(6);
+            }
+
+            .mt-select-input {
+                width: smpx(130);
+                right: smpx(40);
+                top: smpx(16);
+            }
+
+            @at-root {
+                .mt-select-input {
+                    position: absolute;
+                    z-index: 100;
+                    padding: smpx(5) smpx(12);
+                    border-radius: 0;
+                    border: smpx(1) solid #1ce88b;
+                    background: transparent;
+                    color: rgba(255, 255, 255, 0.95);
+                    font-size: smpx(12);
+
+                    .iconfont {
+                        color: #1ce88b;
+                        right: smpx(6);
+                    }
+
+                    @at-root {
+                        .mt-select {
+                            background-color: #203a59;
+                            border: smpx(1) solid #1ce88b;
+                            margin-top: smpx(-1);
+                            max-height: smpx(160);
+                            overflow: auto;
+                            z-index: 99999999999;
+
+                            .mt-select-option {
+                                padding: smpx(4) smpx(12);
+                                font-size: smpx(13);
+                                color: rgba(255, 255, 255, 0.8);
+
+                                &:first-child {
+                                    padding-top: smpx(6);
+                                }
+
+                                &:last-child {
+                                    padding-bottom: smpx(6);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .panel-card-body {
+            overflow: hidden;
+            height: calc(100% - 52/1920*1366px);
+        }
+
+        &.bg-grey {
+            background-color: #203a59;
+        }
+    }
+
+        // 百分比
+    .percent-bar {
+        .ant-progress-inner {
+            background-color: #52667c;
+            border-radius: 0;
+
+            .ant-progress-bg {
+                border-radius: 0;
+                background-color: #00a9ff;
+            }
+        }
+
+        &.ant-progress-show-info {
+            .ant-progress-outer {
+                margin-right: -1.75rem;
+                padding-right: 1.75rem;
+            }
+        }
+
+        .ant-progress-text {
+            font-size: 0.7rem;
+            margin-left: smpx(6);
+        }
+    }
+
+    // 切换按钮组
+    .toggle-button-group {
+        position: absolute;
+        top: 6%;
+        right: 6%;
+        z-index: 100;
+        ul {
+            padding-left: smpx(1);
+        }
+
+        li {
+            display: inline-block;
+            margin-left: smpx(-1);
+            a {
+                display: block;
+                padding: smpx(2) smpx(15);
+                color: rgba(255, 255, 255, 0.95);
+                background-color: #203a59;
+                font-size: smpx(12);
+                border: smpx(1) solid #00a9ff;
+
+                &.active {
+                    background-color: #00a9ff;
+                    color: #072748;
+                }
+            }
+
+            &:first-child > a {
+                border-bottom-left-radius: smpx(15);
+                border-top-left-radius: smpx(15);
+            }
+
+            &:last-child > a {
+                border-top-right-radius: smpx(15);
+                border-bottom-right-radius: smpx(15);
+            }
+        }
+
+    }
+
+    // 登出的弹出框
+    .logout-box{
+        .modal-box {
+            width: smpx(500);
+            height: smpx(240);
+            background: #1F3A59;
+            left: calc(50% - 250/1920*1366px);
+            top: calc(50% - 120/1920*1366px);
+            .logout-content{
+                overflow: hidden;
+                position: relative;
+                height: smpx(240);
+                .icon-close{
+                    font-size: smpx(20);
+                    color: #00A9FF;
+                    position: absolute;
+                    right: smpx(22);
+                    top: smpx(22);
+                    cursor: pointer;
+                    transition: all .36s;
+                    -moz-transition: all .36s;	/* Firefox 4 */
+                    -webkit-transition: all .36s;	/* Safari 和 Chrome */
+                    -o-transition: all .36s;	/* Opera */
+                    &:hover{
+                        transform: rotate(90deg);
+                        -ms-transform: rotate(90deg);		/* IE 9 */
+                        -webkit-transform: rotate(90deg);	/* Safari and Chrome */
+                        -o-transform: rotate(90deg);		/* Opera */
+                        -moz-transform: rotate(90deg);		/* Firefox */
+                    }
+                }
+                p{
+                    color: #fff;
+                    font-size: smpx(16);
+                    text-align: center;
+                    margin-top: smpx(60);
+                }
+                .logout-btn{
+                    margin-top: smpx(20);
+                    a{
+                        float: left;
+                        font-size: smpx(16);
+                        width: smpx(100);
+                        height: smpx(30);
+                        line-height: smpx(30);
+                        text-align: center;
+                        border-radius: smpx(16);
+                        border: smpx(1) solid #00A9FF;
+                    }
+                    .logout-cancel{
+                        margin-left: smpx(120);
+                    }
+                    .logout-confirm{
+                        float: right;
+                        margin-right: smpx(120);
+                        background-color: #00A9FF;
+                        color: #1F3A59;
+                    }
+                }
+            }
+        }
+    }
+
+    .modal-box{
+        .panel-card .panel-card-header .mt-select-input{
+            width: 130px;
+            right: 40px;
+            top: 16px;
+            font-size: 13px;
         }
     }
 }

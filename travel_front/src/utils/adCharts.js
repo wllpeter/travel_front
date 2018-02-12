@@ -41,7 +41,7 @@ const AD_CHART = {
                                 fontStyle: 'normal',
                                 fontWeight: 'normal',
                                 fontFamily: 'sans-serif',
-                                fontSize: params.itemSize || 14
+                                fontSize: (params.itemSize || 14) * (params.sizeRatio || 1)
                             }
                         }
                     },
@@ -67,7 +67,7 @@ const AD_CHART = {
                     fontStyle: 'normal',
                     fontWeight: 'normal',
                     fontFamily: 'microsoft yahei',
-                    fontSize: params.titleSize || '14'
+                    fontSize: (params.titleSize || 14) * (params.sizeRatio || 1)
                 },
                 // left: '30%',
                 right: params.titleRight || 'auto',
@@ -83,7 +83,7 @@ const AD_CHART = {
                 borderColor: '#ffffff',
                 padding: 7,
                 textStyle: {
-                    lineHeight: 56
+                    lineHeight: 56 * (params.sizeRatio || 1)
                 },
                 // formatter: (p) => {
                 //     console.log(p);
@@ -100,8 +100,8 @@ const AD_CHART = {
                 itemGap: params.legendItemGap === undefined ? 20 : params.legendItemGap,
                 top: params.legendTop === undefined ? '5%' : params.legendTop,
                 width: params.legendBoxWidth === undefined ? 'auto' : params.legendBoxWidth,
-                itemWidth: params.legendWidth || 8,
-                itemHeight: params.legendHeight || 8,
+                itemWidth: (params.legendWidth || 8) * (params.sizeRatio || 1),
+                itemHeight: (params.legendHeight || 8) * (params.sizeRatio || 1),
                 textStyle: {
                     color: '#fff',
                     fontStyle: 'normal',
@@ -133,7 +133,7 @@ const AD_CHART = {
                     show: params.xAxisLabelShow === undefined ? true : params.xAxisLabelShow,
                     textStyle: {
                         color: params.labelTextColor === undefined ? 'rgba(255, 255, 255, 0.95)' : params.labelTextColor,
-                        fontSize: params.labelTextFontSize || 14
+                        fontSize: (params.labelTextFontSize || 14) * (params.sizeRatio || 1)
                     }
                 }
             },
@@ -144,7 +144,7 @@ const AD_CHART = {
                 nameLocation: 'end',
                 nameTextStyle: {
                     color: params.nameTextColor === undefined ? 'rgba(255, 255, 255, 0.95)' : params.nameTextColor,
-                    fontSize: params.yAxisNameFontSize || 14
+                    fontSize: (params.yAxisNameFontSize || 14) * (params.sizeRatio || 1)
                 },
                 axisTick: {
                     show: false
@@ -164,11 +164,11 @@ const AD_CHART = {
                 },
                 axisLabel: {
                     show: true,
-                    margin: 20,
-                    height: 80,
+                    margin: 20 * (params.sizeRatio || 1),
+                    height: 80 * (params.sizeRatio || 1),
                     textStyle: {
                         color: params.labelTextColor === undefined ? 'rgba(255, 255, 255, 0.95)' : params.labelTextColor,
-                        fontSize: params.labelTextSize === undefined ? 14 : params.labelTextSize
+                        fontSize: (params.labelTextSize === undefined ? 14 : params.labelTextSize) * (params.sizeRatio || 1)
                     }
                 }
             },
@@ -338,7 +338,7 @@ const AD_CHART = {
                 borderColor: '#ffffff',
                 padding: 7,
                 textStyle: {
-                    lineHeight: 56
+                    lineHeight: 56 * (params.sizeRatio || 1)
                 },
                 formatter: function (param) {
                     let info = '';
@@ -369,15 +369,15 @@ const AD_CHART = {
                 width: params.legendWidth || 'auto',
                 height: params.legendHeight === undefined ? 'auto' : params.legendHeight,
                 right: params.legendRight === undefined ? 40 : params.legendRight,
-                itemWidth: 8,
-                itemHeight: 8,
-                itemGap: params.itemGap || 10,
+                itemWidth: 8 * (params.sizeRatio || 1),
+                itemHeight: 8 * (params.sizeRatio || 1),
+                itemGap: (params.itemGap || 10) * (params.sizeRatio || 1),
                 textStyle: {
                     color: 'rgba(255, 255, 255, 0.95)',
                     fontStyle: 'normal',
                     fontWeight: 'normal',
                     fontFamily: 'microsoft yahei',
-                    fontSize: params.legendSize || 14
+                    fontSize: (params.legendSize || 14) * (params.sizeRatio || 1)
                 }
             },
             series: {
@@ -489,7 +489,7 @@ const AD_CHART = {
             },
             grid: {
                 width: params.width === undefined ? 'auto' : params.width,
-                left: params.left === undefined ? '10%' : params.left,
+                left: params.left === undefined ? '12%' : params.left,
                 top: params.top === undefined ? 60 : params.top,
                 right: params.right === undefined ? '10%' : params.right,
                 bottom: params.bottom === undefined ? 60 : params.bottom
@@ -512,8 +512,8 @@ const AD_CHART = {
             legend: {
                 data: params.legend,
                 show: params.legendShow === undefined ? true : params.legendShow,
-                itemWidth: params.regionLegend === undefined ? 8 : 25,
-                itemHeight: params.regionLegend === undefined ? 8 : 14,
+                itemWidth: (params.regionLegend === undefined ? 8 : 25) * (params.sizeRatio || 1),
+                itemHeight: (params.regionLegend === undefined ? 8 : 14) * (params.sizeRatio || 1),
                 itemGap: params.itemGap || 'auto',
                 icon: params.legendIcon === undefined ? null : params.legendIcon,
                 top: params.legendTop === undefined ? '5%' : params.legendTop,
@@ -523,7 +523,7 @@ const AD_CHART = {
                     fontStyle: 'normal',
                     fontWeight: 'normal',
                     fontFamily: 'microsoft yahei',
-                    fontSize: 13
+                    fontSize: 13 * (params.sizeRatio || 1)
                 }
             },
             xAxis: {
@@ -536,7 +536,7 @@ const AD_CHART = {
                     fontStyle: 'normal',
                     fontWeight: 'bold',
                     fontFamily: 'sans-serif',
-                    fontSize: 12
+                    fontSize: 12 * (params.sizeRatio || 1)
                 },
                 boundaryGap: params.xBoundaryGap === undefined ? true : params.xBoundaryGap,
                 data: params.xAxisData,
@@ -557,7 +557,7 @@ const AD_CHART = {
                     show: true,
                     textStyle: {
                         color: params.labelTextColor === undefined ? 'rgba(255, 255, 255, 0.95)' : params.labelTextColor,
-                        fontSize: 14
+                        fontSize: 14 * (params.sizeRatio || 1)
                     },
                     interval: 'auto' // params.interval === undefined ? 'auto' : params.interval
                 }
@@ -569,7 +569,7 @@ const AD_CHART = {
                 splitNumber: params.ySplitNumber === undefined ? null : params.ySplitNumber,
                 nameTextStyle: {
                     color: params.nameTextColor === undefined ? 'rgba(255, 255, 255, 0.95)' : params.nameTextColor,
-                    fontSize: 14
+                    fontSize: 14 * (params.sizeRatio || 1)
                 },
                 axisTick: {
                     show: false
@@ -657,7 +657,7 @@ const AD_CHART = {
                                 show: true,
                                 textStyle: {
                                     color: 'rgba(255, 255, 255, 0.95)',
-                                    fontSize: 14
+                                    fontSize: 14 * (params.sizeRatio || 1)
                                 }
                             },
                             emphasis: {
@@ -693,7 +693,7 @@ const AD_CHART = {
                         fontStyle: 'normal',
                         fontWeight: 'normal',
                         fontFamily: 'microsoft yahei',
-                        fontSize: params.titleFontSize === undefined ? '14' : params.titleFontSize
+                        fontSize: params.titleFontSize === undefined ? '14' * (params.sizeRatio || 1) : params.titleFontSize * (params.sizeRatio || 1)
                     },
                     right: 65,
                     bottom: 15
@@ -712,16 +712,16 @@ const AD_CHART = {
                 visualMap: {
                     min: 0,
                     max: params.max || 500,
-                    right: 25,
-                    bottom: 45,
+                    right: 25 * (params.sizeRatio || 1),
+                    bottom: 45 * (params.sizeRatio || 1),
                     orient: 'horizontal',
-                    itemWidth: 20,
-                    itemHeight: 250,
+                    itemWidth: 20 * (params.sizeRatio || 1),
+                    itemHeight: 250 * (params.sizeRatio || 1),
                     text: ['高', '低'],
                     calculable: true,
                     textStyle: {
                         color: 'rgba(255, 255, 255, 0.95)',
-                        fontSize: 14
+                        fontSize: 14 * (params.sizeRatio || 1)
                     },
                     inRange: {
                         color: params.color || ['#2e70b8', '#00a6ff', '#02c4bc', '#35d77c', '#9bdb74', '#abdd73']
@@ -797,7 +797,7 @@ const AD_CHART = {
                 label: {
                     emphasis: {
                         show: true,
-                        fontSize: 16,
+                        fontSize: 16 * params.sizeRatio,
                         position: [20, 0],
                         color: '#ffffff'
                     }
@@ -835,7 +835,8 @@ const AD_CHART = {
                 borderColor: '#ffffff',
                 padding: 7,
                 textStyle: {
-                    lineHeight: 56
+                    fontSize: 12 * params.sizeRatio,
+                    lineHeight: 24
                 },
                 axisPointer: {
                     lineStyle: {
@@ -846,23 +847,22 @@ const AD_CHART = {
             legend: {
                 show: params.legendShow,
                 icon: 'circle',
-                itemWidth: 10,
-                itemHeight: 10,
-                width: '100%',
-                top: 20,
+                itemWidth: 10 * params.sizeRatio,
+                width: '90%',
+                top: 20 * params.sizeRatio,
                 itemGap: 13,
                 data: legend,
                 right: '6%',
                 textStyle: {
-                    fontSize: 12,
+                    fontSize: 12 * params.sizeRatio,
                     color: '#F1F1F3'
                 }
             },
             grid: {
                 left: params.left || '6%',
                 right: params.right || '6%',
-                bottom: params.bottom || '16%',
-                top: '12%',
+                bottom: params.bottom || '18%',
+                top: '14%',
                 show: false,
                 containLabel: false
             },
@@ -870,7 +870,8 @@ const AD_CHART = {
                 zoomBackground: params.zoomBackground || '#1F3A59',
                 zoomFiller: params.zoomFiller || '#165B8A',
                 lengthMax: xAxis.length,
-                showLength: params.showLength || 6
+                showLength: params.showLength || 6,
+                zoomHeight: params.zoomHeight || 20
             }),
             xAxis: [{
                 type: 'category',
@@ -881,7 +882,7 @@ const AD_CHART = {
                 axisLabel: {
                     color: '#ffffff',
                     textStyle: {
-                        fontSize: params.fontSize || 16
+                        fontSize: params.fontSize * params.sizeRatio || 16 * params.sizeRatio
                     }
                 },
                 axisLine: {
@@ -907,7 +908,7 @@ const AD_CHART = {
                     margin: 10,
                     color: '#ffffff',
                     textStyle: {
-                        fontSize: params.fontSize || 16
+                        fontSize: params.fontSize * params.sizeRatio || 16 * params.sizeRatio
                     }
                 },
                 splitLine: {
@@ -953,7 +954,7 @@ const AD_CHART = {
                             fontStyle: 'normal',
                             fontWeight: 'normal',
                             fontFamily: 'sans-serif',
-                            fontSize: params.labelFontSize === undefined ? 14 : params.labelFontSize
+                            fontSize: params.labelFontSize === undefined ? 14 * (params.sizeRatio || 1) : params.labelFontSize
                         }
                     }
                 },
@@ -978,7 +979,7 @@ const AD_CHART = {
                     fontStyle: 'normal',
                     fontWeight: 'normal',
                     fontFamily: 'microsoft yahei',
-                    fontSize: params.titleFontSize === undefined ? '14' : params.titleFontSize
+                    fontSize: params.titleFontSize === undefined ? 14 * (params.sizeRatio || 1) : params.titleFontSize
                 },
                 top: params.titleTop === undefined ? '8' : params.titleTop,
                 left: params.titleLeft === undefined ? '30%' : params.titleLeft
@@ -996,26 +997,6 @@ const AD_CHART = {
                     lineHeight: 56
                 },
                 confine: true
-                // formatter: function(param){
-                //     let info = '';
-                //     if(params.specialFormatter === 'averageLoanDateFormatter'){
-                //         info =  `<div class = "mapTooltip pieTooltip">
-                //                 <p class = "title" style="font-size: 14px"><b>${param[0].name}</b></p>
-                //                 ${param[1] ? `<p style="text-align: left;font-size: 14px">${param[1].seriesName}<span class = "color-blue" style="color:${param[1].color.colorStops[0].color}">${param[1].value === '0.0' ? '--' : param[1].value} (月) </span></p>` : ''}
-                //                 ${param[0] ? `<p style="text-align: left ;font-size: 14px">${param[0].seriesName}<span class = "color-blue" style="color:${param[0].color.colorStops[0].color}">${param[0].value === '0.0' ? '--' : param[0].value} (月) </span></p>` : ''}
-                //             <div>`;
-                //     } else if(params.specialFormatter === 'bangdan'){
-                //         info = `<div class = "mapTooltip pieTooltip">
-                //                 <p>${param[0].name}：<span class = "color-yellow">${param[0].value } </span>${params.unit ? params.unit : ''}</p>
-                //             <div>`;
-                //     }else{
-                //         info = `<div class = "mapTooltip pieTooltip">
-                //                 <p class = "title"><b>${param[0].name}</b></p>
-                //                 <p>${params.labelName}<span class = "color-yellow">${param[0].value} </span>${params.unit ? params.unit : ''}</p>
-                //             <div>`;
-                //     }
-                //     return info;
-                // }
             },
             legend: {
                 data: params.legend === undefined ? null : params.legend,
@@ -1025,14 +1006,14 @@ const AD_CHART = {
                 orient: params.legendOrient === undefined ? 'horizontal' : 'vertical',
                 itemGap: params.legendItemGap === undefined ? 20 : params.legendItemGap,
                 top: params.legendTop === undefined ? '5%' : params.legendTop,
-                itemWidth: 8,
-                itemHeight: 8,
+                itemWidth: 8 * (params.sizeRatio || 1),
+                itemHeight: 8 * (params.sizeRatio || 1),
                 textStyle: {
                     color: '#999',
                     fontStyle: 'normal',
                     fontWeight: 'normal',
                     fontFamily: 'microsoft yahei',
-                    fontSize: '12'
+                    fontSize: 12 * (params.sizeRatio || 1)
                 }
             },
             xAxis: {
@@ -1068,7 +1049,7 @@ const AD_CHART = {
                 nameLocation: 'end',
                 nameTextStyle: {
                     color: params.nameTextColor === undefined ? 'rgba(255, 255, 255, 0.95)' : params.nameTextColor,
-                    fontSize: 14
+                    fontSize: 14 * (params.sizeRatio || 1)
                 },
                 axisTick: {
                     show: false
@@ -1092,7 +1073,7 @@ const AD_CHART = {
                     height: 80,
                     textStyle: {
                         color: params.labelTextColor === undefined ? 'rgba(255, 255, 255, 0.95)' : params.labelTextColor,
-                        fontSize: params.labelTextSize === undefined ? 14 : params.labelTextSize
+                        fontSize: params.labelTextSize === undefined ? 14 * (params.sizeRatio || 1) : params.labelTextSize
                     }
                 }
             },

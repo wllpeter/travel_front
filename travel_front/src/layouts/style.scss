@@ -25,27 +25,12 @@ $fontColor: rgba(255, 255, 255, 0.95);
     width: 390px;
     .app-logo {
       margin-left: 25px;
-      @include media("<=sm") {
-        margin-left: smpx(25);
-      }
       display: block;
       width: 384px;
-      @include media("<=sm") {
-        width: smpx(384);
-      }
       height: 30px;
-      @include media("<=sm") {
-        height: smpx(30);
-      }
       margin-top: 14px;
-      @include media("<=sm") {
-        margin-top: smpx(14);
-      }
       background-image: url("../assets/images/logo-title.png");
       background-size: 384px 30px;
-      @include media("<=sm") {
-        background-size: smpx(384) smpx(30);
-      }
     }
   }
 
@@ -57,7 +42,7 @@ $fontColor: rgba(255, 255, 255, 0.95);
       margin-right: 10px;
       & > a {
         display: block;
-        font-size: 0.8rem;
+        font-size: 16px;
         font-weight: normal;
         height: $headerHeight;
         margin: 0 20px;
@@ -98,6 +83,7 @@ $fontColor: rgba(255, 255, 255, 0.95);
   }
 
   .user-info {
+    font-size: 16px;
     float: right;
     margin-right: 20px;
     color: $fontColor;
@@ -108,4 +94,101 @@ $fontColor: rgba(255, 255, 255, 0.95);
   background-color: #072748;
   min-height: calc(100vh - 60px);
   margin-top: 60px;
+}
+
+@include  media("<=sm") {
+  $headerHeight: smpx(60);
+  .app-frame {
+    overflow: hidden;
+  }
+
+  .app-header {
+    height: $headerHeight;
+    line-height: $headerHeight;
+    background-color: #072748;
+    border-bottom: smpx(2) solid #213c5b;
+    position: fixed;
+    z-index: 999999999;
+    width: 100%;
+
+    h2 {
+      display: inline-block;
+      background: -webkit-linear-gradient(left, #0282C8, #072648);
+      background: -o-linear-gradient(right, #0282C8, #072648); /* Opera 11.1 - 12.0 */
+      background: -moz-linear-gradient(right, #0282C8, #072648); /* Firefox 3.6 - 15 */
+      background: linear-gradient(to right, #0282C8, #072648); /* 标准的语法 */
+      height: smpx(58);
+      width: smpx(390);
+      .app-logo {
+        margin-left: smpx(25);
+        display: block;
+        width: smpx(384);
+        height: smpx(30);
+        margin-top: smpx(14);
+        background-image: url("../assets/images/logo-title.png");
+        background-size: smpx(384) smpx(30);
+      }
+    }
+
+    .header-nav-list {
+      float: right;
+      margin-right: smpx(20);
+      li {
+        display: inline-block;
+        margin-right: smpx(10);
+        & > a {
+          display: block;
+          font-size: smpx(16);
+          font-weight: normal;
+          height: $headerHeight;
+          margin: 0 smpx(20);
+          color: $fontColor;
+
+          &.active {
+            color: #00a9ff;
+            border-bottom: smpx(3) solid #00a9ff;
+          }
+        }
+      }
+    }
+    .header-nav-sublist {
+      position: absolute;
+      line-height: 2.2;
+      width: 80%;
+      left: 10%;
+      background-color: #1F3A59;
+      text-align: center;
+      padding: smpx(10) 0;
+      display: none;
+      & > a {
+        box-sizing: border-box;
+        border-right: smpx(3) solid transparent;
+        display: block;
+        color: $fontColor;
+      }
+      .active {
+        color: #00a9ff;
+        border-right-color: #00a9ff;
+      }
+    }
+
+    .pos-r {
+      &:hover .header-nav-sublist {
+        display: block;
+      }
+    }
+
+    .user-info {
+      font-size: smpx(16);
+      float: right;
+      margin-right: smpx(20);
+      color: $fontColor;
+    }
+  }
+
+  .app-content {
+    background-color: #072748;
+    min-height: calc(100vh - 60 / 1920 * 1366px);
+    margin-top: smpx(60);
+  }
 }

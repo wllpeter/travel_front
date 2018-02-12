@@ -70,7 +70,7 @@ export default class PanelCard extends Component {
 
         return <div className={classNames.join(' ')}>
             <div className={`panel-card-header ${ headerClassName || ''}`}>
-                <h3 style={{'fontSize': zoomOutRequired ? '20px' : '16px'}}>{title}</h3>
+                <h3 style={{'fontSize': zoomOutRequired ? '20px' : 16 * sizeRatio + 'px'}}>{title}</h3>
                 {
                     timeSelectRequired &&
                     <Select trigger="click" value={this.state.timeValue} onChange={this.selectChange.bind(this)}>

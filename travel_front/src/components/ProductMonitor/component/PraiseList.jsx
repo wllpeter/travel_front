@@ -124,7 +124,7 @@ export default class PraiseList extends Component {
                     <ToggleButtonGroup ref="getSwitchButton" {...switchProps}></ToggleButtonGroup>
                     <div className="praise">
                         <table className="mt-table col-1-al">
-                            <thead style={{paddingBottom: 20}}>
+                            <thead style={{paddingBottom: 20 * sizeRatio}}>
                             <tr>
                                 <th>排名</th>
                                 <th>名称</th>
@@ -138,7 +138,7 @@ export default class PraiseList extends Component {
                                     return <tr key={index}>
                                         <td>
                                             <span>{dateFormat(item.rank)}</span>
-                                            <span style={{display: 'inline-block', width: 60}}>
+                                            <span style={{display: 'inline-block', width: 60 * sizeRatio}}>
                                             {
                                                 ~~item.upDown === 1 ?
                                                     <span className="praise-icon praise-icon-up" title={item.changeNum}>
