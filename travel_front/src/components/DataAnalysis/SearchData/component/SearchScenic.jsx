@@ -93,7 +93,7 @@ export default class SearchScenic extends Component {
         return <div>
             <PanelCard title="搜索景点偏好地" enlarge={this.showModal.bind(this)}
                        className="bg-grey" {...panelProps}>
-                <div style={{height: 300, overflow: 'hidden'}}>
+                <div style={{height: 300 * sizeRatio, overflow: 'hidden'}}>
                     <table className="mt-table mt-table-noborder w-95 mb-34">
                         <thead>
                         <tr>

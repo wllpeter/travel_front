@@ -212,7 +212,7 @@ export default class SearchPeopleSource extends Component {
         return <div>
             <PanelCard title="搜索人群来源地" enlarge={this.showModal.bind(this)}
                        className="bg-grey" {...panelProps}>
-                <div id="visualMapPiecewise" style={{width: '100%', height: 300}}/>
+                <div id="visualMapPiecewise" style={{width: '100%', height: 300 * sizeRatio}}/>
             </PanelCard>
             <Modal visible={visible} onOk={() => {
                 this.fetchSearchPersonSource.bind(this)();

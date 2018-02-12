@@ -94,7 +94,7 @@ export default class TrafficType extends Component {
     renderHotWordData(visible) {
         AdCharts.wordCloudChart({
             chartId: visible ? 'searchHotwordCloud2' : 'searchHotwordCloud',
-            sizeRange: visible ? [24, 160] : [12, 120],
+            sizeRange: visible ? [24, 160] : [12, 120 * sizeRatio],
             series: [this.state.hotWords]
         });
     }
@@ -116,7 +116,7 @@ export default class TrafficType extends Component {
         return <div>
             <PanelCard title="搜索关注热词云" enlarge={this.showModal.bind(this)}
                        className="bg-grey" {...panelProps}>
-                <div id="searchHotwordCloud" style={{width: '100%', height: 300}}/>
+                <div id="searchHotwordCloud" style={{width: '100%', height: 300 * sizeRatio}}/>
             </PanelCard>
             <Modal visible={visible} onOk={() => {
                 this.fetchHotword.bind(this)();
