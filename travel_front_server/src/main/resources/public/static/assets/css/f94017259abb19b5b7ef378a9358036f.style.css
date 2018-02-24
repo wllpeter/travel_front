@@ -479,13 +479,11 @@ input::-webkit-input-placeholder {
 /*---------------------------------------------------弹出框样式---------------------------------------------------------*/
 /* Effect 1: Fade in and scale up */
 .md-effect-1 .md-content {
-  -webkit-transform: scale(0.7);
   transform: scale(0.7);
   opacity: 0;
   transition: all 0.3s; }
 
 .md-show.md-effect-1 .md-content {
-  -webkit-transform: scale(1);
   transform: scale(1);
   opacity: 1; }
 
@@ -1171,19 +1169,9 @@ input::-webkit-input-placeholder {
 
 @keyframes mymove {
   from {
-    -webkit-transform: translateY(0);
-            transform: translateY(0); }
+    transform: translateY(0); }
   to {
-    -webkit-transform: translateY(-96%);
-            transform: translateY(-96%); } }
-
-@-webkit-keyframes mymove /*Safari and Chrome*/ {
-  from {
-    -webkit-transform: translateY(0);
-            transform: translateY(0); }
-  to {
-    -webkit-transform: translateY(-96%);
-            transform: translateY(-96%); } }
+    transform: translateY(-96%); } }
 
 .bg-grey {
   margin-top: 2px; }
@@ -1278,18 +1266,9 @@ input::-webkit-input-placeholder {
     max-width: 327.27083px; }
   @keyframes mymove {
     from {
-      -webkit-transform: translateY(0);
-              transform: translateY(0); }
+      transform: translateY(0); }
     to {
-      -webkit-transform: translateY(-96%);
-              transform: translateY(-96%); } }
-  @-webkit-keyframes mymove /*Safari and Chrome*/ {
-    from {
-      -webkit-transform: translateY(0);
-              transform: translateY(0); }
-    to {
-      -webkit-transform: translateY(-96%);
-              transform: translateY(-96%); } }
+      transform: translateY(-96%); } }
   .bg-grey {
     margin-top: 1.42292px; }
   .modal-box .bg-grey {
@@ -1912,4 +1891,4 @@ input::-webkit-input-placeholder {
     font-size: 16px;
     outline: none; }
 
-/*# sourceMappingURL=4f21db20e53d679d2680efe6e5a1b802.style.css.map*/
+/*# sourceMappingURL=f94017259abb19b5b7ef378a9358036f.style.css.map*/

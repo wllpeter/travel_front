@@ -1309,54 +1309,33 @@ code, kbd, pre, samp {
 }
 .anticon-spin:before {
   display: inline-block;
-  -webkit-animation: loadingCircle 1s infinite linear;
-          animation: loadingCircle 1s infinite linear;
+  animation: loadingCircle 1s infinite linear;
 }
 .fade-enter, .fade-appear {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .fade-leave {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .fade-enter.fade-enter-active, .fade-appear.fade-appear-active {
-  -webkit-animation-name: antFadeIn;
-          animation-name: antFadeIn;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antFadeIn;
+  animation-play-state: running;
 }
 .fade-leave.fade-leave-active {
-  -webkit-animation-name: antFadeOut;
-          animation-name: antFadeOut;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antFadeOut;
+  animation-play-state: running;
   pointer-events: none;
 }
 .fade-enter, .fade-appear {
   opacity: 0;
-  -webkit-animation-timing-function: linear;
-          animation-timing-function: linear;
+  animation-timing-function: linear;
 }
 .fade-leave {
-  -webkit-animation-timing-function: linear;
-          animation-timing-function: linear;
-}
-@-webkit-keyframes antFadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+  animation-timing-function: linear;
 }
 @keyframes antFadeIn {
   0% {
@@ -1364,14 +1343,6 @@ code, kbd, pre, samp {
   }
   100% {
     opacity: 1;
-  }
-}
-@-webkit-keyframes antFadeOut {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
   }
 }
 @keyframes antFadeOut {
@@ -1383,1508 +1354,746 @@ code, kbd, pre, samp {
   }
 }
 .move-up-enter, .move-up-appear {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .move-up-leave {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .move-up-enter.move-up-enter-active, .move-up-appear.move-up-appear-active {
-  -webkit-animation-name: antMoveUpIn;
-          animation-name: antMoveUpIn;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antMoveUpIn;
+  animation-play-state: running;
 }
 .move-up-leave.move-up-leave-active {
-  -webkit-animation-name: antMoveUpOut;
-          animation-name: antMoveUpOut;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antMoveUpOut;
+  animation-play-state: running;
   pointer-events: none;
 }
 .move-up-enter, .move-up-appear {
   opacity: 0;
-  -webkit-animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
-          animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
+  animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
 }
 .move-up-leave {
-  -webkit-animation-timing-function: cubic-bezier(0.6, 0.04, 0.98, 0.34);
-          animation-timing-function: cubic-bezier(0.6, 0.04, 0.98, 0.34);
+  animation-timing-function: cubic-bezier(0.6, 0.04, 0.98, 0.34);
 }
 .move-down-enter, .move-down-appear {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .move-down-leave {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .move-down-enter.move-down-enter-active, .move-down-appear.move-down-appear-active {
-  -webkit-animation-name: antMoveDownIn;
-          animation-name: antMoveDownIn;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antMoveDownIn;
+  animation-play-state: running;
 }
 .move-down-leave.move-down-leave-active {
-  -webkit-animation-name: antMoveDownOut;
-          animation-name: antMoveDownOut;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antMoveDownOut;
+  animation-play-state: running;
   pointer-events: none;
 }
 .move-down-enter, .move-down-appear {
   opacity: 0;
-  -webkit-animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
-          animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
+  animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
 }
 .move-down-leave {
-  -webkit-animation-timing-function: cubic-bezier(0.6, 0.04, 0.98, 0.34);
-          animation-timing-function: cubic-bezier(0.6, 0.04, 0.98, 0.34);
+  animation-timing-function: cubic-bezier(0.6, 0.04, 0.98, 0.34);
 }
 .move-left-enter, .move-left-appear {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .move-left-leave {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .move-left-enter.move-left-enter-active, .move-left-appear.move-left-appear-active {
-  -webkit-animation-name: antMoveLeftIn;
-          animation-name: antMoveLeftIn;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antMoveLeftIn;
+  animation-play-state: running;
 }
 .move-left-leave.move-left-leave-active {
-  -webkit-animation-name: antMoveLeftOut;
-          animation-name: antMoveLeftOut;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antMoveLeftOut;
+  animation-play-state: running;
   pointer-events: none;
 }
 .move-left-enter, .move-left-appear {
   opacity: 0;
-  -webkit-animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
-          animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
+  animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
 }
 .move-left-leave {
-  -webkit-animation-timing-function: cubic-bezier(0.6, 0.04, 0.98, 0.34);
-          animation-timing-function: cubic-bezier(0.6, 0.04, 0.98, 0.34);
+  animation-timing-function: cubic-bezier(0.6, 0.04, 0.98, 0.34);
 }
 .move-right-enter, .move-right-appear {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .move-right-leave {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .move-right-enter.move-right-enter-active, .move-right-appear.move-right-appear-active {
-  -webkit-animation-name: antMoveRightIn;
-          animation-name: antMoveRightIn;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antMoveRightIn;
+  animation-play-state: running;
 }
 .move-right-leave.move-right-leave-active {
-  -webkit-animation-name: antMoveRightOut;
-          animation-name: antMoveRightOut;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antMoveRightOut;
+  animation-play-state: running;
   pointer-events: none;
 }
 .move-right-enter, .move-right-appear {
   opacity: 0;
-  -webkit-animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
-          animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
+  animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
 }
 .move-right-leave {
-  -webkit-animation-timing-function: cubic-bezier(0.6, 0.04, 0.98, 0.34);
-          animation-timing-function: cubic-bezier(0.6, 0.04, 0.98, 0.34);
-}
-@-webkit-keyframes antMoveDownIn {
-  0% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateY(100%);
-            transform: translateY(100%);
-    opacity: 0;
-  }
-  100% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateY(0%);
-            transform: translateY(0%);
-    opacity: 1;
-  }
+  animation-timing-function: cubic-bezier(0.6, 0.04, 0.98, 0.34);
 }
 @keyframes antMoveDownIn {
   0% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateY(100%);
-            transform: translateY(100%);
+    transform-origin: 0 0;
+    transform: translateY(100%);
     opacity: 0;
   }
   100% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateY(0%);
-            transform: translateY(0%);
+    transform-origin: 0 0;
+    transform: translateY(0%);
     opacity: 1;
-  }
-}
-@-webkit-keyframes antMoveDownOut {
-  0% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateY(0%);
-            transform: translateY(0%);
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateY(100%);
-            transform: translateY(100%);
-    opacity: 0;
   }
 }
 @keyframes antMoveDownOut {
   0% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateY(0%);
-            transform: translateY(0%);
+    transform-origin: 0 0;
+    transform: translateY(0%);
     opacity: 1;
   }
   100% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateY(100%);
-            transform: translateY(100%);
+    transform-origin: 0 0;
+    transform: translateY(100%);
     opacity: 0;
-  }
-}
-@-webkit-keyframes antMoveLeftIn {
-  0% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateX(-100%);
-            transform: translateX(-100%);
-    opacity: 0;
-  }
-  100% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateX(0%);
-            transform: translateX(0%);
-    opacity: 1;
   }
 }
 @keyframes antMoveLeftIn {
   0% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateX(-100%);
-            transform: translateX(-100%);
+    transform-origin: 0 0;
+    transform: translateX(-100%);
     opacity: 0;
   }
   100% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateX(0%);
-            transform: translateX(0%);
+    transform-origin: 0 0;
+    transform: translateX(0%);
     opacity: 1;
-  }
-}
-@-webkit-keyframes antMoveLeftOut {
-  0% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateX(0%);
-            transform: translateX(0%);
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateX(-100%);
-            transform: translateX(-100%);
-    opacity: 0;
   }
 }
 @keyframes antMoveLeftOut {
   0% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateX(0%);
-            transform: translateX(0%);
+    transform-origin: 0 0;
+    transform: translateX(0%);
     opacity: 1;
   }
   100% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateX(-100%);
-            transform: translateX(-100%);
+    transform-origin: 0 0;
+    transform: translateX(-100%);
     opacity: 0;
-  }
-}
-@-webkit-keyframes antMoveRightIn {
-  0% {
-    opacity: 0;
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateX(100%);
-            transform: translateX(100%);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateX(0%);
-            transform: translateX(0%);
   }
 }
 @keyframes antMoveRightIn {
   0% {
     opacity: 0;
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateX(100%);
-            transform: translateX(100%);
+    transform-origin: 0 0;
+    transform: translateX(100%);
   }
   100% {
     opacity: 1;
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateX(0%);
-            transform: translateX(0%);
-  }
-}
-@-webkit-keyframes antMoveRightOut {
-  0% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateX(0%);
-            transform: translateX(0%);
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateX(100%);
-            transform: translateX(100%);
-    opacity: 0;
+    transform-origin: 0 0;
+    transform: translateX(0%);
   }
 }
 @keyframes antMoveRightOut {
   0% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateX(0%);
-            transform: translateX(0%);
+    transform-origin: 0 0;
+    transform: translateX(0%);
     opacity: 1;
   }
   100% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateX(100%);
-            transform: translateX(100%);
+    transform-origin: 0 0;
+    transform: translateX(100%);
     opacity: 0;
-  }
-}
-@-webkit-keyframes antMoveUpIn {
-  0% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateY(-100%);
-            transform: translateY(-100%);
-    opacity: 0;
-  }
-  100% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateY(0%);
-            transform: translateY(0%);
-    opacity: 1;
   }
 }
 @keyframes antMoveUpIn {
   0% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateY(-100%);
-            transform: translateY(-100%);
+    transform-origin: 0 0;
+    transform: translateY(-100%);
     opacity: 0;
   }
   100% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateY(0%);
-            transform: translateY(0%);
+    transform-origin: 0 0;
+    transform: translateY(0%);
     opacity: 1;
-  }
-}
-@-webkit-keyframes antMoveUpOut {
-  0% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateY(0%);
-            transform: translateY(0%);
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateY(-100%);
-            transform: translateY(-100%);
-    opacity: 0;
   }
 }
 @keyframes antMoveUpOut {
   0% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateY(0%);
-            transform: translateY(0%);
+    transform-origin: 0 0;
+    transform: translateY(0%);
     opacity: 1;
   }
   100% {
-    -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-    -webkit-transform: translateY(-100%);
-            transform: translateY(-100%);
+    transform-origin: 0 0;
+    transform: translateY(-100%);
     opacity: 0;
-  }
-}
-@-webkit-keyframes loadingCircle {
-  0% {
-    -webkit-transform-origin: 50% 50%;
-            transform-origin: 50% 50%;
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform-origin: 50% 50%;
-            transform-origin: 50% 50%;
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
   }
 }
 @keyframes loadingCircle {
   0% {
-    -webkit-transform-origin: 50% 50%;
-            transform-origin: 50% 50%;
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
+    transform-origin: 50% 50%;
+    transform: rotate(0deg);
   }
   100% {
-    -webkit-transform-origin: 50% 50%;
-            transform-origin: 50% 50%;
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+    transform-origin: 50% 50%;
+    transform: rotate(360deg);
   }
 }
 .slide-up-enter, .slide-up-appear {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .slide-up-leave {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .slide-up-enter.slide-up-enter-active, .slide-up-appear.slide-up-appear-active {
-  -webkit-animation-name: antSlideUpIn;
-          animation-name: antSlideUpIn;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antSlideUpIn;
+  animation-play-state: running;
 }
 .slide-up-leave.slide-up-leave-active {
-  -webkit-animation-name: antSlideUpOut;
-          animation-name: antSlideUpOut;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antSlideUpOut;
+  animation-play-state: running;
   pointer-events: none;
 }
 .slide-up-enter, .slide-up-appear {
   opacity: 0;
-  -webkit-animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
-          animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+  animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
 }
 .slide-up-leave {
-  -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
-          animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+  animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
 }
 .slide-down-enter, .slide-down-appear {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .slide-down-leave {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .slide-down-enter.slide-down-enter-active, .slide-down-appear.slide-down-appear-active {
-  -webkit-animation-name: antSlideDownIn;
-          animation-name: antSlideDownIn;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antSlideDownIn;
+  animation-play-state: running;
 }
 .slide-down-leave.slide-down-leave-active {
-  -webkit-animation-name: antSlideDownOut;
-          animation-name: antSlideDownOut;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antSlideDownOut;
+  animation-play-state: running;
   pointer-events: none;
 }
 .slide-down-enter, .slide-down-appear {
   opacity: 0;
-  -webkit-animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
-          animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+  animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
 }
 .slide-down-leave {
-  -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
-          animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+  animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
 }
 .slide-left-enter, .slide-left-appear {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .slide-left-leave {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .slide-left-enter.slide-left-enter-active, .slide-left-appear.slide-left-appear-active {
-  -webkit-animation-name: antSlideLeftIn;
-          animation-name: antSlideLeftIn;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antSlideLeftIn;
+  animation-play-state: running;
 }
 .slide-left-leave.slide-left-leave-active {
-  -webkit-animation-name: antSlideLeftOut;
-          animation-name: antSlideLeftOut;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antSlideLeftOut;
+  animation-play-state: running;
   pointer-events: none;
 }
 .slide-left-enter, .slide-left-appear {
   opacity: 0;
-  -webkit-animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
-          animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+  animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
 }
 .slide-left-leave {
-  -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
-          animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+  animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
 }
 .slide-right-enter, .slide-right-appear {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .slide-right-leave {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .slide-right-enter.slide-right-enter-active, .slide-right-appear.slide-right-appear-active {
-  -webkit-animation-name: antSlideRightIn;
-          animation-name: antSlideRightIn;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antSlideRightIn;
+  animation-play-state: running;
 }
 .slide-right-leave.slide-right-leave-active {
-  -webkit-animation-name: antSlideRightOut;
-          animation-name: antSlideRightOut;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antSlideRightOut;
+  animation-play-state: running;
   pointer-events: none;
 }
 .slide-right-enter, .slide-right-appear {
   opacity: 0;
-  -webkit-animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
-          animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+  animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
 }
 .slide-right-leave {
-  -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
-          animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
-}
-@-webkit-keyframes antSlideUpIn {
-  0% {
-    opacity: 0;
-    -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-    -webkit-transform: scaleY(0.8);
-            transform: scaleY(0.8);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-    -webkit-transform: scaleY(1);
-            transform: scaleY(1);
-  }
+  animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
 }
 @keyframes antSlideUpIn {
   0% {
     opacity: 0;
-    -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-    -webkit-transform: scaleY(0.8);
-            transform: scaleY(0.8);
+    transform-origin: 0% 0%;
+    transform: scaleY(0.8);
   }
   100% {
     opacity: 1;
-    -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-    -webkit-transform: scaleY(1);
-            transform: scaleY(1);
-  }
-}
-@-webkit-keyframes antSlideUpOut {
-  0% {
-    opacity: 1;
-    -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-    -webkit-transform: scaleY(1);
-            transform: scaleY(1);
-  }
-  100% {
-    opacity: 0;
-    -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-    -webkit-transform: scaleY(0.8);
-            transform: scaleY(0.8);
+    transform-origin: 0% 0%;
+    transform: scaleY(1);
   }
 }
 @keyframes antSlideUpOut {
   0% {
     opacity: 1;
-    -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-    -webkit-transform: scaleY(1);
-            transform: scaleY(1);
+    transform-origin: 0% 0%;
+    transform: scaleY(1);
   }
   100% {
     opacity: 0;
-    -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-    -webkit-transform: scaleY(0.8);
-            transform: scaleY(0.8);
-  }
-}
-@-webkit-keyframes antSlideDownIn {
-  0% {
-    opacity: 0;
-    -webkit-transform-origin: 100% 100%;
-            transform-origin: 100% 100%;
-    -webkit-transform: scaleY(0.8);
-            transform: scaleY(0.8);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform-origin: 100% 100%;
-            transform-origin: 100% 100%;
-    -webkit-transform: scaleY(1);
-            transform: scaleY(1);
+    transform-origin: 0% 0%;
+    transform: scaleY(0.8);
   }
 }
 @keyframes antSlideDownIn {
   0% {
     opacity: 0;
-    -webkit-transform-origin: 100% 100%;
-            transform-origin: 100% 100%;
-    -webkit-transform: scaleY(0.8);
-            transform: scaleY(0.8);
+    transform-origin: 100% 100%;
+    transform: scaleY(0.8);
   }
   100% {
     opacity: 1;
-    -webkit-transform-origin: 100% 100%;
-            transform-origin: 100% 100%;
-    -webkit-transform: scaleY(1);
-            transform: scaleY(1);
-  }
-}
-@-webkit-keyframes antSlideDownOut {
-  0% {
-    opacity: 1;
-    -webkit-transform-origin: 100% 100%;
-            transform-origin: 100% 100%;
-    -webkit-transform: scaleY(1);
-            transform: scaleY(1);
-  }
-  100% {
-    opacity: 0;
-    -webkit-transform-origin: 100% 100%;
-            transform-origin: 100% 100%;
-    -webkit-transform: scaleY(0.8);
-            transform: scaleY(0.8);
+    transform-origin: 100% 100%;
+    transform: scaleY(1);
   }
 }
 @keyframes antSlideDownOut {
   0% {
     opacity: 1;
-    -webkit-transform-origin: 100% 100%;
-            transform-origin: 100% 100%;
-    -webkit-transform: scaleY(1);
-            transform: scaleY(1);
+    transform-origin: 100% 100%;
+    transform: scaleY(1);
   }
   100% {
     opacity: 0;
-    -webkit-transform-origin: 100% 100%;
-            transform-origin: 100% 100%;
-    -webkit-transform: scaleY(0.8);
-            transform: scaleY(0.8);
-  }
-}
-@-webkit-keyframes antSlideLeftIn {
-  0% {
-    opacity: 0;
-    -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-    -webkit-transform: scaleX(0.8);
-            transform: scaleX(0.8);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-    -webkit-transform: scaleX(1);
-            transform: scaleX(1);
+    transform-origin: 100% 100%;
+    transform: scaleY(0.8);
   }
 }
 @keyframes antSlideLeftIn {
   0% {
     opacity: 0;
-    -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-    -webkit-transform: scaleX(0.8);
-            transform: scaleX(0.8);
+    transform-origin: 0% 0%;
+    transform: scaleX(0.8);
   }
   100% {
     opacity: 1;
-    -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-    -webkit-transform: scaleX(1);
-            transform: scaleX(1);
-  }
-}
-@-webkit-keyframes antSlideLeftOut {
-  0% {
-    opacity: 1;
-    -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-    -webkit-transform: scaleX(1);
-            transform: scaleX(1);
-  }
-  100% {
-    opacity: 0;
-    -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-    -webkit-transform: scaleX(0.8);
-            transform: scaleX(0.8);
+    transform-origin: 0% 0%;
+    transform: scaleX(1);
   }
 }
 @keyframes antSlideLeftOut {
   0% {
     opacity: 1;
-    -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-    -webkit-transform: scaleX(1);
-            transform: scaleX(1);
+    transform-origin: 0% 0%;
+    transform: scaleX(1);
   }
   100% {
     opacity: 0;
-    -webkit-transform-origin: 0% 0%;
-            transform-origin: 0% 0%;
-    -webkit-transform: scaleX(0.8);
-            transform: scaleX(0.8);
-  }
-}
-@-webkit-keyframes antSlideRightIn {
-  0% {
-    opacity: 0;
-    -webkit-transform-origin: 100% 0%;
-            transform-origin: 100% 0%;
-    -webkit-transform: scaleX(0.8);
-            transform: scaleX(0.8);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform-origin: 100% 0%;
-            transform-origin: 100% 0%;
-    -webkit-transform: scaleX(1);
-            transform: scaleX(1);
+    transform-origin: 0% 0%;
+    transform: scaleX(0.8);
   }
 }
 @keyframes antSlideRightIn {
   0% {
     opacity: 0;
-    -webkit-transform-origin: 100% 0%;
-            transform-origin: 100% 0%;
-    -webkit-transform: scaleX(0.8);
-            transform: scaleX(0.8);
+    transform-origin: 100% 0%;
+    transform: scaleX(0.8);
   }
   100% {
     opacity: 1;
-    -webkit-transform-origin: 100% 0%;
-            transform-origin: 100% 0%;
-    -webkit-transform: scaleX(1);
-            transform: scaleX(1);
-  }
-}
-@-webkit-keyframes antSlideRightOut {
-  0% {
-    opacity: 1;
-    -webkit-transform-origin: 100% 0%;
-            transform-origin: 100% 0%;
-    -webkit-transform: scaleX(1);
-            transform: scaleX(1);
-  }
-  100% {
-    opacity: 0;
-    -webkit-transform-origin: 100% 0%;
-            transform-origin: 100% 0%;
-    -webkit-transform: scaleX(0.8);
-            transform: scaleX(0.8);
+    transform-origin: 100% 0%;
+    transform: scaleX(1);
   }
 }
 @keyframes antSlideRightOut {
   0% {
     opacity: 1;
-    -webkit-transform-origin: 100% 0%;
-            transform-origin: 100% 0%;
-    -webkit-transform: scaleX(1);
-            transform: scaleX(1);
+    transform-origin: 100% 0%;
+    transform: scaleX(1);
   }
   100% {
     opacity: 0;
-    -webkit-transform-origin: 100% 0%;
-            transform-origin: 100% 0%;
-    -webkit-transform: scaleX(0.8);
-            transform: scaleX(0.8);
+    transform-origin: 100% 0%;
+    transform: scaleX(0.8);
   }
 }
 .swing-enter, .swing-appear {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .swing-enter.swing-enter-active, .swing-appear.swing-appear-active {
-  -webkit-animation-name: antSwingIn;
-          animation-name: antSwingIn;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
-}
-@-webkit-keyframes antSwingIn {
-  0%, 100% {
-    -webkit-transform: translateX(0);
-            transform: translateX(0);
-  }
-  20% {
-    -webkit-transform: translateX(-10px);
-            transform: translateX(-10px);
-  }
-  40% {
-    -webkit-transform: translateX(10px);
-            transform: translateX(10px);
-  }
-  60% {
-    -webkit-transform: translateX(-5px);
-            transform: translateX(-5px);
-  }
-  80% {
-    -webkit-transform: translateX(5px);
-            transform: translateX(5px);
-  }
+  animation-name: antSwingIn;
+  animation-play-state: running;
 }
 @keyframes antSwingIn {
   0%, 100% {
-    -webkit-transform: translateX(0);
-            transform: translateX(0);
+    transform: translateX(0);
   }
   20% {
-    -webkit-transform: translateX(-10px);
-            transform: translateX(-10px);
+    transform: translateX(-10px);
   }
   40% {
-    -webkit-transform: translateX(10px);
-            transform: translateX(10px);
+    transform: translateX(10px);
   }
   60% {
-    -webkit-transform: translateX(-5px);
-            transform: translateX(-5px);
+    transform: translateX(-5px);
   }
   80% {
-    -webkit-transform: translateX(5px);
-            transform: translateX(5px);
+    transform: translateX(5px);
   }
 }
 .zoom-enter, .zoom-appear {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .zoom-leave {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .zoom-enter.zoom-enter-active, .zoom-appear.zoom-appear-active {
-  -webkit-animation-name: antZoomIn;
-          animation-name: antZoomIn;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antZoomIn;
+  animation-play-state: running;
 }
 .zoom-leave.zoom-leave-active {
-  -webkit-animation-name: antZoomOut;
-          animation-name: antZoomOut;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antZoomOut;
+  animation-play-state: running;
   pointer-events: none;
 }
 .zoom-enter, .zoom-appear {
-  -webkit-transform: scale(0);
-          transform: scale(0);
-  -webkit-animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
-          animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
+  transform: scale(0);
+  animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
 }
 .zoom-leave {
-  -webkit-animation-timing-function: cubic-bezier(0.78, 0.14, 0.15, 0.86);
-          animation-timing-function: cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  animation-timing-function: cubic-bezier(0.78, 0.14, 0.15, 0.86);
 }
 .zoom-big-enter, .zoom-big-appear {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .zoom-big-leave {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .zoom-big-enter.zoom-big-enter-active, .zoom-big-appear.zoom-big-appear-active {
-  -webkit-animation-name: antZoomBigIn;
-          animation-name: antZoomBigIn;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antZoomBigIn;
+  animation-play-state: running;
 }
 .zoom-big-leave.zoom-big-leave-active {
-  -webkit-animation-name: antZoomBigOut;
-          animation-name: antZoomBigOut;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antZoomBigOut;
+  animation-play-state: running;
   pointer-events: none;
 }
 .zoom-big-enter, .zoom-big-appear {
-  -webkit-transform: scale(0);
-          transform: scale(0);
-  -webkit-animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
-          animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
+  transform: scale(0);
+  animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
 }
 .zoom-big-leave {
-  -webkit-animation-timing-function: cubic-bezier(0.78, 0.14, 0.15, 0.86);
-          animation-timing-function: cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  animation-timing-function: cubic-bezier(0.78, 0.14, 0.15, 0.86);
 }
 .zoom-big-fast-enter, .zoom-big-fast-appear {
-  -webkit-animation-duration: 0.1s;
-          animation-duration: 0.1s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.1s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .zoom-big-fast-leave {
-  -webkit-animation-duration: 0.1s;
-          animation-duration: 0.1s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.1s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .zoom-big-fast-enter.zoom-big-fast-enter-active, .zoom-big-fast-appear.zoom-big-fast-appear-active {
-  -webkit-animation-name: antZoomBigIn;
-          animation-name: antZoomBigIn;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antZoomBigIn;
+  animation-play-state: running;
 }
 .zoom-big-fast-leave.zoom-big-fast-leave-active {
-  -webkit-animation-name: antZoomBigOut;
-          animation-name: antZoomBigOut;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antZoomBigOut;
+  animation-play-state: running;
   pointer-events: none;
 }
 .zoom-big-fast-enter, .zoom-big-fast-appear {
-  -webkit-transform: scale(0);
-          transform: scale(0);
-  -webkit-animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
-          animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
+  transform: scale(0);
+  animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
 }
 .zoom-big-fast-leave {
-  -webkit-animation-timing-function: cubic-bezier(0.78, 0.14, 0.15, 0.86);
-          animation-timing-function: cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  animation-timing-function: cubic-bezier(0.78, 0.14, 0.15, 0.86);
 }
 .zoom-up-enter, .zoom-up-appear {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .zoom-up-leave {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .zoom-up-enter.zoom-up-enter-active, .zoom-up-appear.zoom-up-appear-active {
-  -webkit-animation-name: antZoomUpIn;
-          animation-name: antZoomUpIn;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antZoomUpIn;
+  animation-play-state: running;
 }
 .zoom-up-leave.zoom-up-leave-active {
-  -webkit-animation-name: antZoomUpOut;
-          animation-name: antZoomUpOut;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antZoomUpOut;
+  animation-play-state: running;
   pointer-events: none;
 }
 .zoom-up-enter, .zoom-up-appear {
-  -webkit-transform: scale(0);
-          transform: scale(0);
-  -webkit-animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
-          animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
+  transform: scale(0);
+  animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
 }
 .zoom-up-leave {
-  -webkit-animation-timing-function: cubic-bezier(0.78, 0.14, 0.15, 0.86);
-          animation-timing-function: cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  animation-timing-function: cubic-bezier(0.78, 0.14, 0.15, 0.86);
 }
 .zoom-down-enter, .zoom-down-appear {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .zoom-down-leave {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .zoom-down-enter.zoom-down-enter-active, .zoom-down-appear.zoom-down-appear-active {
-  -webkit-animation-name: antZoomDownIn;
-          animation-name: antZoomDownIn;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antZoomDownIn;
+  animation-play-state: running;
 }
 .zoom-down-leave.zoom-down-leave-active {
-  -webkit-animation-name: antZoomDownOut;
-          animation-name: antZoomDownOut;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antZoomDownOut;
+  animation-play-state: running;
   pointer-events: none;
 }
 .zoom-down-enter, .zoom-down-appear {
-  -webkit-transform: scale(0);
-          transform: scale(0);
-  -webkit-animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
-          animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
+  transform: scale(0);
+  animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
 }
 .zoom-down-leave {
-  -webkit-animation-timing-function: cubic-bezier(0.78, 0.14, 0.15, 0.86);
-          animation-timing-function: cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  animation-timing-function: cubic-bezier(0.78, 0.14, 0.15, 0.86);
 }
 .zoom-left-enter, .zoom-left-appear {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .zoom-left-leave {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .zoom-left-enter.zoom-left-enter-active, .zoom-left-appear.zoom-left-appear-active {
-  -webkit-animation-name: antZoomLeftIn;
-          animation-name: antZoomLeftIn;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antZoomLeftIn;
+  animation-play-state: running;
 }
 .zoom-left-leave.zoom-left-leave-active {
-  -webkit-animation-name: antZoomLeftOut;
-          animation-name: antZoomLeftOut;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antZoomLeftOut;
+  animation-play-state: running;
   pointer-events: none;
 }
 .zoom-left-enter, .zoom-left-appear {
-  -webkit-transform: scale(0);
-          transform: scale(0);
-  -webkit-animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
-          animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
+  transform: scale(0);
+  animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
 }
 .zoom-left-leave {
-  -webkit-animation-timing-function: cubic-bezier(0.78, 0.14, 0.15, 0.86);
-          animation-timing-function: cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  animation-timing-function: cubic-bezier(0.78, 0.14, 0.15, 0.86);
 }
 .zoom-right-enter, .zoom-right-appear {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .zoom-right-leave {
-  -webkit-animation-duration: 0.2s;
-          animation-duration: 0.2s;
-  -webkit-animation-fill-mode: both;
-          animation-fill-mode: both;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+  animation-play-state: paused;
 }
 .zoom-right-enter.zoom-right-enter-active, .zoom-right-appear.zoom-right-appear-active {
-  -webkit-animation-name: antZoomRightIn;
-          animation-name: antZoomRightIn;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antZoomRightIn;
+  animation-play-state: running;
 }
 .zoom-right-leave.zoom-right-leave-active {
-  -webkit-animation-name: antZoomRightOut;
-          animation-name: antZoomRightOut;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+  animation-name: antZoomRightOut;
+  animation-play-state: running;
   pointer-events: none;
 }
 .zoom-right-enter, .zoom-right-appear {
-  -webkit-transform: scale(0);
-          transform: scale(0);
-  -webkit-animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
-          animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
+  transform: scale(0);
+  animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
 }
 .zoom-right-leave {
-  -webkit-animation-timing-function: cubic-bezier(0.78, 0.14, 0.15, 0.86);
-          animation-timing-function: cubic-bezier(0.78, 0.14, 0.15, 0.86);
-}
-@-webkit-keyframes antZoomIn {
-  0% {
-    opacity: 0;
-    -webkit-transform: scale(0.2);
-            transform: scale(0.2);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
+  animation-timing-function: cubic-bezier(0.78, 0.14, 0.15, 0.86);
 }
 @keyframes antZoomIn {
   0% {
     opacity: 0;
-    -webkit-transform: scale(0.2);
-            transform: scale(0.2);
+    transform: scale(0.2);
   }
   100% {
     opacity: 1;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-}
-@-webkit-keyframes antZoomOut {
-  0% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    -webkit-transform: scale(0.2);
-            transform: scale(0.2);
+    transform: scale(1);
   }
 }
 @keyframes antZoomOut {
   0% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
+    transform: scale(1);
   }
   100% {
     opacity: 0;
-    -webkit-transform: scale(0.2);
-            transform: scale(0.2);
-  }
-}
-@-webkit-keyframes antZoomBigIn {
-  0% {
-    opacity: 0;
-    -webkit-transform: scale(0.8);
-            transform: scale(0.8);
-  }
-  100% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
+    transform: scale(0.2);
   }
 }
 @keyframes antZoomBigIn {
   0% {
     opacity: 0;
-    -webkit-transform: scale(0.8);
-            transform: scale(0.8);
+    transform: scale(0.8);
   }
   100% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-}
-@-webkit-keyframes antZoomBigOut {
-  0% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    -webkit-transform: scale(0.8);
-            transform: scale(0.8);
+    transform: scale(1);
   }
 }
 @keyframes antZoomBigOut {
   0% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
+    transform: scale(1);
   }
   100% {
     opacity: 0;
-    -webkit-transform: scale(0.8);
-            transform: scale(0.8);
-  }
-}
-@-webkit-keyframes antZoomUpIn {
-  0% {
-    opacity: 0;
-    -webkit-transform-origin: 50% 0%;
-            transform-origin: 50% 0%;
-    -webkit-transform: scale(0.8);
-            transform: scale(0.8);
-  }
-  100% {
-    -webkit-transform-origin: 50% 0%;
-            transform-origin: 50% 0%;
-    -webkit-transform: scale(1);
-            transform: scale(1);
+    transform: scale(0.8);
   }
 }
 @keyframes antZoomUpIn {
   0% {
     opacity: 0;
-    -webkit-transform-origin: 50% 0%;
-            transform-origin: 50% 0%;
-    -webkit-transform: scale(0.8);
-            transform: scale(0.8);
+    transform-origin: 50% 0%;
+    transform: scale(0.8);
   }
   100% {
-    -webkit-transform-origin: 50% 0%;
-            transform-origin: 50% 0%;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-}
-@-webkit-keyframes antZoomUpOut {
-  0% {
-    -webkit-transform-origin: 50% 0%;
-            transform-origin: 50% 0%;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    -webkit-transform-origin: 50% 0%;
-            transform-origin: 50% 0%;
-    -webkit-transform: scale(0.8);
-            transform: scale(0.8);
+    transform-origin: 50% 0%;
+    transform: scale(1);
   }
 }
 @keyframes antZoomUpOut {
   0% {
-    -webkit-transform-origin: 50% 0%;
-            transform-origin: 50% 0%;
-    -webkit-transform: scale(1);
-            transform: scale(1);
+    transform-origin: 50% 0%;
+    transform: scale(1);
   }
   100% {
     opacity: 0;
-    -webkit-transform-origin: 50% 0%;
-            transform-origin: 50% 0%;
-    -webkit-transform: scale(0.8);
-            transform: scale(0.8);
-  }
-}
-@-webkit-keyframes antZoomLeftIn {
-  0% {
-    opacity: 0;
-    -webkit-transform-origin: 0% 50%;
-            transform-origin: 0% 50%;
-    -webkit-transform: scale(0.8);
-            transform: scale(0.8);
-  }
-  100% {
-    -webkit-transform-origin: 0% 50%;
-            transform-origin: 0% 50%;
-    -webkit-transform: scale(1);
-            transform: scale(1);
+    transform-origin: 50% 0%;
+    transform: scale(0.8);
   }
 }
 @keyframes antZoomLeftIn {
   0% {
     opacity: 0;
-    -webkit-transform-origin: 0% 50%;
-            transform-origin: 0% 50%;
-    -webkit-transform: scale(0.8);
-            transform: scale(0.8);
+    transform-origin: 0% 50%;
+    transform: scale(0.8);
   }
   100% {
-    -webkit-transform-origin: 0% 50%;
-            transform-origin: 0% 50%;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-}
-@-webkit-keyframes antZoomLeftOut {
-  0% {
-    -webkit-transform-origin: 0% 50%;
-            transform-origin: 0% 50%;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    -webkit-transform-origin: 0% 50%;
-            transform-origin: 0% 50%;
-    -webkit-transform: scale(0.8);
-            transform: scale(0.8);
+    transform-origin: 0% 50%;
+    transform: scale(1);
   }
 }
 @keyframes antZoomLeftOut {
   0% {
-    -webkit-transform-origin: 0% 50%;
-            transform-origin: 0% 50%;
-    -webkit-transform: scale(1);
-            transform: scale(1);
+    transform-origin: 0% 50%;
+    transform: scale(1);
   }
   100% {
     opacity: 0;
-    -webkit-transform-origin: 0% 50%;
-            transform-origin: 0% 50%;
-    -webkit-transform: scale(0.8);
-            transform: scale(0.8);
-  }
-}
-@-webkit-keyframes antZoomRightIn {
-  0% {
-    opacity: 0;
-    -webkit-transform-origin: 100% 50%;
-            transform-origin: 100% 50%;
-    -webkit-transform: scale(0.8);
-            transform: scale(0.8);
-  }
-  100% {
-    -webkit-transform-origin: 100% 50%;
-            transform-origin: 100% 50%;
-    -webkit-transform: scale(1);
-            transform: scale(1);
+    transform-origin: 0% 50%;
+    transform: scale(0.8);
   }
 }
 @keyframes antZoomRightIn {
   0% {
     opacity: 0;
-    -webkit-transform-origin: 100% 50%;
-            transform-origin: 100% 50%;
-    -webkit-transform: scale(0.8);
-            transform: scale(0.8);
+    transform-origin: 100% 50%;
+    transform: scale(0.8);
   }
   100% {
-    -webkit-transform-origin: 100% 50%;
-            transform-origin: 100% 50%;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-}
-@-webkit-keyframes antZoomRightOut {
-  0% {
-    -webkit-transform-origin: 100% 50%;
-            transform-origin: 100% 50%;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    -webkit-transform-origin: 100% 50%;
-            transform-origin: 100% 50%;
-    -webkit-transform: scale(0.8);
-            transform: scale(0.8);
+    transform-origin: 100% 50%;
+    transform: scale(1);
   }
 }
 @keyframes antZoomRightOut {
   0% {
-    -webkit-transform-origin: 100% 50%;
-            transform-origin: 100% 50%;
-    -webkit-transform: scale(1);
-            transform: scale(1);
+    transform-origin: 100% 50%;
+    transform: scale(1);
   }
   100% {
     opacity: 0;
-    -webkit-transform-origin: 100% 50%;
-            transform-origin: 100% 50%;
-    -webkit-transform: scale(0.8);
-            transform: scale(0.8);
-  }
-}
-@-webkit-keyframes antZoomDownIn {
-  0% {
-    opacity: 0;
-    -webkit-transform-origin: 50% 100%;
-            transform-origin: 50% 100%;
-    -webkit-transform: scale(0.8);
-            transform: scale(0.8);
-  }
-  100% {
-    -webkit-transform-origin: 50% 100%;
-            transform-origin: 50% 100%;
-    -webkit-transform: scale(1);
-            transform: scale(1);
+    transform-origin: 100% 50%;
+    transform: scale(0.8);
   }
 }
 @keyframes antZoomDownIn {
   0% {
     opacity: 0;
-    -webkit-transform-origin: 50% 100%;
-            transform-origin: 50% 100%;
-    -webkit-transform: scale(0.8);
-            transform: scale(0.8);
+    transform-origin: 50% 100%;
+    transform: scale(0.8);
   }
   100% {
-    -webkit-transform-origin: 50% 100%;
-            transform-origin: 50% 100%;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-}
-@-webkit-keyframes antZoomDownOut {
-  0% {
-    -webkit-transform-origin: 50% 100%;
-            transform-origin: 50% 100%;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    -webkit-transform-origin: 50% 100%;
-            transform-origin: 50% 100%;
-    -webkit-transform: scale(0.8);
-            transform: scale(0.8);
+    transform-origin: 50% 100%;
+    transform: scale(1);
   }
 }
 @keyframes antZoomDownOut {
   0% {
-    -webkit-transform-origin: 50% 100%;
-            transform-origin: 50% 100%;
-    -webkit-transform: scale(1);
-            transform: scale(1);
+    transform-origin: 50% 100%;
+    transform: scale(1);
   }
   100% {
     opacity: 0;
-    -webkit-transform-origin: 50% 100%;
-            transform-origin: 50% 100%;
-    -webkit-transform: scale(0.8);
-            transform: scale(0.8);
+    transform-origin: 50% 100%;
+    transform: scale(0.8);
   }
 }
 .ant-motion-collapse {
@@ -2915,57 +2124,46 @@ code, kbd, pre, samp {
   height: 0;
 }
 .ant-row-flex {
-  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: row wrap;
-          flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+      flex-flow: row wrap;
 }
 .ant-row-flex:before, .ant-row-flex:after {
-  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 .ant-row-flex-start {
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -ms-flex-pack: start;
+      justify-content: flex-start;
 }
 .ant-row-flex-center {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+      justify-content: center;
 }
 .ant-row-flex-end {
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+  -ms-flex-pack: end;
+      justify-content: flex-end;
 }
 .ant-row-flex-space-between {
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+      justify-content: space-between;
 }
 .ant-row-flex-space-around {
   -ms-flex-pack: distribute;
       justify-content: space-around;
 }
 .ant-row-flex-top {
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  -ms-flex-align: start;
+      align-items: flex-start;
 }
 .ant-row-flex-middle {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+      align-items: center;
 }
 .ant-row-flex-bottom {
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
+  -ms-flex-align: end;
+      align-items: flex-end;
 }
 .ant-col {
   position: relative;
@@ -2979,9 +2177,8 @@ code, kbd, pre, samp {
 }
 .ant-col-1, .ant-col-2, .ant-col-3, .ant-col-4, .ant-col-5, .ant-col-6, .ant-col-7, .ant-col-8, .ant-col-9, .ant-col-10, .ant-col-11, .ant-col-12, .ant-col-13, .ant-col-14, .ant-col-15, .ant-col-16, .ant-col-17, .ant-col-18, .ant-col-19, .ant-col-20, .ant-col-21, .ant-col-22, .ant-col-23, .ant-col-24 {
   float: left;
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+      flex: 0 0 auto;
 }
 .ant-col-24 {
   display: block;
@@ -2997,9 +2194,8 @@ code, kbd, pre, samp {
   margin-left: 100%;
 }
 .ant-col-order-24 {
-  -webkit-box-ordinal-group: 25;
-      -ms-flex-order: 24;
-          order: 24;
+  -ms-flex-order: 24;
+      order: 24;
 }
 .ant-col-23 {
   display: block;
@@ -3015,9 +2211,8 @@ code, kbd, pre, samp {
   margin-left: 95.83333333%;
 }
 .ant-col-order-23 {
-  -webkit-box-ordinal-group: 24;
-      -ms-flex-order: 23;
-          order: 23;
+  -ms-flex-order: 23;
+      order: 23;
 }
 .ant-col-22 {
   display: block;
@@ -3033,9 +2228,8 @@ code, kbd, pre, samp {
   margin-left: 91.66666667%;
 }
 .ant-col-order-22 {
-  -webkit-box-ordinal-group: 23;
-      -ms-flex-order: 22;
-          order: 22;
+  -ms-flex-order: 22;
+      order: 22;
 }
 .ant-col-21 {
   display: block;
@@ -3051,9 +2245,8 @@ code, kbd, pre, samp {
   margin-left: 87.5%;
 }
 .ant-col-order-21 {
-  -webkit-box-ordinal-group: 22;
-      -ms-flex-order: 21;
-          order: 21;
+  -ms-flex-order: 21;
+      order: 21;
 }
 .ant-col-20 {
   display: block;
@@ -3069,9 +2262,8 @@ code, kbd, pre, samp {
   margin-left: 83.33333333%;
 }
 .ant-col-order-20 {
-  -webkit-box-ordinal-group: 21;
-      -ms-flex-order: 20;
-          order: 20;
+  -ms-flex-order: 20;
+      order: 20;
 }
 .ant-col-19 {
   display: block;
@@ -3087,9 +2279,8 @@ code, kbd, pre, samp {
   margin-left: 79.16666667%;
 }
 .ant-col-order-19 {
-  -webkit-box-ordinal-group: 20;
-      -ms-flex-order: 19;
-          order: 19;
+  -ms-flex-order: 19;
+      order: 19;
 }
 .ant-col-18 {
   display: block;
@@ -3105,9 +2296,8 @@ code, kbd, pre, samp {
   margin-left: 75%;
 }
 .ant-col-order-18 {
-  -webkit-box-ordinal-group: 19;
-      -ms-flex-order: 18;
-          order: 18;
+  -ms-flex-order: 18;
+      order: 18;
 }
 .ant-col-17 {
   display: block;
@@ -3123,9 +2313,8 @@ code, kbd, pre, samp {
   margin-left: 70.83333333%;
 }
 .ant-col-order-17 {
-  -webkit-box-ordinal-group: 18;
-      -ms-flex-order: 17;
-          order: 17;
+  -ms-flex-order: 17;
+      order: 17;
 }
 .ant-col-16 {
   display: block;
@@ -3141,9 +2330,8 @@ code, kbd, pre, samp {
   margin-left: 66.66666667%;
 }
 .ant-col-order-16 {
-  -webkit-box-ordinal-group: 17;
-      -ms-flex-order: 16;
-          order: 16;
+  -ms-flex-order: 16;
+      order: 16;
 }
 .ant-col-15 {
   display: block;
@@ -3159,9 +2347,8 @@ code, kbd, pre, samp {
   margin-left: 62.5%;
 }
 .ant-col-order-15 {
-  -webkit-box-ordinal-group: 16;
-      -ms-flex-order: 15;
-          order: 15;
+  -ms-flex-order: 15;
+      order: 15;
 }
 .ant-col-14 {
   display: block;
@@ -3177,9 +2364,8 @@ code, kbd, pre, samp {
   margin-left: 58.33333333%;
 }
 .ant-col-order-14 {
-  -webkit-box-ordinal-group: 15;
-      -ms-flex-order: 14;
-          order: 14;
+  -ms-flex-order: 14;
+      order: 14;
 }
 .ant-col-13 {
   display: block;
@@ -3195,9 +2381,8 @@ code, kbd, pre, samp {
   margin-left: 54.16666667%;
 }
 .ant-col-order-13 {
-  -webkit-box-ordinal-group: 14;
-      -ms-flex-order: 13;
-          order: 13;
+  -ms-flex-order: 13;
+      order: 13;
 }
 .ant-col-12 {
   display: block;
@@ -3213,9 +2398,8 @@ code, kbd, pre, samp {
   margin-left: 50%;
 }
 .ant-col-order-12 {
-  -webkit-box-ordinal-group: 13;
-      -ms-flex-order: 12;
-          order: 12;
+  -ms-flex-order: 12;
+      order: 12;
 }
 .ant-col-11 {
   display: block;
@@ -3231,9 +2415,8 @@ code, kbd, pre, samp {
   margin-left: 45.83333333%;
 }
 .ant-col-order-11 {
-  -webkit-box-ordinal-group: 12;
-      -ms-flex-order: 11;
-          order: 11;
+  -ms-flex-order: 11;
+      order: 11;
 }
 .ant-col-10 {
   display: block;
@@ -3249,9 +2432,8 @@ code, kbd, pre, samp {
   margin-left: 41.66666667%;
 }
 .ant-col-order-10 {
-  -webkit-box-ordinal-group: 11;
-      -ms-flex-order: 10;
-          order: 10;
+  -ms-flex-order: 10;
+      order: 10;
 }
 .ant-col-9 {
   display: block;
@@ -3267,9 +2449,8 @@ code, kbd, pre, samp {
   margin-left: 37.5%;
 }
 .ant-col-order-9 {
-  -webkit-box-ordinal-group: 10;
-      -ms-flex-order: 9;
-          order: 9;
+  -ms-flex-order: 9;
+      order: 9;
 }
 .ant-col-8 {
   display: block;
@@ -3285,9 +2466,8 @@ code, kbd, pre, samp {
   margin-left: 33.33333333%;
 }
 .ant-col-order-8 {
-  -webkit-box-ordinal-group: 9;
-      -ms-flex-order: 8;
-          order: 8;
+  -ms-flex-order: 8;
+      order: 8;
 }
 .ant-col-7 {
   display: block;
@@ -3303,9 +2483,8 @@ code, kbd, pre, samp {
   margin-left: 29.16666667%;
 }
 .ant-col-order-7 {
-  -webkit-box-ordinal-group: 8;
-      -ms-flex-order: 7;
-          order: 7;
+  -ms-flex-order: 7;
+      order: 7;
 }
 .ant-col-6 {
   display: block;
@@ -3321,9 +2500,8 @@ code, kbd, pre, samp {
   margin-left: 25%;
 }
 .ant-col-order-6 {
-  -webkit-box-ordinal-group: 7;
-      -ms-flex-order: 6;
-          order: 6;
+  -ms-flex-order: 6;
+      order: 6;
 }
 .ant-col-5 {
   display: block;
@@ -3339,9 +2517,8 @@ code, kbd, pre, samp {
   margin-left: 20.83333333%;
 }
 .ant-col-order-5 {
-  -webkit-box-ordinal-group: 6;
-      -ms-flex-order: 5;
-          order: 5;
+  -ms-flex-order: 5;
+      order: 5;
 }
 .ant-col-4 {
   display: block;
@@ -3357,9 +2534,8 @@ code, kbd, pre, samp {
   margin-left: 16.66666667%;
 }
 .ant-col-order-4 {
-  -webkit-box-ordinal-group: 5;
-      -ms-flex-order: 4;
-          order: 4;
+  -ms-flex-order: 4;
+      order: 4;
 }
 .ant-col-3 {
   display: block;
@@ -3375,9 +2551,8 @@ code, kbd, pre, samp {
   margin-left: 12.5%;
 }
 .ant-col-order-3 {
-  -webkit-box-ordinal-group: 4;
-      -ms-flex-order: 3;
-          order: 3;
+  -ms-flex-order: 3;
+      order: 3;
 }
 .ant-col-2 {
   display: block;
@@ -3393,9 +2568,8 @@ code, kbd, pre, samp {
   margin-left: 8.33333333%;
 }
 .ant-col-order-2 {
-  -webkit-box-ordinal-group: 3;
-      -ms-flex-order: 2;
-          order: 2;
+  -ms-flex-order: 2;
+      order: 2;
 }
 .ant-col-1 {
   display: block;
@@ -3411,9 +2585,8 @@ code, kbd, pre, samp {
   margin-left: 4.16666667%;
 }
 .ant-col-order-1 {
-  -webkit-box-ordinal-group: 2;
-      -ms-flex-order: 1;
-          order: 1;
+  -ms-flex-order: 1;
+      order: 1;
 }
 .ant-col-0 {
   display: none;
@@ -3434,15 +2607,13 @@ code, kbd, pre, samp {
   margin-left: 0;
 }
 .ant-col-order-0 {
-  -webkit-box-ordinal-group: 1;
-      -ms-flex-order: 0;
-          order: 0;
+  -ms-flex-order: 0;
+      order: 0;
 }
 .ant-col-xs-1, .ant-col-xs-2, .ant-col-xs-3, .ant-col-xs-4, .ant-col-xs-5, .ant-col-xs-6, .ant-col-xs-7, .ant-col-xs-8, .ant-col-xs-9, .ant-col-xs-10, .ant-col-xs-11, .ant-col-xs-12, .ant-col-xs-13, .ant-col-xs-14, .ant-col-xs-15, .ant-col-xs-16, .ant-col-xs-17, .ant-col-xs-18, .ant-col-xs-19, .ant-col-xs-20, .ant-col-xs-21, .ant-col-xs-22, .ant-col-xs-23, .ant-col-xs-24 {
   float: left;
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+      flex: 0 0 auto;
 }
 .ant-col-xs-24 {
   display: block;
@@ -3458,9 +2629,8 @@ code, kbd, pre, samp {
   margin-left: 100%;
 }
 .ant-col-xs-order-24 {
-  -webkit-box-ordinal-group: 25;
-      -ms-flex-order: 24;
-          order: 24;
+  -ms-flex-order: 24;
+      order: 24;
 }
 .ant-col-xs-23 {
   display: block;
@@ -3476,9 +2646,8 @@ code, kbd, pre, samp {
   margin-left: 95.83333333%;
 }
 .ant-col-xs-order-23 {
-  -webkit-box-ordinal-group: 24;
-      -ms-flex-order: 23;
-          order: 23;
+  -ms-flex-order: 23;
+      order: 23;
 }
 .ant-col-xs-22 {
   display: block;
@@ -3494,9 +2663,8 @@ code, kbd, pre, samp {
   margin-left: 91.66666667%;
 }
 .ant-col-xs-order-22 {
-  -webkit-box-ordinal-group: 23;
-      -ms-flex-order: 22;
-          order: 22;
+  -ms-flex-order: 22;
+      order: 22;
 }
 .ant-col-xs-21 {
   display: block;
@@ -3512,9 +2680,8 @@ code, kbd, pre, samp {
   margin-left: 87.5%;
 }
 .ant-col-xs-order-21 {
-  -webkit-box-ordinal-group: 22;
-      -ms-flex-order: 21;
-          order: 21;
+  -ms-flex-order: 21;
+      order: 21;
 }
 .ant-col-xs-20 {
   display: block;
@@ -3530,9 +2697,8 @@ code, kbd, pre, samp {
   margin-left: 83.33333333%;
 }
 .ant-col-xs-order-20 {
-  -webkit-box-ordinal-group: 21;
-      -ms-flex-order: 20;
-          order: 20;
+  -ms-flex-order: 20;
+      order: 20;
 }
 .ant-col-xs-19 {
   display: block;
@@ -3548,9 +2714,8 @@ code, kbd, pre, samp {
   margin-left: 79.16666667%;
 }
 .ant-col-xs-order-19 {
-  -webkit-box-ordinal-group: 20;
-      -ms-flex-order: 19;
-          order: 19;
+  -ms-flex-order: 19;
+      order: 19;
 }
 .ant-col-xs-18 {
   display: block;
@@ -3566,9 +2731,8 @@ code, kbd, pre, samp {
   margin-left: 75%;
 }
 .ant-col-xs-order-18 {
-  -webkit-box-ordinal-group: 19;
-      -ms-flex-order: 18;
-          order: 18;
+  -ms-flex-order: 18;
+      order: 18;
 }
 .ant-col-xs-17 {
   display: block;
@@ -3584,9 +2748,8 @@ code, kbd, pre, samp {
   margin-left: 70.83333333%;
 }
 .ant-col-xs-order-17 {
-  -webkit-box-ordinal-group: 18;
-      -ms-flex-order: 17;
-          order: 17;
+  -ms-flex-order: 17;
+      order: 17;
 }
 .ant-col-xs-16 {
   display: block;
@@ -3602,9 +2765,8 @@ code, kbd, pre, samp {
   margin-left: 66.66666667%;
 }
 .ant-col-xs-order-16 {
-  -webkit-box-ordinal-group: 17;
-      -ms-flex-order: 16;
-          order: 16;
+  -ms-flex-order: 16;
+      order: 16;
 }
 .ant-col-xs-15 {
   display: block;
@@ -3620,9 +2782,8 @@ code, kbd, pre, samp {
   margin-left: 62.5%;
 }
 .ant-col-xs-order-15 {
-  -webkit-box-ordinal-group: 16;
-      -ms-flex-order: 15;
-          order: 15;
+  -ms-flex-order: 15;
+      order: 15;
 }
 .ant-col-xs-14 {
   display: block;
@@ -3638,9 +2799,8 @@ code, kbd, pre, samp {
   margin-left: 58.33333333%;
 }
 .ant-col-xs-order-14 {
-  -webkit-box-ordinal-group: 15;
-      -ms-flex-order: 14;
-          order: 14;
+  -ms-flex-order: 14;
+      order: 14;
 }
 .ant-col-xs-13 {
   display: block;
@@ -3656,9 +2816,8 @@ code, kbd, pre, samp {
   margin-left: 54.16666667%;
 }
 .ant-col-xs-order-13 {
-  -webkit-box-ordinal-group: 14;
-      -ms-flex-order: 13;
-          order: 13;
+  -ms-flex-order: 13;
+      order: 13;
 }
 .ant-col-xs-12 {
   display: block;
@@ -3674,9 +2833,8 @@ code, kbd, pre, samp {
   margin-left: 50%;
 }
 .ant-col-xs-order-12 {
-  -webkit-box-ordinal-group: 13;
-      -ms-flex-order: 12;
-          order: 12;
+  -ms-flex-order: 12;
+      order: 12;
 }
 .ant-col-xs-11 {
   display: block;
@@ -3692,9 +2850,8 @@ code, kbd, pre, samp {
   margin-left: 45.83333333%;
 }
 .ant-col-xs-order-11 {
-  -webkit-box-ordinal-group: 12;
-      -ms-flex-order: 11;
-          order: 11;
+  -ms-flex-order: 11;
+      order: 11;
 }
 .ant-col-xs-10 {
   display: block;
@@ -3710,9 +2867,8 @@ code, kbd, pre, samp {
   margin-left: 41.66666667%;
 }
 .ant-col-xs-order-10 {
-  -webkit-box-ordinal-group: 11;
-      -ms-flex-order: 10;
-          order: 10;
+  -ms-flex-order: 10;
+      order: 10;
 }
 .ant-col-xs-9 {
   display: block;
@@ -3728,9 +2884,8 @@ code, kbd, pre, samp {
   margin-left: 37.5%;
 }
 .ant-col-xs-order-9 {
-  -webkit-box-ordinal-group: 10;
-      -ms-flex-order: 9;
-          order: 9;
+  -ms-flex-order: 9;
+      order: 9;
 }
 .ant-col-xs-8 {
   display: block;
@@ -3746,9 +2901,8 @@ code, kbd, pre, samp {
   margin-left: 33.33333333%;
 }
 .ant-col-xs-order-8 {
-  -webkit-box-ordinal-group: 9;
-      -ms-flex-order: 8;
-          order: 8;
+  -ms-flex-order: 8;
+      order: 8;
 }
 .ant-col-xs-7 {
   display: block;
@@ -3764,9 +2918,8 @@ code, kbd, pre, samp {
   margin-left: 29.16666667%;
 }
 .ant-col-xs-order-7 {
-  -webkit-box-ordinal-group: 8;
-      -ms-flex-order: 7;
-          order: 7;
+  -ms-flex-order: 7;
+      order: 7;
 }
 .ant-col-xs-6 {
   display: block;
@@ -3782,9 +2935,8 @@ code, kbd, pre, samp {
   margin-left: 25%;
 }
 .ant-col-xs-order-6 {
-  -webkit-box-ordinal-group: 7;
-      -ms-flex-order: 6;
-          order: 6;
+  -ms-flex-order: 6;
+      order: 6;
 }
 .ant-col-xs-5 {
   display: block;
@@ -3800,9 +2952,8 @@ code, kbd, pre, samp {
   margin-left: 20.83333333%;
 }
 .ant-col-xs-order-5 {
-  -webkit-box-ordinal-group: 6;
-      -ms-flex-order: 5;
-          order: 5;
+  -ms-flex-order: 5;
+      order: 5;
 }
 .ant-col-xs-4 {
   display: block;
@@ -3818,9 +2969,8 @@ code, kbd, pre, samp {
   margin-left: 16.66666667%;
 }
 .ant-col-xs-order-4 {
-  -webkit-box-ordinal-group: 5;
-      -ms-flex-order: 4;
-          order: 4;
+  -ms-flex-order: 4;
+      order: 4;
 }
 .ant-col-xs-3 {
   display: block;
@@ -3836,9 +2986,8 @@ code, kbd, pre, samp {
   margin-left: 12.5%;
 }
 .ant-col-xs-order-3 {
-  -webkit-box-ordinal-group: 4;
-      -ms-flex-order: 3;
-          order: 3;
+  -ms-flex-order: 3;
+      order: 3;
 }
 .ant-col-xs-2 {
   display: block;
@@ -3854,9 +3003,8 @@ code, kbd, pre, samp {
   margin-left: 8.33333333%;
 }
 .ant-col-xs-order-2 {
-  -webkit-box-ordinal-group: 3;
-      -ms-flex-order: 2;
-          order: 2;
+  -ms-flex-order: 2;
+      order: 2;
 }
 .ant-col-xs-1 {
   display: block;
@@ -3872,9 +3020,8 @@ code, kbd, pre, samp {
   margin-left: 4.16666667%;
 }
 .ant-col-xs-order-1 {
-  -webkit-box-ordinal-group: 2;
-      -ms-flex-order: 1;
-          order: 1;
+  -ms-flex-order: 1;
+      order: 1;
 }
 .ant-col-xs-0 {
   display: none;
@@ -3895,16 +3042,14 @@ code, kbd, pre, samp {
   margin-left: 0;
 }
 .ant-col-xs-order-0 {
-  -webkit-box-ordinal-group: 1;
-      -ms-flex-order: 0;
-          order: 0;
+  -ms-flex-order: 0;
+      order: 0;
 }
 @media (min-width: 768px) {
   .ant-col-sm-1, .ant-col-sm-2, .ant-col-sm-3, .ant-col-sm-4, .ant-col-sm-5, .ant-col-sm-6, .ant-col-sm-7, .ant-col-sm-8, .ant-col-sm-9, .ant-col-sm-10, .ant-col-sm-11, .ant-col-sm-12, .ant-col-sm-13, .ant-col-sm-14, .ant-col-sm-15, .ant-col-sm-16, .ant-col-sm-17, .ant-col-sm-18, .ant-col-sm-19, .ant-col-sm-20, .ant-col-sm-21, .ant-col-sm-22, .ant-col-sm-23, .ant-col-sm-24 {
     float: left;
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
   }
   .ant-col-sm-24 {
     display: block;
@@ -3920,9 +3065,8 @@ code, kbd, pre, samp {
     margin-left: 100%;
   }
   .ant-col-sm-order-24 {
-    -webkit-box-ordinal-group: 25;
-        -ms-flex-order: 24;
-            order: 24;
+    -ms-flex-order: 24;
+        order: 24;
   }
   .ant-col-sm-23 {
     display: block;
@@ -3938,9 +3082,8 @@ code, kbd, pre, samp {
     margin-left: 95.83333333%;
   }
   .ant-col-sm-order-23 {
-    -webkit-box-ordinal-group: 24;
-        -ms-flex-order: 23;
-            order: 23;
+    -ms-flex-order: 23;
+        order: 23;
   }
   .ant-col-sm-22 {
     display: block;
@@ -3956,9 +3099,8 @@ code, kbd, pre, samp {
     margin-left: 91.66666667%;
   }
   .ant-col-sm-order-22 {
-    -webkit-box-ordinal-group: 23;
-        -ms-flex-order: 22;
-            order: 22;
+    -ms-flex-order: 22;
+        order: 22;
   }
   .ant-col-sm-21 {
     display: block;
@@ -3974,9 +3116,8 @@ code, kbd, pre, samp {
     margin-left: 87.5%;
   }
   .ant-col-sm-order-21 {
-    -webkit-box-ordinal-group: 22;
-        -ms-flex-order: 21;
-            order: 21;
+    -ms-flex-order: 21;
+        order: 21;
   }
   .ant-col-sm-20 {
     display: block;
@@ -3992,9 +3133,8 @@ code, kbd, pre, samp {
     margin-left: 83.33333333%;
   }
   .ant-col-sm-order-20 {
-    -webkit-box-ordinal-group: 21;
-        -ms-flex-order: 20;
-            order: 20;
+    -ms-flex-order: 20;
+        order: 20;
   }
   .ant-col-sm-19 {
     display: block;
@@ -4010,9 +3150,8 @@ code, kbd, pre, samp {
     margin-left: 79.16666667%;
   }
   .ant-col-sm-order-19 {
-    -webkit-box-ordinal-group: 20;
-        -ms-flex-order: 19;
-            order: 19;
+    -ms-flex-order: 19;
+        order: 19;
   }
   .ant-col-sm-18 {
     display: block;
@@ -4028,9 +3167,8 @@ code, kbd, pre, samp {
     margin-left: 75%;
   }
   .ant-col-sm-order-18 {
-    -webkit-box-ordinal-group: 19;
-        -ms-flex-order: 18;
-            order: 18;
+    -ms-flex-order: 18;
+        order: 18;
   }
   .ant-col-sm-17 {
     display: block;
@@ -4046,9 +3184,8 @@ code, kbd, pre, samp {
     margin-left: 70.83333333%;
   }
   .ant-col-sm-order-17 {
-    -webkit-box-ordinal-group: 18;
-        -ms-flex-order: 17;
-            order: 17;
+    -ms-flex-order: 17;
+        order: 17;
   }
   .ant-col-sm-16 {
     display: block;
@@ -4064,9 +3201,8 @@ code, kbd, pre, samp {
     margin-left: 66.66666667%;
   }
   .ant-col-sm-order-16 {
-    -webkit-box-ordinal-group: 17;
-        -ms-flex-order: 16;
-            order: 16;
+    -ms-flex-order: 16;
+        order: 16;
   }
   .ant-col-sm-15 {
     display: block;
@@ -4082,9 +3218,8 @@ code, kbd, pre, samp {
     margin-left: 62.5%;
   }
   .ant-col-sm-order-15 {
-    -webkit-box-ordinal-group: 16;
-        -ms-flex-order: 15;
-            order: 15;
+    -ms-flex-order: 15;
+        order: 15;
   }
   .ant-col-sm-14 {
     display: block;
@@ -4100,9 +3235,8 @@ code, kbd, pre, samp {
     margin-left: 58.33333333%;
   }
   .ant-col-sm-order-14 {
-    -webkit-box-ordinal-group: 15;
-        -ms-flex-order: 14;
-            order: 14;
+    -ms-flex-order: 14;
+        order: 14;
   }
   .ant-col-sm-13 {
     display: block;
@@ -4118,9 +3252,8 @@ code, kbd, pre, samp {
     margin-left: 54.16666667%;
   }
   .ant-col-sm-order-13 {
-    -webkit-box-ordinal-group: 14;
-        -ms-flex-order: 13;
-            order: 13;
+    -ms-flex-order: 13;
+        order: 13;
   }
   .ant-col-sm-12 {
     display: block;
@@ -4136,9 +3269,8 @@ code, kbd, pre, samp {
     margin-left: 50%;
   }
   .ant-col-sm-order-12 {
-    -webkit-box-ordinal-group: 13;
-        -ms-flex-order: 12;
-            order: 12;
+    -ms-flex-order: 12;
+        order: 12;
   }
   .ant-col-sm-11 {
     display: block;
@@ -4154,9 +3286,8 @@ code, kbd, pre, samp {
     margin-left: 45.83333333%;
   }
   .ant-col-sm-order-11 {
-    -webkit-box-ordinal-group: 12;
-        -ms-flex-order: 11;
-            order: 11;
+    -ms-flex-order: 11;
+        order: 11;
   }
   .ant-col-sm-10 {
     display: block;
@@ -4172,9 +3303,8 @@ code, kbd, pre, samp {
     margin-left: 41.66666667%;
   }
   .ant-col-sm-order-10 {
-    -webkit-box-ordinal-group: 11;
-        -ms-flex-order: 10;
-            order: 10;
+    -ms-flex-order: 10;
+        order: 10;
   }
   .ant-col-sm-9 {
     display: block;
@@ -4190,9 +3320,8 @@ code, kbd, pre, samp {
     margin-left: 37.5%;
   }
   .ant-col-sm-order-9 {
-    -webkit-box-ordinal-group: 10;
-        -ms-flex-order: 9;
-            order: 9;
+    -ms-flex-order: 9;
+        order: 9;
   }
   .ant-col-sm-8 {
     display: block;
@@ -4208,9 +3337,8 @@ code, kbd, pre, samp {
     margin-left: 33.33333333%;
   }
   .ant-col-sm-order-8 {
-    -webkit-box-ordinal-group: 9;
-        -ms-flex-order: 8;
-            order: 8;
+    -ms-flex-order: 8;
+        order: 8;
   }
   .ant-col-sm-7 {
     display: block;
@@ -4226,9 +3354,8 @@ code, kbd, pre, samp {
     margin-left: 29.16666667%;
   }
   .ant-col-sm-order-7 {
-    -webkit-box-ordinal-group: 8;
-        -ms-flex-order: 7;
-            order: 7;
+    -ms-flex-order: 7;
+        order: 7;
   }
   .ant-col-sm-6 {
     display: block;
@@ -4244,9 +3371,8 @@ code, kbd, pre, samp {
     margin-left: 25%;
   }
   .ant-col-sm-order-6 {
-    -webkit-box-ordinal-group: 7;
-        -ms-flex-order: 6;
-            order: 6;
+    -ms-flex-order: 6;
+        order: 6;
   }
   .ant-col-sm-5 {
     display: block;
@@ -4262,9 +3388,8 @@ code, kbd, pre, samp {
     margin-left: 20.83333333%;
   }
   .ant-col-sm-order-5 {
-    -webkit-box-ordinal-group: 6;
-        -ms-flex-order: 5;
-            order: 5;
+    -ms-flex-order: 5;
+        order: 5;
   }
   .ant-col-sm-4 {
     display: block;
@@ -4280,9 +3405,8 @@ code, kbd, pre, samp {
     margin-left: 16.66666667%;
   }
   .ant-col-sm-order-4 {
-    -webkit-box-ordinal-group: 5;
-        -ms-flex-order: 4;
-            order: 4;
+    -ms-flex-order: 4;
+        order: 4;
   }
   .ant-col-sm-3 {
     display: block;
@@ -4298,9 +3422,8 @@ code, kbd, pre, samp {
     margin-left: 12.5%;
   }
   .ant-col-sm-order-3 {
-    -webkit-box-ordinal-group: 4;
-        -ms-flex-order: 3;
-            order: 3;
+    -ms-flex-order: 3;
+        order: 3;
   }
   .ant-col-sm-2 {
     display: block;
@@ -4316,9 +3439,8 @@ code, kbd, pre, samp {
     margin-left: 8.33333333%;
   }
   .ant-col-sm-order-2 {
-    -webkit-box-ordinal-group: 3;
-        -ms-flex-order: 2;
-            order: 2;
+    -ms-flex-order: 2;
+        order: 2;
   }
   .ant-col-sm-1 {
     display: block;
@@ -4334,9 +3456,8 @@ code, kbd, pre, samp {
     margin-left: 4.16666667%;
   }
   .ant-col-sm-order-1 {
-    -webkit-box-ordinal-group: 2;
-        -ms-flex-order: 1;
-            order: 1;
+    -ms-flex-order: 1;
+        order: 1;
   }
   .ant-col-sm-0 {
     display: none;
@@ -4357,17 +3478,15 @@ code, kbd, pre, samp {
     margin-left: 0;
   }
   .ant-col-sm-order-0 {
-    -webkit-box-ordinal-group: 1;
-        -ms-flex-order: 0;
-            order: 0;
+    -ms-flex-order: 0;
+        order: 0;
   }
 }
 @media (min-width: 992px) {
   .ant-col-md-1, .ant-col-md-2, .ant-col-md-3, .ant-col-md-4, .ant-col-md-5, .ant-col-md-6, .ant-col-md-7, .ant-col-md-8, .ant-col-md-9, .ant-col-md-10, .ant-col-md-11, .ant-col-md-12, .ant-col-md-13, .ant-col-md-14, .ant-col-md-15, .ant-col-md-16, .ant-col-md-17, .ant-col-md-18, .ant-col-md-19, .ant-col-md-20, .ant-col-md-21, .ant-col-md-22, .ant-col-md-23, .ant-col-md-24 {
     float: left;
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
   }
   .ant-col-md-24 {
     display: block;
@@ -4383,9 +3502,8 @@ code, kbd, pre, samp {
     margin-left: 100%;
   }
   .ant-col-md-order-24 {
-    -webkit-box-ordinal-group: 25;
-        -ms-flex-order: 24;
-            order: 24;
+    -ms-flex-order: 24;
+        order: 24;
   }
   .ant-col-md-23 {
     display: block;
@@ -4401,9 +3519,8 @@ code, kbd, pre, samp {
     margin-left: 95.83333333%;
   }
   .ant-col-md-order-23 {
-    -webkit-box-ordinal-group: 24;
-        -ms-flex-order: 23;
-            order: 23;
+    -ms-flex-order: 23;
+        order: 23;
   }
   .ant-col-md-22 {
     display: block;
@@ -4419,9 +3536,8 @@ code, kbd, pre, samp {
     margin-left: 91.66666667%;
   }
   .ant-col-md-order-22 {
-    -webkit-box-ordinal-group: 23;
-        -ms-flex-order: 22;
-            order: 22;
+    -ms-flex-order: 22;
+        order: 22;
   }
   .ant-col-md-21 {
     display: block;
@@ -4437,9 +3553,8 @@ code, kbd, pre, samp {
     margin-left: 87.5%;
   }
   .ant-col-md-order-21 {
-    -webkit-box-ordinal-group: 22;
-        -ms-flex-order: 21;
-            order: 21;
+    -ms-flex-order: 21;
+        order: 21;
   }
   .ant-col-md-20 {
     display: block;
@@ -4455,9 +3570,8 @@ code, kbd, pre, samp {
     margin-left: 83.33333333%;
   }
   .ant-col-md-order-20 {
-    -webkit-box-ordinal-group: 21;
-        -ms-flex-order: 20;
-            order: 20;
+    -ms-flex-order: 20;
+        order: 20;
   }
   .ant-col-md-19 {
     display: block;
@@ -4473,9 +3587,8 @@ code, kbd, pre, samp {
     margin-left: 79.16666667%;
   }
   .ant-col-md-order-19 {
-    -webkit-box-ordinal-group: 20;
-        -ms-flex-order: 19;
-            order: 19;
+    -ms-flex-order: 19;
+        order: 19;
   }
   .ant-col-md-18 {
     display: block;
@@ -4491,9 +3604,8 @@ code, kbd, pre, samp {
     margin-left: 75%;
   }
   .ant-col-md-order-18 {
-    -webkit-box-ordinal-group: 19;
-        -ms-flex-order: 18;
-            order: 18;
+    -ms-flex-order: 18;
+        order: 18;
   }
   .ant-col-md-17 {
     display: block;
@@ -4509,9 +3621,8 @@ code, kbd, pre, samp {
     margin-left: 70.83333333%;
   }
   .ant-col-md-order-17 {
-    -webkit-box-ordinal-group: 18;
-        -ms-flex-order: 17;
-            order: 17;
+    -ms-flex-order: 17;
+        order: 17;
   }
   .ant-col-md-16 {
     display: block;
@@ -4527,9 +3638,8 @@ code, kbd, pre, samp {
     margin-left: 66.66666667%;
   }
   .ant-col-md-order-16 {
-    -webkit-box-ordinal-group: 17;
-        -ms-flex-order: 16;
-            order: 16;
+    -ms-flex-order: 16;
+        order: 16;
   }
   .ant-col-md-15 {
     display: block;
@@ -4545,9 +3655,8 @@ code, kbd, pre, samp {
     margin-left: 62.5%;
   }
   .ant-col-md-order-15 {
-    -webkit-box-ordinal-group: 16;
-        -ms-flex-order: 15;
-            order: 15;
+    -ms-flex-order: 15;
+        order: 15;
   }
   .ant-col-md-14 {
     display: block;
@@ -4563,9 +3672,8 @@ code, kbd, pre, samp {
     margin-left: 58.33333333%;
   }
   .ant-col-md-order-14 {
-    -webkit-box-ordinal-group: 15;
-        -ms-flex-order: 14;
-            order: 14;
+    -ms-flex-order: 14;
+        order: 14;
   }
   .ant-col-md-13 {
     display: block;
@@ -4581,9 +3689,8 @@ code, kbd, pre, samp {
     margin-left: 54.16666667%;
   }
   .ant-col-md-order-13 {
-    -webkit-box-ordinal-group: 14;
-        -ms-flex-order: 13;
-            order: 13;
+    -ms-flex-order: 13;
+        order: 13;
   }
   .ant-col-md-12 {
     display: block;
@@ -4599,9 +3706,8 @@ code, kbd, pre, samp {
     margin-left: 50%;
   }
   .ant-col-md-order-12 {
-    -webkit-box-ordinal-group: 13;
-        -ms-flex-order: 12;
-            order: 12;
+    -ms-flex-order: 12;
+        order: 12;
   }
   .ant-col-md-11 {
     display: block;
@@ -4617,9 +3723,8 @@ code, kbd, pre, samp {
     margin-left: 45.83333333%;
   }
   .ant-col-md-order-11 {
-    -webkit-box-ordinal-group: 12;
-        -ms-flex-order: 11;
-            order: 11;
+    -ms-flex-order: 11;
+        order: 11;
   }
   .ant-col-md-10 {
     display: block;
@@ -4635,9 +3740,8 @@ code, kbd, pre, samp {
     margin-left: 41.66666667%;
   }
   .ant-col-md-order-10 {
-    -webkit-box-ordinal-group: 11;
-        -ms-flex-order: 10;
-            order: 10;
+    -ms-flex-order: 10;
+        order: 10;
   }
   .ant-col-md-9 {
     display: block;
@@ -4653,9 +3757,8 @@ code, kbd, pre, samp {
     margin-left: 37.5%;
   }
   .ant-col-md-order-9 {
-    -webkit-box-ordinal-group: 10;
-        -ms-flex-order: 9;
-            order: 9;
+    -ms-flex-order: 9;
+        order: 9;
   }
   .ant-col-md-8 {
     display: block;
@@ -4671,9 +3774,8 @@ code, kbd, pre, samp {
     margin-left: 33.33333333%;
   }
   .ant-col-md-order-8 {
-    -webkit-box-ordinal-group: 9;
-        -ms-flex-order: 8;
-            order: 8;
+    -ms-flex-order: 8;
+        order: 8;
   }
   .ant-col-md-7 {
     display: block;
@@ -4689,9 +3791,8 @@ code, kbd, pre, samp {
     margin-left: 29.16666667%;
   }
   .ant-col-md-order-7 {
-    -webkit-box-ordinal-group: 8;
-        -ms-flex-order: 7;
-            order: 7;
+    -ms-flex-order: 7;
+        order: 7;
   }
   .ant-col-md-6 {
     display: block;
@@ -4707,9 +3808,8 @@ code, kbd, pre, samp {
     margin-left: 25%;
   }
   .ant-col-md-order-6 {
-    -webkit-box-ordinal-group: 7;
-        -ms-flex-order: 6;
-            order: 6;
+    -ms-flex-order: 6;
+        order: 6;
   }
   .ant-col-md-5 {
     display: block;
@@ -4725,9 +3825,8 @@ code, kbd, pre, samp {
     margin-left: 20.83333333%;
   }
   .ant-col-md-order-5 {
-    -webkit-box-ordinal-group: 6;
-        -ms-flex-order: 5;
-            order: 5;
+    -ms-flex-order: 5;
+        order: 5;
   }
   .ant-col-md-4 {
     display: block;
@@ -4743,9 +3842,8 @@ code, kbd, pre, samp {
     margin-left: 16.66666667%;
   }
   .ant-col-md-order-4 {
-    -webkit-box-ordinal-group: 5;
-        -ms-flex-order: 4;
-            order: 4;
+    -ms-flex-order: 4;
+        order: 4;
   }
   .ant-col-md-3 {
     display: block;
@@ -4761,9 +3859,8 @@ code, kbd, pre, samp {
     margin-left: 12.5%;
   }
   .ant-col-md-order-3 {
-    -webkit-box-ordinal-group: 4;
-        -ms-flex-order: 3;
-            order: 3;
+    -ms-flex-order: 3;
+        order: 3;
   }
   .ant-col-md-2 {
     display: block;
@@ -4779,9 +3876,8 @@ code, kbd, pre, samp {
     margin-left: 8.33333333%;
   }
   .ant-col-md-order-2 {
-    -webkit-box-ordinal-group: 3;
-        -ms-flex-order: 2;
-            order: 2;
+    -ms-flex-order: 2;
+        order: 2;
   }
   .ant-col-md-1 {
     display: block;
@@ -4797,9 +3893,8 @@ code, kbd, pre, samp {
     margin-left: 4.16666667%;
   }
   .ant-col-md-order-1 {
-    -webkit-box-ordinal-group: 2;
-        -ms-flex-order: 1;
-            order: 1;
+    -ms-flex-order: 1;
+        order: 1;
   }
   .ant-col-md-0 {
     display: none;
@@ -4820,17 +3915,15 @@ code, kbd, pre, samp {
     margin-left: 0;
   }
   .ant-col-md-order-0 {
-    -webkit-box-ordinal-group: 1;
-        -ms-flex-order: 0;
-            order: 0;
+    -ms-flex-order: 0;
+        order: 0;
   }
 }
 @media (min-width: 1200px) {
   .ant-col-lg-1, .ant-col-lg-2, .ant-col-lg-3, .ant-col-lg-4, .ant-col-lg-5, .ant-col-lg-6, .ant-col-lg-7, .ant-col-lg-8, .ant-col-lg-9, .ant-col-lg-10, .ant-col-lg-11, .ant-col-lg-12, .ant-col-lg-13, .ant-col-lg-14, .ant-col-lg-15, .ant-col-lg-16, .ant-col-lg-17, .ant-col-lg-18, .ant-col-lg-19, .ant-col-lg-20, .ant-col-lg-21, .ant-col-lg-22, .ant-col-lg-23, .ant-col-lg-24 {
     float: left;
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
   }
   .ant-col-lg-24 {
     display: block;
@@ -4846,9 +3939,8 @@ code, kbd, pre, samp {
     margin-left: 100%;
   }
   .ant-col-lg-order-24 {
-    -webkit-box-ordinal-group: 25;
-        -ms-flex-order: 24;
-            order: 24;
+    -ms-flex-order: 24;
+        order: 24;
   }
   .ant-col-lg-23 {
     display: block;
@@ -4864,9 +3956,8 @@ code, kbd, pre, samp {
     margin-left: 95.83333333%;
   }
   .ant-col-lg-order-23 {
-    -webkit-box-ordinal-group: 24;
-        -ms-flex-order: 23;
-            order: 23;
+    -ms-flex-order: 23;
+        order: 23;
   }
   .ant-col-lg-22 {
     display: block;
@@ -4882,9 +3973,8 @@ code, kbd, pre, samp {
     margin-left: 91.66666667%;
   }
   .ant-col-lg-order-22 {
-    -webkit-box-ordinal-group: 23;
-        -ms-flex-order: 22;
-            order: 22;
+    -ms-flex-order: 22;
+        order: 22;
   }
   .ant-col-lg-21 {
     display: block;
@@ -4900,9 +3990,8 @@ code, kbd, pre, samp {
     margin-left: 87.5%;
   }
   .ant-col-lg-order-21 {
-    -webkit-box-ordinal-group: 22;
-        -ms-flex-order: 21;
-            order: 21;
+    -ms-flex-order: 21;
+        order: 21;
   }
   .ant-col-lg-20 {
     display: block;
@@ -4918,9 +4007,8 @@ code, kbd, pre, samp {
     margin-left: 83.33333333%;
   }
   .ant-col-lg-order-20 {
-    -webkit-box-ordinal-group: 21;
-        -ms-flex-order: 20;
-            order: 20;
+    -ms-flex-order: 20;
+        order: 20;
   }
   .ant-col-lg-19 {
     display: block;
@@ -4936,9 +4024,8 @@ code, kbd, pre, samp {
     margin-left: 79.16666667%;
   }
   .ant-col-lg-order-19 {
-    -webkit-box-ordinal-group: 20;
-        -ms-flex-order: 19;
-            order: 19;
+    -ms-flex-order: 19;
+        order: 19;
   }
   .ant-col-lg-18 {
     display: block;
@@ -4954,9 +4041,8 @@ code, kbd, pre, samp {
     margin-left: 75%;
   }
   .ant-col-lg-order-18 {
-    -webkit-box-ordinal-group: 19;
-        -ms-flex-order: 18;
-            order: 18;
+    -ms-flex-order: 18;
+        order: 18;
   }
   .ant-col-lg-17 {
     display: block;
@@ -4972,9 +4058,8 @@ code, kbd, pre, samp {
     margin-left: 70.83333333%;
   }
   .ant-col-lg-order-17 {
-    -webkit-box-ordinal-group: 18;
-        -ms-flex-order: 17;
-            order: 17;
+    -ms-flex-order: 17;
+        order: 17;
   }
   .ant-col-lg-16 {
     display: block;
@@ -4990,9 +4075,8 @@ code, kbd, pre, samp {
     margin-left: 66.66666667%;
   }
   .ant-col-lg-order-16 {
-    -webkit-box-ordinal-group: 17;
-        -ms-flex-order: 16;
-            order: 16;
+    -ms-flex-order: 16;
+        order: 16;
   }
   .ant-col-lg-15 {
     display: block;
@@ -5008,9 +4092,8 @@ code, kbd, pre, samp {
     margin-left: 62.5%;
   }
   .ant-col-lg-order-15 {
-    -webkit-box-ordinal-group: 16;
-        -ms-flex-order: 15;
-            order: 15;
+    -ms-flex-order: 15;
+        order: 15;
   }
   .ant-col-lg-14 {
     display: block;
@@ -5026,9 +4109,8 @@ code, kbd, pre, samp {
     margin-left: 58.33333333%;
   }
   .ant-col-lg-order-14 {
-    -webkit-box-ordinal-group: 15;
-        -ms-flex-order: 14;
-            order: 14;
+    -ms-flex-order: 14;
+        order: 14;
   }
   .ant-col-lg-13 {
     display: block;
@@ -5044,9 +4126,8 @@ code, kbd, pre, samp {
     margin-left: 54.16666667%;
   }
   .ant-col-lg-order-13 {
-    -webkit-box-ordinal-group: 14;
-        -ms-flex-order: 13;
-            order: 13;
+    -ms-flex-order: 13;
+        order: 13;
   }
   .ant-col-lg-12 {
     display: block;
@@ -5062,9 +4143,8 @@ code, kbd, pre, samp {
     margin-left: 50%;
   }
   .ant-col-lg-order-12 {
-    -webkit-box-ordinal-group: 13;
-        -ms-flex-order: 12;
-            order: 12;
+    -ms-flex-order: 12;
+        order: 12;
   }
   .ant-col-lg-11 {
     display: block;
@@ -5080,9 +4160,8 @@ code, kbd, pre, samp {
     margin-left: 45.83333333%;
   }
   .ant-col-lg-order-11 {
-    -webkit-box-ordinal-group: 12;
-        -ms-flex-order: 11;
-            order: 11;
+    -ms-flex-order: 11;
+        order: 11;
   }
   .ant-col-lg-10 {
     display: block;
@@ -5098,9 +4177,8 @@ code, kbd, pre, samp {
     margin-left: 41.66666667%;
   }
   .ant-col-lg-order-10 {
-    -webkit-box-ordinal-group: 11;
-        -ms-flex-order: 10;
-            order: 10;
+    -ms-flex-order: 10;
+        order: 10;
   }
   .ant-col-lg-9 {
     display: block;
@@ -5116,9 +4194,8 @@ code, kbd, pre, samp {
     margin-left: 37.5%;
   }
   .ant-col-lg-order-9 {
-    -webkit-box-ordinal-group: 10;
-        -ms-flex-order: 9;
-            order: 9;
+    -ms-flex-order: 9;
+        order: 9;
   }
   .ant-col-lg-8 {
     display: block;
@@ -5134,9 +4211,8 @@ code, kbd, pre, samp {
     margin-left: 33.33333333%;
   }
   .ant-col-lg-order-8 {
-    -webkit-box-ordinal-group: 9;
-        -ms-flex-order: 8;
-            order: 8;
+    -ms-flex-order: 8;
+        order: 8;
   }
   .ant-col-lg-7 {
     display: block;
@@ -5152,9 +4228,8 @@ code, kbd, pre, samp {
     margin-left: 29.16666667%;
   }
   .ant-col-lg-order-7 {
-    -webkit-box-ordinal-group: 8;
-        -ms-flex-order: 7;
-            order: 7;
+    -ms-flex-order: 7;
+        order: 7;
   }
   .ant-col-lg-6 {
     display: block;
@@ -5170,9 +4245,8 @@ code, kbd, pre, samp {
     margin-left: 25%;
   }
   .ant-col-lg-order-6 {
-    -webkit-box-ordinal-group: 7;
-        -ms-flex-order: 6;
-            order: 6;
+    -ms-flex-order: 6;
+        order: 6;
   }
   .ant-col-lg-5 {
     display: block;
@@ -5188,9 +4262,8 @@ code, kbd, pre, samp {
     margin-left: 20.83333333%;
   }
   .ant-col-lg-order-5 {
-    -webkit-box-ordinal-group: 6;
-        -ms-flex-order: 5;
-            order: 5;
+    -ms-flex-order: 5;
+        order: 5;
   }
   .ant-col-lg-4 {
     display: block;
@@ -5206,9 +4279,8 @@ code, kbd, pre, samp {
     margin-left: 16.66666667%;
   }
   .ant-col-lg-order-4 {
-    -webkit-box-ordinal-group: 5;
-        -ms-flex-order: 4;
-            order: 4;
+    -ms-flex-order: 4;
+        order: 4;
   }
   .ant-col-lg-3 {
     display: block;
@@ -5224,9 +4296,8 @@ code, kbd, pre, samp {
     margin-left: 12.5%;
   }
   .ant-col-lg-order-3 {
-    -webkit-box-ordinal-group: 4;
-        -ms-flex-order: 3;
-            order: 3;
+    -ms-flex-order: 3;
+        order: 3;
   }
   .ant-col-lg-2 {
     display: block;
@@ -5242,9 +4313,8 @@ code, kbd, pre, samp {
     margin-left: 8.33333333%;
   }
   .ant-col-lg-order-2 {
-    -webkit-box-ordinal-group: 3;
-        -ms-flex-order: 2;
-            order: 2;
+    -ms-flex-order: 2;
+        order: 2;
   }
   .ant-col-lg-1 {
     display: block;
@@ -5260,9 +4330,8 @@ code, kbd, pre, samp {
     margin-left: 4.16666667%;
   }
   .ant-col-lg-order-1 {
-    -webkit-box-ordinal-group: 2;
-        -ms-flex-order: 1;
-            order: 1;
+    -ms-flex-order: 1;
+        order: 1;
   }
   .ant-col-lg-0 {
     display: none;
@@ -5283,17 +4352,15 @@ code, kbd, pre, samp {
     margin-left: 0;
   }
   .ant-col-lg-order-0 {
-    -webkit-box-ordinal-group: 1;
-        -ms-flex-order: 0;
-            order: 0;
+    -ms-flex-order: 0;
+        order: 0;
   }
 }
 @media (min-width: 1600px) {
   .ant-col-xl-1, .ant-col-xl-2, .ant-col-xl-3, .ant-col-xl-4, .ant-col-xl-5, .ant-col-xl-6, .ant-col-xl-7, .ant-col-xl-8, .ant-col-xl-9, .ant-col-xl-10, .ant-col-xl-11, .ant-col-xl-12, .ant-col-xl-13, .ant-col-xl-14, .ant-col-xl-15, .ant-col-xl-16, .ant-col-xl-17, .ant-col-xl-18, .ant-col-xl-19, .ant-col-xl-20, .ant-col-xl-21, .ant-col-xl-22, .ant-col-xl-23, .ant-col-xl-24 {
     float: left;
-    -webkit-box-flex: 0;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
   }
   .ant-col-xl-24 {
     display: block;
@@ -5309,9 +4376,8 @@ code, kbd, pre, samp {
     margin-left: 100%;
   }
   .ant-col-xl-order-24 {
-    -webkit-box-ordinal-group: 25;
-        -ms-flex-order: 24;
-            order: 24;
+    -ms-flex-order: 24;
+        order: 24;
   }
   .ant-col-xl-23 {
     display: block;
@@ -5327,9 +4393,8 @@ code, kbd, pre, samp {
     margin-left: 95.83333333%;
   }
   .ant-col-xl-order-23 {
-    -webkit-box-ordinal-group: 24;
-        -ms-flex-order: 23;
-            order: 23;
+    -ms-flex-order: 23;
+        order: 23;
   }
   .ant-col-xl-22 {
     display: block;
@@ -5345,9 +4410,8 @@ code, kbd, pre, samp {
     margin-left: 91.66666667%;
   }
   .ant-col-xl-order-22 {
-    -webkit-box-ordinal-group: 23;
-        -ms-flex-order: 22;
-            order: 22;
+    -ms-flex-order: 22;
+        order: 22;
   }
   .ant-col-xl-21 {
     display: block;
@@ -5363,9 +4427,8 @@ code, kbd, pre, samp {
     margin-left: 87.5%;
   }
   .ant-col-xl-order-21 {
-    -webkit-box-ordinal-group: 22;
-        -ms-flex-order: 21;
-            order: 21;
+    -ms-flex-order: 21;
+        order: 21;
   }
   .ant-col-xl-20 {
     display: block;
@@ -5381,9 +4444,8 @@ code, kbd, pre, samp {
     margin-left: 83.33333333%;
   }
   .ant-col-xl-order-20 {
-    -webkit-box-ordinal-group: 21;
-        -ms-flex-order: 20;
-            order: 20;
+    -ms-flex-order: 20;
+        order: 20;
   }
   .ant-col-xl-19 {
     display: block;
@@ -5399,9 +4461,8 @@ code, kbd, pre, samp {
     margin-left: 79.16666667%;
   }
   .ant-col-xl-order-19 {
-    -webkit-box-ordinal-group: 20;
-        -ms-flex-order: 19;
-            order: 19;
+    -ms-flex-order: 19;
+        order: 19;
   }
   .ant-col-xl-18 {
     display: block;
@@ -5417,9 +4478,8 @@ code, kbd, pre, samp {
     margin-left: 75%;
   }
   .ant-col-xl-order-18 {
-    -webkit-box-ordinal-group: 19;
-        -ms-flex-order: 18;
-            order: 18;
+    -ms-flex-order: 18;
+        order: 18;
   }
   .ant-col-xl-17 {
     display: block;
@@ -5435,9 +4495,8 @@ code, kbd, pre, samp {
     margin-left: 70.83333333%;
   }
   .ant-col-xl-order-17 {
-    -webkit-box-ordinal-group: 18;
-        -ms-flex-order: 17;
-            order: 17;
+    -ms-flex-order: 17;
+        order: 17;
   }
   .ant-col-xl-16 {
     display: block;
@@ -5453,9 +4512,8 @@ code, kbd, pre, samp {
     margin-left: 66.66666667%;
   }
   .ant-col-xl-order-16 {
-    -webkit-box-ordinal-group: 17;
-        -ms-flex-order: 16;
-            order: 16;
+    -ms-flex-order: 16;
+        order: 16;
   }
   .ant-col-xl-15 {
     display: block;
@@ -5471,9 +4529,8 @@ code, kbd, pre, samp {
     margin-left: 62.5%;
   }
   .ant-col-xl-order-15 {
-    -webkit-box-ordinal-group: 16;
-        -ms-flex-order: 15;
-            order: 15;
+    -ms-flex-order: 15;
+        order: 15;
   }
   .ant-col-xl-14 {
     display: block;
@@ -5489,9 +4546,8 @@ code, kbd, pre, samp {
     margin-left: 58.33333333%;
   }
   .ant-col-xl-order-14 {
-    -webkit-box-ordinal-group: 15;
-        -ms-flex-order: 14;
-            order: 14;
+    -ms-flex-order: 14;
+        order: 14;
   }
   .ant-col-xl-13 {
     display: block;
@@ -5507,9 +4563,8 @@ code, kbd, pre, samp {
     margin-left: 54.16666667%;
   }
   .ant-col-xl-order-13 {
-    -webkit-box-ordinal-group: 14;
-        -ms-flex-order: 13;
-            order: 13;
+    -ms-flex-order: 13;
+        order: 13;
   }
   .ant-col-xl-12 {
     display: block;
@@ -5525,9 +4580,8 @@ code, kbd, pre, samp {
     margin-left: 50%;
   }
   .ant-col-xl-order-12 {
-    -webkit-box-ordinal-group: 13;
-        -ms-flex-order: 12;
-            order: 12;
+    -ms-flex-order: 12;
+        order: 12;
   }
   .ant-col-xl-11 {
     display: block;
@@ -5543,9 +4597,8 @@ code, kbd, pre, samp {
     margin-left: 45.83333333%;
   }
   .ant-col-xl-order-11 {
-    -webkit-box-ordinal-group: 12;
-        -ms-flex-order: 11;
-            order: 11;
+    -ms-flex-order: 11;
+        order: 11;
   }
   .ant-col-xl-10 {
     display: block;
@@ -5561,9 +4614,8 @@ code, kbd, pre, samp {
     margin-left: 41.66666667%;
   }
   .ant-col-xl-order-10 {
-    -webkit-box-ordinal-group: 11;
-        -ms-flex-order: 10;
-            order: 10;
+    -ms-flex-order: 10;
+        order: 10;
   }
   .ant-col-xl-9 {
     display: block;
@@ -5579,9 +4631,8 @@ code, kbd, pre, samp {
     margin-left: 37.5%;
   }
   .ant-col-xl-order-9 {
-    -webkit-box-ordinal-group: 10;
-        -ms-flex-order: 9;
-            order: 9;
+    -ms-flex-order: 9;
+        order: 9;
   }
   .ant-col-xl-8 {
     display: block;
@@ -5597,9 +4648,8 @@ code, kbd, pre, samp {
     margin-left: 33.33333333%;
   }
   .ant-col-xl-order-8 {
-    -webkit-box-ordinal-group: 9;
-        -ms-flex-order: 8;
-            order: 8;
+    -ms-flex-order: 8;
+        order: 8;
   }
   .ant-col-xl-7 {
     display: block;
@@ -5615,9 +4665,8 @@ code, kbd, pre, samp {
     margin-left: 29.16666667%;
   }
   .ant-col-xl-order-7 {
-    -webkit-box-ordinal-group: 8;
-        -ms-flex-order: 7;
-            order: 7;
+    -ms-flex-order: 7;
+        order: 7;
   }
   .ant-col-xl-6 {
     display: block;
@@ -5633,9 +4682,8 @@ code, kbd, pre, samp {
     margin-left: 25%;
   }
   .ant-col-xl-order-6 {
-    -webkit-box-ordinal-group: 7;
-        -ms-flex-order: 6;
-            order: 6;
+    -ms-flex-order: 6;
+        order: 6;
   }
   .ant-col-xl-5 {
     display: block;
@@ -5651,9 +4699,8 @@ code, kbd, pre, samp {
     margin-left: 20.83333333%;
   }
   .ant-col-xl-order-5 {
-    -webkit-box-ordinal-group: 6;
-        -ms-flex-order: 5;
-            order: 5;
+    -ms-flex-order: 5;
+        order: 5;
   }
   .ant-col-xl-4 {
     display: block;
@@ -5669,9 +4716,8 @@ code, kbd, pre, samp {
     margin-left: 16.66666667%;
   }
   .ant-col-xl-order-4 {
-    -webkit-box-ordinal-group: 5;
-        -ms-flex-order: 4;
-            order: 4;
+    -ms-flex-order: 4;
+        order: 4;
   }
   .ant-col-xl-3 {
     display: block;
@@ -5687,9 +4733,8 @@ code, kbd, pre, samp {
     margin-left: 12.5%;
   }
   .ant-col-xl-order-3 {
-    -webkit-box-ordinal-group: 4;
-        -ms-flex-order: 3;
-            order: 3;
+    -ms-flex-order: 3;
+        order: 3;
   }
   .ant-col-xl-2 {
     display: block;
@@ -5705,9 +4750,8 @@ code, kbd, pre, samp {
     margin-left: 8.33333333%;
   }
   .ant-col-xl-order-2 {
-    -webkit-box-ordinal-group: 3;
-        -ms-flex-order: 2;
-            order: 2;
+    -ms-flex-order: 2;
+        order: 2;
   }
   .ant-col-xl-1 {
     display: block;
@@ -5723,9 +4767,8 @@ code, kbd, pre, samp {
     margin-left: 4.16666667%;
   }
   .ant-col-xl-order-1 {
-    -webkit-box-ordinal-group: 2;
-        -ms-flex-order: 1;
-            order: 1;
+    -ms-flex-order: 1;
+        order: 1;
   }
   .ant-col-xl-0 {
     display: none;
@@ -5746,9 +4789,8 @@ code, kbd, pre, samp {
     margin-left: 0;
   }
   .ant-col-xl-order-0 {
-    -webkit-box-ordinal-group: 1;
-        -ms-flex-order: 0;
-            order: 0;
+    -ms-flex-order: 0;
+        order: 0;
   }
 }
 /* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
@@ -5784,8 +4826,7 @@ code, kbd, pre, samp {
 }
 .ant-progress-circle-path {
   stroke: #108ee9;
-  -webkit-animation: ant-progress-appear 0.3s;
-          animation: ant-progress-appear 0.3s;
+  animation: ant-progress-appear 0.3s;
 }
 .ant-progress-bg {
   border-radius: 100px;
@@ -5815,8 +4856,7 @@ code, kbd, pre, samp {
   bottom: 0;
   background: #fff;
   border-radius: 10px;
-  -webkit-animation: ant-progress-active 2.4s cubic-bezier(0.23, 1, 0.32, 1) infinite;
-          animation: ant-progress-active 2.4s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+  animation: ant-progress-active 2.4s cubic-bezier(0.23, 1, 0.32, 1) infinite;
 }
 .ant-progress-status-exception .ant-progress-bg {
   background-color: #f04134;
@@ -5848,8 +4888,7 @@ code, kbd, pre, samp {
   text-align: center;
   line-height: 1;
   top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
+  transform: translateY(-50%);
   left: 0;
   font-family: tahoma;
   margin: 0;
@@ -5863,34 +4902,12 @@ code, kbd, pre, samp {
 .ant-progress-circle .ant-progress-status-success .ant-progress-text {
   color: #00a854;
 }
-@-webkit-keyframes ant-progress-appear {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
 @keyframes ant-progress-appear {
   0% {
     opacity: 0;
   }
   100% {
     opacity: 1;
-  }
-}
-@-webkit-keyframes ant-progress-active {
-  0% {
-    opacity: 0.1;
-    width: 0;
-  }
-  20% {
-    opacity: 0.5;
-    width: 0;
-  }
-  100% {
-    opacity: 0;
-    width: 100%;
   }
 }
 @keyframes ant-progress-active {
@@ -5953,23 +4970,9 @@ code, kbd, pre, samp {
   position: relative;
 }
 .ant-message-notice.move-up-leave.move-up-leave-active {
-  -webkit-animation-name: MessageMoveOut;
-          animation-name: MessageMoveOut;
+  animation-name: MessageMoveOut;
   overflow: hidden;
-  -webkit-animation-duration: .3s;
-          animation-duration: .3s;
-}
-@-webkit-keyframes MessageMoveOut {
-  0% {
-    opacity: 1;
-    max-height: 150px;
-    padding: 8px;
-  }
-  100% {
-    opacity: 0;
-    max-height: 0;
-    padding: 0;
-  }
+  animation-duration: .3s;
 }
 @keyframes MessageMoveOut {
   0% {
@@ -5984,4 +4987,4 @@ code, kbd, pre, samp {
   }
 }
 
-/*# sourceMappingURL=81f1e0baa5937bcd4226aedfc816310c.antd.css.map*/
+/*# sourceMappingURL=e2a14d102cc2008625e4fdbca7cf0055.antd.css.map*/

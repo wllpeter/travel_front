@@ -40,18 +40,16 @@ public class MarketTravelActiveQuServiceImpl implements MarketTravelActiveQuServ
         province.setOtherDegree(TwoPointUtils.getTwo(province.getOtherDegree()));
         province.setSeeDegree(TwoPointUtils.getTwo(province.getSeeDegree()));
         province.setShoppingDegree(TwoPointUtils.getTwo(province.getShoppingDegree()));
-        province.setExistedCom(TwoPointUtils.getTwo(province.getExistedCom()));
         for(MarketHangYeActiveProvince m:five){
-            m.setExistedCom(TwoPointUtils.getTwo(province.getExistedCom()));
-            m.setShoppingDegree(TwoPointUtils.getTwo(province.getShoppingDegree()));
-            m.setSeeDegree(TwoPointUtils.getTwo(province.getSeeDegree()));
-            m.setOtherDegree(TwoPointUtils.getTwo(province.getOtherDegree()));
-            m.setGoDegree(TwoPointUtils.getTwo(province.getGoDegree()));
-            m.setEntertainmentDegree(TwoPointUtils.getTwo(province.getEntertainmentDegree()));
-            m.setActiveDegree(TwoPointUtils.getTwo(province.getActiveDegree()));
-            m.setFoodDegree(TwoPointUtils.getTwo(province.getFoodDegree()));
-            m.setLiveDegree(TwoPointUtils.getTwo(province.getLiveDegree()));
-            m.setGeneralDegree(TwoPointUtils.getTwo(province.getGeneralDegree()));
+            m.setShoppingDegree(TwoPointUtils.getTwo(m.getShoppingDegree()));
+            m.setSeeDegree(TwoPointUtils.getTwo(m.getSeeDegree()));
+            m.setOtherDegree(TwoPointUtils.getTwo(m.getOtherDegree()));
+            m.setGoDegree(TwoPointUtils.getTwo(m.getGoDegree()));
+            m.setEntertainmentDegree(TwoPointUtils.getTwo(m.getEntertainmentDegree()));
+            m.setActiveDegree(TwoPointUtils.getTwo(m.getActiveDegree()));
+            m.setFoodDegree(TwoPointUtils.getTwo(m.getFoodDegree()));
+            m.setLiveDegree(TwoPointUtils.getTwo(m.getLiveDegree()));
+            m.setGeneralDegree(TwoPointUtils.getTwo(m.getGeneralDegree()));
             fiveTwo.add(m);
         }
         map.put("province",province);

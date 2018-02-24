@@ -37,7 +37,7 @@ public class MarketTravelActiveCityServiceImpl implements MarketTravelActiveCity
         economic.setShoppingDegree(TwoPointUtils.getTwo(economic.getShoppingDegree()));
         economic.setSeeDegree(TwoPointUtils.getTwo(economic.getSeeDegree()));
         economic.setOtherDegree(TwoPointUtils.getTwo(economic.getOtherDegree()));
-        economic.setExistedCom(TwoPointUtils.getTwo(economic.getExistedCom()));
+//        economic.setExistedCom(TwoPointUtils.getTwo(economic.getExistedCom()));
         map.put("economic",economic);
         for(MarketHangYeActiveCity m:city){
             m.setGeneralDegree(TwoPointUtils.getTwo(m.getGeneralDegree()));
@@ -49,7 +49,7 @@ public class MarketTravelActiveCityServiceImpl implements MarketTravelActiveCity
             m.setShoppingDegree(TwoPointUtils.getTwo(m.getShoppingDegree()));
             m.setSeeDegree(TwoPointUtils.getTwo(m.getSeeDegree()));
             m.setOtherDegree(TwoPointUtils.getTwo(m.getOtherDegree()));
-            m.setExistedCom(TwoPointUtils.getTwo(m.getExistedCom()));
+//            m.setExistedCom(TwoPointUtils.getTwo(m.getExistedCom()));
         }
         map.put("city",city);
         return map;
