@@ -351,6 +351,9 @@ export default class DataReport extends Component {
             if (navigator.userAgent.indexOf('Firefox') >= 0) {
                 return true;
             }
+            if (navigator.userAgent.indexOf('Edge') >= 0) {
+                return true;
+            }
             return false;
         }
 
@@ -478,7 +481,7 @@ export default class DataReport extends Component {
                 <div className="top-buttons">
                     <span className="page-count">{page}/{numPages}</span>
                     <i className="iconfont icon-print" title="打印" onClick={this.printPdf.bind(this)}/>
-                    <a href={pdfUrl} download  target="_blank">
+                    <a href={pdfUrl} download target="_blank">
                         <i className="iconfont icon-download-copy" title="下载"/>
                     </a>
                     <i className="iconfont icon-rotate" onClick={this.refresh.bind(this)} title="刷新"/>

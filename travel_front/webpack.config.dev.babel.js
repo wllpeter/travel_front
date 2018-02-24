@@ -2,6 +2,7 @@ import path from 'path';
 import webpack from 'webpack';
 import webpackMerge from 'webpack-merge';
 import baseConfig from './webpack.config.base.js';
+import devConfig from './src/config/config.dev';
 
 const env = process.env;
 const HOST = env.HOST || env.npm_package_config_host;
@@ -24,6 +25,12 @@ export default webpackMerge(baseConfig, {
         host: HOST,
         port: PORT,
         inline: true,
+        proxy:{
+            "*": {
+                target: devConfig.DEV_API_SERVER,
+                changeOrigin: true
+            }
+        },
         historyApiFallback: true,
         contentBase: path.join(__dirname, 'build')
     }
