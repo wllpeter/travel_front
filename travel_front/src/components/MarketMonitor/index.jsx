@@ -34,7 +34,7 @@ export default class TouristData extends Component {
             economicRegion: null,
             city: null,
             timeRange: {},
-            activeDetail: {}
+            activeDetail: {title: ''}
         };
     }
 
