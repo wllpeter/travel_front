@@ -2,7 +2,6 @@ import qs from 'qs';
 import axios from 'axios';
 import {browserHistory} from 'react-router';
 import config from '../config/config';
-import devConfig from '../config/config.dev';
 import {ResponseInfo} from '../constants/common';
 import {HttpMethod, ContentType} from '../constants/common';
 import {Tip, LoadingModal} from 'mtui/index';
@@ -70,7 +69,7 @@ export default function Ajax({
         // 开发模式都是跨域调用后台接口
         crossDomain = true;
         if (isEmpty(domain)) {
-            domain = devConfig.DEV_API_SERVER;
+            domain = '/dev/api';
         }
     }
 

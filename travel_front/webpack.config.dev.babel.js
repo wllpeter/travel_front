@@ -25,13 +25,14 @@ export default webpackMerge(baseConfig, {
         host: HOST,
         port: PORT,
         inline: true,
-        proxy:{
-            "*": {
-                target: devConfig.DEV_API_SERVER,
+        proxy: {
+            '/dev/api/*': { // api表示当前项目请求的key
+                target: devConfig.DEV_API_SERVER, // 代理服务器路径
+                pathRewrite: {'^/dev/api': ''}, // 重写路径
                 changeOrigin: true
             }
         },
         historyApiFallback: true,
         contentBase: path.join(__dirname, 'build')
     }
-})
+});
