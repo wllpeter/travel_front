@@ -24,6 +24,12 @@ export default webpackMerge(baseConfig, {
         host: HOST,
         port: PORT,
         inline: true,
+        proxy:{
+            "*": {
+                target: 'http://192.168.1.87:8091',
+                changeOrigin: true
+            }
+        },
         historyApiFallback: true,
         contentBase: path.join(__dirname, 'build')
     }
