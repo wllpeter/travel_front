@@ -504,8 +504,9 @@ const AD_CHART = {
                 borderColor: '#ffffff',
                 padding: 5,
                 textStyle: {
-                    fontSize: 12,
+                    fontSize: 12
                 },
+                position: tooltipPoistion,
                 axisPointer: {
                     lineStyle: {
                         color: '#0785CB'
@@ -842,6 +843,7 @@ const AD_CHART = {
                     fontSize: 12 * params.sizeRatio,
                     lineHeight: 24
                 },
+                position: tooltipPoistion,
                 axisPointer: {
                     lineStyle: {
                         color: '#0785CB'
