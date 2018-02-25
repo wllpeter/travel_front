@@ -324,7 +324,7 @@ export default class TouristData extends Component {
                                     </ul>
                                 </div>
                             </Col>
-                            <Col span={5} className="br-line" xl={5}>
+                            <Col span={6} className="br-line" xl={5}>
                                 <PanelCard title={`${activeDetail.title}旅游行业活跃度`} timeSelectRequired={false}
                                            zoomRequired={false}
                                            className="custom-style">
@@ -392,7 +392,7 @@ export default class TouristData extends Component {
                                     </table>
                                 </PanelCard>
                             </Col>
-                            <Col span={7} xl={7}>
+                            <Col span={6} xl={7}>
                                 <PanelCard title="行业活跃度指标详情" timeSelectRequired={false} zoomRequired={false}>
                                     <div id="industryBarChart" style={{width: '100%', height: 535 * sizeRatio}}/>
                                 </PanelCard>
