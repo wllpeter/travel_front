@@ -4,11 +4,11 @@
     padding: 32px 0;
     & > li {
       display: inline-block;
-      width: 50%;
+      width: calc(50% + 1.5rem);
       margin: 8px 0;
 
       &:nth-child(even) {
-        padding-left: 2rem;
+        width: calc(50% - 1.5rem);
       }
     }
   }
@@ -167,11 +167,11 @@
       padding: smpx(32) 0;
       & > li {
         display: inline-block;
-        width: 50%;
+        width: calc(50% + 1.5rem);
         margin: smpx(8) 0;
 
         &:nth-child(even) {
-          padding-left: 2rem;
+          width: calc(50% - 1.5rem);
         }
       }
     }

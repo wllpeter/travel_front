@@ -4,9 +4,12 @@
 import React, {Component} from 'react';
 import PanelCard from '../../commonComponent/PanelCard';
 import Modal from '../../commonComponent/Modal';
+import ToggleButtonGroup from '../../commonComponent/ToggleButtonGroup';
 import AD_CHART from '../../../utils/adCharts';
 import {getProvinceChangeData} from '../../../services/MarketMonitor/marketMonitor';
 import {getHeaderOptions} from '../../../utils/tools';
+
+let enterPriseType = '存量企业';
 
 export default class EnterprisesNumber extends Component {
     constructor(props) {
@@ -14,7 +17,8 @@ export default class EnterprisesNumber extends Component {
         this.state = {
             visible: false,
             year: '2017',
-            panelProps: null
+            panelProps: null,
+            activeIndex: 0
         };
     }
 
@@ -66,8 +70,8 @@ export default class EnterprisesNumber extends Component {
             });
             res.forEach(item => {
                 let index = item.date.split('Q')[1] - 1;
-                cunData[index] = (item.cun / 10000).toFixed(4);
-                increaseData[index] = (item.increase / 10000).toFixed(4);
+                cunData[index] = (item.cun / 10000).toFixed(2);
+                increaseData[index] = ~~item.increase;
             });
             this.print({cunData, increaseData});
             if (this.state.visible) {
@@ -77,24 +81,46 @@ export default class EnterprisesNumber extends Component {
     }
 
     print(params, visible) {
+        let data = null;
+        let yAxisName = null;
+        let unit = null;
+        let colors = null;
+        if (enterPriseType === '存量企业') {
+            data = params.cunData;
+            yAxisName = '企业(万家)';
+            unit = '万家';
+            colors = ['#00a9ff'];
+        } else {
+            data = params.increaseData;
+            yAxisName = '企业(家)';
+            unit = '家';
+            colors = ['#32c889'];
+        }
         let ratio = visible ? 1 : sizeRatio;
         AD_CHART.barChart({
             chartId: visible ? 'companyBarChart2' : 'companyBarChart',
             barWidth: visible ? 24 : 16 * ratio,
             xAxisData: ['1季度', '2季度', '3季度', '4季度'],
-            yAxisName: '企业(万家)',
-            legend: ['存量企业', '增量企业'],
-            legendIcon: 'circle',
-            legendRight: 22 * ratio,
+            yAxisName: yAxisName,
+            legend: [],
+            legendShow: false,
             gridBottom: 25 * ratio,
             gridTop: 80 * ratio,
             legendSize: visible ? 16 : 12 * ratio,
             sizeRatio: ratio,
             formatter: (p) => {
-                return `${p[0].name}<br/>${p[0].marker}${p[0].seriesName}：${p[0].data || '-'}万<br/>${p[1].marker}${p[1].seriesName}：${p[1].data || '-'}万`;
+                return `${p[0].name}<br/>${p[0].marker}${enterPriseType}：${p[0].data || '-'}${unit}`;
             },
-            series: [params.cunData, params.increaseData]
+            series: [data],
+            colors
         });
+    }
+
+    // 选择企业类型
+    chooseType(params) {
+        this.setState({activeIndex: params.index});
+        enterPriseType = params.buttonName;
+        this.getProvinceChangeData();
     }
 
     showModal() {
@@ -110,18 +136,31 @@ export default class EnterprisesNumber extends Component {
     }
 
     render() {
-        let {visible, panelProps} = this.state;
+        let {visible, panelProps, activeIndex} = this.state;
+        let switchProps = {
+            buttons: [
+                {buttonName: '存量企业'},
+                {buttonName: '增量企业'}
+            ],
+            style: {
+                top: '18%'
+            },
+            clickBack: this.chooseType.bind(this),
+            activeIndex
+        };
         return <div>
             <PanelCard title="省内涉旅企业数量变更" className="bg-grey" {...panelProps}
                        enlarge={this.showModal.bind(this)}>
-                <div id="companyBarChart" style={{width: '100%', height: 300 * sizeRatio}}></div>
+                <ToggleButtonGroup {...switchProps}/>
+                <div id="companyBarChart" style={{width: '100%', height: 300 * sizeRatio}}/>
             </PanelCard>
             <Modal visible={visible} onOk={() => {
                 this.getProvinceChangeData();
             }}>
                 <PanelCard title="省内涉旅企业数量变更" className="bg-grey" {...panelProps}
                            narrow={this.handleCancel.bind(this)} zoomOutRequired={true}>
-                    <div id="companyBarChart2" style={{width: '100%', height: 460}}></div>
+                    <ToggleButtonGroup {...switchProps}/>
+                    <div id="companyBarChart2" style={{width: '100%', height: 460}}/>
                 </PanelCard>
             </Modal>
         </div>;

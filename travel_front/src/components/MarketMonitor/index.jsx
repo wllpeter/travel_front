@@ -301,7 +301,7 @@ export default class TouristData extends Component {
                 <Col span={24}>
                     <PanelCard className="market-monitor-maps" title="旅游行业活跃度" {...panelProps}>
                         <Row>
-                            <Col span={12} className="br-line" xl={12}>
+                            <Col span={12} className="br-line" xl={12} lg={11}>
                                 <div className="map-box">
                                     <div id="mapChart" style={{width: '100%', height: 600 * sizeRatio}}/>
                                     <ul className="map-breadcrumb">
@@ -324,15 +324,17 @@ export default class TouristData extends Component {
                                     </ul>
                                 </div>
                             </Col>
-                            <Col span={6} className="br-line" xl={5}>
+                            <Col span={6} className="br-line" xl={5} lg={6}>
                                 <PanelCard title={`${activeDetail.title}旅游行业活跃度`} timeSelectRequired={false}
                                            zoomRequired={false}
                                            className="custom-style">
                                     <ul className="ul-list">
                                         <li><label>活跃度:</label>{activeDetail.activeDegree || '-'}</li>
                                         <li><label>环比:</label>{per(activeDetail.hb)}</li>
-                                        <li><label>存量企业:</label>{activeDetail.existedCom || '-'}</li>
-                                        <li><label>增量企业:</label>{activeDetail.increaseCom || '-'}</li>
+                                        <li>
+                                            <label>存量企业:</label>{activeDetail.existedCom ? `${(activeDetail.existedCom / 10000).toFixed(2)}万家` : '-'}
+                                        </li>
+                                        <li><label>增量企业:</label>{activeDetail.increaseCom ? `${activeDetail.increaseCom}家` : '-'}</li>
                                     </ul>
                                 </PanelCard>
                                 {/* 分隔线 */}
@@ -349,7 +351,7 @@ export default class TouristData extends Component {
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td style={{width: 120 * sizeRatio}}>旅游出行</td>
+                                            <td style={{width: 130 * sizeRatio}}>旅游出行</td>
                                             <td>{activeDetail.goDegree || '-'}</td>
                                             <td>{per(activeDetail.goHB)}</td>
                                         </tr>
