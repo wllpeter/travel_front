@@ -54,6 +54,10 @@ const AD_CHART = {
         let options = {
             color: params.colors === undefined ? ['#00a9ff', '#32c889', '#fe6321'] : params.colors,
             grid: {
+                x: params.gridLeft === undefined ? '22' : params.gridLeft,
+                y: params.gridTop === undefined ? '22' : params.gridTop,
+                y2: params.gridBottom === undefined ? '22' : params.gridBottom,
+                x2: params.gridRight === undefined ? '22' : params.gridRight,
                 left: params.gridLeft === undefined ? '22' : params.gridLeft,
                 top: params.gridTop === undefined ? '22' : params.gridTop,
                 bottom: params.gridBottom === undefined ? '22' : params.gridBottom,
