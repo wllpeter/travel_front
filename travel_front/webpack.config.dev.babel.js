@@ -26,8 +26,8 @@ export default webpackMerge(baseConfig, {
         port: PORT,
         inline: true,
         proxy: {
-            '/dev/api/*': { // api表示当前项目请求的key
-                target: devConfig.DEV_API_SERVER, // 代理服务器路径
+            '/dev/api/*': { // /dev/api/表示当前项目请求的key
+                target: 'http://192.168.1.87:8091', // 代理服务器路径
                 pathRewrite: {'^/dev/api': ''}, // 重写路径
                 changeOrigin: true
             }

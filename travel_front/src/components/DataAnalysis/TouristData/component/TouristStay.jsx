@@ -113,7 +113,7 @@ export default class TouristStay extends Component {
             legendLeft: '5%',
             legendTop: '10',
             gridLeft: (isSmallScreen && !visible) ? 10 : 22,
-            legendItemGap: (isSmallScreen && !visible) ? 0 : 10,
+            legendItemGap: visible ? 20 : 10,
             gridTop: 45,
             trigger: 'item',
             labelTextSize: visible ? 16 : 12,
