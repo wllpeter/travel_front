@@ -1,6 +1,6 @@
 import echarts from 'echarts';
 import $ from 'jquery';
-import {colorHex, getDataZoom, deepClone} from '../utils/tools';
+import {colorHex, getDataZoom, tooltipPoistion} from '../utils/tools';
 import {INDEX_NAME} from '../constants/developmentIndex/developmentIndex';
 
 let mapChart = null;
@@ -250,6 +250,7 @@ const AD_CHART = {
                 textStyle: {
                     lineHeight: 56
                 },
+                position: tooltipPoistion,
                 formatter: params.formatter
             },
             radar: {
@@ -709,6 +710,7 @@ const AD_CHART = {
                     textStyle: {
                         lineHeight: 56
                     },
+                    position: tooltipPoistion,
                     formatter: params.formatter
                 },
                 visualMap: {

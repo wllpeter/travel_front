@@ -155,3 +155,14 @@ export function handleDevelopmentIndex(names, res, type) {
     }
     return {legend, xAxis, data};
 }
+
+/*
+* tooltip 的定位函数
+* */
+
+export function tooltipPoistion(pos, params, el, elRect, size) {
+    let obj = {};
+    obj[['top', 'bottom'][+(pos[1] < size.viewSize[1] / 2)]] = 30;
+    obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 30;
+    return obj;
+}
