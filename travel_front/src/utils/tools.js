@@ -162,29 +162,29 @@ export function handleDevelopmentIndex(names, res, type) {
 
 export function tooltipPoistion(pos, params, el, elRect, size) {
     let obj = {};
-    if (pos[0] < size.viewSize[0] / 2) {
-        let left = pos[0] - size.contentSize[0] / 2;
-        if (left < 0) {
-            left = 0;
+    if (pos[0] > size.viewSize[0] / 2) {
+        let left = pos[0] - size.contentSize[0] - 30;
+        if (left < 10) {
+            left = 10;
         }
         obj.left = left;
     } else {
-        let right = size.viewSize[0] - (pos[0] + size.contentSize[0] / 2);
+        let right = size.viewSize[0] - (pos[0] + size.contentSize[0] + 30);
         if (right < 10) {
             right = 10;
         }
         obj.right = right;
     }
-    if (pos[1] < size.viewSize[1] / 2) {
-        let top = pos[1] - size.contentSize[1] / 2;
-        if (top < 0) {
-            top = 0;
+    if (pos[1] > size.viewSize[1] / 2) {
+        let top = pos[1] - size.contentSize[1] - 30;
+        if (top < 10) {
+            top = 10;
         }
         obj.top = top;
     } else {
-        let bottom = size.viewSize[1] - (pos[1] + size.contentSize[1] / 2);
-        if (bottom < 0) {
-            bottom = 0;
+        let bottom = size.viewSize[1] - (pos[1] + size.contentSize[1] + 30);
+        if (bottom < 10) {
+            bottom = 10;
         }
         obj.bottom = bottom;
     }

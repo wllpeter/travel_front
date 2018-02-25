@@ -770,6 +770,7 @@ const AD_CHART = {
                     textStyle: {
                         lineHeight: 56
                     },
+                    position: tooltipPoistion,
                     formatter: params.formatter
                 },
                 geo: params.geo || null,

@@ -332,9 +332,9 @@ export default class TouristData extends Component {
                                         <li><label>活跃度:</label>{activeDetail.activeDegree || '-'}</li>
                                         <li><label>环比:</label>{per(activeDetail.hb)}</li>
                                         <li>
-                                            <label>存量企业:</label>{activeDetail.existedCom ? `${(activeDetail.existedCom / 10000).toFixed(2)}万家` : '-'}
+                                            <label>存量企业:</label>{activeDetail.existedCom ? `${(activeDetail.existedCom / 10000).toFixed(2)}(万家)` : '-'}
                                         </li>
-                                        <li><label>增量企业:</label>{activeDetail.increaseCom ? `${activeDetail.increaseCom}家` : '-'}</li>
+                                        <li><label>增量企业:</label>{activeDetail.increaseCom ? `${activeDetail.increaseCom}(家)` : '-'}</li>
                                     </ul>
                                 </PanelCard>
                                 {/* 分隔线 */}
