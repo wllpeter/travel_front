@@ -502,9 +502,9 @@ const AD_CHART = {
                 backgroundColor: '#1F3A59',
                 borderWidth: 1,
                 borderColor: '#ffffff',
-                padding: 7,
+                padding: 5,
                 textStyle: {
-                    lineHeight: 56
+                    fontSize: 12,
                 },
                 axisPointer: {
                     lineStyle: {
