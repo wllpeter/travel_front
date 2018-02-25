@@ -66,8 +66,8 @@ export default class EnterprisesNumber extends Component {
             });
             res.forEach(item => {
                 let index = item.date.split('Q')[1] - 1;
-                cunData[index] = item.cun;
-                increaseData[index] = item.increase;
+                cunData[index] = (item.cun / 10000).toFixed(4);
+                increaseData[index] = (item.increase / 10000).toFixed(4);
             });
             this.print({cunData, increaseData});
             if (this.state.visible) {
@@ -82,7 +82,7 @@ export default class EnterprisesNumber extends Component {
             chartId: visible ? 'companyBarChart2' : 'companyBarChart',
             barWidth: visible ? 24 : 16 * ratio,
             xAxisData: ['1季度', '2季度', '3季度', '4季度'],
-            yAxisName: '企业(家)',
+            yAxisName: '企业(万家)',
             legend: ['存量企业', '增量企业'],
             legendIcon: 'circle',
             legendRight: 22 * ratio,
@@ -90,6 +90,9 @@ export default class EnterprisesNumber extends Component {
             gridTop: 80 * ratio,
             legendSize: visible ? 16 : 12 * ratio,
             sizeRatio: ratio,
+            formatter: (p) => {
+                return `${p[0].name}<br/>${p[0].marker}${p[0].seriesName}：${p[0].data || '-'}万<br/>${p[1].marker}${p[1].seriesName}：${p[1].data || '-'}万`;
+            },
             series: [params.cunData, params.increaseData]
         });
     }

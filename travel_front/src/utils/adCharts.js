@@ -89,9 +89,7 @@ const AD_CHART = {
                 textStyle: {
                     lineHeight: 56 * (params.sizeRatio || 1)
                 },
-                // formatter: (p) => {
-                //     console.log(p);
-                // },
+                formatter: params.formatter,
                 confine: true
             },
             legend: {
