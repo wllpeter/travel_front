@@ -120,9 +120,12 @@ export default class Login extends Component {
                             <Input placeholder="账号" onChange={e => this.handleChange.bind(this)(e, 'loginName')}
                                    value={temp.loginName} prefix={<i className="iconfont icon-user"></i>}/>
                         </Validate>
-
+                        <div style={{display: 'none'}}>
+                            <Input type="text"/>
+                            <Input type="password"/>
+                        </div>
                         <Validate exgs={[{regs: 'notempty', type: 'danger', info: '密码不能为空！'}]}>
-                            <Input onChange={e => this.handleChange.bind(this)(e, 'password')} value={this.state.val}
+                            <Input onChange={e => this.handleChange.bind(this)(e, 'password')}
                                    value={temp.password} placeholder="密码"
                                    type="password" prefix={<i className="iconfont icon-password"></i>}/>
                         </Validate>
