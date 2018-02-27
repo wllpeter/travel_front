@@ -137,7 +137,15 @@ public class CustomerController {
                 economicZonePersonTime.setPersonTimeView(Float.valueOf(temp));
             }
         }
-        return Response.success(ret);
+        List<EconomicZonePersonTime> result = new ArrayList<>();
+        for(EconomicZoneEnums economicZoneEnums:EconomicZoneEnums.values()){
+            for(EconomicZonePersonTime economicZonePersonTime : ret){
+                if(economicZonePersonTime.getEconomicZone().equals(economicZoneEnums.getName())){
+                    result.add(economicZonePersonTime);
+                }
+            }
+        }
+        return Response.success(result);
     }
 
     @GetMapping("/zone_tourists_residence_time/{year}/{quarter}")
@@ -184,7 +192,7 @@ public class CustomerController {
             return Response.error("传递参数有误");
         }
         List<EconomicZoneTouristResourceRank> economicZoneTouristResourceRanks = this.economicZoneTouristResourceRankService.getQuarterData(year, quarter);
-        Map<String,Object> zone = new HashMap<>();
+        Map<String,Object> zone = new LinkedHashMap<>();
         DecimalFormat decimalFormat = new DecimalFormat("#.00");
         for(EconomicZoneEnums economicZoneEnums : EconomicZoneEnums.values()){
                 Map<String,Object> zoneData = new LinkedHashMap<>();
@@ -227,9 +235,9 @@ public class CustomerController {
             return Response.error("传递参数有误");
         }
         List<EconomicZoneTrafficType> economicZoneTrafficTypes = this.economicZoneTrafficTypeService.getQuarterData(year, quarter);
-        Map<String,Object> zone = new HashMap<>();
+        Map<String,Object> zone = new LinkedHashMap<>();
         for(TrafficTypeEnums trafficTypeEnums : TrafficTypeEnums.values()){
-            Map<String,Object> zoneData = new HashMap<>();
+            Map<String,Object> zoneData = new LinkedHashMap<>();
             zoneData.put("traffic_type",trafficTypeEnums.getName());
             List<EconomicZoneTrafficType> zoneDatas = new ArrayList<>();
             int count = 0;
@@ -260,7 +268,7 @@ public class CustomerController {
             @ApiImplicitParam(name = "type", value = "类型:1-出行，2-接待", required = true, paramType = "path", dataType = "Integer"),
     })
     public Response getCountryData(@PathVariable("year")Integer year, @PathVariable("quarter")Integer quarter,@PathVariable("type")Integer type){
-        Map<String,Object> ret = new HashMap<>();
+        Map<String,Object> ret = new LinkedHashMap<>();
         switch (type){
             case 1:
                 List<CountryTourAgeTrip> countryTourAgeTrips = this.countryTourAgeService.getTripData(year,quarter);
