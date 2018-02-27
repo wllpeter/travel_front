@@ -159,10 +159,10 @@ public class CustomerController {
             return Response.error("传递参数有误");
         }
         List<EconomicZoneTouristResidenceTime> economicZoneTouristResidenceTimes = this.economicZoneTouristResidenceTimeService.getQuarterData(year, quarter);
-        Map<String,Object> zone = new HashMap<>();
+        Map<String,Object> zone = new LinkedHashMap<>();
         DecimalFormat b = new DecimalFormat("#.00");
         for(ResidenceZoneEnums residenceZoneEnums : ResidenceZoneEnums.values()){
-            Map<String,Object> zoneData = new HashMap<>();
+            Map<String,Object> zoneData = new LinkedHashMap<>();
             zoneData.put("residence_zone",residenceZoneEnums.getName());
             List<EconomicZoneTouristResidenceTime> zoneDatas = new ArrayList<>();
             for(EconomicZoneTouristResidenceTime economicZoneTouristResidenceTime : economicZoneTouristResidenceTimes){
@@ -285,9 +285,9 @@ public class CustomerController {
                 List<CountryTourPotentialReception> countryTourPotentialReceptions = this.countryTourPotentialService.getReceptionData(year,quarter);
                 List<CountryTourResidenceZoneReception> countryTourResidenceZoneReceptions = this.countryTourResidenceZoneService.getReceptionData(year, quarter);
                 List<CountryTourFlowAnalyseReception> countryTourFlowAnalyseReceptions = this.countryTourFlowAnalyseReceptionService.getQuarterData(year);
-                Map<String,Object> zone = new HashMap<>();
+                Map<String,Object> zone = new LinkedHashMap<>();
                 for(FlowTypeEnums flowTypeEnums : FlowTypeEnums.values()){
-                    Map<String,Object> zoneData = new HashMap<>();
+                    Map<String,Object> zoneData = new LinkedHashMap<>();
                     zoneData.put("name",flowTypeEnums.getName());
                     List<CountryTourFlowAnalyseReception> zoneDatas = new ArrayList<>();
                     for(CountryTourFlowAnalyseReception countryTourFlowAnalyseReception : countryTourFlowAnalyseReceptions){
