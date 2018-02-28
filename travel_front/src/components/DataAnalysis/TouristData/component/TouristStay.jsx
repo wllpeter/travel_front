@@ -7,7 +7,7 @@ import {List} from 'immutable';
 import adCharts from '../../../../utils/adCharts';
 import Modal from '../../../commonComponent/Modal';
 import {getZoneTouristResidentTime} from '../../../../services/DataAnalysis/touristData';
-import {getHeaderOptions} from '../../../../utils/tools';
+import {getHeaderOptions, sortByArea} from '../../../../utils/tools';
 
 export default class TouristStay extends Component {
     constructor(props) {
@@ -77,7 +77,7 @@ export default class TouristStay extends Component {
                 let delayTime = [];
 
                 for (let value of Object.values(resultData)) {
-                    delayTime.push(value.data.map(item => item.personCountView));
+                    delayTime.push(sortByArea(value.data, true).map(item => item.personCountView));
                 }
 
                 this.setState(({touristDelayTimeData}) => ({

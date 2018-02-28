@@ -7,7 +7,7 @@ import {List} from 'immutable';
 import adCharts from '../../../../utils/adCharts';
 import Modal from '../../../commonComponent/Modal';
 import {getZoneTouristTrafficType} from '../../../../services/DataAnalysis/touristData';
-import {getHeaderOptions} from '../../../../utils/tools';
+import {getHeaderOptions, sortByArea} from '../../../../utils/tools';
 
 export default class TrafficType extends Component {
     constructor(props) {
@@ -82,7 +82,7 @@ export default class TrafficType extends Component {
                     for (let itemValue of Object.values(resultData)) {
                         let {data, traffic_type} = itemValue;
                         if (traffic_type === trafficTypeSort[0]) {
-                            trafficTypes.push(data.map(item => Number((item.personTime / 10000).toFixed(2))));
+                            trafficTypes.push(sortByArea(data, true).map(item => Number((item.personTime / 10000).toFixed(2))));
                             trafficTypeSort.shift();
                             break;
                         }

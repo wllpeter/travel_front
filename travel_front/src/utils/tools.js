@@ -190,3 +190,22 @@ export function tooltipPoistion(pos, params, el, elRect, size) {
     }
     return obj;
 }
+
+/*
+* 更具区域进行排序
+* */
+export function sortByArea(data, bool) {
+    let areaList = ['成都平原经济区', '川南经济区', '川东北经济区', '攀西经济区', '川西北生态经济区'];
+    if(bool){
+        areaList = areaList.reverse();
+    }
+    return areaList.map((area) => {
+        let output = {};
+        data.forEach((item) => {
+            if (item.economicZone === area) {
+                output = item;
+            }
+        });
+        return output;
+    });
+}

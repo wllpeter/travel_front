@@ -7,7 +7,7 @@ import {List} from 'immutable';
 import adCharts from '../../../../utils/adCharts';
 import Modal from '../../../commonComponent/Modal';
 import {getZoneCustomerTimes} from '../../../../services/DataAnalysis/touristData';
-import {getHeaderOptions} from '../../../../utils/tools';
+import {getHeaderOptions, sortByArea} from '../../../../utils/tools';
 
 export default class FiveEconomicZone extends Component {
     constructor(props) {
@@ -74,6 +74,7 @@ export default class FiveEconomicZone extends Component {
         }).then(data => {
             let customerTimes = data;
             if (customerTimes && customerTimes.length) {
+                customerTimes = sortByArea(customerTimes);
                 let fiveZonePeopleData = customerTimes.map(time => time.personTimeView);
                 this.setState(({fiveZonePeopleNumData}) => ({
                     fiveZonePeopleNumData: List(fiveZonePeopleData)
